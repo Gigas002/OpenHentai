@@ -1,0 +1,1315 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OpenHentai</name>
+    </assembly>
+    <members>
+        <member name="T:OpenHentai.Circles.Circle">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Circles.Circle.Title">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Circles.Circle.AlternativeTitles">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Circles.Circle.Authors">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Circles.Circle.Creations">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Circles.Circle.Id">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Circles.Circle.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:OpenHentai.Circles.ICircle">
+            <summary>
+            Author's circle
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Circles.ICircle.Title">
+            <summary>
+            Title
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Circles.ICircle.AlternativeTitles">
+            <summary>
+            Alternative titles
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Circles.ICircle.Authors">
+            <summary>
+            Related authors
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Circles.ICircle.Creations">
+            <summary>
+            Related creations
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creations.Censorship">
+            <summary>
+            Censorship type
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Censorship.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Censorship.None">
+            <summary>
+            No censorship, yay!
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Censorship.Mosaic">
+            <summary>
+            Mosaic
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Censorship.Tank">
+            <summary>
+            Tanks (filled blocks)
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Censorship.Other">
+            <summary>
+            Something different
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creations.Doujinshi">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Title">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.AlternativeTitles">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Authors">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.PublishStarted">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.PublishEnded">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.AvailableAt">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Description">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Relations">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.FeaturedAtEvents">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.MemberOfCollections">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Characters">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Censorship">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Tags">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Adaptations">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Languages">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Rating">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Genres">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Status">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Picture">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Length">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Volumes">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Chapters">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.HasImages">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.IsColored">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.Id">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creations.Doujinshi.CreationId">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Creations.Doujinshi.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:OpenHentai.Creations.Genre">
+            <summary>
+            Genres
+            For more specific info, use Theme tag;
+            For Ecchi/Hentai diff use Rating tag
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.Action">
+            <summary>
+            Action
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.Adventure">
+            <summary>
+            Adventure
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.AvantGarde">
+            <summary>
+            Avantgarde
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.BoysLove">
+            <summary>
+            Boys love
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.Comedy">
+            <summary>
+            Comedy
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.Drama">
+            <summary>
+            Drama
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.Fantasy">
+            <summary>
+            Fantasy
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.GirlsLove">
+            <summary>
+            Girls love
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.Gourmet">
+            <summary>
+            Gourmet
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.Horror">
+            <summary>
+            Horror
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.Mystery">
+            <summary>
+            Mystery
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.Romance">
+            <summary>
+            Romance
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.SciFi">
+            <summary>
+            Sci-fi
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.SliceOfLife">
+            <summary>
+            Slice of life
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.Sports">
+            <summary>
+            Sports
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.Supernatural">
+            <summary>
+            Supernatural
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Genre.Suspense">
+            <summary>
+            Suspense
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creations.IArtbook">
+            <summary>
+            Artbook
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creations.IBook">
+            <summary>
+            Book, e.g. doujinshi, artbook, etc
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.IBook.Length">
+            <summary>
+            Pages count
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.IBook.Volumes">
+            <summary>
+            Volumes count
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.IBook.Chapters">
+            <summary>
+            Chapters count
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.IBook.HasImages">
+            <summary>
+            Has images, except for covers?
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.IBook.IsColored">
+            <summary>
+            Is colored?
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creations.ICreation">
+            <summary>
+            Creation, e.g. doujinshi, game, etc
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.Title">
+            <summary>
+            Title
+            Must be romanization of native title (e.g. Hepburn romanization for ja-JP)
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.AlternativeTitles">
+            <summary>
+            Alternative titles
+            e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.Authors">
+            <summary>
+            Authors
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.PublishStarted">
+            <summary>
+            Estimate date of first release of this creation
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.PublishEnded">
+            <summary>
+            Estimate date of final release of this creation
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.AvailableAt">
+            <summary>
+            Available to purchase/read/etc at
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.Description">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.Relations">
+            <summary>
+            Collection of related creations
+            Creation-Relation pair
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.FeaturedAtEvents">
+            <summary>
+            Featured at events, e.g. C99, C100, etc
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.MemberOfCollections">
+            <summary>
+            Member of collections
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.Characters">
+            <summary>
+            Collection of characters
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.Picture">
+            <summary>
+            Preview image
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.CreationId">
+            <summary>
+            Creation id in db
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.Languages">
+            <summary>
+            Available on languages
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.Rating">
+            <summary>
+            Age rating
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.Genres">
+            <summary>
+            Collection of genres
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.Status">
+            <summary>
+            Publishing status
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.Censorship">
+            <summary>
+            Censorship type
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.Tags">
+            <summary>
+            Creation's tags
+            e.g. franchise parody, themes, etc
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.ICreation.Adaptations">
+            <summary>
+            External adaptations of creation
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creations.ICreationCollection">
+            <summary>
+            Collection of related creations, e.g. tankoubon, magazine, serialization
+            TODO: Compelte creation collection. Should this be ICreation too?
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creations.IDoujinshi">
+            <summary>
+            Doujinshi
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creations.IGame">
+            <summary>
+            Games
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creations.IImage">
+            <summary>
+            Pictures
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creations.IMagazine">
+            <summary>
+            Doujinshi magazines
+            E.g. towako, comic lo
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creations.IManga">
+            <summary>
+            Original manga
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creations.ITankoubon">
+            <summary>
+            Tankoubon
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creations.IVideo">
+            <summary>
+            Hentai, hmv, mmd, etc
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creations.Rating">
+            <summary>
+            Age rating
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Rating.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Rating.Everyone">
+            <summary>
+            Safe-for-work, for everyone
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Rating.R15">
+            <summary>
+            Light erotica
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Rating.R18">
+            <summary>
+            R18
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Rating.R18G">
+            <summary>
+            R18 + gore, scat, etc
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creatures.Author">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.FirstName">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.LastName">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.FullName">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.AlternativeNames">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.AdditionalDetails">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.Description">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.Birthday">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.Age">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.Picture">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.Species">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.Gender">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.Tags">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.AuthorName">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.AlternativeAuthorNames">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.Circles">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.ExternalLinks">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.Creations">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.Id">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.CreatureId">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.Relations">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.Genitals">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Creatures.Author.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:OpenHentai.Creatures.BodyType">
+            <summary>
+            Body type of creature
+            e.g. lolibaba: Gender=female, Genitals=female, Age=500, BodyType=Loli
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creatures.BodyType.Unknown">
+            <summary>
+            Unknown body type
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creatures.BodyType.Loli">
+            <summary>
+            Lolita
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creatures.BodyType.OppaiLoli">
+            <summary>
+            Lolita with big tits
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creatures.Character">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.FirstName">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.LastName">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.FullName">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.AlternativeNames">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.AdditionalDetails">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.Description">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.Birthday">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.Age">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.Picture">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.Species">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.Gender">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.Tags">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.Relations">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.Genitals">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.FeaturedIn">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.Id">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.CreatureId">
+            <inheritdoc />
+        </member>
+        <member name="T:OpenHentai.Creatures.Gender">
+            <summary>
+            Gender
+            Related to <see cref="T:OpenHentai.Creatures.Genitals"/> and <see cref="T:OpenHentai.Creatures.BodyType"/>
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creatures.Gender.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creatures.Gender.Male">
+            <summary>
+            Male
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creatures.Gender.Female">
+            <summary>
+            Female
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creatures.Gender.None">
+            <summary>
+            None, e.g. slime
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creatures.Genitals">
+            <summary>
+            Related to <see cref="T:OpenHentai.Creatures.Gender"/>, e.g. Gender.Female + Genitals.Male = futanari
+            Also, see <see cref="T:OpenHentai.Creatures.BodyType"/>
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creatures.Genitals.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creatures.Genitals.Male">
+            <summary>
+            Male
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creatures.Genitals.Female">
+            <summary>
+            Female
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creatures.Genitals.None">
+            <summary>
+            No genitals
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creatures.Genitals.Both">
+            <summary>
+            Both male and female
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creatures.IAuthor">
+            <summary>
+            Author
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.IAuthor.AuthorName">
+            <summary>
+            Author name, e.g. Asanagi
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.IAuthor.AlternativeAuthorNames">
+            <summary>
+            Alternative author names
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.IAuthor.Circles">
+            <summary>
+            Author's circles
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.IAuthor.ExternalLinks">
+            <summary>
+            Links to author's social networks, e.g. twitter, pixiv, fanbox, ci-en, etc
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.IAuthor.Creations">
+            <summary>
+            Collection of author works
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creatures.ICharacter">
+            <summary>
+            Character
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICharacter.FeaturedIn">
+            <summary>
+            Collection of creations, that has this character
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creatures.ICreature">
+            <summary>
+            Creature
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICreature.FirstName">
+            <summary>
+            First name
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICreature.LastName">
+            <summary>
+            Last name
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICreature.FullName">
+            <summary>
+            Full name
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICreature.AlternativeNames">
+            <summary>
+            Alternative known or older names
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICreature.AdditionalDetails">
+            <summary>
+            Additional details, e.g. hobby:..., three sizes:...
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICreature.Description">
+            <summary>
+            Description, e.g. this person is a dick
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICreature.Birthday">
+            <summary>
+            Creature's birthday, e.g. 01.01.1922
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICreature.Age">
+            <summary>
+            Creature's age, e.g. 500
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICreature.Picture">
+            <summary>
+            Creature's picture
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICreature.Species">
+            <summary>
+            Creature's species, e.g. human
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICreature.Gender">
+            <summary>
+            Creature's gender
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICreature.Tags">
+            <summary>
+            Creature's additional details/tags
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICreature.CreatureId">
+            <summary>
+            Creature ID
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICreature.Relations">
+            <summary>
+            Collection of related and alternative characters,
+            Chara-Relation pair, e.g. "Admiral, alternative"
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.ICreature.Genitals">
+            <summary>
+            Character's genitals
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Descriptors.AdaptationInfo">
+            <summary>
+            External adaptations of creation
+            Since this is an external stuff, there should be as less information as possible
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.AdaptationInfo.Title">
+            <summary>
+            Adaptation title
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.AdaptationInfo.Link">
+            <summary>
+            Adaptation link
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Descriptors.ExternalLinkInfo">
+            <summary>
+            External links
+            e.g.: pixiv:https://...
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.ExternalLinkInfo.Title">
+            <summary>
+            Title, e.g. pixiv
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.ExternalLinkInfo.Link">
+            <summary>
+            Uri
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.ExternalLinkInfo.OfficialStatus">
+            <summary>
+            Official or not
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.ExternalLinkInfo.PaidStatus">
+            <summary>
+            Free or not
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.ExternalLinkInfo.Description">
+            <summary>
+            Description, e.g. author's official free pixiv
+            </summary>
+        </member>
+        <member name="M:OpenHentai.Descriptors.ExternalLinkInfo.#ctor(System.String)">
+            <summary>
+            Create new link
+            </summary>
+            <param name="uri">Link</param>
+        </member>
+        <member name="M:OpenHentai.Descriptors.ExternalLinkInfo.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:OpenHentai.Descriptors.ImageInfo">
+            <summary>
+            Image info
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.ImageInfo.ImageSource">
+            <summary>
+            Image's external uri
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.ImageInfo.ImagePath">
+            <summary>
+            Image's path on drive
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.ImageInfo.ImageBytes">
+            <summary>
+            Image's bytes, e.g read from stream
+            </summary>
+        </member>
+        <member name="M:OpenHentai.Descriptors.ImageInfo.#ctor(System.Uri)">
+            <summary>
+            Create new image from uri
+            </summary>
+            <param name="uri">Source link</param>
+        </member>
+        <member name="T:OpenHentai.Descriptors.TitleInfo">
+            <summary>
+            Describes alternative title's laguages
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.TitleInfo.Title">
+            <summary>
+            Title value
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.TitleInfo.Language">
+            <summary>
+            Title language
+            </summary>
+        </member>
+        <member name="M:OpenHentai.Descriptors.TitleInfo.#ctor(System.String)">
+            <summary>
+            Create a new title
+            </summary>
+            <param name="title">String in format, e.g. "ja-JP::ポプテピピック"</param>
+        </member>
+        <member name="M:OpenHentai.Descriptors.TitleInfo.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:OpenHentai.Descriptors.TranslationInfo">
+            <summary>
+            Information about translation
+            see: https://learn.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo?view=net-7.0
+            also: https://support.microsoft.com/en-us/topic/country-region-and-language-codes-add36afe-804a-44f1-ae68-cfb9c9b72f8b
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.TranslationInfo.Language">
+            <summary>
+            Language
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.TranslationInfo.IsOfficial">
+            <summary>
+            Is official?
+            </summary>
+        </member>
+        <member name="M:OpenHentai.Descriptors.TranslationInfo.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:OpenHentai.DoujinCreator">
+            <summary>
+            ONLY FOR TESTING PURPOSES
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Events.IEvent">
+            <summary>
+            IRL event, e.g. comiket, comic1, etc
+            TODO: complete IEvent interface
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Events.IEvent.Title">
+            <summary>
+            Title
+            </summary>
+        </member>
+        <member name="T:OpenHentai.IDatabaseEntry">
+            <summary>
+            Database entries specification
+            </summary>
+        </member>
+        <member name="P:OpenHentai.IDatabaseEntry.Id">
+            <summary>
+            Entry's id in database
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Relations.CharacterCreationRelation">
+            <summary>
+            Relations between character and creation
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Relations.CharacterCreationRelation.Unknown">
+            <summary>
+            Unknown or none
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Relations.CharacterCreationRelation.MainCharacter">
+            <summary>
+            Main character
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Relations.CharacterCreationRelation.SupportingCharacter">
+            <summary>
+            Supporting character
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Relations.CharacterCreationRelation.CosplayCharacter">
+            <summary>
+            Cosplaying character
+            e.g. Kagamihara Nadeshiko in KanColle Hibiki's cosplay means
+            Hibiki character with CosplayCharacter property value
+            and Nadeshiko with MainCharacter property value
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Relations.CreationRelations">
+            <summary>
+            Relation to another creation
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Relations.CreationRelations.Unknown">
+            <summary>
+            Unknown or none
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Relations.CreationRelations.Parent">
+            <summary>
+            Parent story
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Relations.CreationRelations.Alternative">
+            <summary>
+            Alternative story
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Relations.CreationRelations.Child">
+            <summary>
+            Child story
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Relations.CreationRelations.SpinOff">
+            <summary>
+            Spin-off or alternative stories
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Relations.CreatureRelations">
+            <summary>
+            Relations between creatures
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Relations.CreatureRelations.Unknown">
+            <summary>
+            Unknown or none
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Relations.CreatureRelations.Relative">
+            <summary>
+            Family ties
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Relations.CreatureRelations.Alternative">
+            <summary>
+            Alternative version
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Statuses.OfficialStatus">
+            <summary>
+            Official or not
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Statuses.OfficialStatus.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Statuses.OfficialStatus.Official">
+            <summary>
+            Official
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Statuses.OfficialStatus.Unofficial">
+            <summary>
+            Unofficial
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Statuses.PaidStatus">
+            <summary>
+            Is officially free or not
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Statuses.PaidStatus.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Statuses.PaidStatus.Free">
+            <summary>
+            Free
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Statuses.PaidStatus.Paid">
+            <summary>
+            Requires payment
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Statuses.PublishStatus">
+            <summary>
+            Creation publishing status
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Statuses.PublishStatus.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Statuses.PublishStatus.Publishing">
+            <summary>
+            Still publishing
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Statuses.PublishStatus.Published">
+            <summary>
+            Ended publishing
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Statuses.PublishStatus.OnHold">
+            <summary>
+            Release schedule on hold
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Statuses.PublishStatus.Cancelled">
+            <summary>
+            Cancelled
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Statuses.PublishStatus.NotYetPublished">
+            <summary>
+            Not yet published
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Tags.EnumTag`1">
+            <summary>
+            Generic class for enum tags
+            </summary>
+            <typeparam name="T">Enum</typeparam>
+        </member>
+        <member name="P:OpenHentai.Tags.EnumTag`1.Value">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Tags.EnumTag`1.AlternativeValues">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Tags.EnumTag`1.Description">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Tags.EnumTag`1.AdditionalInfo">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Tags.EnumTag`1.Category">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Tags.EnumTag`1.SetValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Tags.EnumTag`1.GetValue">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Tags.EnumTag`1.SetAlternativeValues(System.Collections.Generic.IEnumerable{System.String})">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Tags.EnumTag`1.GetAlternativeValues">
+            <inheritdoc />
+        </member>
+        <member name="T:OpenHentai.Tags.ITag">
+            <summary>
+            Used for string-representated tags
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Tags.ITag.Value">
+            <summary>
+            Tag's value
+            e.g. Mitsudomoe
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Tags.ITag.AlternativeValues">
+            <summary>
+            Alternative tag values
+            e.g. Three Way Struggle, みつどもえ
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Tags.ITag.Description">
+            <summary>
+            Tag description
+            e.g. This tag resides for mitsudomoe franchise
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Tags.ITag.AdditionalInfo">
+            <summary>
+            Additional info, related to tag
+            e.g. link to mal: https://myanimelist.net/anime/7627
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Tags.ITag.Category">
+            <summary>
+            Category of this tag
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Tags.ITagObsolete">
+            <summary>
+            Used for fetishes and genres. Genders, languages, authors, etc has it's own classes
+            see https://ehwiki.org/wiki/Gallery_Tagging for reference during the development
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Tags.ITagObsolete.Description">
+            <summary>
+            Tag description
+            e.g. This tag resides for mitsudomoe franchise
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Tags.ITagObsolete.AdditionalInfo">
+            <summary>
+            Additional info, related to tag
+            e.g. link to mal: https://myanimelist.net/anime/7627
+            </summary>
+        </member>
+        <member name="M:OpenHentai.Tags.ITagObsolete.SetValue(System.String)">
+            <summary>
+            Set tag's value from it's string representation
+            </summary>
+            <param name="value">Tag's string representation</param>
+        </member>
+        <member name="M:OpenHentai.Tags.ITagObsolete.GetValue">
+            <summary>
+            Get string representation of tag's value
+            </summary>
+            <returns>String representation of tag's value</returns>
+        </member>
+        <member name="M:OpenHentai.Tags.ITagObsolete.SetAlternativeValues(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Set alternative tag values from it's string representations
+            </summary>
+            <param name="alternativeValues">Alternative tag values's string representation</param>
+        </member>
+        <member name="M:OpenHentai.Tags.ITagObsolete.GetAlternativeValues">
+            <summary>
+            Get string represetntation of tag's alternative values
+            </summary>
+            <returns>String represetntation of tag's alternative values</returns>
+        </member>
+        <member name="P:OpenHentai.Tags.ITagObsolete.Category">
+            <summary>
+            Category of this tag
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Tags.ITag`1">
+            <inheritdoc />
+            <typeparam name="T">Must be correctly convertable to/from string</typeparam>
+        </member>
+        <member name="P:OpenHentai.Tags.ITag`1.Value">
+            <summary>
+            Tag's value
+            e.g. Mitsudomoe
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Tags.ITag`1.AlternativeValues">
+            <summary>
+            Alternative tag values
+            e.g. Three Way Struggle, みつどもえ
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Tags.StringTag">
+            <summary>
+            Generic class for string tags
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Tags.StringTag.Value">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Tags.StringTag.AlternativeValues">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Tags.StringTag.Description">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Tags.StringTag.AdditionalInfo">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Tags.StringTag.Category">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Tags.StringTag.SetValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Tags.StringTag.GetValue">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Tags.StringTag.SetAlternativeValues(System.Collections.Generic.IEnumerable{System.String})">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Tags.StringTag.GetAlternativeValues">
+            <inheritdoc />
+        </member>
+        <member name="T:OpenHentai.Tags.Tag">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Tags.Tag.Value">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Tags.Tag.AlternativeValues">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Tags.Tag.Description">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Tags.Tag.AdditionalInfo">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Tags.Tag.Category">
+            <inheritdoc />
+        </member>
+        <member name="T:OpenHentai.Tags.TagCategory">
+            <summary>
+            Available tag categories
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Tags.TagCategory.Other">
+            <summary>
+            Any unspecified tag category
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Tags.TagCategory.Franchise">
+            <summary>
+            Related to some franchise
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Tags.TagCategory.Theme">
+            <summary>
+            Creation themes
+            More specific, than genres, e.g. Isekai, Lolicon, Rape, Glasses
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Tags.TagCategory.BodyType">
+            <summary>
+            Creature body type
+            e.g. lolibaba: Gender=female, Genitals=female, Age=500, BodyType=Loli (as string tag)
+            </summary>
+        </member>
+    </members>
+</doc>

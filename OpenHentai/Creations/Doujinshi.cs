@@ -1,0 +1,108 @@
+using OpenHentai.Creatures;
+using OpenHentai.Descriptors;
+using OpenHentai.Events;
+using OpenHentai.Relations;
+using OpenHentai.Statuses;
+using OpenHentai.Tags;
+
+namespace OpenHentai.Creations;
+
+/// <inheritdoc />
+public class Doujinshi : IDoujinshi
+{
+    #region Properties
+
+    #region Interfaces implementation
+
+    /// <inheritdoc />
+    public string Title { get; set; }
+    
+    /// <inheritdoc />
+    public IEnumerable<TitleInfo> AlternativeTitles { get; set; }
+    
+    /// <inheritdoc />
+    public IDictionary<IAuthor, string> Authors { get; set; }
+
+    /// <inheritdoc />
+    public DateTime PublishStarted { get; set; }
+    
+    /// <inheritdoc />
+    public DateTime PublishEnded { get; set; }
+
+    /// <inheritdoc />
+    public IEnumerable<ExternalLinkInfo> AvailableAt { get; set; }
+
+    /// <inheritdoc />
+    public string Description { get; set; }
+
+    /// <inheritdoc />
+    public IDictionary<ICreation, CreationRelations> Relations { get; set; }
+    
+    /// <inheritdoc />
+    public IEnumerable<IEvent> FeaturedAtEvents { get; set; }
+    
+    /// <inheritdoc />
+    public IEnumerable<ICreationCollection> MemberOfCollections { get; set; }
+    
+    /// <inheritdoc />
+    public IDictionary<ICharacter, CharacterCreationRelation> Characters { get; set; }
+
+    /// <inheritdoc />
+    public Censorship Censorship { get; set; }
+
+    /// <inheritdoc />
+    public IEnumerable<ITag> Tags { get; set; }
+
+    /// <inheritdoc />
+    public IEnumerable<AdaptationInfo> Adaptations { get; set; }
+
+    /// <inheritdoc />
+    public IEnumerable<TranslationInfo> Languages { get; set; }
+
+    /// <inheritdoc />
+    public Rating Rating { get; set; }
+    
+    /// <inheritdoc />
+    public IEnumerable<Genre> Genres { get; set; }
+    
+    /// <inheritdoc />
+    public PublishStatus Status { get; set; }
+
+    /// <inheritdoc />
+    public ImageInfo Picture { get; set; }
+    
+    /// <inheritdoc />
+    public int Length { get; set; }
+    
+    /// <inheritdoc />
+    public int Volumes { get; set; }
+    
+    /// <inheritdoc />
+    public int Chapters { get; set; }
+
+    /// <inheritdoc />
+    public bool HasImages { get; set; } = true;
+
+    /// <inheritdoc />
+    public bool IsColored { get; set; }
+    
+    /// <inheritdoc />
+    public ulong Id { get; set; }
+    
+    /// <inheritdoc />
+    public ulong CreationId { get; set; }
+    
+    #endregion
+
+    #endregion
+
+    #region Methods
+
+    /// <inheritdoc />
+    public override string ToString()
+    {
+        return Title;
+    }
+    
+    #endregion
+}
