@@ -19,6 +19,11 @@ public class TranslationInfo
     /// </summary>
     public bool IsOfficial { get; set; }
 
+    /// <summary>
+    /// Initialize new translation info
+    /// </summary>
+    /// <param name="culture">Culture, e.g. "en-US"</param>
+    /// <param name="isOfficial">Is translation official?</param>
     public TranslationInfo(string culture, bool isOfficial = true)
     {
         Language = new CultureInfo(culture);
@@ -26,8 +31,5 @@ public class TranslationInfo
     }
 
     /// <inheritdoc />
-    public override string ToString()
-    {
-        return Language.NativeName;
-    }
+    public override string ToString() => Language.NativeName;
 }

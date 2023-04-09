@@ -86,10 +86,7 @@ public class Author : IAuthor
     #region Methods
 
     /// <inheritdoc />
-    public override string ToString()
-    {
-        return FullName;
-    }
-    
+    public override string ToString() => FullName;
+
     #endregion
 }

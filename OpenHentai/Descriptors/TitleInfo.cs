@@ -30,8 +30,5 @@ public class TitleInfo
     }
 
     /// <inheritdoc />
-    public override string ToString()
-    {
-        return Title;
-    }
+    public override string ToString() => Title;
 }

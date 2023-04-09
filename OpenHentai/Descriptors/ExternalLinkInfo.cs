@@ -42,10 +42,10 @@ public class ExternalLinkInfo
     /// <summary>
     /// Create new link
     /// </summary>
-    /// <param name="uri">Link</param>
-    public ExternalLinkInfo(string uri)
+    /// <param name="link">Link</param>
+    public ExternalLinkInfo(string link)
     {
-        Link = new Uri(uri);
+        Link = new Uri(link);
     }
     
     #endregion
@@ -53,10 +53,7 @@ public class ExternalLinkInfo
     #region Methods
 
     /// <inheritdoc />
-    public override string ToString()
-    {
-        return Link.ToString();
-    }
-    
+    public override string ToString() => Link.ToString();
+
     #endregion
 }

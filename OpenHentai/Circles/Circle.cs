@@ -30,19 +30,10 @@ public class Circle : ICircle
     
     #endregion
 
-    #region Constructors
-
-    
-
-    #endregion
-
     #region Methods
 
     /// <inheritdoc />
-    public override string ToString()
-    {
-        return Title;
-    }
-    
+    public override string ToString() => Title;
+
     #endregion
 }

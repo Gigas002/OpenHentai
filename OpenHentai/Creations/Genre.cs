@@ -1,7 +1,7 @@
 namespace OpenHentai.Creations;
 
 /// <summary>
-/// Genres
+/// Genres, as they appear on MyAnimeList
 /// For more specific info, use Theme tag;
 /// For Ecchi/Hentai diff use Rating tag
 /// </summary>

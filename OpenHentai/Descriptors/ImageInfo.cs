@@ -30,10 +30,7 @@ public class ImageInfo
     /// Create new image from uri
     /// </summary>
     /// <param name="uri">Source link</param>
-    public ImageInfo(Uri uri)
-    {
-        ImageSource = uri;
-    }
-    
+    public ImageInfo(Uri uri) => ImageSource = uri;
+
     #endregion
 }

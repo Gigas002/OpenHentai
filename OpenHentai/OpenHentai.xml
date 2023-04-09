@@ -75,6 +75,11 @@
             Tanks (filled blocks)
             </summary>
         </member>
+        <member name="F:OpenHentai.Creations.Censorship.Blur">
+            <summary>
+            Everything interesting have been blured
+            </summary>
+        </member>
         <member name="F:OpenHentai.Creations.Censorship.Other">
             <summary>
             Something different
@@ -166,7 +171,7 @@
         </member>
         <member name="T:OpenHentai.Creations.Genre">
             <summary>
-            Genres
+            Genres, as they appear on MyAnimeList
             For more specific info, use Theme tag;
             For Ecchi/Hentai diff use Rating tag
             </summary>
@@ -850,7 +855,7 @@
             <summary>
             Create new link
             </summary>
-            <param name="uri">Link</param>
+            <param name="link">Link</param>
         </member>
         <member name="M:OpenHentai.Descriptors.ExternalLinkInfo.ToString">
             <inheritdoc />
@@ -921,6 +926,13 @@
             <summary>
             Is official?
             </summary>
+        </member>
+        <member name="M:OpenHentai.Descriptors.TranslationInfo.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initialize new translation info
+            </summary>
+            <param name="culture">Culture, e.g. "en-US"</param>
+            <param name="isOfficial">Is translation official?</param>
         </member>
         <member name="M:OpenHentai.Descriptors.TranslationInfo.ToString">
             <inheritdoc />

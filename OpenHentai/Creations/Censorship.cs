@@ -26,7 +26,12 @@ public enum Censorship
     Tank = 3,
     
     /// <summary>
+    /// Everything interesting have been blured
+    /// </summary>
+    Blur = 4,
+    
+    /// <summary>
     /// Something different
     /// </summary>
-    Other = 4
+    Other = 5
 }

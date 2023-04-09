@@ -69,10 +69,4 @@ public class Character : ICharacter
     #endregion
 
     #endregion
-
-    #region Constructors
-
-    
-
-    #endregion
 }
