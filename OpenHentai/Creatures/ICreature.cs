@@ -83,7 +83,7 @@ public interface ICreature : IDatabaseEntry
     /// Collection of related and alternative characters,
     /// Chara-Relation pair, e.g. "Admiral, alternative"
     /// </summary>
-    public IDictionary<ICreature, CreatureRelations> Relations { get; set; }
+    public IDictionary<ICreature, CreatureRelations> Relations { get; }
     
     /// <summary>
     /// Character's genitals

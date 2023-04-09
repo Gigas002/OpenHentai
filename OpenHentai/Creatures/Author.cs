@@ -65,7 +65,7 @@ public class Author : IAuthor
     public IEnumerable<ExternalLinkInfo> ExternalLinks { get; set; }
     
     /// <inheritdoc />
-    public IDictionary<ICreation, string> Creations { get; set; }
+    public IDictionary<ICreation, string> Creations { get; init; }
 
     /// <inheritdoc />
     public ulong Id { get; set; }
@@ -74,7 +74,7 @@ public class Author : IAuthor
     public ulong CreatureId { get; set; }
 
     /// <inheritdoc />
-    public IDictionary<ICreature, CreatureRelations> Relations { get; set; }
+    public IDictionary<ICreature, CreatureRelations> Relations { get; init; }
     
     /// <inheritdoc />
     public Genitals Genitals { get; set; }

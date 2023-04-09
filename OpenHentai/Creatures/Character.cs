@@ -52,13 +52,13 @@ public class Character : ICharacter
     public IEnumerable<ITag> Tags { get; set; }
 
     /// <inheritdoc />
-    public IDictionary<ICreature, CreatureRelations> Relations { get; set; }
+    public IDictionary<ICreature, CreatureRelations> Relations { get; init; }
 
     /// <inheritdoc />
     public Genitals Genitals { get; set; }
 
     /// <inheritdoc />
-    public IDictionary<ICreation, CharacterCreationRelation> FeaturedIn { get; set; }
+    public IDictionary<ICreation, CharacterCreationRelation> FeaturedIn { get; init; }
     
     /// <inheritdoc />
     public ulong Id { get; set; }

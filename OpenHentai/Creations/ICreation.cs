@@ -27,7 +27,7 @@ public interface ICreation : IDatabaseEntry
     /// <summary>
     /// Authors
     /// </summary>
-    public IDictionary<IAuthor, string> Authors { get; set; }
+    public IDictionary<IAuthor, string> Authors { get; init; }
 
     /// <summary>
     /// Estimate date of first release of this creation
@@ -53,7 +53,7 @@ public interface ICreation : IDatabaseEntry
     /// Collection of related creations
     /// Creation-Relation pair
     /// </summary>
-    public IDictionary<ICreation, CreationRelations> Relations { get; set; }
+    public IDictionary<ICreation, CreationRelations> Relations { get; init; }
 
     /// <summary>
     /// Featured at events, e.g. C99, C100, etc
@@ -68,7 +68,7 @@ public interface ICreation : IDatabaseEntry
     /// <summary>
     /// Collection of characters
     /// </summary>
-    public IDictionary<ICharacter, CharacterCreationRelation> Characters { get; set; }
+    public IDictionary<ICharacter, CharacterCreationRelation> Characters { get; init; }
 
     /// <summary>
     /// Preview image

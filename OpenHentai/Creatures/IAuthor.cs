@@ -32,7 +32,7 @@ public interface IAuthor : ICreature
     /// <summary>
     /// Collection of author works
     /// </summary>
-    public IDictionary<ICreation, string> Creations { get; set; }
+    public IDictionary<ICreation, string> Creations { get; }
     // public IEnumerable<ICreation> Creations { get; set; }
 
     // /// <summary>

@@ -13,7 +13,7 @@ public interface ICharacter : ICreature
     /// <summary>
     /// Collection of creations, that has this character
     /// </summary>
-    public IDictionary<ICreation, CharacterCreationRelation> FeaturedIn { get; set; }
+    public IDictionary<ICreation, CharacterCreationRelation> FeaturedIn { get; }
 
     // /// <summary>
     // /// Character's creators
