@@ -26,7 +26,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore -c Release /p:Platform=x64
+      run: dotnet build --no-restore -c Release
 
 # Build on Linux (Ubuntu)
 
@@ -43,4 +43,4 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore -c Release /p:Platform=x64
+      run: dotnet build --no-restore -c Release
