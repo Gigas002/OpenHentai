@@ -3,6 +3,7 @@ namespace OpenHentai.Tags;
 /// <summary>
 /// Available tag categories
 /// </summary>
+// TODO: complete tag enum
 public enum TagCategory
 {
     /// <summary>
