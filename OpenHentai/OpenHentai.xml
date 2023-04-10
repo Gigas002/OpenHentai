@@ -1118,19 +1118,30 @@
         </member>
         <member name="T:OpenHentai.Tags.ITag">
             <summary>
-            Used for string-representated tags
+            Basic interface for tagging purposes
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Tags.ITag.MasterId">
+            <summary>
+            This tag's master tag
+            <para/>-1 in case there's no master
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Tags.ITag.SlavesIds">
+            <summary>
+            Collection of dependent/alternative values's ids
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Tags.ITag.Category">
+            <summary>
+            Category of this tag
+            e.g. `parody`
             </summary>
         </member>
         <member name="P:OpenHentai.Tags.ITag.Value">
             <summary>
             Tag's value
             e.g. Mitsudomoe
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Tags.ITag.AlternativeValues">
-            <summary>
-            Alternative tag values
-            e.g. Three Way Struggle, みつどもえ
             </summary>
         </member>
         <member name="P:OpenHentai.Tags.ITag.Description">
@@ -1143,11 +1154,6 @@
             <summary>
             Additional info, related to tag
             e.g. link to mal: https://myanimelist.net/anime/7627
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Tags.ITag.Category">
-            <summary>
-            Category of this tag
             </summary>
         </member>
         <member name="T:OpenHentai.Tags.TagCategory">
