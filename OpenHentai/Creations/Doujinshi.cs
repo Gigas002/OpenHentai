@@ -21,7 +21,7 @@ public class Doujinshi : IDoujinshi
     public IEnumerable<TitleInfo> AlternativeTitles { get; set; }
     
     /// <inheritdoc />
-    public IDictionary<IAuthor, string> Authors { get; init; }
+    public IDictionary<IAuthor, AuthorRole> Authors { get; init; }
 
     /// <inheritdoc />
     public DateTime PublishStarted { get; set; }
@@ -48,21 +48,26 @@ public class Doujinshi : IDoujinshi
     public IDictionary<ICharacter, CharacterCreationRelation> Characters { get; init; }
 
     /// <inheritdoc />
+    // TODO: consider move to tags
     public Censorship Censorship { get; set; }
 
     /// <inheritdoc />
     public IEnumerable<ITag> Tags { get; set; }
 
     /// <inheritdoc />
+    // TODO: consider move to tags
     public IEnumerable<AdaptationInfo> Adaptations { get; set; }
 
     /// <inheritdoc />
+    // TODO: consider move to tags
     public IEnumerable<TranslationInfo> Languages { get; set; }
 
     /// <inheritdoc />
+    // TODO: consider move to tags
     public Rating Rating { get; set; }
     
     /// <inheritdoc />
+    // TODO: consider move to tags
     public IEnumerable<Genre> Genres { get; set; }
     
     /// <inheritdoc />

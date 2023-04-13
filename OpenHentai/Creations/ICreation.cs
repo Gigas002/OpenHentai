@@ -27,7 +27,7 @@ public interface ICreation : IDatabaseEntry
     /// <summary>
     /// Authors
     /// </summary>
-    public IDictionary<IAuthor, string> Authors { get; init; }
+    public IDictionary<IAuthor, AuthorRole> Authors { get; init; }
 
     /// <summary>
     /// Estimate date of first release of this creation
