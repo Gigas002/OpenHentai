@@ -18,6 +18,7 @@ public class Doujinshi : IDoujinshi
     public string Title { get; set; }
     
     /// <inheritdoc />
+    // TODO: refer to a new tagging guide to rewrite this
     public IEnumerable<TitleInfo> AlternativeTitles { get; set; }
     
     /// <inheritdoc />
@@ -104,10 +105,7 @@ public class Doujinshi : IDoujinshi
     #region Methods
 
     /// <inheritdoc />
-    public override string ToString()
-    {
-        return Title;
-    }
-    
+    public override string ToString() => Title;
+
     #endregion
 }
