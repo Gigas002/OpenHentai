@@ -551,6 +551,28 @@
         <member name="M:OpenHentai.Creatures.Author.ToString">
             <inheritdoc />
         </member>
+        <member name="T:OpenHentai.Creatures.AuthorRole">
+            <summary>
+            Author's role in creation
+            It is needed since different authors can make different kind of work
+            Plus, it makes search more powerful
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creatures.AuthorRole.MainArtist">
+            <summary>
+            Main artist
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creatures.AuthorRole.SecondaryArtist">
+            <summary>
+            Secondary artist (e.g. non-h chapters at the end of Comic LO)
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creatures.AuthorRole.MainPageIllustrator">
+            <summary>
+            Illustrator of main page (e.g. Comic LO covers)
+            </summary>
+        </member>
         <member name="T:OpenHentai.Creatures.BodyType">
             <summary>
             Body type of creature
@@ -1079,6 +1101,11 @@
         <member name="F:OpenHentai.Statuses.PaidStatus.Paid">
             <summary>
             Requires payment
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Statuses.PaidStatus.Unavailable">
+            <summary>
+            Nowhere to buy or read for free officially
             </summary>
         </member>
         <member name="T:OpenHentai.Statuses.PublishStatus">
