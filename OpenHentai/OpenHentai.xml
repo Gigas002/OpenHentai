@@ -413,7 +413,6 @@
         <member name="T:OpenHentai.Creations.ICreationCollection">
             <summary>
             Collection of related creations, e.g. tankoubon, magazine, serialization
-            TODO: Compelte creation collection. Should this be ICreation too?
             </summary>
         </member>
         <member name="T:OpenHentai.Creations.IDoujinshi">
