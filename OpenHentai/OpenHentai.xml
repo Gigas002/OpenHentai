@@ -1030,7 +1030,7 @@
         </member>
         <member name="F:OpenHentai.Relations.CreationRelations.Alternative">
             <summary>
-            Alternative story
+            Spin-off or alternative stories
             </summary>
         </member>
         <member name="F:OpenHentai.Relations.CreationRelations.Child">
@@ -1038,9 +1038,14 @@
             Child story
             </summary>
         </member>
-        <member name="F:OpenHentai.Relations.CreationRelations.SpinOff">
+        <member name="F:OpenHentai.Relations.CreationRelations.CollectionMaster">
             <summary>
-            Spin-off or alternative stories
+            This is master in creation collection
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Relations.CreationRelations.CollectionSlave">
+            <summary>
+            This is a slave object in creation collection
             </summary>
         </member>
         <member name="T:OpenHentai.Relations.CreatureRelations">

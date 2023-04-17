@@ -16,7 +16,7 @@ public enum CreationRelations
     Parent = 1,
     
     /// <summary>
-    /// Alternative story
+    /// Spin-off or alternative stories
     /// </summary>
     Alternative = 2,
     
@@ -26,7 +26,12 @@ public enum CreationRelations
     Child = 3,
     
     /// <summary>
-    /// Spin-off or alternative stories
+    /// This is master in creation collection
     /// </summary>
-    SpinOff = 4,
+    CollectionMaster = 4,
+    
+    /// <summary>
+    /// This is a slave object in creation collection
+    /// </summary>
+    CollectionSlave = 5
 }
