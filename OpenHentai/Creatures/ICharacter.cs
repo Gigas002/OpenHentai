@@ -1,5 +1,6 @@
 using OpenHentai.Creations;
 using OpenHentai.Relations;
+using OpenHentai.Roles;
 
 namespace OpenHentai.Creatures;
 

@@ -2,6 +2,7 @@ using OpenHentai.Creatures;
 using OpenHentai.Descriptors;
 using OpenHentai.Events;
 using OpenHentai.Relations;
+using OpenHentai.Roles;
 using OpenHentai.Statuses;
 using OpenHentai.Tags;
 

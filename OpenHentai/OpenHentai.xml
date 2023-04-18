@@ -550,28 +550,6 @@
         <member name="M:OpenHentai.Creatures.Author.ToString">
             <inheritdoc />
         </member>
-        <member name="T:OpenHentai.Creatures.AuthorRole">
-            <summary>
-            Author's role in creation
-            It is needed since different authors can make different kind of work
-            Plus, it makes search more powerful
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creatures.AuthorRole.MainArtist">
-            <summary>
-            Main artist
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creatures.AuthorRole.SecondaryArtist">
-            <summary>
-            Secondary artist (e.g. non-h chapters at the end of Comic LO)
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creatures.AuthorRole.MainPageIllustrator">
-            <summary>
-            Illustrator of main page (e.g. Comic LO covers)
-            </summary>
-        </member>
         <member name="T:OpenHentai.Creatures.BodyType">
             <summary>
             Body type of creature
@@ -984,34 +962,6 @@
             Entry's id in database
             </summary>
         </member>
-        <member name="T:OpenHentai.Relations.CharacterRole">
-            <summary>
-            Relations between character and creation
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Relations.CharacterRole.Unknown">
-            <summary>
-            Unknown or none
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Relations.CharacterRole.Main">
-            <summary>
-            Main character
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Relations.CharacterRole.Secondary">
-            <summary>
-            Supporting character
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Relations.CharacterRole.Cosplay">
-            <summary>
-            Cosplaying character
-            e.g. Kagamihara Nadeshiko in KanColle Hibiki's cosplay means
-            Hibiki character with CosplayCharacter property value
-            and Nadeshiko with MainCharacter property value
-            </summary>
-        </member>
         <member name="T:OpenHentai.Relations.CreationRelations">
             <summary>
             Relation to another creation
@@ -1065,6 +1015,56 @@
         <member name="F:OpenHentai.Relations.CreatureRelations.Alternative">
             <summary>
             Alternative version
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Roles.AuthorRole">
+            <summary>
+            Author's role in creation
+            It is needed since different authors can make different kind of work
+            Plus, it makes search more powerful
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Roles.AuthorRole.MainArtist">
+            <summary>
+            Main artist
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Roles.AuthorRole.SecondaryArtist">
+            <summary>
+            Secondary artist (e.g. non-h chapters at the end of Comic LO)
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Roles.AuthorRole.MainPageIllustrator">
+            <summary>
+            Illustrator of main page (e.g. Comic LO covers)
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Roles.CharacterRole">
+            <summary>
+            Relations between character and creation
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Roles.CharacterRole.Unknown">
+            <summary>
+            Unknown or none
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Roles.CharacterRole.Main">
+            <summary>
+            Main character
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Roles.CharacterRole.Secondary">
+            <summary>
+            Supporting character
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Roles.CharacterRole.Cosplay">
+            <summary>
+            Cosplaying character
+            e.g. Kagamihara Nadeshiko in KanColle Hibiki's cosplay means
+            Hibiki character with CosplayCharacter property value
+            and Nadeshiko with MainCharacter property value
             </summary>
         </member>
         <member name="T:OpenHentai.Statuses.OfficialStatus">

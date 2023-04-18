@@ -1,4 +1,4 @@
-namespace OpenHentai.Relations;
+namespace OpenHentai.Roles;
 
 /// <summary>
 /// Relations between character and creation

@@ -1,4 +1,4 @@
-namespace OpenHentai.Creatures;
+namespace OpenHentai.Roles;
 
 /// <summary>
 /// Author's role in creation
