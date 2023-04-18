@@ -38,7 +38,7 @@ public class Author : IAuthor
     public int Age { get; set; }
 
     /// <inheritdoc />
-    public ImageInfo Picture { get; set; }
+    public PictureInfo Picture { get; set; }
 
     /// <inheritdoc />
     public string Species { get; set; }

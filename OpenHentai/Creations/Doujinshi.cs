@@ -76,7 +76,7 @@ public class Doujinshi : IDoujinshi
     public PublishStatus Status { get; set; }
 
     /// <inheritdoc />
-    public ImageInfo Picture { get; set; }
+    public PictureInfo Picture { get; set; }
     
     /// <inheritdoc />
     public int Length { get; set; }

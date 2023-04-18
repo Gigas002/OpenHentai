@@ -2,6 +2,7 @@ namespace OpenHentai.Descriptors;
 
 /// <summary>
 /// Media info
+/// Can be used for pictures, videos, audio (not yet implemented)
 /// </summary>
 public interface IMediaInfo
 {

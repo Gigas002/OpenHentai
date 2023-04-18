@@ -859,35 +859,10 @@
         <member name="M:OpenHentai.Descriptors.ExternalLinkInfo.ToString">
             <inheritdoc />
         </member>
-        <member name="T:OpenHentai.Descriptors.ImageInfo">
-            <summary>
-            Image info
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Descriptors.ImageInfo.ImageSource">
-            <summary>
-            Image's external uri
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Descriptors.ImageInfo.ImagePath">
-            <summary>
-            Image's path on drive
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Descriptors.ImageInfo.ImageBytes">
-            <summary>
-            Image's bytes, e.g read from stream
-            </summary>
-        </member>
-        <member name="M:OpenHentai.Descriptors.ImageInfo.#ctor(System.Uri)">
-            <summary>
-            Create new image from uri
-            </summary>
-            <param name="uri">Source link</param>
-        </member>
         <member name="T:OpenHentai.Descriptors.IMediaInfo">
             <summary>
             Media info
+            Can be used for pictures, videos, audio (not yet implemented)
             </summary>
         </member>
         <member name="P:OpenHentai.Descriptors.IMediaInfo.MediaSource">
@@ -904,6 +879,26 @@
             <summary>
             Media's bytes, e.g read from stream
             </summary>
+        </member>
+        <member name="T:OpenHentai.Descriptors.PictureInfo">
+            <summary>
+            Picture info
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.PictureInfo.MediaSource">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Descriptors.PictureInfo.MediaPath">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Descriptors.PictureInfo.MediaBytes">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Descriptors.PictureInfo.#ctor(System.Uri)">
+            <summary>
+            Create new picture from uri
+            </summary>
+            <param name="uri">Source link</param>
         </member>
         <member name="T:OpenHentai.Descriptors.TitleInfo">
             <summary>

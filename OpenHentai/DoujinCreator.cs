@@ -38,7 +38,7 @@ public static class DoujinCreator
                 new("https://noraneko-no-tama.com/")
             },
             Description = "artist",
-            Picture = new ImageInfo(new Uri("https://i.pximg.net/img-original/img/2022/09/16/19/13/43/101264803_p0.jpg")),
+            Picture = new PictureInfo(new Uri("https://i.pximg.net/img-original/img/2022/09/16/19/13/43/101264803_p0.jpg")),
         };
 
         circle.Authors = new List<IAuthor> { author };
@@ -94,7 +94,7 @@ public static class DoujinCreator
                 new("en-US", false)
             },
             IsColored = false,
-            Picture = new ImageInfo(new Uri("https://ebook-assets.dmm.co.jp/digital/e-book/b120ahit00706/b120ahit00706pl.jpg")),
+            Picture = new PictureInfo(new Uri("https://ebook-assets.dmm.co.jp/digital/e-book/b120ahit00706/b120ahit00706pl.jpg")),
             // Tags = doujinTags
         };
 

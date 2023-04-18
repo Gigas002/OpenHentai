@@ -52,7 +52,7 @@ public interface ICreature : IDatabaseEntry
     /// <summary>
     /// Creature's picture
     /// </summary>
-    public ImageInfo Picture { get; set; }
+    public PictureInfo Picture { get; set; }
     
     /// <summary>
     /// Creature's species, e.g. human

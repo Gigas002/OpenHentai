@@ -74,7 +74,7 @@ public interface ICreation : IDatabaseEntry
     /// <summary>
     /// Preview image
     /// </summary>
-    public ImageInfo Picture { get; set; }
+    public PictureInfo Picture { get; set; }
 
     /// <summary>
     /// Creation id in db
