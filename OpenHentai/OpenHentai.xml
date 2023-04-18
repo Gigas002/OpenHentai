@@ -885,6 +885,26 @@
             </summary>
             <param name="uri">Source link</param>
         </member>
+        <member name="T:OpenHentai.Descriptors.IMediaInfo">
+            <summary>
+            Media info
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.IMediaInfo.MediaSource">
+            <summary>
+            Media's external uri
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.IMediaInfo.MediaPath">
+            <summary>
+            Media's path on drive
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.IMediaInfo.MediaBytes">
+            <summary>
+            Media's bytes, e.g read from stream
+            </summary>
+        </member>
         <member name="T:OpenHentai.Descriptors.TitleInfo">
             <summary>
             Describes alternative title's laguages
