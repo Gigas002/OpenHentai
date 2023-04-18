@@ -1017,6 +1017,16 @@
             Alternative version
             </summary>
         </member>
+        <member name="F:OpenHentai.Relations.CreatureRelations.Friend">
+            <summary>
+            Friendly character
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Relations.CreatureRelations.Enemy">
+            <summary>
+            Non-friendly character
+            </summary>
+        </member>
         <member name="T:OpenHentai.Roles.AuthorRole">
             <summary>
             Author's role in creation

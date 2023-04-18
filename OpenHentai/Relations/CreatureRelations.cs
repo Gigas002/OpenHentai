@@ -18,5 +18,15 @@ public enum CreatureRelations
     /// <summary>
     /// Alternative version
     /// </summary>
-    Alternative
+    Alternative,
+    
+    /// <summary>
+    /// Friendly character
+    /// </summary>
+    Friend,
+    
+    /// <summary>
+    /// Non-friendly character
+    /// </summary>
+    Enemy
 }
