@@ -819,6 +819,22 @@
             Adaptation link
             </summary>
         </member>
+        <member name="T:OpenHentai.Descriptors.ColoredInfo">
+            <summary>
+            Used for manga-like objects that can be bw or colored
+            IBook object should have this property as collection
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.ColoredInfo.IsColored">
+            <summary>
+            Is creation colored?
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.ColoredInfo.IsOfficial">
+            <summary>
+            Is cration colored officialy?
+            </summary>
+        </member>
         <member name="T:OpenHentai.Descriptors.ExternalLinkInfo">
             <summary>
             External links
