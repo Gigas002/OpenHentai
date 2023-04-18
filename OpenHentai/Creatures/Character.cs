@@ -58,7 +58,7 @@ public class Character : ICharacter
     public Genitals Genitals { get; set; }
 
     /// <inheritdoc />
-    public IDictionary<ICreation, CharacterCreationRelation> FeaturedIn { get; init; }
+    public IDictionary<ICreation, CharacterRole> FeaturedIn { get; init; }
     
     /// <inheritdoc />
     public ulong Id { get; set; }

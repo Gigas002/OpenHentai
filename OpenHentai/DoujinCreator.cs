@@ -80,9 +80,9 @@ public static class DoujinCreator
             PublishEnded = DateTime.Parse("08.04.2017", CultureInfo.InvariantCulture),
             AvailableAt = new List<ExternalLinkInfo> { new("https://t.co/YsyhsjRN1a"), new("https://t.co/Kyxl396wCp") },
             Description = "ロリ系大人気サークル「ノラネコノタマ」単行本シリーズ待望の第2弾!! 同級生の兄に初めてを奪われた少女。幼い子宮に幾度も幾度も精液を流し込まれ　やがてふくらみ始めた小さなお腹・・・もう引き返せない十月十日の時間が始まる。約100ページにも及ぶ大量の加筆修正!! そして新作描き下ろし!! 目の前で怯える少女を壊れるまで嬲るのか…それとも優しく愛でるのか・・・!?その瞳はただすがるように男を見つめている──…。",
-            Characters = new Dictionary<ICharacter, CharacterCreationRelation>
+            Characters = new Dictionary<ICharacter, CharacterRole>
             {
-                { character, CharacterCreationRelation.MainCharacter }
+                { character, CharacterRole.Main }
             },
             Length = 196,
             Volumes = 1,

@@ -68,7 +68,7 @@ public interface ICreation : IDatabaseEntry
     /// <summary>
     /// Collection of characters
     /// </summary>
-    public IDictionary<ICharacter, CharacterCreationRelation> Characters { get; init; }
+    public IDictionary<ICharacter, CharacterRole> Characters { get; init; }
 
     /// <summary>
     /// Preview image

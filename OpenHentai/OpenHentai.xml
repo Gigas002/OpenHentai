@@ -984,27 +984,27 @@
             Entry's id in database
             </summary>
         </member>
-        <member name="T:OpenHentai.Relations.CharacterCreationRelation">
+        <member name="T:OpenHentai.Relations.CharacterRole">
             <summary>
             Relations between character and creation
             </summary>
         </member>
-        <member name="F:OpenHentai.Relations.CharacterCreationRelation.Unknown">
+        <member name="F:OpenHentai.Relations.CharacterRole.Unknown">
             <summary>
             Unknown or none
             </summary>
         </member>
-        <member name="F:OpenHentai.Relations.CharacterCreationRelation.MainCharacter">
+        <member name="F:OpenHentai.Relations.CharacterRole.Main">
             <summary>
             Main character
             </summary>
         </member>
-        <member name="F:OpenHentai.Relations.CharacterCreationRelation.SupportingCharacter">
+        <member name="F:OpenHentai.Relations.CharacterRole.Secondary">
             <summary>
             Supporting character
             </summary>
         </member>
-        <member name="F:OpenHentai.Relations.CharacterCreationRelation.CosplayCharacter">
+        <member name="F:OpenHentai.Relations.CharacterRole.Cosplay">
             <summary>
             Cosplaying character
             e.g. Kagamihara Nadeshiko in KanColle Hibiki's cosplay means

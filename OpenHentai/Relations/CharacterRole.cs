@@ -3,7 +3,7 @@ namespace OpenHentai.Relations;
 /// <summary>
 /// Relations between character and creation
 /// </summary>
-public enum CharacterCreationRelation
+public enum CharacterRole
 {
     /// <summary>
     /// Unknown or none
@@ -13,12 +13,12 @@ public enum CharacterCreationRelation
     /// <summary>
     /// Main character
     /// </summary>
-    MainCharacter,
+    Main,
     
     /// <summary>
     /// Supporting character
     /// </summary>
-    SupportingCharacter,
+    Secondary,
     
     /// <summary>
     /// Cosplaying character
@@ -26,5 +26,5 @@ public enum CharacterCreationRelation
     /// Hibiki character with CosplayCharacter property value
     /// and Nadeshiko with MainCharacter property value
     /// </summary>
-    CosplayCharacter,
+    Cosplay,
 }

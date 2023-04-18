@@ -46,7 +46,7 @@ public class Doujinshi : IDoujinshi
     public IEnumerable<ICreationCollection> MemberOfCollections { get; set; }
     
     /// <inheritdoc />
-    public IDictionary<ICharacter, CharacterCreationRelation> Characters { get; init; }
+    public IDictionary<ICharacter, CharacterRole> Characters { get; init; }
 
     /// <inheritdoc />
     // TODO: consider move to tags
