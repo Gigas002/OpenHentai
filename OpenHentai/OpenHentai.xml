@@ -136,7 +136,7 @@
         <member name="P:OpenHentai.Creations.Doujinshi.HasImages">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.IsColored">
+        <member name="P:OpenHentai.Creations.Doujinshi.ColoredInfo">
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creations.Doujinshi.Id">
@@ -272,9 +272,9 @@
             Has images, except for covers?
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.IBook.IsColored">
+        <member name="P:OpenHentai.Creations.IBook.ColoredInfo">
             <summary>
-            Is colored?
+            Information about colorization of this book
             </summary>
         </member>
         <member name="T:OpenHentai.Creations.ICreation">

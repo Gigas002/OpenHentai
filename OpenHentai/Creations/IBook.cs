@@ -1,3 +1,5 @@
+using OpenHentai.Descriptors;
+
 namespace OpenHentai.Creations;
 
 /// <summary>
@@ -26,7 +28,7 @@ public interface IBook : ICreation
     public bool HasImages { get; set; }
     
     /// <summary>
-    /// Is colored?
+    /// Information about colorization of this book
     /// </summary>
-    public bool IsColored { get; set; }
+    public IEnumerable<ColoredInfo> ColoredInfo { get; set; }
 }

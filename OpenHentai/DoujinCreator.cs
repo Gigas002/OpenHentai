@@ -87,7 +87,7 @@ public static class DoujinCreator
                 new("ja-JP"),
                 new("en-US", false)
             },
-            IsColored = false,
+            ColoredInfo = new List<ColoredInfo> {new() {IsColored = false, IsOfficial = true}},
             Pictures = new List<PictureInfo> { new(new Uri("https://ebook-assets.dmm.co.jp/digital/e-book/b120ahit00706/b120ahit00706pl.jpg"))},
             // Tags = doujinTags
         };

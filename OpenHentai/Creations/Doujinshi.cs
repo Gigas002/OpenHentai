@@ -81,7 +81,7 @@ public class Doujinshi : IDoujinshi
     public bool HasImages { get; set; } = true;
 
     /// <inheritdoc />
-    public bool IsColored { get; set; }
+    public IEnumerable<ColoredInfo> ColoredInfo { get; set; }
     
     /// <inheritdoc />
     public ulong Id { get; set; }
