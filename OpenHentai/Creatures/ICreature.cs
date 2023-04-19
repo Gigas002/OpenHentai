@@ -10,24 +10,10 @@ namespace OpenHentai.Creatures;
 public interface ICreature : IDatabaseEntry
 {
     /// <summary>
-    /// First name
+    /// Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)
+    /// Alternative names can be any
     /// </summary>
-    public string FirstName { get; set; }
-
-    /// <summary>
-    /// Last name
-    /// </summary>
-    public string LastName { get; set; }
-
-    /// <summary>
-    /// Full name
-    /// </summary>
-    public string FullName { get; set; }
-
-    /// <summary>
-    /// Alternative known or older names
-    /// </summary>
-    public IEnumerable<string> AlternativeNames { get; set; }
+    public IEnumerable<string> Names { get; set; }
 
     /// <summary>
     /// Additional details, e.g. hobby:..., three sizes:...
@@ -50,25 +36,15 @@ public interface ICreature : IDatabaseEntry
     public int Age { get; set; }
 
     /// <summary>
-    /// Creature's picture
+    /// Collection of related pictures
     /// </summary>
-    public PictureInfo Picture { get; set; }
-    
-    /// <summary>
-    /// Creature's species, e.g. human
-    /// </summary>
-    public string Species { get; set; }
-    
+    public IEnumerable<PictureInfo> Pictures { get; set; }
+
     /// <summary>
     /// Creature's gender
     /// </summary>
     public Gender Gender { get; set; }
-    
-    // /// <summary>
-    // /// Creature's body type
-    // /// </summary>
-    // public BodyType BodyType { get; set; }
-    
+
     /// <summary>
     /// Creature's additional details/tags
     /// </summary>
@@ -84,9 +60,4 @@ public interface ICreature : IDatabaseEntry
     /// Chara-Relation pair, e.g. "Admiral, alternative"
     /// </summary>
     public IDictionary<ICreature, CreatureRelations> Relations { get; }
-    
-    /// <summary>
-    /// Character's genitals
-    /// </summary>
-    public Genitals Genitals { get; set; }
 }

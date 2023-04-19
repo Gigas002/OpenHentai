@@ -14,18 +14,10 @@ public class Character : ICharacter
     #region Interfaces implementation
 
     /// <inheritdoc />
-    public string FirstName { get; set; }
-    
-    /// <inheritdoc />
-    public string LastName { get; set; }
-    
-    /// <inheritdoc />
-    public string FullName { get; set; }
-    
-    /// <inheritdoc />
-    public IEnumerable<string> AlternativeNames { get; set; }
+    public IEnumerable<string> Names { get; set; }
 
     /// <inheritdoc />
+    // TODO: obsolete?
     public IEnumerable<string> AdditionalDetails { get; set; }
     
     /// <inheritdoc />
@@ -38,17 +30,11 @@ public class Character : ICharacter
     public int Age { get; set; }
 
     /// <inheritdoc />
-    public PictureInfo Picture { get; set; }
+    public IEnumerable<PictureInfo> Pictures { get; set; }
 
-    /// <inheritdoc />
-    public string Species { get; set; }
-    
     /// <inheritdoc />
     public Gender Gender { get; set; }
     
-    // /// <inheritdoc />
-    // public BodyType BodyType { get; set; }
-
     /// <inheritdoc />
     public IEnumerable<ITag> Tags { get; set; }
 
@@ -56,9 +42,7 @@ public class Character : ICharacter
     public IDictionary<ICreature, CreatureRelations> Relations { get; init; }
 
     /// <inheritdoc />
-    public Genitals Genitals { get; set; }
-
-    /// <inheritdoc />
+    // TODO: slightly rework
     public IDictionary<ICreation, CharacterRole> FeaturedIn { get; init; }
     
     /// <inheritdoc />

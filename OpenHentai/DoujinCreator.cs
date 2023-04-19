@@ -18,18 +18,15 @@ public static class DoujinCreator
     {
         var circle = new Circle
         {
-            Title = "Noraneko no Tama",
-            AlternativeTitles = new List<TitleInfo> { new("en-US::noranekonotama"), new("ja-JP::ノラネコノタマ") }
+            // TODO: will throw on runtime because no language specified
+            Titles = new List<TitleInfo> {new("Noraneko no Tama"), new("en-US::noranekonotama"), new("ja-JP::ノラネコノタマ") }
         };
         
         var author = new Author
         {
             Birthday = DateTime.Parse("01.01.1900", CultureInfo.InvariantCulture),
             Gender = Gender.Unknown,
-            FirstName = "",
-            LastName = "",
-            FullName = "Yukino Minato",
-            AlternativeNames = new List<string> { "雪野みなと" },
+            Names = new List<string> { "Yukino Minato", "雪野みなと" },
             Circles = new List<Circle> { circle },
             ExternalLinks = new List<ExternalLinkInfo>
             {
@@ -38,7 +35,7 @@ public static class DoujinCreator
                 new("https://noraneko-no-tama.com/")
             },
             Description = "artist",
-            Picture = new PictureInfo(new Uri("https://i.pximg.net/img-original/img/2022/09/16/19/13/43/101264803_p0.jpg")),
+            Pictures = new List<PictureInfo> { new(new Uri("https://i.pximg.net/img-original/img/2022/09/16/19/13/43/101264803_p0.jpg"))},
         };
 
         circle.Authors = new List<IAuthor> { author };
@@ -52,9 +49,7 @@ public static class DoujinCreator
         {
             Age = 10,
             Gender = Gender.Female,
-            FirstName = "FName",
-            LastName = "LName",
-            AlternativeNames = new List<string> { "AName" }
+            Names = new List<string> { "FName", "LName", "AName" }
         };
 
         var externalLink = new ExternalLinkInfo("https://twitter.com/straycat_2018/status/1579417563091849217")
@@ -75,8 +70,7 @@ public static class DoujinCreator
         
         var doujinshi = new Doujinshi()
         {
-            Title = "Totsuki tooka",
-            AlternativeTitles = new List<TitleInfo> { new("ja-JP::とつきとおか") },
+            Titles = new List<TitleInfo> { new("Totsuki tooka"), new("ja-JP::とつきとおか") },
             PublishStarted = DateTime.Parse("08.04.2017", CultureInfo.InvariantCulture),
             PublishEnded = DateTime.Parse("08.04.2017", CultureInfo.InvariantCulture),
             AvailableAt = new List<ExternalLinkInfo> { new("https://t.co/YsyhsjRN1a"), new("https://t.co/Kyxl396wCp") },
@@ -94,7 +88,7 @@ public static class DoujinCreator
                 new("en-US", false)
             },
             IsColored = false,
-            Picture = new PictureInfo(new Uri("https://ebook-assets.dmm.co.jp/digital/e-book/b120ahit00706/b120ahit00706pl.jpg")),
+            Pictures = new List<PictureInfo> { new(new Uri("https://ebook-assets.dmm.co.jp/digital/e-book/b120ahit00706/b120ahit00706pl.jpg"))},
             // Tags = doujinTags
         };
 

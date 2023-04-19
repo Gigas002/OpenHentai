@@ -23,6 +23,7 @@ public class TitleInfo
     /// <param name="title">String in format, e.g. "ja-JP::ポプテピピック"</param>
     public TitleInfo(string title)
     {
+        // TODO: find out main title
         var titleCulture = title.Split("::");
         Title = titleCulture[1];
         // Invariant culture is selected by default, if lang not specified

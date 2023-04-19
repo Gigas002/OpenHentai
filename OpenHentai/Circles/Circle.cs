@@ -12,10 +12,7 @@ public class Circle : ICircle
     #region Interfaces implementation
 
     /// <inheritdoc />
-    public string Title { get; set; }
-    
-    /// <inheritdoc />
-    public IEnumerable<TitleInfo> AlternativeTitles { get; set; }
+    public IEnumerable<TitleInfo> Titles { get; set; }
     
     /// <inheritdoc />
     public IEnumerable<IAuthor> Authors { get; set; }
@@ -28,12 +25,5 @@ public class Circle : ICircle
     
     #endregion
     
-    #endregion
-
-    #region Methods
-
-    /// <inheritdoc />
-    public override string ToString() => Title;
-
     #endregion
 }

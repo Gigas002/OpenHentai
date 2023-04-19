@@ -10,14 +10,11 @@ namespace OpenHentai.Circles;
 public interface ICircle : IDatabaseEntry
 {
     /// <summary>
-    /// Title
+    /// Main title must be romanization of native title (e.g. Hepburn romanization for ja-JP)
+    /// Alternative titles can be any
+    /// e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
     /// </summary>
-    public string Title { get; set; }
-
-    /// <summary>
-    /// Alternative titles
-    /// </summary>
-    public IEnumerable<TitleInfo> AlternativeTitles { get; set; }
+    public IEnumerable<TitleInfo> Titles { get; set; }
 
     /// <summary>
     /// Related authors

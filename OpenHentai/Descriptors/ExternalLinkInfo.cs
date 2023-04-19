@@ -6,6 +6,7 @@ namespace OpenHentai.Descriptors;
 /// External links
 /// e.g.: pixiv:https://...
 /// </summary>
+// TODO: consider rework
 public class ExternalLinkInfo
 {
     #region Properties

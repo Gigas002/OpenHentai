@@ -4,6 +4,7 @@ namespace OpenHentai.Creatures;
 /// Related to <see cref="Gender"/>, e.g. Gender.Female + Genitals.Male = futanari
 /// Also, see <see cref="BodyType"/>
 /// </summary>
+[Obsolete("Use tags")]
 public enum Genitals
 {
     /// <summary>

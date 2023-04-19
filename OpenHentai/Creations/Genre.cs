@@ -5,6 +5,7 @@ namespace OpenHentai.Creations;
 /// For more specific info, use Theme tag;
 /// For Ecchi/Hentai diff use Rating tag
 /// </summary>
+[Obsolete("Use tags")]
 public enum Genre
 {
     /// <summary>

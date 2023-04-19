@@ -16,10 +16,5 @@ public interface ICharacter : ICreature
     /// </summary>
     public IDictionary<ICreation, CharacterRole> FeaturedIn { get; }
 
-    // /// <summary>
-    // /// Character's creators
-    // /// </summary>
-    // public IEnumerable<IAuthor> Authors { get; set; }
-    
     #endregion
 }

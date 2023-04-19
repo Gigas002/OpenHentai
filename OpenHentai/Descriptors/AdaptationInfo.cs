@@ -4,7 +4,7 @@ namespace OpenHentai.Descriptors;
 /// External adaptations of creation
 /// Since this is an external stuff, there should be as less information as possible
 /// </summary>
-// TODO: obsolete
+[Obsolete("Use tags (parody)")]
 public class AdaptationInfo
 {
     /// <summary>

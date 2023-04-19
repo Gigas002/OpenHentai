@@ -1,6 +1,7 @@
 using OpenHentai.Circles;
 using OpenHentai.Creations;
 using OpenHentai.Descriptors;
+using OpenHentai.Roles;
 
 namespace OpenHentai.Creatures;
 
@@ -10,14 +11,10 @@ namespace OpenHentai.Creatures;
 public interface IAuthor : ICreature
 {
     /// <summary>
-    /// Author name, e.g. Asanagi
+    /// Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)
+    /// Alternative names can be any
     /// </summary>
-    public string AuthorName { get; set; }
-    
-    /// <summary>
-    /// Alternative author names
-    /// </summary>
-    public IEnumerable<string> AlternativeAuthorNames { get; set; }
+    public IEnumerable<string> AuthorNames { get; set; }
     
     /// <summary>
     /// Author's circles
@@ -32,11 +29,5 @@ public interface IAuthor : ICreature
     /// <summary>
     /// Collection of author works
     /// </summary>
-    public IDictionary<ICreation, string> Creations { get; }
-    // public IEnumerable<ICreation> Creations { get; set; }
-
-    // /// <summary>
-    // /// Collection of author's characters
-    // /// </summary>
-    // public IEnumerable<ICharacter> Characters { get; set; }
+    public IDictionary<ICreation, AuthorRole> Creations { get; }
 }

@@ -5,6 +5,8 @@ namespace OpenHentai.Descriptors;
 /// </summary>
 public class PictureInfo : IMediaInfo
 {
+    // TODO: consider adding IsMain property
+    
     #region Properties
 
     /// <inheritdoc />

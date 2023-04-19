@@ -2,7 +2,7 @@ namespace OpenHentai.Creatures;
 
 /// <summary>
 /// Gender
-/// Related to <see cref="Genitals"/> and <see cref="BodyType"/>
+/// Use Tags (BodyType, Genitals) for specifying more detailed info
 /// </summary>
 public enum Gender
 {

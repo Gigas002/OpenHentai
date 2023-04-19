@@ -2,6 +2,7 @@ using OpenHentai.Circles;
 using OpenHentai.Creations;
 using OpenHentai.Descriptors;
 using OpenHentai.Relations;
+using OpenHentai.Roles;
 using OpenHentai.Tags;
 
 namespace OpenHentai.Creatures;
@@ -14,18 +15,10 @@ public class Author : IAuthor
     #region Interfaces implementation
 
     /// <inheritdoc />
-    public string FirstName { get; set; }
-    
-    /// <inheritdoc />
-    public string LastName { get; set; }
-    
-    /// <inheritdoc />
-    public string FullName { get; set; }
-    
-    /// <inheritdoc />
-    public IEnumerable<string> AlternativeNames { get; set; }
+    public IEnumerable<string> Names { get; set; }
 
     /// <inheritdoc />
+    // TODO: obsolete?
     public IEnumerable<string> AdditionalDetails { get; set; }
     
     /// <inheritdoc />
@@ -38,34 +31,26 @@ public class Author : IAuthor
     public int Age { get; set; }
 
     /// <inheritdoc />
-    public PictureInfo Picture { get; set; }
+    public IEnumerable<PictureInfo> Pictures { get; set; }
 
     /// <inheritdoc />
-    public string Species { get; set; }
-    
-    /// <inheritdoc />
     public Gender Gender { get; set; }
-    
-    // /// <inheritdoc />
-    // public BodyType BodyType { get; set; }
 
     /// <inheritdoc />
     public IEnumerable<ITag> Tags { get; set; }
-    
+
     /// <inheritdoc />
-    public string AuthorName { get; set; }
-    
-    /// <inheritdoc />
-    public IEnumerable<string> AlternativeAuthorNames { get; set; }
+    public IEnumerable<string> AuthorNames { get; set; }
 
     /// <inheritdoc />
     public IEnumerable<ICircle> Circles { get; set; }
 
     /// <inheritdoc />
+    // TODO: rework
     public IEnumerable<ExternalLinkInfo> ExternalLinks { get; set; }
     
     /// <inheritdoc />
-    public IDictionary<ICreation, string> Creations { get; init; }
+    public IDictionary<ICreation, AuthorRole> Creations { get; init; }
 
     /// <inheritdoc />
     public ulong Id { get; set; }
@@ -75,18 +60,8 @@ public class Author : IAuthor
 
     /// <inheritdoc />
     public IDictionary<ICreature, CreatureRelations> Relations { get; init; }
-    
-    /// <inheritdoc />
-    public Genitals Genitals { get; set; }
 
     #endregion
-
-    #endregion
-
-    #region Methods
-
-    /// <inheritdoc />
-    public override string ToString() => FullName;
 
     #endregion
 }

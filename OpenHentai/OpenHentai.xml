@@ -7,10 +7,7 @@
         <member name="T:OpenHentai.Circles.Circle">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Circles.Circle.Title">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Circles.Circle.AlternativeTitles">
+        <member name="P:OpenHentai.Circles.Circle.Titles">
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Circles.Circle.Authors">
@@ -22,22 +19,16 @@
         <member name="P:OpenHentai.Circles.Circle.Id">
             <inheritdoc />
         </member>
-        <member name="M:OpenHentai.Circles.Circle.ToString">
-            <inheritdoc />
-        </member>
         <member name="T:OpenHentai.Circles.ICircle">
             <summary>
             Author's circle
             </summary>
         </member>
-        <member name="P:OpenHentai.Circles.ICircle.Title">
+        <member name="P:OpenHentai.Circles.ICircle.Titles">
             <summary>
-            Title
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Circles.ICircle.AlternativeTitles">
-            <summary>
-            Alternative titles
+            Main title must be romanization of native title (e.g. Hepburn romanization for ja-JP)
+            Alternative titles can be any
+            e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
             </summary>
         </member>
         <member name="P:OpenHentai.Circles.ICircle.Authors">
@@ -88,10 +79,7 @@
         <member name="T:OpenHentai.Creations.Doujinshi">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Title">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.AlternativeTitles">
+        <member name="P:OpenHentai.Creations.Doujinshi.Titles">
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creations.Doujinshi.Authors">
@@ -112,9 +100,6 @@
         <member name="P:OpenHentai.Creations.Doujinshi.Relations">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.FeaturedAtEvents">
-            <inheritdoc />
-        </member>
         <member name="P:OpenHentai.Creations.Doujinshi.MemberOfCollections">
             <inheritdoc />
         </member>
@@ -127,22 +112,16 @@
         <member name="P:OpenHentai.Creations.Doujinshi.Tags">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Adaptations">
-            <inheritdoc />
-        </member>
         <member name="P:OpenHentai.Creations.Doujinshi.Languages">
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creations.Doujinshi.Rating">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Genres">
-            <inheritdoc />
-        </member>
         <member name="P:OpenHentai.Creations.Doujinshi.Status">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Picture">
+        <member name="P:OpenHentai.Creations.Doujinshi.Pictures">
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creations.Doujinshi.Length">
@@ -164,9 +143,6 @@
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creations.Doujinshi.CreationId">
-            <inheritdoc />
-        </member>
-        <member name="M:OpenHentai.Creations.Doujinshi.ToString">
             <inheritdoc />
         </member>
         <member name="T:OpenHentai.Creations.Genre">
@@ -306,15 +282,10 @@
             Creation, e.g. doujinshi, game, etc
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Title">
+        <member name="P:OpenHentai.Creations.ICreation.Titles">
             <summary>
-            Title
-            Must be romanization of native title (e.g. Hepburn romanization for ja-JP)
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creations.ICreation.AlternativeTitles">
-            <summary>
-            Alternative titles
+            Main title must be romanization of native title (e.g. Hepburn romanization for ja-JP)
+            Alternative titles can be any
             e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
             </summary>
         </member>
@@ -349,11 +320,6 @@
             Creation-Relation pair
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.FeaturedAtEvents">
-            <summary>
-            Featured at events, e.g. C99, C100, etc
-            </summary>
-        </member>
         <member name="P:OpenHentai.Creations.ICreation.MemberOfCollections">
             <summary>
             Member of collections
@@ -364,9 +330,9 @@
             Collection of characters
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Picture">
+        <member name="P:OpenHentai.Creations.ICreation.Pictures">
             <summary>
-            Preview image
+            Collection of related pictures, including preview image
             </summary>
         </member>
         <member name="P:OpenHentai.Creations.ICreation.CreationId">
@@ -384,11 +350,6 @@
             Age rating
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Genres">
-            <summary>
-            Collection of genres
-            </summary>
-        </member>
         <member name="P:OpenHentai.Creations.ICreation.Status">
             <summary>
             Publishing status
@@ -403,11 +364,6 @@
             <summary>
             Creation's tags
             e.g. franchise parody, themes, etc
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creations.ICreation.Adaptations">
-            <summary>
-            External adaptations of creation
             </summary>
         </member>
         <member name="T:OpenHentai.Creations.ICreationCollection">
@@ -484,16 +440,7 @@
         <member name="T:OpenHentai.Creatures.Author">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Creatures.Author.FirstName">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.LastName">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.FullName">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.AlternativeNames">
+        <member name="P:OpenHentai.Creatures.Author.Names">
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creatures.Author.AdditionalDetails">
@@ -508,10 +455,7 @@
         <member name="P:OpenHentai.Creatures.Author.Age">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Creatures.Author.Picture">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.Species">
+        <member name="P:OpenHentai.Creatures.Author.Pictures">
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creatures.Author.Gender">
@@ -520,10 +464,7 @@
         <member name="P:OpenHentai.Creatures.Author.Tags">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Creatures.Author.AuthorName">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.AlternativeAuthorNames">
+        <member name="P:OpenHentai.Creatures.Author.AuthorNames">
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creatures.Author.Circles">
@@ -542,12 +483,6 @@
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creatures.Author.Relations">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.Genitals">
-            <inheritdoc />
-        </member>
-        <member name="M:OpenHentai.Creatures.Author.ToString">
             <inheritdoc />
         </member>
         <member name="T:OpenHentai.Creatures.BodyType">
@@ -574,16 +509,7 @@
         <member name="T:OpenHentai.Creatures.Character">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Creatures.Character.FirstName">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.LastName">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.FullName">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.AlternativeNames">
+        <member name="P:OpenHentai.Creatures.Character.Names">
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creatures.Character.AdditionalDetails">
@@ -598,10 +524,7 @@
         <member name="P:OpenHentai.Creatures.Character.Age">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Creatures.Character.Picture">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.Species">
+        <member name="P:OpenHentai.Creatures.Character.Pictures">
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creatures.Character.Gender">
@@ -611,9 +534,6 @@
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creatures.Character.Relations">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.Genitals">
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creatures.Character.FeaturedIn">
@@ -628,7 +548,7 @@
         <member name="T:OpenHentai.Creatures.Gender">
             <summary>
             Gender
-            Related to <see cref="T:OpenHentai.Creatures.Genitals"/> and <see cref="T:OpenHentai.Creatures.BodyType"/>
+            Use Tags (BodyType, Genitals) for specifying more detailed info
             </summary>
         </member>
         <member name="F:OpenHentai.Creatures.Gender.Unknown">
@@ -687,14 +607,10 @@
             Author
             </summary>
         </member>
-        <member name="P:OpenHentai.Creatures.IAuthor.AuthorName">
+        <member name="P:OpenHentai.Creatures.IAuthor.AuthorNames">
             <summary>
-            Author name, e.g. Asanagi
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creatures.IAuthor.AlternativeAuthorNames">
-            <summary>
-            Alternative author names
+            Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)
+            Alternative names can be any
             </summary>
         </member>
         <member name="P:OpenHentai.Creatures.IAuthor.Circles">
@@ -727,24 +643,10 @@
             Creature
             </summary>
         </member>
-        <member name="P:OpenHentai.Creatures.ICreature.FirstName">
+        <member name="P:OpenHentai.Creatures.ICreature.Names">
             <summary>
-            First name
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creatures.ICreature.LastName">
-            <summary>
-            Last name
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creatures.ICreature.FullName">
-            <summary>
-            Full name
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creatures.ICreature.AlternativeNames">
-            <summary>
-            Alternative known or older names
+            Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)
+            Alternative names can be any
             </summary>
         </member>
         <member name="P:OpenHentai.Creatures.ICreature.AdditionalDetails">
@@ -767,14 +669,9 @@
             Creature's age, e.g. 500
             </summary>
         </member>
-        <member name="P:OpenHentai.Creatures.ICreature.Picture">
+        <member name="P:OpenHentai.Creatures.ICreature.Pictures">
             <summary>
-            Creature's picture
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creatures.ICreature.Species">
-            <summary>
-            Creature's species, e.g. human
+            Collection of related pictures
             </summary>
         </member>
         <member name="P:OpenHentai.Creatures.ICreature.Gender">
@@ -796,11 +693,6 @@
             <summary>
             Collection of related and alternative characters,
             Chara-Relation pair, e.g. "Admiral, alternative"
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creatures.ICreature.Genitals">
-            <summary>
-            Character's genitals
             </summary>
         </member>
         <member name="T:OpenHentai.Descriptors.AdaptationInfo">

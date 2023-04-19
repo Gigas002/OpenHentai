@@ -14,16 +14,11 @@ namespace OpenHentai.Creations;
 public interface ICreation : IDatabaseEntry
 {
     /// <summary>
-    /// Title
-    /// Must be romanization of native title (e.g. Hepburn romanization for ja-JP)
-    /// </summary>
-    public string Title { get; set; }
-
-    /// <summary>
-    /// Alternative titles
+    /// Main title must be romanization of native title (e.g. Hepburn romanization for ja-JP)
+    /// Alternative titles can be any
     /// e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
     /// </summary>
-    public IEnumerable<TitleInfo> AlternativeTitles { get; set; }
+    public IEnumerable<TitleInfo> Titles { get; set; }
     
     /// <summary>
     /// Authors
@@ -59,7 +54,7 @@ public interface ICreation : IDatabaseEntry
     /// <summary>
     /// Featured at events, e.g. C99, C100, etc
     /// </summary>
-    public IEnumerable<IEvent> FeaturedAtEvents { get; set; }
+    // public IEnumerable<IEvent> FeaturedAtEvents { get; set; }
     
     /// <summary>
     /// Member of collections
@@ -72,9 +67,9 @@ public interface ICreation : IDatabaseEntry
     public IDictionary<ICharacter, CharacterRole> Characters { get; init; }
 
     /// <summary>
-    /// Preview image
+    /// Collection of related pictures, including preview image
     /// </summary>
-    public PictureInfo Picture { get; set; }
+    public IEnumerable<PictureInfo> Pictures { get; set; }
 
     /// <summary>
     /// Creation id in db
@@ -92,11 +87,6 @@ public interface ICreation : IDatabaseEntry
     public Rating Rating { get; set; }
     
     /// <summary>
-    /// Collection of genres
-    /// </summary>
-    public IEnumerable<Genre> Genres { get; set; }
-    
-    /// <summary>
     /// Publishing status
     /// </summary>
     public PublishStatus Status { get; set; }
@@ -111,9 +101,4 @@ public interface ICreation : IDatabaseEntry
     /// e.g. franchise parody, themes, etc
     /// </summary>
     public IEnumerable<ITag> Tags { get; set; }
-
-    /// <summary>
-    /// External adaptations of creation
-    /// </summary>
-    public IEnumerable<AdaptationInfo> Adaptations { get; set; }
 }
