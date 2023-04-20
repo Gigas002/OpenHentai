@@ -6,7 +6,6 @@ namespace OpenHentai.Descriptors;
 /// External links
 /// e.g.: pixiv:https://...
 /// </summary>
-// TODO: consider rework
 public class ExternalLinkInfo
 {
     #region Properties
@@ -44,11 +43,8 @@ public class ExternalLinkInfo
     /// Create new link
     /// </summary>
     /// <param name="link">Link</param>
-    public ExternalLinkInfo(string link)
-    {
-        Link = new Uri(link);
-    }
-    
+    public ExternalLinkInfo(string link) => Link = new Uri(link);
+
     #endregion
 
     #region Methods

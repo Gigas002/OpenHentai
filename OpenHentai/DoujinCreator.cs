@@ -18,8 +18,7 @@ public static class DoujinCreator
     {
         var circle = new Circle
         {
-            // TODO: will throw on runtime because no language specified
-            Titles = new List<TitleInfo> {new("Noraneko no Tama"), new("en-US::noranekonotama"), new("ja-JP::ノラネコノタマ") }
+            Titles = new List<TitleInfo> {new("default::Noraneko no Tama"), new("en-US::noranekonotama"), new("ja-JP::ノラネコノタマ") }
         };
         
         var author = new Author
@@ -70,7 +69,7 @@ public static class DoujinCreator
         
         var doujinshi = new Doujinshi()
         {
-            Titles = new List<TitleInfo> { new("Totsuki tooka"), new("ja-JP::とつきとおか") },
+            Titles = new List<TitleInfo> { new("default::Totsuki tooka"), new("ja-JP::とつきとおか") },
             PublishStarted = DateTime.Parse("08.04.2017", CultureInfo.InvariantCulture),
             PublishEnded = DateTime.Parse("08.04.2017", CultureInfo.InvariantCulture),
             AvailableAt = new List<ExternalLinkInfo> { new("https://t.co/YsyhsjRN1a"), new("https://t.co/Kyxl396wCp") },

@@ -46,7 +46,6 @@ public class Author : IAuthor
     public IEnumerable<ICircle> Circles { get; set; }
 
     /// <inheritdoc />
-    // TODO: rework
     public IEnumerable<ExternalLinkInfo> ExternalLinks { get; set; }
     
     /// <inheritdoc />

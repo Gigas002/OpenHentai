@@ -28,7 +28,7 @@ public class Doujinshi : IDoujinshi
     public DateTime PublishEnded { get; set; }
 
     /// <inheritdoc />
-    // TODO: rework
+    // TODO: rename
     public IEnumerable<ExternalLinkInfo> AvailableAt { get; set; }
 
     /// <inheritdoc />
@@ -38,7 +38,6 @@ public class Doujinshi : IDoujinshi
     public IDictionary<ICreation, CreationRelations> Relations { get; init; }
     
     // /// <inheritdoc />
-    // TODO: events
     // public IEnumerable<IEvent> FeaturedAtEvents { get; set; }
     
     /// <inheritdoc />
