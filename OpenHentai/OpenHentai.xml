@@ -803,6 +803,21 @@
             Media's bytes, e.g read from stream
             </summary>
         </member>
+        <member name="T:OpenHentai.Descriptors.LocalizableTextInfo">
+            <summary>
+            Localizable text in db's jsons (not indexed)
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.LocalizableTextInfo.Language">
+            <summary>
+            Text language
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.LocalizableTextInfo.Text">
+            <summary>
+            Text
+            </summary>
+        </member>
         <member name="T:OpenHentai.Descriptors.PictureInfo">
             <summary>
             Picture info
