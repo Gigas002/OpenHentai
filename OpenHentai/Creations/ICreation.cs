@@ -94,7 +94,7 @@ public interface ICreation : IDatabaseEntry
     /// <summary>
     /// Censorship type
     /// </summary>
-    public Censorship Censorship { get; set; }
+    public IEnumerable<CensorshipInfo> Censorship { get; set; }
 
     /// <summary>
     /// Creation's tags

@@ -3,7 +3,6 @@ namespace OpenHentai.Creations;
 /// <summary>
 /// Censorship type
 /// </summary>
-[Obsolete("Use CensorshipInfo")]
 public enum Censorship
 {
     /// <summary>

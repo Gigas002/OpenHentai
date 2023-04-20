@@ -711,6 +711,21 @@
             Adaptation link
             </summary>
         </member>
+        <member name="T:OpenHentai.Descriptors.CensorshipInfo">
+            <summary>
+            Information about censorship in creation
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.CensorshipInfo.Censorship">
+            <summary>
+            Censorship type
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.CensorshipInfo.IsOfficial">
+            <summary>
+            Is this kind of censorship official?
+            </summary>
+        </member>
         <member name="T:OpenHentai.Descriptors.ColoredInfo">
             <summary>
             Used for manga-like objects that can be bw or colored

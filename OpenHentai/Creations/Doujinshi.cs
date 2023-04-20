@@ -49,8 +49,7 @@ public class Doujinshi : IDoujinshi
     public IDictionary<ICharacter, CharacterRole> Characters { get; init; }
 
     /// <inheritdoc />
-    // TODO: CensorshipInfo
-    public Censorship Censorship { get; set; }
+    public IEnumerable<CensorshipInfo> Censorship { get; set; }
 
     /// <inheritdoc />
     public IEnumerable<ITag> Tags { get; set; }
