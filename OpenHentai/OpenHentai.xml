@@ -742,6 +742,16 @@
             Is creation colored officialy?
             </summary>
         </member>
+        <member name="T:OpenHentai.Descriptors.DescriptionInfo">
+            <summary>
+            Standard for json in non-indexed, localizable descriptions
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.DescriptionInfo.Text">
+            <summary>
+            Description's text
+            </summary>
+        </member>
         <member name="T:OpenHentai.Descriptors.ExternalLinkInfo">
             <summary>
             External links
