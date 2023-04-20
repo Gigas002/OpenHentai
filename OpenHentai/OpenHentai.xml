@@ -739,7 +739,7 @@
         </member>
         <member name="P:OpenHentai.Descriptors.ColoredInfo.IsOfficial">
             <summary>
-            Is cration colored officialy?
+            Is creation colored officialy?
             </summary>
         </member>
         <member name="T:OpenHentai.Descriptors.ExternalLinkInfo">

@@ -11,16 +11,16 @@ namespace OpenHentai.Descriptors;
 // creations_colors
 // creation_id is_colored is_official
 
-// TODO: consider writing enum, containing bw, rgb, rgba values
 public class ColoredInfo
 {
     /// <summary>
     /// Is creation colored?
     /// </summary>
+    // No need in enum, since it's either bw, either colored
     public bool IsColored { get; set; }
 
     /// <summary>
-    /// Is cration colored officialy?
+    /// Is creation colored officialy?
     /// </summary>
     public bool IsOfficial { get; set; }
 }
