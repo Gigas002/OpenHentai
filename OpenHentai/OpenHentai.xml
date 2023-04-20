@@ -752,6 +752,31 @@
             Description's text
             </summary>
         </member>
+        <member name="T:OpenHentai.Descriptors.EventEntryInfo">
+            <summary>
+            Information about event's entry
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.EventEntryInfo.Author">
+            <summary>
+            Author
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.EventEntryInfo.Creations">
+            <summary>
+            Sold creations
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.EventEntryInfo.Dates">
+            <summary>
+            Was on event during dates
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.EventEntryInfo.Place">
+            <summary>
+            Which place on map this autor reside
+            </summary>
+        </member>
         <member name="T:OpenHentai.Descriptors.ExternalLinkInfo">
             <summary>
             External links
@@ -907,12 +932,31 @@
         <member name="T:OpenHentai.Events.IEvent">
             <summary>
             IRL event, e.g. comiket, comic1, etc
-            TODO: complete IEvent interface
             </summary>
         </member>
-        <member name="P:OpenHentai.Events.IEvent.Title">
+        <member name="P:OpenHentai.Events.IEvent.Titles">
             <summary>
-            Title
+            Event's known titles
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Events.IEvent.Dates">
+            <summary>
+            Event's dates
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Events.IEvent.Description">
+            <summary>
+            Event's description
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Events.IEvent.Address">
+            <summary>
+            Event's address
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Events.IEvent.Entries">
+            <summary>
+            Event's entries
             </summary>
         </member>
         <member name="T:OpenHentai.IDatabaseEntry">
