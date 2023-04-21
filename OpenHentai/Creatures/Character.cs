@@ -42,8 +42,7 @@ public class Character : ICharacter
     public IDictionary<ICreature, CreatureRelations> Relations { get; init; }
 
     /// <inheritdoc />
-    // TODO: slightly rework
-    public IDictionary<ICreation, CharacterRole> FeaturedIn { get; init; }
+    public IDictionary<ICreation, CharacterRole> InCreations { get; init; }
     
     /// <inheritdoc />
     public ulong Id { get; set; }

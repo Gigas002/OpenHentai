@@ -14,7 +14,7 @@ public interface ICharacter : ICreature
     /// <summary>
     /// Collection of creations, that has this character
     /// </summary>
-    public IDictionary<ICreation, CharacterRole> FeaturedIn { get; }
+    public IDictionary<ICreation, CharacterRole> InCreations { get; }
 
     #endregion
 }

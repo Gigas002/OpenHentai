@@ -536,7 +536,7 @@
         <member name="P:OpenHentai.Creatures.Character.Relations">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Creatures.Character.FeaturedIn">
+        <member name="P:OpenHentai.Creatures.Character.InCreations">
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creatures.Character.Id">
@@ -633,7 +633,7 @@
             Character
             </summary>
         </member>
-        <member name="P:OpenHentai.Creatures.ICharacter.FeaturedIn">
+        <member name="P:OpenHentai.Creatures.ICharacter.InCreations">
             <summary>
             Collection of creations, that has this character
             </summary>
