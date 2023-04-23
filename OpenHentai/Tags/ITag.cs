@@ -1,3 +1,5 @@
+using OpenHentai.Descriptors;
+
 namespace OpenHentai.Tags;
 
 /*
@@ -89,13 +91,7 @@ public interface ITag : IDatabaseEntry
     /// Tag description
     /// e.g. This tag resides for mitsudomoe franchise
     /// </summary>
-    public string Description { get; set; }
-    
-    /// <summary>
-    /// Additional info, related to tag
-    /// e.g. link to mal: https://myanimelist.net/anime/7627
-    /// </summary>
-    public string AdditionalInfo { get; set; }
+    public DescriptionInfo Description { get; set; }
 
     #endregion
 

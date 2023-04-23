@@ -1212,12 +1212,6 @@
             e.g. This tag resides for mitsudomoe franchise
             </summary>
         </member>
-        <member name="P:OpenHentai.Tags.ITag.AdditionalInfo">
-            <summary>
-            Additional info, related to tag
-            e.g. link to mal: https://myanimelist.net/anime/7627
-            </summary>
-        </member>
         <member name="T:OpenHentai.Tags.TagCategory">
             <summary>
             Available tag categories

@@ -18,4 +18,11 @@ public class LocalizableTextInfo
     /// Text
     /// </summary>
     public string Text { get; set; }
+
+    public LocalizableTextInfo(string formatedText)
+    {
+        // TODO: parse it here and set props
+    }
+
+    public LocalizableTextInfo(CultureInfo language, string text) => (Language, Text) = (language, text);
 }

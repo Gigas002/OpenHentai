@@ -43,7 +43,7 @@ public interface ICreation : IDatabaseEntry
     /// <summary>
     /// Description
     /// </summary>
-    public string Description { get; set; }
+    public DescriptionInfo Description { get; set; }
     
     /// <summary>
     /// Collection of related creations

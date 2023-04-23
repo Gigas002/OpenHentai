@@ -18,7 +18,7 @@ public interface ICreature : IDatabaseEntry
     /// <summary>
     /// Description, e.g. this person is a dick
     /// </summary>
-    public string Description { get; set; }
+    public DescriptionInfo Description { get; set; }
 
     /// <summary>
     /// Creature's birthday, e.g. 01.01.1922

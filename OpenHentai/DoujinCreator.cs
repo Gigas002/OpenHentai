@@ -33,7 +33,7 @@ public static class DoujinCreator
                 new("https://fantia.jp/fanclubs/493"), new("https://noraneko-no-tama.fanbox.cc/"),
                 new("https://noraneko-no-tama.com/")
             },
-            Description = "artist",
+            Description = new DescriptionInfo("artist"),
             Pictures = new List<PictureInfo> { new(new Uri("https://i.pximg.net/img-original/img/2022/09/16/19/13/43/101264803_p0.jpg"))},
         };
 
@@ -66,6 +66,13 @@ public static class DoujinCreator
         //     new EnumTag<Rating>(Rating.R18),
         //     new EnumTag<PublishStatus>(PublishStatus.Published)
         // };
+
+        var description = """
+                    ロリ系大人気サークル「ノラネコノタマ」単行本シリーズ待望の第2弾!! 同級生の兄に初めてを奪われた少女。
+                    幼い子宮に幾度も幾度も精液を流し込まれ　やがてふくらみ始めた小さなお腹・・・もう引き返せない十月十日の時間が始まる。
+                    約100ページにも及ぶ大量の加筆修正!! そして新作描き下ろし!! 目の前で怯える少女を壊れるまで嬲るのか…
+                    それとも優しく愛でるのか・・・!?その瞳はただすがるように男を見つめている──…。
+        """;
         
         var doujinshi = new Doujinshi()
         {
@@ -73,7 +80,7 @@ public static class DoujinCreator
             PublishStarted = DateTime.Parse("08.04.2017", CultureInfo.InvariantCulture),
             PublishEnded = DateTime.Parse("08.04.2017", CultureInfo.InvariantCulture),
             AvailableAt = new List<ExternalLinkInfo> { new("https://t.co/YsyhsjRN1a"), new("https://t.co/Kyxl396wCp") },
-            Description = "ロリ系大人気サークル「ノラネコノタマ」単行本シリーズ待望の第2弾!! 同級生の兄に初めてを奪われた少女。幼い子宮に幾度も幾度も精液を流し込まれ　やがてふくらみ始めた小さなお腹・・・もう引き返せない十月十日の時間が始まる。約100ページにも及ぶ大量の加筆修正!! そして新作描き下ろし!! 目の前で怯える少女を壊れるまで嬲るのか…それとも優しく愛でるのか・・・!?その瞳はただすがるように男を見つめている──…。",
+            Description = new DescriptionInfo(description),
             Characters = new Dictionary<ICharacter, CharacterRole>
             {
                 { character, CharacterRole.Main }

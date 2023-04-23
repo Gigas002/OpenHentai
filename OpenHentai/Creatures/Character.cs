@@ -17,7 +17,7 @@ public class Character : ICharacter
     public IEnumerable<string> Names { get; set; }
 
     /// <inheritdoc />
-    public string Description { get; set; }
+    public DescriptionInfo Description { get; set; }
 
     /// <inheritdoc />
     public DateTime Birthday { get; set; }

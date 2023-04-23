@@ -32,7 +32,7 @@ public class Doujinshi : IDoujinshi
     public IEnumerable<ExternalLinkInfo> AvailableAt { get; set; }
 
     /// <inheritdoc />
-    public string Description { get; set; }
+    public DescriptionInfo Description { get; set; }
 
     /// <inheritdoc />
     public IDictionary<ICreation, CreationRelations> Relations { get; init; }
