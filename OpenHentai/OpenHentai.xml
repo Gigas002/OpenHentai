@@ -881,7 +881,8 @@
         </member>
         <member name="T:OpenHentai.Descriptors.LanguageSpecificTextInfo">
             <summary>
-            Class for describing strings with language info
+            Class for describing strings with language info,
+            including localizable text
             </summary>
         </member>
         <member name="P:OpenHentai.Descriptors.LanguageSpecificTextInfo.Language">
@@ -892,21 +893,6 @@
         <member name="P:OpenHentai.Descriptors.LanguageSpecificTextInfo.Text">
             <summary>
             Text on chosen language
-            </summary>
-        </member>
-        <member name="T:OpenHentai.Descriptors.LocalizableTextInfo">
-            <summary>
-            Localizable text in db's jsons (not indexed)
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Descriptors.LocalizableTextInfo.Language">
-            <summary>
-            Text language
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Descriptors.LocalizableTextInfo.Text">
-            <summary>
-            Text
             </summary>
         </member>
         <member name="T:OpenHentai.Descriptors.PictureInfo">

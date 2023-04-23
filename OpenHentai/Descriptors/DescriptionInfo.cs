@@ -9,15 +9,15 @@ public class DescriptionInfo
     /// <summary>
     /// Description's text
     /// </summary>
-    public IEnumerable<LocalizableTextInfo> Text { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo> Text { get; set; }
 
     public DescriptionInfo(string descriptionLine)
     {
-        Text = new[] { new LocalizableTextInfo(descriptionLine) };
+        Text = new[] { new LanguageSpecificTextInfo(descriptionLine) };
     }
 
     public DescriptionInfo(IEnumerable<string> description)
     {
-        Text = description.Select(line => new LocalizableTextInfo(line));
+        Text = description.Select(line => new LanguageSpecificTextInfo(line));
     }
 }

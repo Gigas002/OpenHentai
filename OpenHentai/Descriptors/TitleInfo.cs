@@ -5,6 +5,7 @@ namespace OpenHentai.Descriptors;
 /// <summary>
 /// Describes alternative title's laguages
 /// </summary>
+[Obsolete("Use LanguageSpecificTextInfo")]
 public class TitleInfo
 {
     /// <summary>
