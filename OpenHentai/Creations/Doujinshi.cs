@@ -52,7 +52,6 @@ public class Doujinshi : IDoujinshi
     public IEnumerable<ITag> Tags { get; set; }
 
     /// <inheritdoc />
-    // TODO: slightly change
     public IEnumerable<LanguageInfo> Languages { get; set; }
     
     /// <inheritdoc />
