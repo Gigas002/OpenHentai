@@ -14,10 +14,9 @@ namespace OpenHentai.Descriptors;
 public class ColoredInfo
 {
     /// <summary>
-    /// Is creation colored?
+    /// Creation's color info
     /// </summary>
-    // No need in enum, since it's either bw, either colored
-    public bool IsColored { get; set; }
+    public Color Color { get; set; }
 
     /// <summary>
     /// Is creation colored officialy?

@@ -726,15 +726,40 @@
             Is this kind of censorship official?
             </summary>
         </member>
+        <member name="T:OpenHentai.Descriptors.Color">
+            <summary>
+            Controls if creation is colored or not
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Descriptors.Color.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Descriptors.Color.BlackWhite">
+            <summary>
+            Typical black and white manga
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Descriptors.Color.Colored">
+            <summary>
+            Colorized
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Descriptors.Color.Mixed">
+            <summary>
+            Has at 40%+ colored
+            </summary>
+        </member>
         <member name="T:OpenHentai.Descriptors.ColoredInfo">
             <summary>
             Used for manga-like objects that can be bw or colored
             IBook object should have this property as collection
             </summary>
         </member>
-        <member name="P:OpenHentai.Descriptors.ColoredInfo.IsColored">
+        <member name="P:OpenHentai.Descriptors.ColoredInfo.Color">
             <summary>
-            Is creation colored?
+            Creation's color info
             </summary>
         </member>
         <member name="P:OpenHentai.Descriptors.ColoredInfo.IsOfficial">

@@ -86,7 +86,7 @@ public static class DoujinCreator
                 new("ja-JP"),
                 new("en-US", false)
             },
-            ColoredInfo = new List<ColoredInfo> {new() {IsColored = false, IsOfficial = true}},
+            ColoredInfo = new List<ColoredInfo> {new() {Color = Color.BlackWhite, IsOfficial = true}},
             Pictures = new List<PictureInfo> { new(new Uri("https://ebook-assets.dmm.co.jp/digital/e-book/b120ahit00706/b120ahit00706pl.jpg"))},
             // Tags = doujinTags
         };
