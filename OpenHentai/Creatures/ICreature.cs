@@ -16,11 +16,6 @@ public interface ICreature : IDatabaseEntry
     public IEnumerable<string> Names { get; set; }
 
     /// <summary>
-    /// Additional details, e.g. hobby:..., three sizes:...
-    /// </summary>
-    public IEnumerable<string> AdditionalDetails { get; set; }
-
-    /// <summary>
     /// Description, e.g. this person is a dick
     /// </summary>
     public string Description { get; set; }

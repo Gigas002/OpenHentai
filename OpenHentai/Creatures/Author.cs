@@ -18,10 +18,6 @@ public class Author : IAuthor
     public IEnumerable<string> Names { get; set; }
 
     /// <inheritdoc />
-    // TODO: obsolete?
-    public IEnumerable<string> AdditionalDetails { get; set; }
-    
-    /// <inheritdoc />
     public string Description { get; set; }
 
     /// <inheritdoc />
