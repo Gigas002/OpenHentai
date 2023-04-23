@@ -38,7 +38,7 @@ public interface ICreation : IDatabaseEntry
     /// <summary>
     /// Available to purchase/read/etc at
     /// </summary>
-    public IEnumerable<ExternalLinkInfo> AvailableAt { get; set; }
+    public IEnumerable<ExternalLinkInfo> Sources { get; set; }
 
     /// <summary>
     /// Description

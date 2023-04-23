@@ -91,7 +91,7 @@
         <member name="P:OpenHentai.Creations.Doujinshi.PublishEnded">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.AvailableAt">
+        <member name="P:OpenHentai.Creations.Doujinshi.Sources">
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creations.Doujinshi.Description">
@@ -304,7 +304,7 @@
             Estimate date of final release of this creation
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.AvailableAt">
+        <member name="P:OpenHentai.Creations.ICreation.Sources">
             <summary>
             Available to purchase/read/etc at
             </summary>

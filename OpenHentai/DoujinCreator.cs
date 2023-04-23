@@ -79,7 +79,7 @@ public static class DoujinCreator
             Titles = new List<TitleInfo> { new("default::Totsuki tooka"), new("ja-JP::とつきとおか") },
             PublishStarted = DateTime.Parse("08.04.2017", CultureInfo.InvariantCulture),
             PublishEnded = DateTime.Parse("08.04.2017", CultureInfo.InvariantCulture),
-            AvailableAt = new List<ExternalLinkInfo> { new("https://t.co/YsyhsjRN1a"), new("https://t.co/Kyxl396wCp") },
+            Sources = new List<ExternalLinkInfo> { new("https://t.co/YsyhsjRN1a"), new("https://t.co/Kyxl396wCp") },
             Description = new DescriptionInfo(description),
             Characters = new Dictionary<ICharacter, CharacterRole>
             {

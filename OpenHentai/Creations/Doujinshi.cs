@@ -28,8 +28,7 @@ public class Doujinshi : IDoujinshi
     public DateTime PublishEnded { get; set; }
 
     /// <inheritdoc />
-    // TODO: rename
-    public IEnumerable<ExternalLinkInfo> AvailableAt { get; set; }
+    public IEnumerable<ExternalLinkInfo> Sources { get; set; }
 
     /// <inheritdoc />
     public DescriptionInfo Description { get; set; }
