@@ -879,6 +879,21 @@
         <member name="M:OpenHentai.Descriptors.LanguageInfo.ToString">
             <inheritdoc />
         </member>
+        <member name="T:OpenHentai.Descriptors.LanguageSpecificTextInfo">
+            <summary>
+            Class for describing strings with language info
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.LanguageSpecificTextInfo.Language">
+            <summary>
+            Text language
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.LanguageSpecificTextInfo.Text">
+            <summary>
+            Text on chosen language
+            </summary>
+        </member>
         <member name="T:OpenHentai.Descriptors.LocalizableTextInfo">
             <summary>
             Localizable text in db's jsons (not indexed)
