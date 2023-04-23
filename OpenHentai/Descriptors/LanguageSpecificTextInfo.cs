@@ -17,10 +17,14 @@ public class LanguageSpecificTextInfo
     /// Text on chosen language
     /// </summary>
     public string Text { get; set; }
-    
+
     public LanguageSpecificTextInfo(string formatedText)
     {
-        // TODO: parse it here and set props
+        var textLanguage = formatedText.Split("::");
+        Text = textLanguage[1];
+        // Invariant culture is selected by default, if lang not specified
+        Language = textLanguage[0] == "default" || textLanguage.Length < 1 ?
+            null : new CultureInfo(textLanguage[0]);
     }
 
     public LanguageSpecificTextInfo(CultureInfo language, string text) => (Language, Text) = (language, text);

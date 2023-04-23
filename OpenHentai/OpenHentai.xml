@@ -915,30 +915,6 @@
             </summary>
             <param name="uri">Source link</param>
         </member>
-        <member name="T:OpenHentai.Descriptors.TitleInfo">
-            <summary>
-            Describes alternative title's laguages
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Descriptors.TitleInfo.Title">
-            <summary>
-            Title value
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Descriptors.TitleInfo.Language">
-            <summary>
-            Title language
-            </summary>
-        </member>
-        <member name="M:OpenHentai.Descriptors.TitleInfo.#ctor(System.String)">
-            <summary>
-            Create a new title
-            </summary>
-            <param name="title">String in format, e.g. "ja-JP::ポプテピピック"</param>
-        </member>
-        <member name="M:OpenHentai.Descriptors.TitleInfo.ToString">
-            <inheritdoc />
-        </member>
         <member name="T:OpenHentai.DoujinCreator">
             <summary>
             ONLY FOR TESTING PURPOSES
