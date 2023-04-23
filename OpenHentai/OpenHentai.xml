@@ -76,6 +76,31 @@
             Something different
             </summary>
         </member>
+        <member name="T:OpenHentai.Creations.Color">
+            <summary>
+            Controls if creation is colored or not
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Color.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Color.BlackWhite">
+            <summary>
+            Typical black and white manga
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Color.Colored">
+            <summary>
+            Colorized
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Creations.Color.Mixed">
+            <summary>
+            Has at 40%+ colored
+            </summary>
+        </member>
         <member name="T:OpenHentai.Creations.Doujinshi">
             <inheritdoc />
         </member>
@@ -543,31 +568,6 @@
         <member name="P:OpenHentai.Descriptors.CensorshipInfo.IsOfficial">
             <summary>
             Is this kind of censorship official?
-            </summary>
-        </member>
-        <member name="T:OpenHentai.Descriptors.Color">
-            <summary>
-            Controls if creation is colored or not
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Descriptors.Color.Unknown">
-            <summary>
-            Unknown
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Descriptors.Color.BlackWhite">
-            <summary>
-            Typical black and white manga
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Descriptors.Color.Colored">
-            <summary>
-            Colorized
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Descriptors.Color.Mixed">
-            <summary>
-            Has at 40%+ colored
             </summary>
         </member>
         <member name="T:OpenHentai.Descriptors.ColoredInfo">

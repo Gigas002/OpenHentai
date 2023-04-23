@@ -1,3 +1,5 @@
+using OpenHentai.Creations;
+
 namespace OpenHentai.Descriptors;
 
 /// <summary>
