@@ -53,7 +53,7 @@ public class Doujinshi : IDoujinshi
 
     /// <inheritdoc />
     // TODO: slightly change
-    public IEnumerable<TranslationInfo> Languages { get; set; }
+    public IEnumerable<LanguageInfo> Languages { get; set; }
     
     /// <inheritdoc />
     public Rating Rating { get; set; }

@@ -88,7 +88,7 @@ public static class DoujinCreator
             Length = 196,
             Volumes = 1,
             Chapters = 5,
-            Languages = new List<TranslationInfo>
+            Languages = new List<LanguageInfo>
             {
                 new("ja-JP"),
                 new("en-US", false)

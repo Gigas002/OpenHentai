@@ -7,7 +7,7 @@ namespace OpenHentai.Descriptors;
 /// see: https://learn.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo?view=net-7.0
 /// also: https://support.microsoft.com/en-us/topic/country-region-and-language-codes-add36afe-804a-44f1-ae68-cfb9c9b72f8b
 /// </summary>
-public class TranslationInfo
+public class LanguageInfo
 {
     /// <summary>
     /// Language
@@ -24,7 +24,7 @@ public class TranslationInfo
     /// </summary>
     /// <param name="culture">Culture, e.g. "en-US"</param>
     /// <param name="isOfficial">Is translation official?</param>
-    public TranslationInfo(string culture, bool isOfficial = true)
+    public LanguageInfo(string culture, bool isOfficial = true)
     {
         Language = new CultureInfo(culture);
         IsOfficial = isOfficial;

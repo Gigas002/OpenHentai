@@ -79,7 +79,7 @@ public interface ICreation : IDatabaseEntry
     /// <summary>
     /// Available on languages
     /// </summary>
-    public IEnumerable<TranslationInfo> Languages { get; set; }
+    public IEnumerable<LanguageInfo> Languages { get; set; }
     
     /// <summary>
     /// Age rating

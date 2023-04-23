@@ -852,6 +852,33 @@
             Media's bytes, e.g read from stream
             </summary>
         </member>
+        <member name="T:OpenHentai.Descriptors.LanguageInfo">
+            <summary>
+            Information about translation
+            see: https://learn.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo?view=net-7.0
+            also: https://support.microsoft.com/en-us/topic/country-region-and-language-codes-add36afe-804a-44f1-ae68-cfb9c9b72f8b
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.LanguageInfo.Language">
+            <summary>
+            Language
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Descriptors.LanguageInfo.IsOfficial">
+            <summary>
+            Is official?
+            </summary>
+        </member>
+        <member name="M:OpenHentai.Descriptors.LanguageInfo.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initialize new translation info
+            </summary>
+            <param name="culture">Culture, e.g. "en-US"</param>
+            <param name="isOfficial">Is translation official?</param>
+        </member>
+        <member name="M:OpenHentai.Descriptors.LanguageInfo.ToString">
+            <inheritdoc />
+        </member>
         <member name="T:OpenHentai.Descriptors.LocalizableTextInfo">
             <summary>
             Localizable text in db's jsons (not indexed)
@@ -909,33 +936,6 @@
             <param name="title">String in format, e.g. "ja-JP::ポプテピピック"</param>
         </member>
         <member name="M:OpenHentai.Descriptors.TitleInfo.ToString">
-            <inheritdoc />
-        </member>
-        <member name="T:OpenHentai.Descriptors.TranslationInfo">
-            <summary>
-            Information about translation
-            see: https://learn.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo?view=net-7.0
-            also: https://support.microsoft.com/en-us/topic/country-region-and-language-codes-add36afe-804a-44f1-ae68-cfb9c9b72f8b
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Descriptors.TranslationInfo.Language">
-            <summary>
-            Language
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Descriptors.TranslationInfo.IsOfficial">
-            <summary>
-            Is official?
-            </summary>
-        </member>
-        <member name="M:OpenHentai.Descriptors.TranslationInfo.#ctor(System.String,System.Boolean)">
-            <summary>
-            Initialize new translation info
-            </summary>
-            <param name="culture">Culture, e.g. "en-US"</param>
-            <param name="isOfficial">Is translation official?</param>
-        </member>
-        <member name="M:OpenHentai.Descriptors.TranslationInfo.ToString">
             <inheritdoc />
         </member>
         <member name="T:OpenHentai.DoujinCreator">
