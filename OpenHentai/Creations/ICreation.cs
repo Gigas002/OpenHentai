@@ -59,7 +59,7 @@ public interface ICreation : IDatabaseEntry
     /// <summary>
     /// Member of collections
     /// </summary>
-    public IEnumerable<ICreationCollection> MemberOfCollections { get; set; }
+    public IEnumerable<ICreationCollection> Collections { get; set; }
 
     /// <summary>
     /// Collection of characters

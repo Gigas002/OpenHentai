@@ -40,8 +40,7 @@ public class Doujinshi : IDoujinshi
     // public IEnumerable<IEvent> FeaturedAtEvents { get; set; }
     
     /// <inheritdoc />
-    // TODO: consider rework
-    public IEnumerable<ICreationCollection> MemberOfCollections { get; set; }
+    public IEnumerable<ICreationCollection> Collections { get; set; }
     
     /// <inheritdoc />
     public IDictionary<ICharacter, CharacterRole> Characters { get; init; }

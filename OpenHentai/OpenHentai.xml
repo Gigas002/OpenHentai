@@ -100,7 +100,7 @@
         <member name="P:OpenHentai.Creations.Doujinshi.Relations">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.MemberOfCollections">
+        <member name="P:OpenHentai.Creations.Doujinshi.Collections">
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creations.Doujinshi.Characters">
@@ -320,7 +320,7 @@
             Creation-Relation pair
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.MemberOfCollections">
+        <member name="P:OpenHentai.Creations.ICreation.Collections">
             <summary>
             Member of collections
             </summary>
