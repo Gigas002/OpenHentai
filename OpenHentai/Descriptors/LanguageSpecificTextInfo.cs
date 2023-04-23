@@ -18,6 +18,10 @@ public class LanguageSpecificTextInfo
     /// </summary>
     public string Text { get; set; }
 
+    /// <summary>
+    /// Create new string with language info
+    /// </summary>
+    /// <param name="formatedText">Formatted text line</param>
     public LanguageSpecificTextInfo(string formatedText)
     {
         var textLanguage = formatedText.Split("::");
@@ -27,5 +31,10 @@ public class LanguageSpecificTextInfo
             null : new CultureInfo(textLanguage[0]);
     }
 
+    /// <summary>
+    /// Create new string with language info
+    /// </summary>
+    /// <param name="language">Line's culture/language</param>
+    /// <param name="text">Line</param>
     public LanguageSpecificTextInfo(CultureInfo language, string text) => (Language, Text) = (language, text);
 }

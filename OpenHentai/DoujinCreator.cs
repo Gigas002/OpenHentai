@@ -13,6 +13,10 @@ namespace OpenHentai;
 /// </summary>
 public static class DoujinCreator
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public static IAuthor CreateYukinoMinato()
     {
         var circle = new Circle
@@ -41,6 +45,10 @@ public static class DoujinCreator
         return author;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public static IDoujinshi CreateMinatoDoujin()
     {
         var character = new Character

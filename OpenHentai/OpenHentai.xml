@@ -596,6 +596,18 @@
             Description's text
             </summary>
         </member>
+        <member name="M:OpenHentai.Descriptors.DescriptionInfo.#ctor(System.String)">
+            <summary>
+            Create new description
+            </summary>
+            <param name="descriptionLine">Formatted description line</param>
+        </member>
+        <member name="M:OpenHentai.Descriptors.DescriptionInfo.#ctor(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Create new description
+            </summary>
+            <param name="description">Collection of formatted description lines</param>
+        </member>
         <member name="T:OpenHentai.Descriptors.EventEntryInfo">
             <summary>
             Information about event's entry
@@ -725,6 +737,19 @@
             Text on chosen language
             </summary>
         </member>
+        <member name="M:OpenHentai.Descriptors.LanguageSpecificTextInfo.#ctor(System.String)">
+            <summary>
+            Create new string with language info
+            </summary>
+            <param name="formatedText">Formatted text line</param>
+        </member>
+        <member name="M:OpenHentai.Descriptors.LanguageSpecificTextInfo.#ctor(System.Globalization.CultureInfo,System.String)">
+            <summary>
+            Create new string with language info
+            </summary>
+            <param name="language">Line's culture/language</param>
+            <param name="text">Line</param>
+        </member>
         <member name="T:OpenHentai.Descriptors.PictureInfo">
             <summary>
             Picture info
@@ -749,6 +774,18 @@
             <summary>
             ONLY FOR TESTING PURPOSES
             </summary>
+        </member>
+        <member name="M:OpenHentai.DoujinCreator.CreateYukinoMinato">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OpenHentai.DoujinCreator.CreateMinatoDoujin">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:OpenHentai.Events.IEvent">
             <summary>

@@ -50,9 +50,9 @@ public interface ICreation : IDatabaseEntry
     /// </summary>
     public IDictionary<ICreation, CreationRelations> Relations { get; init; }
 
-    /// <summary>
-    /// Featured at events, e.g. C99, C100, etc
-    /// </summary>
+    // /// <summary>
+    // /// Featured at events, e.g. C99, C100, etc
+    // /// </summary>
     // public IEnumerable<IEvent> Events { get; set; }
     
     /// <summary>
