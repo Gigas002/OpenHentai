@@ -3,6 +3,7 @@ namespace OpenHentai.Descriptors;
 /// <summary>
 /// Controls if creation is colored or not
 /// </summary>
+// TODO: move to Creations
 public enum Color
 {
     /// <summary>

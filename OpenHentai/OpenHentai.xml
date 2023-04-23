@@ -145,103 +145,6 @@
         <member name="P:OpenHentai.Creations.Doujinshi.CreationId">
             <inheritdoc />
         </member>
-        <member name="T:OpenHentai.Creations.Genre">
-            <summary>
-            Genres, as they appear on MyAnimeList
-            For more specific info, use Theme tag;
-            For Ecchi/Hentai diff use Rating tag
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.Unknown">
-            <summary>
-            Unknown
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.Action">
-            <summary>
-            Action
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.Adventure">
-            <summary>
-            Adventure
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.AvantGarde">
-            <summary>
-            Avantgarde
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.BoysLove">
-            <summary>
-            Boys love
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.Comedy">
-            <summary>
-            Comedy
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.Drama">
-            <summary>
-            Drama
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.Fantasy">
-            <summary>
-            Fantasy
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.GirlsLove">
-            <summary>
-            Girls love
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.Gourmet">
-            <summary>
-            Gourmet
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.Horror">
-            <summary>
-            Horror
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.Mystery">
-            <summary>
-            Mystery
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.Romance">
-            <summary>
-            Romance
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.SciFi">
-            <summary>
-            Sci-fi
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.SliceOfLife">
-            <summary>
-            Slice of life
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.Sports">
-            <summary>
-            Sports
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.Supernatural">
-            <summary>
-            Supernatural
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creations.Genre.Suspense">
-            <summary>
-            Suspense
-            </summary>
-        </member>
         <member name="T:OpenHentai.Creations.IArtbook">
             <summary>
             Artbook
@@ -381,11 +284,6 @@
             Games
             </summary>
         </member>
-        <member name="T:OpenHentai.Creations.IImage">
-            <summary>
-            Pictures
-            </summary>
-        </member>
         <member name="T:OpenHentai.Creations.IMagazine">
             <summary>
             Doujinshi magazines
@@ -482,27 +380,6 @@
         <member name="P:OpenHentai.Creatures.Author.Relations">
             <inheritdoc />
         </member>
-        <member name="T:OpenHentai.Creatures.BodyType">
-            <summary>
-            Body type of creature
-            e.g. lolibaba: Gender=female, Genitals=female, Age=500, BodyType=Loli
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creatures.BodyType.Unknown">
-            <summary>
-            Unknown body type
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creatures.BodyType.Loli">
-            <summary>
-            Lolita
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creatures.BodyType.OppaiLoli">
-            <summary>
-            Lolita with big tits
-            </summary>
-        </member>
         <member name="T:OpenHentai.Creatures.Character">
             <inheritdoc />
         </member>
@@ -563,37 +440,6 @@
         <member name="F:OpenHentai.Creatures.Gender.None">
             <summary>
             None, e.g. slime
-            </summary>
-        </member>
-        <member name="T:OpenHentai.Creatures.Genitals">
-            <summary>
-            Related to <see cref="T:OpenHentai.Creatures.Gender"/>, e.g. Gender.Female + Genitals.Male = futanari
-            Also, see <see cref="T:OpenHentai.Creatures.BodyType"/>
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creatures.Genitals.Unknown">
-            <summary>
-            Unknown
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creatures.Genitals.Male">
-            <summary>
-            Male
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creatures.Genitals.Female">
-            <summary>
-            Female
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creatures.Genitals.None">
-            <summary>
-            No genitals
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Creatures.Genitals.Both">
-            <summary>
-            Both male and female
             </summary>
         </member>
         <member name="T:OpenHentai.Creatures.IAuthor">
@@ -682,22 +528,6 @@
             <summary>
             Collection of related and alternative characters,
             Chara-Relation pair, e.g. "Admiral, alternative"
-            </summary>
-        </member>
-        <member name="T:OpenHentai.Descriptors.AdaptationInfo">
-            <summary>
-            External adaptations of creation
-            Since this is an external stuff, there should be as less information as possible
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Descriptors.AdaptationInfo.Title">
-            <summary>
-            Adaptation title
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Descriptors.AdaptationInfo.Link">
-            <summary>
-            Adaptation link
             </summary>
         </member>
         <member name="T:OpenHentai.Descriptors.CensorshipInfo">
