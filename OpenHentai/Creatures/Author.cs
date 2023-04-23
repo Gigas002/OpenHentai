@@ -15,7 +15,7 @@ public class Author : IAuthor
     #region Interfaces implementation
 
     /// <inheritdoc />
-    public IEnumerable<string> Names { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo> Names { get; set; }
 
     /// <inheritdoc />
     public DescriptionInfo Description { get; set; }
@@ -36,7 +36,7 @@ public class Author : IAuthor
     public IEnumerable<ITag> Tags { get; set; }
 
     /// <inheritdoc />
-    public IEnumerable<string> AuthorNames { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo> AuthorNames { get; set; }
 
     /// <inheritdoc />
     public IEnumerable<ICircle> Circles { get; set; }

@@ -14,7 +14,7 @@ public interface ICircle : IDatabaseEntry
     /// Alternative titles can be any
     /// e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
     /// </summary>
-    public IEnumerable<TitleInfo> Titles { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo> Titles { get; set; }
 
     /// <summary>
     /// Related authors

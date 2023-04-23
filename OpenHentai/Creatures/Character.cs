@@ -14,7 +14,7 @@ public class Character : ICharacter
     #region Interfaces implementation
 
     /// <inheritdoc />
-    public IEnumerable<string> Names { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo> Names { get; set; }
 
     /// <inheritdoc />
     public DescriptionInfo Description { get; set; }

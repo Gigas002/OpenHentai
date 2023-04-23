@@ -16,7 +16,7 @@ public class Doujinshi : IDoujinshi
     #region Interfaces implementation
 
     /// <inheritdoc />
-    public IEnumerable<TitleInfo> Titles { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo> Titles { get; set; }
     
     /// <inheritdoc />
     public IDictionary<IAuthor, AuthorRole> Authors { get; init; }
@@ -37,7 +37,7 @@ public class Doujinshi : IDoujinshi
     public IDictionary<ICreation, CreationRelations> Relations { get; init; }
     
     // /// <inheritdoc />
-    // public IEnumerable<IEvent> FeaturedAtEvents { get; set; }
+    // public IEnumerable<IEvent> Events { get; set; }
     
     /// <inheritdoc />
     public IEnumerable<ICreationCollection> Collections { get; set; }

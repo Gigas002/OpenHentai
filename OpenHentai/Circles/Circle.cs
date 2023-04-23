@@ -12,7 +12,7 @@ public class Circle : ICircle
     #region Interfaces implementation
 
     /// <inheritdoc />
-    public IEnumerable<TitleInfo> Titles { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo> Titles { get; set; }
     
     /// <inheritdoc />
     public IEnumerable<IAuthor> Authors { get; set; }

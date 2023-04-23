@@ -18,14 +18,14 @@ public static class DoujinCreator
     {
         var circle = new Circle
         {
-            Titles = new List<TitleInfo> {new("default::Noraneko no Tama"), new("en-US::noranekonotama"), new("ja-JP::ノラネコノタマ") }
+            Titles = new List<LanguageSpecificTextInfo> {new("default::Noraneko no Tama"), new("en-US::noranekonotama"), new("ja-JP::ノラネコノタマ") }
         };
         
         var author = new Author
         {
             Birthday = DateTime.Parse("01.01.1900", CultureInfo.InvariantCulture),
             Gender = Gender.Unknown,
-            Names = new List<string> { "Yukino Minato", "雪野みなと" },
+            Names = new List<LanguageSpecificTextInfo> { new("Yukino Minato"), new("雪野みなと") },
             Circles = new List<Circle> { circle },
             ExternalLinks = new List<ExternalLinkInfo>
             {
@@ -48,7 +48,7 @@ public static class DoujinCreator
         {
             Age = 10,
             Gender = Gender.Female,
-            Names = new List<string> { "FName", "LName", "AName" }
+            Names = new List<LanguageSpecificTextInfo> { new("FName"), new("LName"), new("AName") }
         };
 
         var externalLink = new ExternalLinkInfo("https://twitter.com/straycat_2018/status/1579417563091849217")
@@ -76,7 +76,7 @@ public static class DoujinCreator
         
         var doujinshi = new Doujinshi()
         {
-            Titles = new List<TitleInfo> { new("default::Totsuki tooka"), new("ja-JP::とつきとおか") },
+            Titles = new List<LanguageSpecificTextInfo> { new("default::Totsuki tooka"), new("ja-JP::とつきとおか") },
             PublishStarted = DateTime.Parse("08.04.2017", CultureInfo.InvariantCulture),
             PublishEnded = DateTime.Parse("08.04.2017", CultureInfo.InvariantCulture),
             Sources = new List<ExternalLinkInfo> { new("https://t.co/YsyhsjRN1a"), new("https://t.co/Kyxl396wCp") },

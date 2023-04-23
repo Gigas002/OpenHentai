@@ -18,7 +18,7 @@ public interface ICreation : IDatabaseEntry
     /// Alternative titles can be any
     /// e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
     /// </summary>
-    public IEnumerable<TitleInfo> Titles { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo> Titles { get; set; }
     
     /// <summary>
     /// Authors
@@ -54,7 +54,7 @@ public interface ICreation : IDatabaseEntry
     /// <summary>
     /// Featured at events, e.g. C99, C100, etc
     /// </summary>
-    // public IEnumerable<IEvent> FeaturedAtEvents { get; set; }
+    // public IEnumerable<IEvent> Events { get; set; }
     
     /// <summary>
     /// Member of collections
