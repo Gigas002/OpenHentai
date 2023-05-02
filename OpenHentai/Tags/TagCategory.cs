@@ -9,22 +9,42 @@ public enum TagCategory
     /// <summary>
     /// Any unspecified tag category
     /// </summary>
-    Other = 0,
+    Unknown = 0,
     
     /// <summary>
     /// Related to some franchise
     /// </summary>
-    Franchise,
-
-    /// <summary>
-    /// Creation themes
-    /// More specific, than genres, e.g. Isekai, Lolicon, Rape, Glasses
-    /// </summary>
-    Theme,
+    Parody,
     
-    /// <summary>
-    /// Creature body type
-    /// e.g. lolibaba: Gender=female, Genitals=female, Age=500, BodyType=Loli (as string tag)
-    /// </summary>
-    BodyType
+    // WIP zone, see tags.md in wt repo
+    
+    AgeChange,
+    BodyType,
+    BodyChange,
+    BodyHeight,
+    BodySkin,
+    BodyWeight,
+    BodyHead,
+    BodyHair,
+    BodyEyes,
+    BodyNose,
+    BodyMouth,
+    BodyNeck,
+    BodyArms,
+    BodyChest,
+    BodyTorso,
+    BodyCrotch,
+    BodyGenitals,
+    BodyLegs,
+    Clothes,
+    Personality,
+    Species,
+    SpeciesAnimal,
+    Tools,
+    Fluids,
+    Force,
+    Privacy,
+    SelfPleasure,
+    Consumption,
+    GenderChange
 }

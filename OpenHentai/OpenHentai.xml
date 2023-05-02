@@ -1061,26 +1061,14 @@
             Available tag categories
             </summary>
         </member>
-        <member name="F:OpenHentai.Tags.TagCategory.Other">
+        <member name="F:OpenHentai.Tags.TagCategory.Unknown">
             <summary>
             Any unspecified tag category
             </summary>
         </member>
-        <member name="F:OpenHentai.Tags.TagCategory.Franchise">
+        <member name="F:OpenHentai.Tags.TagCategory.Parody">
             <summary>
             Related to some franchise
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Tags.TagCategory.Theme">
-            <summary>
-            Creation themes
-            More specific, than genres, e.g. Isekai, Lolicon, Rape, Glasses
-            </summary>
-        </member>
-        <member name="F:OpenHentai.Tags.TagCategory.BodyType">
-            <summary>
-            Creature body type
-            e.g. lolibaba: Gender=female, Genitals=female, Age=500, BodyType=Loli (as string tag)
             </summary>
         </member>
     </members>
