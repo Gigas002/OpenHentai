@@ -4,5 +4,33 @@
         <name>OpenHentai.Database</name>
     </assembly>
     <members>
+        <member name="T:OpenHentai.Database.IDatabaseEntity">
+            <summary>
+            Basic database entries specification
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Database.IDatabaseEntity.Id">
+            <summary>
+            Entry's id in database
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Database.Tag">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Tag.MasterId">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Tag.SlaveIds">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Tag.Category">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Tag.Value">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Tag.Description">
+            <inheritdoc />
+        </member>
     </members>
 </doc>
