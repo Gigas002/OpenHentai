@@ -70,11 +70,6 @@ public interface ITag
     public ulong? MasterId { get; set; }
     
     /// <summary>
-    /// Collection of dependent/alternative values's ids
-    /// </summary>
-    public IEnumerable<ulong> SlaveIds { get; set; }
-    
-    /// <summary>
     /// Category of this tag
     /// e.g. `parody`
     /// </summary>

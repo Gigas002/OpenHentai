@@ -16,10 +16,6 @@ public class Tag : ITag, IDatabaseEntity
     public ulong? MasterId { get; set; }
 
     public Tag Master { get; set; } = null!;
-    
-    /// <inheritdoc />
-    [NotMapped]
-    public IEnumerable<ulong> SlaveIds { get; set; }
 
     public IEnumerable<Tag> Slaves { get; set; }
     

@@ -35,9 +35,6 @@
         <member name="P:OpenHentai.Database.Tag.MasterId">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Tag.SlaveIds">
-            <inheritdoc />
-        </member>
         <member name="P:OpenHentai.Database.Tag.Category">
             <inheritdoc />
         </member>

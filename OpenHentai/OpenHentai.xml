@@ -1023,11 +1023,6 @@
             <para/>null in case there's no master
             </summary>
         </member>
-        <member name="P:OpenHentai.Tags.ITag.SlaveIds">
-            <summary>
-            Collection of dependent/alternative values's ids
-            </summary>
-        </member>
         <member name="P:OpenHentai.Tags.ITag.Category">
             <summary>
             Category of this tag
