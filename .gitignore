@@ -398,3 +398,11 @@ FodyWeavers.xsd
 *.sln.iml
 
 .idea/
+
+# ignore testing database
+*.db
+
+# ignore migrations until stable release
+Migrations/
+log.txt
+script.sql
