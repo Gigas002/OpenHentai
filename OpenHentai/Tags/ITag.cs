@@ -59,7 +59,7 @@ id   value
 /// <summary>
 /// Basic interface for tagging purposes
 /// </summary>
-public interface ITag : IDatabaseEntry
+public interface ITag
 {
     #region Properties
 

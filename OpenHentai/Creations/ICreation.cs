@@ -10,7 +10,7 @@ namespace OpenHentai.Creations;
 /// <summary>
 /// Creation, e.g. doujinshi, game, etc
 /// </summary>
-public interface ICreation : IDatabaseEntry
+public interface ICreation
 {
     /// <summary>
     /// Main title must be romanization of native title (e.g. Hepburn romanization for ja-JP)

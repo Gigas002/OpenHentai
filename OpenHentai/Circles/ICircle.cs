@@ -7,7 +7,7 @@ namespace OpenHentai.Circles;
 /// <summary>
 /// Author's circle
 /// </summary>
-public interface ICircle : IDatabaseEntry
+public interface ICircle
 {
     /// <summary>
     /// Main title must be romanization of native title (e.g. Hepburn romanization for ja-JP)

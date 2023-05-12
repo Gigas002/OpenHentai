@@ -1,9 +1,9 @@
-namespace OpenHentai;
+namespace OpenHentai.Database;
 
 /// <summary>
-/// Database entries specification
+/// Basic database entries specification
 /// </summary>
-public interface IDatabaseEntry
+public interface IDatabaseEntity
 {
     /// <summary>
     /// Entry's id in database

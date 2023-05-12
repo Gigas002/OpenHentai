@@ -11,7 +11,7 @@ namespace OpenHentai.Events;
 /// <summary>
 /// IRL event, e.g. comiket, comic1, etc
 /// </summary>
-public interface IEvent : IDatabaseEntry
+public interface IEvent
 {
     /// <summary>
     /// Event's known titles

@@ -7,7 +7,7 @@ namespace OpenHentai.Creatures;
 /// <summary>
 /// Creature
 /// </summary>
-public interface ICreature : IDatabaseEntry
+public interface ICreature
 {
     /// <summary>
     /// Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)
