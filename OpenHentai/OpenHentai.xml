@@ -817,16 +817,6 @@
             Event's entries
             </summary>
         </member>
-        <member name="T:OpenHentai.IDatabaseEntry">
-            <summary>
-            Database entries specification
-            </summary>
-        </member>
-        <member name="P:OpenHentai.IDatabaseEntry.Id">
-            <summary>
-            Entry's id in database
-            </summary>
-        </member>
         <member name="T:OpenHentai.Relations.CreationRelations">
             <summary>
             Relation to another creation
@@ -1030,10 +1020,10 @@
         <member name="P:OpenHentai.Tags.ITag.MasterId">
             <summary>
             This tag's master tag
-            <para/>-1 in case there's no master
+            <para/>null in case there's no master
             </summary>
         </member>
-        <member name="P:OpenHentai.Tags.ITag.SlavesIds">
+        <member name="P:OpenHentai.Tags.ITag.SlaveIds">
             <summary>
             Collection of dependent/alternative values's ids
             </summary>

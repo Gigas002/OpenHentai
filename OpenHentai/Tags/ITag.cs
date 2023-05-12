@@ -63,17 +63,16 @@ public interface ITag
 {
     #region Properties
 
-    // TODO: ulong and default value
     /// <summary>
     /// This tag's master tag
-    /// <para/>-1 in case there's no master
+    /// <para/>null in case there's no master
     /// </summary>
-    public int MasterId { get; set; }
+    public ulong? MasterId { get; set; }
     
     /// <summary>
     /// Collection of dependent/alternative values's ids
     /// </summary>
-    public IEnumerable<int> SlavesIds { get; set; }
+    public IEnumerable<ulong> SlaveIds { get; set; }
     
     /// <summary>
     /// Category of this tag
