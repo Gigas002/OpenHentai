@@ -4,6 +4,51 @@
         <name>OpenHentai.Database</name>
     </assembly>
     <members>
+        <member name="T:OpenHentai.Database.Creatures.Author">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Author.Names">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Author.Description">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Author.Birthday">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Author.Age">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Author.Pictures">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Author.Gender">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Author.Tags">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Author.AuthorNames">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Author.Circles">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Author.ExternalLinks">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Author.Creations">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Author.Id">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Author.CreatureId">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Author.Relations">
+            <inheritdoc />
+        </member>
         <member name="T:OpenHentai.Database.IDatabaseEntity">
             <summary>
             Basic database entries specification

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OpenHentai.Database.Tags;
+using OpenHentai.Database.Creatures;
 
 namespace OpenHentai.Database;
 
@@ -10,6 +11,8 @@ public class DatabaseContext : DbContext
     private readonly StreamWriter _logStream = new StreamWriter("log.txt", true);
 
     public DbSet<Tag> Tags { get; set; } = null!;
+
+    public DbSet<Author> Authors { get; set; } = null!;
 
     public string DatabasePath { get; init; } = null!;
 
