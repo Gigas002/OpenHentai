@@ -1,4 +1,8 @@
 namespace OpenHentai.Descriptors;
+using System.Text.Json.Serialization;
+
+// TODO: snake_case for props names in dotnet 8
+// see: https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonnamingpolicy.snakecaselower?view=net-8.0#system-text-json-jsonnamingpolicy-snakecaselower
 
 /// <summary>
 /// Standard for json in non-indexed, localizable descriptions
@@ -9,6 +13,7 @@ public class DescriptionInfo
     /// <summary>
     /// Description's text
     /// </summary>
+    [JsonPropertyName("description")]
     public IEnumerable<LanguageSpecificTextInfo> Text { get; set; }
 
     /// <summary>
@@ -28,4 +33,6 @@ public class DescriptionInfo
     {
         Text = description.Select(line => new LanguageSpecificTextInfo(line));
     }
+
+    public DescriptionInfo() { }
 }
