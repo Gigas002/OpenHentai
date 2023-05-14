@@ -40,9 +40,6 @@
         <member name="P:OpenHentai.Database.Creatures.Author.Creations">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Creatures.Author.Id">
-            <inheritdoc />
-        </member>
         <member name="P:OpenHentai.Database.Creatures.Author.CreatureId">
             <inheritdoc />
         </member>
@@ -58,30 +55,6 @@
             <summary>
             Entry's id in database
             </summary>
-        </member>
-        <member name="T:OpenHentai.Database.Migrations.InitialCreate">
-            <inheritdoc />
-        </member>
-        <member name="M:OpenHentai.Database.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:OpenHentai.Database.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:OpenHentai.Database.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="T:OpenHentai.Database.Migrations.AddDescriptionInfo">
-            <inheritdoc />
-        </member>
-        <member name="M:OpenHentai.Database.Migrations.AddDescriptionInfo.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:OpenHentai.Database.Migrations.AddDescriptionInfo.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:OpenHentai.Database.Migrations.AddDescriptionInfo.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
         </member>
         <member name="T:OpenHentai.Database.Tags.Tag">
             <inheritdoc />
