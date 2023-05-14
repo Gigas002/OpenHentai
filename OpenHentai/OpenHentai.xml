@@ -817,6 +817,15 @@
             Event's entries
             </summary>
         </member>
+        <member name="T:OpenHentai.JsonConverters.CultureInfoJsonConverter">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.JsonConverters.CultureInfoJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.JsonConverters.CultureInfoJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.Globalization.CultureInfo,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
         <member name="T:OpenHentai.Relations.CreationRelations">
             <summary>
             Relation to another creation
