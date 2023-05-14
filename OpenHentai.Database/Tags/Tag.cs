@@ -2,7 +2,7 @@ using OpenHentai.Tags;
 using OpenHentai.Descriptors;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OpenHentai.Database;
+namespace OpenHentai.Database.Tags;
 
 /// <inheritdoc />
 public class Tag : ITag, IDatabaseEntity

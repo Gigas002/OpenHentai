@@ -38,22 +38,22 @@
         <member name="M:OpenHentai.Database.Migrations.AddDescriptionInfo.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
-        <member name="T:OpenHentai.Database.Tag">
+        <member name="T:OpenHentai.Database.Tags.Tag">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Tag.Id">
+        <member name="P:OpenHentai.Database.Tags.Tag.Id">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Tag.MasterId">
+        <member name="P:OpenHentai.Database.Tags.Tag.MasterId">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Tag.Category">
+        <member name="P:OpenHentai.Database.Tags.Tag.Category">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Tag.Value">
+        <member name="P:OpenHentai.Database.Tags.Tag.Value">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Tag.Description">
+        <member name="P:OpenHentai.Database.Tags.Tag.Description">
             <inheritdoc />
         </member>
     </members>
