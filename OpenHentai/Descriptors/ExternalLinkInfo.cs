@@ -1,4 +1,8 @@
+using System.Text.Json.Serialization;
 using OpenHentai.Statuses;
+
+// TODO: snake_case for props names in dotnet 8
+// see: https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonnamingpolicy.snakecaselower?view=net-8.0#system-text-json-jsonnamingpolicy-snakecaselower
 
 namespace OpenHentai.Descriptors;
 
@@ -13,26 +17,31 @@ public class ExternalLinkInfo
     /// <summary>
     /// Title, e.g. pixiv
     /// </summary>
+    [JsonPropertyName("title")]
     public string Title { get; set; }
 
     /// <summary>
     /// Uri
     /// </summary>
+    [JsonPropertyName("link")]
     public Uri Link { get; set; }
 
     /// <summary>
     /// Official or not
     /// </summary>
+    [JsonPropertyName("official_status")]
     public OfficialStatus OfficialStatus { get; set; }
 
     /// <summary>
     /// Free or not
     /// </summary>
+    [JsonPropertyName("paid_status")]
     public PaidStatus PaidStatus { get; set; }
 
     /// <summary>
     /// Description, e.g. author's official free pixiv
     /// </summary>
+    [JsonPropertyName("description")]
     public string Description { get; set; }
     
     #endregion
@@ -44,6 +53,8 @@ public class ExternalLinkInfo
     /// </summary>
     /// <param name="link">Link</param>
     public ExternalLinkInfo(string link) => Link = new Uri(link);
+
+    public ExternalLinkInfo() { }
 
     #endregion
 

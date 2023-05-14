@@ -1,5 +1,6 @@
-namespace OpenHentai.Descriptors;
 using System.Text.Json.Serialization;
+
+namespace OpenHentai.Descriptors;
 
 // TODO: snake_case for props names in dotnet 8
 // see: https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonnamingpolicy.snakecaselower?view=net-8.0#system-text-json-jsonnamingpolicy-snakecaselower

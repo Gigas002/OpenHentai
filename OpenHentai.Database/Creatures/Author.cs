@@ -44,6 +44,7 @@ public class Author : IAuthor
     public IEnumerable<ICircle> Circles { get; set; }
 
     /// <inheritdoc />
+    [Column(TypeName = "jsonb")]
     public IEnumerable<ExternalLinkInfo> ExternalLinks { get; set; }
     
     /// <inheritdoc />
