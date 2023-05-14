@@ -25,9 +25,9 @@ public class DatabaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // modelBuilder.Entity<Tag>()
-        //             .Property(e => e.Description)
-        //             .HasConversion(new DescriptionConverter());
+        modelBuilder.Entity<Tag>()
+                    .Property(e => e.Description)
+                    .HasConversion(new DescriptionInfoConverter());
     }
 
     public override void Dispose()

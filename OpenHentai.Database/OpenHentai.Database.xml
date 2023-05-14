@@ -26,6 +26,18 @@
         <member name="M:OpenHentai.Database.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:OpenHentai.Database.Migrations.AddDescriptionInfo">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Database.Migrations.AddDescriptionInfo.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Database.Migrations.AddDescriptionInfo.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Database.Migrations.AddDescriptionInfo.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
         <member name="T:OpenHentai.Database.Tag">
             <inheritdoc />
         </member>

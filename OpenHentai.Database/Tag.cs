@@ -26,8 +26,7 @@ public class Tag : ITag, IDatabaseEntity
     public string Value { get; set; }
     
     /// <inheritdoc />
-    // TODO: map this requires some work
-    [NotMapped]
+    [Column(TypeName = "jsonb")]
     public DescriptionInfo Description { get; set; }
 
     #endregion
