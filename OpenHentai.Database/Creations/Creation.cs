@@ -40,8 +40,7 @@ public class Creation : IDatabaseEntity //: ICreation
     
     public List<CreationsCharacters> Characters { get; init; } = new();
 
-    [NotMapped]
-    public IEnumerable<PictureInfo> Pictures { get; set; }
+    public List<MediaInfo> Media { get; set; } = new();
     
     [NotMapped]
     public IEnumerable<LanguageInfo> Languages { get; set; }

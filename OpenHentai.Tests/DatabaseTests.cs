@@ -83,6 +83,7 @@ public class DatabaseTests
             var manga = new Manga() { Length = 10 };
             manga.Sources.Add(new("https://google.com"));
             manga.Description = new DescriptionInfo("en-US::Anime about camping");
+            manga.Media.Add(new MediaInfo("https://google.com", MediaType.Image));
 
             // var manga2 = new Manga() { Length = 100 };
             // manga.Sources.Add(new("https://bing.com"));
