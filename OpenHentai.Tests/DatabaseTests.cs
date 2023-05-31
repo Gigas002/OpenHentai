@@ -1,3 +1,4 @@
+using OpenHentai.Creations;
 using OpenHentai.Database.Circles;
 using OpenHentai.Database.Creations;
 using OpenHentai.Database.Creatures;
@@ -86,6 +87,7 @@ public class DatabaseTests
             manga.Media.Add(new MediaInfo("https://google.com", MediaType.Image));
             manga.Languages.Add(new("en-US", false));
             manga.Censorship.Add(new() { Censorship = Creations.Censorship.None, IsOfficial = true});
+            manga.ColoredInfo.Add(new() { Color = Color.BlackWhite, IsOfficial = true});
             // SerializeLangs(new List<LanguageInfo>() { new("en-US", false) });
 
             // var manga2 = new Manga() { Length = 100 };

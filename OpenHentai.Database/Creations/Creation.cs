@@ -1,8 +1,5 @@
 using OpenHentai.Database.Circles;
-using OpenHentai.Database.Creatures;
 using OpenHentai.Descriptors;
-using OpenHentai.Relations;
-using OpenHentai.Roles;
 using OpenHentai.Statuses;
 using OpenHentai.Database.Tags;
 using System.ComponentModel.DataAnnotations.Schema;
