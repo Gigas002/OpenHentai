@@ -120,7 +120,7 @@ public class DatabaseTests
 
             foreach (var chara in chars)
             {
-                var cc = new CreationsCharacters();
+                // var cc = new CreationsCharacters();
                 // cc.Creation = mangas.FirstOrDefault();
                 // cc.Character = chara;
                 // cc.Role = CharacterRole.Main;
@@ -169,15 +169,19 @@ public class DatabaseTests
         {
             var creatures = db.Creatures.ToList();
 
-            var author = creatures.Where(c => c is Author).FirstOrDefault();
-            var chara = creatures.Where(c => c is Character).FirstOrDefault();
+            var author = creatures.FirstOrDefault(c => c is Author);
+            var chara = creatures.FirstOrDefault(c => c is Character);
 
-            var cr = new CreaturesRelations();
-            cr.Creature = chara;
-            cr.RelatedCreature = author;
-            cr.Relation = CreatureRelations.Enemy;
-
-            db.CreaturesRelations.Add(cr);
+            chara.SetRelations(new()
+            {
+                { author, CreatureRelations.Enemy }
+            });
+            // var cr = new CreaturesRelations();
+            // cr.Creature = chara;
+            // cr.RelatedCreature = author;
+            // cr.Relation = CreatureRelations.Enemy;
+            //
+            // db.CreaturesRelations.Add(cr);
 
             db.SaveChanges();
         }
@@ -189,11 +193,18 @@ public class DatabaseTests
     {
         using (var db = new DatabaseContext())
         {
-            var authors = db.Authors.ToList();
+            // var authors = db.Authors.ToList();
 
-            var authorName = new AuthorsNames(authors.FirstOrDefault(), "Author Name", "en-US");
+            var author = db.Authors.FirstOrDefault();
+            
+            author.SetAuthorNames(new List<LanguageSpecificTextInfo>
+            {
+                new("en-US", "Author Name")
+            });
 
-            db.AuthorsNames.Add(authorName);
+            // var authorName = new AuthorsNames(authors.FirstOrDefault(), "Author Name", "en-US");
+
+            // db.AuthorsNames.Add(authorName);
 
             db.SaveChanges();
         }
@@ -230,32 +241,41 @@ public class DatabaseTests
     [Order(9)]
     public void PushCirclesTitles()
     {
-        using (var db = new DatabaseContext())
+        using var db = new DatabaseContext();
+        // var circles = db.Circles.ToList();
+
+        var circle = db.Circles.FirstOrDefault();
+        circle.SetTitles(new List<LanguageSpecificTextInfo>
         {
-            var circles = db.Circles.ToList();
+            new("en-US", "Circle Title")
+        });
 
-            var circleTitle = new CirclesTitles(circles.FirstOrDefault(), "Circle Title", "en-US");
+        // var circleTitle = new CirclesTitles(circles.FirstOrDefault(), "Circle Title", "en-US");
+        //
+        // db.CirclesTitles.Add(circleTitle);
 
-            db.CirclesTitles.Add(circleTitle);
-
-            db.SaveChanges();
-        }
+        db.SaveChanges();
     }
 
     [Test]
     [Order(10)]
     public void PushCreationsTitles()
     {
-        using (var db = new DatabaseContext())
+        using var db = new DatabaseContext();
+        var creation = db.Creations.FirstOrDefault();
+            
+        creation.SetTitles(new List<LanguageSpecificTextInfo>
         {
-            var creations = db.Creations.ToList();
+            new("en-US", "Creation Title")
+        });
+            
+        // var creations = db.Creations.ToList();
+        //
+        // var creationTitle = new CreationsTitles(creations.FirstOrDefault(), "Creation Title", "en-US");
+        //
+        // db.CreationsTitles.Add(creationTitle);
 
-            var creationTitle = new CreationsTitles(creations.FirstOrDefault(), "Creation Title", "en-US");
-
-            db.CreationsTitles.Add(creationTitle);
-
-            db.SaveChanges();
-        }
+        db.SaveChanges();
     }
 
     [Test]
@@ -265,13 +285,21 @@ public class DatabaseTests
         using (var db = new DatabaseContext())
         {
             var creations = db.Creations.ToList();
+            
+            var creation = creations.FirstOrDefault();
+            var relatedCreation = creations.LastOrDefault();
+            
+            creation.SetRelations(new()
+            {
+                { relatedCreation, CreationRelations.Parent }
+            });
 
-            var cr = new CreationsRelations();
-            cr.Creation = creations.FirstOrDefault();
-            cr.RelatedCreation = creations.LastOrDefault();
-            cr.Relation = CreationRelations.Parent;
-
-            db.CreationsRelations.Add(cr);
+            // var cr = new CreationsRelations();
+            // cr.Creation = creations.FirstOrDefault();
+            // cr.RelatedCreation = creations.LastOrDefault();
+            // cr.Relation = CreationRelations.Parent;
+            //
+            // db.CreationsRelations.Add(cr);
 
             db.SaveChanges();
         }
@@ -287,8 +315,9 @@ public class DatabaseTests
     {
         using (var db = new DatabaseContext())
         {
+            // TODO: find a way to ise GetNames method instead of property
             var tags = db.Tags.Include(t => t.Creatures)
-                              .ThenInclude(c => c.CreaturesNames)
+                               .ThenInclude(c => c.CreaturesNames)
                               .ToList();
 
             Console.WriteLine("Tags:");
@@ -312,7 +341,7 @@ public class DatabaseTests
                     Console.WriteLine("- creatures:");
                     foreach(var creature in tag.Creatures)
                     {
-                        Console.WriteLine($"  - {creature?.CreaturesNames?.FirstOrDefault()?.Text}");
+                        Console.WriteLine($"  - {creature?.GetNames()?.FirstOrDefault()?.Text}");
                     }
                 }
             }

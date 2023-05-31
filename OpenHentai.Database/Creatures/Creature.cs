@@ -41,7 +41,6 @@ public class Creature : IDatabaseEntity, ICreature
         CreaturesNames.Select(n => n.GetLanguageSpecificTextInfo());
 
     public void SetNames(IEnumerable<LanguageSpecificTextInfo> names) =>
-        // TODO: for unknown reasons, this REQUIRES ToList()
         CreaturesNames = names.Select(n => new CreaturesNames(this, n)).ToList();
 
     public Dictionary<ICreature, CreatureRelations> GetRelations() =>

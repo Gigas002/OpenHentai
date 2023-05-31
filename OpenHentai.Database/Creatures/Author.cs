@@ -33,7 +33,7 @@ public class Author : Creature, IAuthor
         AuthorsNames.Select(an => an.GetLanguageSpecificTextInfo());
 
     public void SetAuthorNames(IEnumerable<LanguageSpecificTextInfo> names) =>
-        AuthorsNames = names.Select(n => new AuthorsNames(this, n));
+        AuthorsNames = names.Select(n => new AuthorsNames(this, n)).ToList();
 
     public IEnumerable<ICircle> GetCircles() => Circles;
 

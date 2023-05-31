@@ -18,7 +18,7 @@ public class Creation : IDatabaseEntity, ICreation
 {
     public ulong Id { get; set; }
 
-    private IEnumerable<CreationsTitles> CreationsTitles { get; set; } = null!;
+    public IEnumerable<CreationsTitles> CreationsTitles { get; set; } = null!;
 
     public IEnumerable<AuthorsCreations> AuthorsCreations { get; set; } = null!;
 
@@ -100,5 +100,5 @@ public class Creation : IDatabaseEntity, ICreation
         CreationsTitles.Select(t => t.GetLanguageSpecificTextInfo());
 
     public void SetTitles(IEnumerable<LanguageSpecificTextInfo> titles) =>
-        CreationsTitles = titles.Select(t => new CreationsTitles(this, t));
+        CreationsTitles = titles.Select(t => new CreationsTitles(this, t)).ToList();
 }
