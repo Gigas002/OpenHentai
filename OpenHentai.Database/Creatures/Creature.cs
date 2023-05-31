@@ -13,25 +13,25 @@ public class Creature : IDatabaseEntity //: ICreature
     public ulong Id { get; set; }
 
     /// <inheritdoc />
-    public List<CreaturesNames> Names { get; init; } = new();    
+    public IEnumerable<CreaturesNames> Names { get; set; } = null!;
 
     /// <inheritdoc />
     [Column(TypeName = "jsonb")]
     public DescriptionInfo? Description { get ; set ; }
     
     /// <inheritdoc />
-    public DateTime Birthday { get ; set ; }
+    public DateTime? Birthday { get ; set ; }
     
     /// <inheritdoc />
     public int Age { get ; set ; }
     
-    public List<MediaInfo> Media { get; set; } = new();
+    public IEnumerable<MediaInfo>? Media { get; set; }
 
     /// <inheritdoc />
     public Gender Gender { get ; set ; }
     
     /// <inheritdoc />
-    public List<Tag> Tags { get ; set ; } = new();
+    public IEnumerable<Tag> Tags { get ; set ; } = null!;
     
-    public List<CreaturesRelations> Relations { get; set; } = new();
+    public IEnumerable<CreaturesRelations>? Relations { get; set; }
 }

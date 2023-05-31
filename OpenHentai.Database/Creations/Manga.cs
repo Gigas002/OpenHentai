@@ -12,5 +12,5 @@ public class Manga : Creation //, IManga
     public bool HasImages { get; set; }
     
     [Column(TypeName = "jsonb")]
-    public List<ColoredInfo> ColoredInfo { get; set; } = new();
+    public IEnumerable<ColoredInfo> ColoredInfo { get; set; } = null!;
 }

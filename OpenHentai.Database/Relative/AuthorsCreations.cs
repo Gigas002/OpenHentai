@@ -11,10 +11,10 @@ namespace OpenHentai.Database.Relative;
 public class AuthorsCreations
 {
     [ForeignKey("author_id")]
-    public Author Author { get; set; }
+    public Author Author { get; set; } = null!;
 
     [ForeignKey("creation_id")]
-    public Creation Creation { get; set; }
+    public Creation Creation { get; set; } = null!;
 
     public AuthorRole Role { get; set; }
 }

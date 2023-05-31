@@ -10,9 +10,9 @@ public class Circle : IDatabaseEntity//: ICircle
 {
     public ulong Id { get; set; }
 
-    public List<CirclesTitles> Titles { get; set; } = new();
+    public IEnumerable<CirclesTitles> Titles { get; set; } = null!;
 
-    public List<Author> Authors { get; set; } = new();
+    public IEnumerable<Author> Authors { get; set; } = null!;
 
-    public List<Creation> Creations { get; set; } = new();
+    public IEnumerable<Creation>? Creations { get; set; }
 }

@@ -57,8 +57,8 @@ public class DatabaseTests
             var author = new Author();
             author.Age = 10;
             author.Description = new DescriptionInfo("en-US::Author descr 1");
-            author.Media.Add(new MediaInfo("https://google.com", MediaType.Image));
-            author.ExternalLinks.Add(new ExternalLinkInfo("https://google.com") { OfficialStatus = OfficialStatus.Official, PaidStatus = PaidStatus.Free, Title = "google" });
+            author.Media = new List<MediaInfo>() { new("https://google.com", MediaType.Image) };
+            author.ExternalLinks = new List<ExternalLinkInfo>() { new("https://google.com") { OfficialStatus = OfficialStatus.Official, PaidStatus = PaidStatus.Free, Title = "google" } };
 
             var circle = new Circle();
             circle.Authors = new List<Author>() { author };
@@ -82,12 +82,12 @@ public class DatabaseTests
         using (var db = new DatabaseContext())
         {
             var manga = new Manga() { Length = 10 };
-            manga.Sources.Add(new("https://google.com"));
+            manga.Sources = new List<ExternalLinkInfo>() { new("https://google.com") };
             manga.Description = new DescriptionInfo("en-US::Anime about camping");
-            manga.Media.Add(new MediaInfo("https://google.com", MediaType.Image));
-            manga.Languages.Add(new("en-US", false));
-            manga.Censorship.Add(new() { Censorship = Creations.Censorship.None, IsOfficial = true});
-            manga.ColoredInfo.Add(new() { Color = Color.BlackWhite, IsOfficial = true});
+            manga.Media = new List<MediaInfo>() { new("https://google.com", MediaType.Image) };
+            manga.Languages = new List<LanguageInfo>() { new("en-US", false) };
+            manga.Censorship = new List<CensorshipInfo>() { new() { Censorship = Creations.Censorship.None, IsOfficial = true} };
+            manga.ColoredInfo = new List<ColoredInfo>() { new() { Color = Color.BlackWhite, IsOfficial = true} };
             // SerializeLangs(new List<LanguageInfo>() { new("en-US", false) });
 
             // var manga2 = new Manga() { Length = 100 };
@@ -119,7 +119,7 @@ public class DatabaseTests
                 cc.Character = chara;
                 cc.CharacterRole = CharacterRole.Main;
 
-                chara.InCreations.Add(cc);
+                chara.InCreations = new List<CreationsCharacters>() { cc };
             }
 
             db.SaveChanges();
@@ -139,8 +139,7 @@ public class DatabaseTests
                 var name = new LanguageSpecificTextInfo($"en-US::Name {creature.Id}");
                 var altName = new LanguageSpecificTextInfo($"en-US::Name_alt {creature.Id + 1000}");
 
-                creature.Names.Add(new(name));
-                creature.Names.Add(new(altName));
+                creature.Names = new List<CreaturesNames>() { new(name), new(altName) };
             }
 
             db.SaveChanges();
@@ -201,7 +200,7 @@ public class DatabaseTests
                 ac.Creation = creations.FirstOrDefault();
                 ac.Role = AuthorRole.MainArtist;
 
-                author.Creations.Add(ac);
+                author.Creations = new List<AuthorsCreations>() { ac };
             }
 
             db.SaveChanges();

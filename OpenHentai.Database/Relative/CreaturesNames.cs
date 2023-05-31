@@ -11,12 +11,12 @@ public class CreaturesNames : ILanguageSpecificTextInfoEntity<Creature>
     public ulong Id { get; set; }
 
     [ForeignKey("creature_id")]
-    public Creature Entity { get; set; }
+    public Creature Entity { get; set; } = null!;
 
     [Column("name")]
-    public string Text { get; set; }
+    public string Text { get; set; } = null!;
 
-    public string Language { get; set; }
+    public string Language { get; set; } = null!;
 
     public CreaturesNames() { }
 

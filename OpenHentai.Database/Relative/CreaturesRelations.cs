@@ -10,10 +10,10 @@ namespace OpenHentai.Database.Relative;
 public class CreaturesRelations
 {
     [ForeignKey("creature_id")]
-    public Creature Creature { get; set; }
+    public Creature Creature { get; set; } = null!;
 
     [ForeignKey("related_creature_id")]
-    public Creature RelatedCreature { get; set; }
+    public Creature RelatedCreature { get; set; } = null!;
 
     public CreatureRelations Relation { get; set; }
 }

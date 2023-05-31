@@ -13,16 +13,16 @@ public class Author : Creature //, IDatabaseEntity //, IAuthor
 
     #region Interfaces implementation
     
-    public List<AuthorsNames> AuthorNames { get; set; } = new();
+    public IEnumerable<AuthorsNames> AuthorNames { get; set; } = null!;
 
     /// <inheritdoc />
-    public List<Circle> Circles { get; set; } = new();
+    public IEnumerable<Circle>? Circles { get; set; }
 
     /// <inheritdoc />
     [Column(TypeName = "jsonb")]
-    public List<ExternalLinkInfo> ExternalLinks { get; set; } = new();
+    public IEnumerable<ExternalLinkInfo>? ExternalLinks { get; set; }
     
-    public List<AuthorsCreations> Creations { get; init; } = new();
+    public IEnumerable<AuthorsCreations>? Creations { get; set; }
     
     #endregion
 

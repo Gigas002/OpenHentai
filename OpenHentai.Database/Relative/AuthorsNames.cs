@@ -11,11 +11,11 @@ public class AuthorsNames : ILanguageSpecificTextInfoEntity<Author>
     public ulong Id { get; set; }
 
     [ForeignKey("author_id")]
-    public Author Entity { get; set; }
+    public Author Entity { get; set; } = null!;
 
     [Column("name")]
-    public string Text { get; set; }
-    public string Language { get; set; }
+    public string Text { get; set; } = null!;
+    public string Language { get; set; } = null!;
 
     public AuthorsNames() { }
 

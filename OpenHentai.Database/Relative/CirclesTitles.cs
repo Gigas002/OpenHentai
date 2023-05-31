@@ -11,11 +11,11 @@ public class CirclesTitles : ILanguageSpecificTextInfoEntity<Circle>
     public ulong Id { get; set; }
 
     [ForeignKey("circle_id")]
-    public Circle Entity { get; set; }
+    public Circle Entity { get; set; } = null!;
 
     [Column("title")]
-    public string Text { get; set; }
-    public string Language { get; set; }
+    public string Text { get; set; } = null!;
+    public string Language { get; set; } = null!;
 
     public CirclesTitles() { }
 

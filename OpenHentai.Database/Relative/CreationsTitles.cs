@@ -12,11 +12,11 @@ public class CreationsTitles : ILanguageSpecificTextInfoEntity<Creation>
     public ulong Id { get; set; }
 
     [ForeignKey("creation_id")]
-    public Creation Entity { get; set; }
+    public Creation Entity { get; set; } = null!;
 
     [Column("title")]
-    public string Text { get; set; }
-    public string Language { get; set; }
+    public string Text { get; set; } = null!;
+    public string Language { get; set; } = null!;
 
     public CreationsTitles() { }
 

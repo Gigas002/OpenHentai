@@ -13,41 +13,42 @@ public class Creation : IDatabaseEntity //: ICreation
 {
     public ulong Id { get; set; }
 
-    public List<CreationsTitles> Titles { get; set; } = new();
+    public IEnumerable<CreationsTitles> Titles { get; set; } = null!;
     
-    public List<AuthorsCreations> Authors { get; init; } = new();
+    public IEnumerable<AuthorsCreations> Authors { get; set; } = null!;
 
     // TODO: see ~CreationsCircles.cs
-    public List<Circle> Circles { get; set; } = new();
+    public IEnumerable<Circle>? Circles { get; set; }
 
     public DateTime? PublishStarted { get; set; }
 
     public DateTime? PublishEnded { get; set; }
 
     [Column(TypeName = "jsonb")]
-    public List<ExternalLinkInfo> Sources { get; set; } = new();
+    public IEnumerable<ExternalLinkInfo>? Sources { get; set; }
 
+    // TODO: consider rework
     [Column(TypeName = "jsonb")]
-    public DescriptionInfo Description { get; set; }
+    public DescriptionInfo? Description { get; set; }
     
-    public List<CreationsRelations> Relations { get; init; } = new();
+    public IEnumerable<CreationsRelations>? Relations { get; set; }
     
     // [NotMapped]
     // public IEnumerable<ICreationCollection> Collections { get; set; }
     
-    public List<CreationsCharacters> Characters { get; init; } = new();
+    public IEnumerable<CreationsCharacters>? Characters { get; set; }
 
-    public List<MediaInfo> Media { get; set; } = new();
+    public IEnumerable<MediaInfo>? Media { get; set; }
     
     [Column(TypeName = "jsonb")]
-    public List<LanguageInfo> Languages { get; set; } = new();
+    public IEnumerable<LanguageInfo> Languages { get; set; } = null!;
 
     public Rating Rating { get; set; }
 
     public PublishStatus Status { get; set; }
 
     [Column(TypeName = "jsonb")]
-    public List<CensorshipInfo> Censorship { get; set; } = new();
+    public IEnumerable<CensorshipInfo>? Censorship { get; set; }
 
-    public List<Tag> Tags { get; set; } = new();
+    public IEnumerable<Tag> Tags { get; set; } = null!;
 }
