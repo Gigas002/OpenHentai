@@ -399,10 +399,34 @@ FodyWeavers.xsd
 
 .idea/
 
+
+
+# Gigas002 custom overrides
+
+
+
 # ignore testing database
 *.db
 
 # ignore migrations until stable release
 Migrations/
-log.txt
 script.sql
+
+# ignore logs
+*.txt
+
+# ignore publish artifacts
+publish/
+*.zip
+
+# ignore autogen docs
+_docs/index.md
+_docs/LICENSE.md
+_docs/api
+docs/
+
+# ignore coverlet report
+TestResults/
+
+# ignore snyk report
+*.sarif
