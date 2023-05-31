@@ -48,4 +48,9 @@ public class LanguageSpecificTextInfo
     public LanguageSpecificTextInfo(CultureInfo language, string text) => (Language, Text) = (language, text);
 
     public LanguageSpecificTextInfo() { }
+
+    public override string ToString()
+    {
+        return $"{Language.ToString()}::{Text}";
+    }
 }

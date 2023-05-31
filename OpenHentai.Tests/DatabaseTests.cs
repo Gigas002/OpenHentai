@@ -109,6 +109,27 @@ public class DatabaseTests
         }
     }
 
+    [Test]
+    [Order(5)]
+    public void PushCreaturesNames()
+    {
+        using (var db = new DatabaseContext())
+        {
+            var creatures = db.Creatures.ToList();
+
+            foreach (var creature in creatures)
+            {
+                var name = new LanguageSpecificTextInfo($"en-US::Name {creature.Id}");
+                var altName = new LanguageSpecificTextInfo($"en-US::Name_alt {creature.Id + 1000}");
+                
+                creature.Names.Add(new(name));
+                creature.Names.Add(new(altName));
+            }
+
+            db.SaveChanges();
+        }
+    }
+
     #endregion
 
     #region Read tests
