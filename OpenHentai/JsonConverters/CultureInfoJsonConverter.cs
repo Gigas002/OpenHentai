@@ -5,19 +5,19 @@ using System.Globalization;
 namespace OpenHentai.JsonConverters;
 
 /// <inheritdoc />
-public class CultureInfoJsonConverter : JsonConverter<CultureInfo>
+public class CultureInfoJsonConverter : JsonConverter<CultureInfo?>
 {
     /// <inheritdoc />
-    public override CultureInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override CultureInfo? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         var languageCode = reader.GetString();
 
-        return new CultureInfo(languageCode);
+        return string.IsNullOrWhiteSpace(languageCode) ? null : new CultureInfo(languageCode);
     }
 
     /// <inheritdoc />
-    public override void Write(Utf8JsonWriter writer, CultureInfo value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, CultureInfo? value, JsonSerializerOptions options)
     {
-        writer.WriteStringValue(value.ToString());
+        writer.WriteStringValue(value?.ToString());
     }
 }

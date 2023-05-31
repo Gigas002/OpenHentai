@@ -15,10 +15,11 @@ public class LanguageSpecificTextInfo
 {
     /// <summary>
     /// Text language
+    /// <para/> In case it's null - romanized value is passed
     /// </summary>
     [JsonPropertyName("language")]
     [JsonConverter(typeof(CultureInfoJsonConverter))]
-    public CultureInfo Language { get; set; } = null!;
+    public CultureInfo? Language { get; set; }
     
     /// <summary>
     /// Text on chosen language
@@ -52,9 +53,13 @@ public class LanguageSpecificTextInfo
     /// <param name="text">Line</param>
     public LanguageSpecificTextInfo(CultureInfo language, string text) => (Language, Text) = (language, text);
 
+    // TODO: const for "default" string
+
     /// <inheritdoc />
     public override string ToString()
     {
-        return $"{Language.ToString()}::{Text}";
+        var language = Language is null ? "default" : Language.ToString();
+
+        return $"{language}::{Text}";
     }
 }
