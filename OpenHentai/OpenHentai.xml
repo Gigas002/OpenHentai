@@ -263,11 +263,6 @@
             Collection of related pictures, including preview image
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.CreationId">
-            <summary>
-            Creation id in db
-            </summary>
-        </member>
         <member name="P:OpenHentai.Creations.ICreation.Languages">
             <summary>
             Available on languages
@@ -542,11 +537,6 @@
         <member name="P:OpenHentai.Creatures.ICreature.Tags">
             <summary>
             Creature's additional details/tags
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creatures.ICreature.CreatureId">
-            <summary>
-            Creature ID
             </summary>
         </member>
         <member name="P:OpenHentai.Creatures.ICreature.Relations">
@@ -1024,12 +1014,6 @@
         <member name="T:OpenHentai.Tags.ITag">
             <summary>
             Basic interface for tagging purposes
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Tags.ITag.MasterId">
-            <summary>
-            This tag's master tag
-            <para/>null in case there's no master
             </summary>
         </member>
         <member name="P:OpenHentai.Tags.ITag.Category">

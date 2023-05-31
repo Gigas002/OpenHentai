@@ -69,11 +69,6 @@ public interface ICreation
     /// Collection of related pictures, including preview image
     /// </summary>
     public IEnumerable<PictureInfo> Pictures { get; set; }
-
-    /// <summary>
-    /// Creation id in db
-    /// </summary>
-    public ulong CreationId { get; set; }
     
     /// <summary>
     /// Available on languages

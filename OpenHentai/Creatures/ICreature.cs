@@ -44,11 +44,6 @@ public interface ICreature
     /// Creature's additional details/tags
     /// </summary>
     public IEnumerable<ITag> Tags { get; set; }
-
-    /// <summary>
-    /// Creature ID
-    /// </summary>
-    public ulong CreatureId { get; set; }
     
     /// <summary>
     /// Collection of related and alternative characters,

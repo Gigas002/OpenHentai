@@ -63,11 +63,13 @@ public interface ITag
 {
     #region Properties
 
-    /// <summary>
-    /// This tag's master tag
-    /// <para/>null in case there's no master
-    /// </summary>
-    public ulong? MasterId { get; set; }
+//     /// <summary>
+//     /// This tag's master tag
+//     /// <para/>null in case there's no master
+//     /// </summary>
+//     public ulong? MasterId { get; set; }
+
+    public ITag? GetMaster();
     
     /// <summary>
     /// Category of this tag
@@ -85,7 +87,7 @@ public interface ITag
     /// Tag description
     /// e.g. This tag resides for mitsudomoe franchise
     /// </summary>
-    public DescriptionInfo Description { get; set; }
+    public DescriptionInfo? Description { get; set; }
 
     #endregion
 
