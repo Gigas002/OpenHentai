@@ -68,7 +68,7 @@ public interface ICreation
     /// <summary>
     /// Collection of related pictures, including preview image
     /// </summary>
-    public IEnumerable<PictureInfo> Pictures { get; set; }
+    public IEnumerable<MediaInfo> Media { get; set; }
     
     /// <summary>
     /// Available on languages

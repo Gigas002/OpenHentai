@@ -174,7 +174,7 @@
             Collection of characters
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Pictures">
+        <member name="P:OpenHentai.Creations.ICreation.Media">
             <summary>
             Collection of related pictures, including preview image
             </summary>
@@ -359,7 +359,7 @@
             Creature's age, e.g. 500
             </summary>
         </member>
-        <member name="P:OpenHentai.Creatures.ICreature.Pictures">
+        <member name="P:OpenHentai.Creatures.ICreature.Media">
             <summary>
             Collection of related pictures
             </summary>
@@ -586,26 +586,6 @@
         </member>
         <member name="P:OpenHentai.Descriptors.MediaInfo.IsMain">
             <inheritdoc />
-        </member>
-        <member name="T:OpenHentai.Descriptors.PictureInfo">
-            <summary>
-            Picture info
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Descriptors.PictureInfo.MediaSource">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Descriptors.PictureInfo.MediaPath">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Descriptors.PictureInfo.MediaBytes">
-            <inheritdoc />
-        </member>
-        <member name="M:OpenHentai.Descriptors.PictureInfo.#ctor(System.Uri)">
-            <summary>
-            Create new picture from uri
-            </summary>
-            <param name="uri">Source link</param>
         </member>
         <member name="T:OpenHentai.Events.IEvent">
             <summary>

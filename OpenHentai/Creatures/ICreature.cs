@@ -33,7 +33,7 @@ public interface ICreature
     /// <summary>
     /// Collection of related pictures
     /// </summary>
-    public IEnumerable<PictureInfo> Pictures { get; set; }
+    public IEnumerable<MediaInfo> Media { get; set; }
 
     /// <summary>
     /// Creature's gender
