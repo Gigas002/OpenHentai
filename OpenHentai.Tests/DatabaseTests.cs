@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using OpenHentai.Creations;
 using OpenHentai.Database.Circles;
 using OpenHentai.Database.Creations;
@@ -41,9 +42,11 @@ public class DatabaseTests
             var tag2 = new Tag() { Category = TagCategory.Parody, Value = "Yuru Camp Season 2", Description = desc2 };
             var tag3 = new Tag() { Category = TagCategory.Parody, Value = "JJBA" };
 
+            var creatureTag = new Tag() { Category = TagCategory.BodyType, Value = "Adult" };
+
             tag2.Master = tag1; // SetMaster(tag1);
 
-            db.Tags.AddRange(tag1, tag2, tag3);
+            db.Tags.AddRange(tag1, tag2, tag3, creatureTag);
             db.SaveChanges();
         }
     }
@@ -59,6 +62,9 @@ public class DatabaseTests
             author.Description = new List<LanguageSpecificTextInfo>() { new("en-US::Author descr 1") };
             author.Media = new List<MediaInfo>() { new("https://google.com", MediaType.Image) };
             author.ExternalLinks = new List<ExternalLinkInfo>() { new("google", "https://google.com") { OfficialStatus = OfficialStatus.Official, PaidStatus = PaidStatus.Free,} };
+
+            var tag = db.Tags.FirstOrDefault(t => t.Category == TagCategory.BodyType);
+            author.Tags = new List<Tag>() { tag };
 
             var circle = new Circle();
             circle.Authors = new List<Author>() { author };
@@ -268,21 +274,32 @@ public class DatabaseTests
     {
         using (var db = new DatabaseContext())
         {
-            var tags = db.Tags.ToList();
+            var tags = db.Tags.Include(t => t.Creatures)
+                              .ThenInclude(c => c.Names)
+                              .ToList();
 
             Console.WriteLine("Tags:");
             foreach (var tag in tags)
             {
                 Console.WriteLine($"Tag: {tag.Value}");
 
-                if (tag.Master is not null) Console.WriteLine($"Master: {tag.GetMaster()?.Value}");
+                if (tag.Master is not null) Console.WriteLine($"- master: {tag.GetMaster()?.Value}");
 
                 if (tag.Slaves?.Count() > 0)
                 {
-                    Console.WriteLine("Slaves:");
+                    Console.WriteLine("- slaves:");
                     foreach (var slave in tag.Slaves)
                     {
-                        Console.WriteLine($"- {slave.Value}");
+                        Console.WriteLine($"  - {slave.Value}");
+                    }
+                }
+
+                if (tag.Creatures?.Count() > 0)
+                {
+                    Console.WriteLine("- creatures:");
+                    foreach(var creature in tag.Creatures)
+                    {
+                        Console.WriteLine($"  - {creature?.Names?.FirstOrDefault().Text}");
                     }
                 }
             }
