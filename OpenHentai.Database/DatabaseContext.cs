@@ -45,6 +45,10 @@ public class DatabaseContext : DbContext
             v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
             v => JsonSerializer.Deserialize<DescriptionInfo>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
 
+        modelBuilder.Entity<Creature>().Property(e => e.Description).HasConversion(
+            v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
+            v => JsonSerializer.Deserialize<DescriptionInfo>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+
         // modelBuilder.Entity<Creation>().UseTptMappingStrategy();
 
         modelBuilder.Entity<Author>()

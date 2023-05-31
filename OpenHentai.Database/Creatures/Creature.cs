@@ -17,8 +17,8 @@ public class Creature : IDatabaseEntity //: ICreature
     public List<CreaturesNames> Names { get; init; } = new();    
 
     /// <inheritdoc />
-    [NotMapped]
-    public DescriptionInfo Description { get ; set ; }
+    [Column(TypeName = "jsonb")]
+    public DescriptionInfo? Description { get ; set ; }
     
     /// <inheritdoc />
     public DateTime Birthday { get ; set ; }

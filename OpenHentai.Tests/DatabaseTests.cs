@@ -31,7 +31,6 @@ public class DatabaseTests
     {
         using (var db = new DatabaseContext())
         {
-            db.Database.EnsureCreated();
             var desc1 = new DescriptionInfo("en-US::Anime about camping");
             var desc2 = new DescriptionInfo("en-US::Second season of Yuru Camp");
 
@@ -54,12 +53,14 @@ public class DatabaseTests
         {
             var author = new Author();
             author.Age = 10;
+            author.Description = new DescriptionInfo("en-US::Author descr 1");
 
             var circle = new Circle();
             circle.Authors = new List<Author>() { author };
 
             var character = new Character();
             character.Age = 11;
+            character.Description = new DescriptionInfo("en-US::Chara descr 1");
 
             db.Authors.Add(author);
             db.Circles.Add(circle);
