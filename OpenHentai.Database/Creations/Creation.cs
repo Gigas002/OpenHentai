@@ -60,7 +60,7 @@ public class Creation : IDatabaseEntity, ICreation
 
     public void SetAuthors(Dictionary<Author, AuthorRole> authors)
     {
-        AuthorsCreations = authors.Select(author => new AuthorsCreations()
+        AuthorsCreations = authors.Select(author => new AuthorsCreations
         {
             Creation = this,
             Author = author.Key,
@@ -73,7 +73,7 @@ public class Creation : IDatabaseEntity, ICreation
 
     public void SetCharacters(Dictionary<Character, CharacterRole> characters)
     {
-        CreationsCharacters = characters.Select(character => new CreationsCharacters()
+        CreationsCharacters = characters.Select(character => new CreationsCharacters
         {
             Creation = this,
             Character = character.Key,
@@ -86,7 +86,7 @@ public class Creation : IDatabaseEntity, ICreation
 
     public void SetRelations(Dictionary<Creation, CreationRelations> relations)
     {
-        CreationsRelations = relations.Select(relation => new CreationsRelations()
+        CreationsRelations = relations.Select(relation => new CreationsRelations
         {
             Creation = this,
             RelatedCreation = relation.Key,

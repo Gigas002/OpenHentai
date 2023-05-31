@@ -48,7 +48,7 @@ public class Creature : IDatabaseEntity, ICreature
 
     public void SetRelations(Dictionary<Creature, CreatureRelations> relations)
     {
-        CreaturesRelations = relations.Select(relation => new CreaturesRelations()
+        CreaturesRelations = relations.Select(relation => new CreaturesRelations
         {
             Creature = this,
             RelatedCreature = relation.Key,

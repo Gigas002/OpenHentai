@@ -26,6 +26,5 @@ public class CirclesTitles : ILanguageSpecificTextInfoEntity<Circle>
 
     public CirclesTitles(Circle circle, LanguageSpecificTextInfo name) : this(circle, name.Text, name.Language) { }
 
-    public LanguageSpecificTextInfo GetLanguageSpecificTextInfo() =>
-        new LanguageSpecificTextInfo(Language, Text);
+    public LanguageSpecificTextInfo GetLanguageSpecificTextInfo() => new(Language, Text);
 }

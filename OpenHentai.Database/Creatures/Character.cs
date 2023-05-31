@@ -17,7 +17,7 @@ public class Character : Creature, ICharacter
 
     public void SetCreations(Dictionary<Creation, CharacterRole> creations)
     {
-        CreationsCharacters = creations.Select(creation => new CreationsCharacters()
+        CreationsCharacters = creations.Select(creation => new CreationsCharacters
         {
             Character = this,
             Creation = creation.Key,

@@ -26,6 +26,5 @@ public class CreationsTitles : ILanguageSpecificTextInfoEntity<Creation>
 
     public CreationsTitles(Creation creation, LanguageSpecificTextInfo name) : this(creation, name.Text, name.Language) { }
 
-    public LanguageSpecificTextInfo GetLanguageSpecificTextInfo() =>
-        new LanguageSpecificTextInfo(Language, Text);
+    public LanguageSpecificTextInfo GetLanguageSpecificTextInfo() => new(Language, Text);
 }

@@ -42,7 +42,7 @@ public class Author : Creature, IAuthor
 
     public void SetCreations(Dictionary<Creation, AuthorRole> creations)
     {
-        AuthorsCreations = creations.Select(creation => new AuthorsCreations()
+        AuthorsCreations = creations.Select(creation => new AuthorsCreations
         {
             Author = this,
             Creation = creation.Key,

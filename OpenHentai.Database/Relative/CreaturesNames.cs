@@ -29,6 +29,5 @@ public class CreaturesNames : ILanguageSpecificTextInfoEntity<Creature>
     public CreaturesNames(Creature creature, LanguageSpecificTextInfo name) :
         this(creature, name.Text, name.Language) { }
 
-    public LanguageSpecificTextInfo GetLanguageSpecificTextInfo() =>
-        new LanguageSpecificTextInfo(Language, Text);
+    public LanguageSpecificTextInfo GetLanguageSpecificTextInfo() => new(Language, Text);
 }

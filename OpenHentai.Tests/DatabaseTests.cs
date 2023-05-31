@@ -11,6 +11,8 @@ using OpenHentai.Statuses;
 using OpenHentai.Tags;
 using System.Text.Json;
 
+#pragma warning disable CA1303
+
 namespace OpenHentai.Tests;
 
 public class DatabaseTests
@@ -18,12 +20,11 @@ public class DatabaseTests
     [SetUp]
     public void Setup()
     {
+        using var db = new DatabaseContext();
+        
         // don't use this in prod, use migrations instead
-        using (var db = new DatabaseContext())
-        {
-            // db.Database.EnsureDeleted();
-            db.Database.EnsureCreated();
-        }
+        // db.Database.EnsureDeleted();
+        db.Database.EnsureCreated();
     }
 
     #region Push tests
@@ -32,208 +33,180 @@ public class DatabaseTests
     [Order(1)]
     public void PushTagsTest()
     {
-        using (var db = new DatabaseContext())
-        {
-            var desc1 = new List<LanguageSpecificTextInfo>() { new("en-US::Anime about camping") };
-            var desc2 = new List<LanguageSpecificTextInfo>() { new("en-US::Second season of Yuru Camp") };
+        using var db = new DatabaseContext();
+        
+        var desc1 = new List<LanguageSpecificTextInfo> { new("en-US::Anime about camping") };
+        var desc2 = new List<LanguageSpecificTextInfo> { new("en-US::Second season of Yuru Camp") };
 
-            var tag1 = new Tag() { Category = TagCategory.Parody, Value = "Yuru Camp", Description = desc1 };
-            var tag2 = new Tag() { Category = TagCategory.Parody, Value = "Yuru Camp Season 2", Description = desc2 };
-            var tag3 = new Tag() { Category = TagCategory.Parody, Value = "JJBA" };
+        var tag1 = new Tag { Category = TagCategory.Parody, Value = "Yuru Camp", Description = desc1 };
+        var tag2 = new Tag { Category = TagCategory.Parody, Value = "Yuru Camp Season 2", Description = desc2 };
+        var tag3 = new Tag { Category = TagCategory.Parody, Value = "JJBA" };
 
-            var creatureTag = new Tag() { Category = TagCategory.BodyType, Value = "Adult" };
+        var creatureTag = new Tag { Category = TagCategory.BodyType, Value = "Adult" };
 
-            tag2.SetMaster(tag1);
+        tag2.SetMaster(tag1);
 
-            db.Tags.AddRange(tag1, tag2, tag3, creatureTag);
-            db.SaveChanges();
-        }
+        db.Tags.AddRange(tag1, tag2, tag3, creatureTag);
+        db.SaveChanges();
     }
 
     [Test]
     [Order(2)]
     public void PushCreaturesTest()
     {
-        using (var db = new DatabaseContext())
+        using var db = new DatabaseContext();
+        
+        var tag = db.Tags.FirstOrDefault(t => t.Category == TagCategory.BodyType);
+
+        var author = new Author
         {
-            var author = new Author();
-            author.Age = 10;
-            author.Description = new List<LanguageSpecificTextInfo>() { new("en-US::Author descr 1") };
-            author.Media = new List<MediaInfo>() { new("https://google.com", MediaType.Image) };
-            author.ExternalLinks = new List<ExternalLinkInfo>() { new("google", "https://google.com") { OfficialStatus = OfficialStatus.Official, PaidStatus = PaidStatus.Free,} };
+            Age = 10,
+            Description = new List<LanguageSpecificTextInfo> { new("en-US::Author descr 1") },
+            Media = new List<MediaInfo> { new("https://google.com", MediaType.Image) },
+            ExternalLinks = new List<ExternalLinkInfo>
+            {
+                new("google", "https://google.com")
+                {
+                    OfficialStatus = OfficialStatus.Official, PaidStatus = PaidStatus.Free,
+                }
+            },
+            Tags = new List<Tag> { tag }
+        };
 
-            var tag = db.Tags.FirstOrDefault(t => t.Category == TagCategory.BodyType);
-            author.Tags = new List<Tag>() { tag };
+        var circle = new Circle
+        {
+            Authors = new List<Author> { author }
+        };
 
-            var circle = new Circle();
-            circle.Authors = new List<Author>() { author };
+        var character = new Character
+        {
+            Age = 11,
+            Description = new List<LanguageSpecificTextInfo> { new("en-US::Chara descr 1") }
+        };
 
-            var character = new Character();
-            character.Age = 11;
-            character.Description = new List<LanguageSpecificTextInfo>() { new("en-US::Chara descr 1") };
+        db.Authors.Add(author);
+        db.Circles.Add(circle);
+        db.Characters.Add(character);
 
-            db.Authors.Add(author);
-            db.Circles.Add(circle);
-            db.Characters.Add(character);
-
-            db.SaveChanges();
-        }
+        db.SaveChanges();
     }
 
     [Test]
     [Order(3)]
     public void PushCreation()
     {
-        using (var db = new DatabaseContext())
+        using var db = new DatabaseContext();
+        
+        var manga = new Manga
         {
-            var manga = new Manga() { Length = 10 };
-            manga.Sources = new List<ExternalLinkInfo>() { new("google", "https://google.com") };
-            manga.Description = new List<LanguageSpecificTextInfo>() { new("en-US::Anime about camping") };
-            manga.Media = new List<MediaInfo>() { new("https://google.com", MediaType.Image) };
-            manga.Languages = new List<LanguageInfo>() { new("en-US", false) };
-            manga.Censorship = new List<CensorshipInfo>() { new() { Censorship = Creations.Censorship.None, IsOfficial = true} };
-            manga.ColoredInfo = new List<ColoredInfo>() { new() { Color = Color.BlackWhite, IsOfficial = true} };
-            // SerializeLangs(new List<LanguageInfo>() { new("en-US", false) });
+            Length = 10,
+            Sources = new List<ExternalLinkInfo> { new("google", "https://google.com") },
+            Description = new List<LanguageSpecificTextInfo> { new("en-US::Anime about camping") },
+            Media = new List<MediaInfo> { new("https://google.com", MediaType.Image) },
+            Languages = new List<LanguageInfo> { new("en-US", false) },
+            Censorship = new List<CensorshipInfo> { new() { Censorship = Creations.Censorship.None, IsOfficial = true} },
+            ColoredInfo = new List<ColoredInfo> { new() { Color = Color.BlackWhite, IsOfficial = true} }
+        };
+        // SerializeLangs(new List<LanguageInfo>() { new("en-US", false) });
 
-            // var manga2 = new Manga() { Length = 100 };
-            // manga.Sources.Add(new("https://bing.com"));
-            // manga.Description = new DescriptionInfo("en-US::Anime about something else");
+        db.Mangas.AddRange(manga);
 
-            db.Mangas.AddRange(manga); //, manga2);
-
-            db.SaveChanges();
-        }
+        db.SaveChanges();
     }
 
     [Test]
     [Order(4)]
     public void PushCharacterCreation()
     {
-        using (var db = new DatabaseContext())
+        using var db = new DatabaseContext();
+        
+        var mangas = db.Mangas.ToList();
+        var chars = db.Characters.ToList();
+
+        foreach (var chara in chars)
         {
-            var mangas = db.Mangas.ToList();
-            var chars = db.Characters.ToList();
-
-            if (mangas.Count <= 0) Console.WriteLine("manganull");
-            if (chars.Count <= 0) Console.WriteLine("charnull");
-
-            foreach (var chara in chars)
+            chara.SetCreations(new() 
             {
-                // var cc = new CreationsCharacters();
-                // cc.Creation = mangas.FirstOrDefault();
-                // cc.Character = chara;
-                // cc.Role = CharacterRole.Main;
-                // chara.InCreations = new List<CreationsCharacters>() { cc };
-
-                chara.SetCreations(new() 
-                {
-                    { mangas.FirstOrDefault(), CharacterRole.Main}
-                });
-            }
-
-            db.SaveChanges();
+                { mangas.FirstOrDefault(), CharacterRole.Main}
+            });
         }
+
+        db.SaveChanges();
     }
 
     [Test]
     [Order(5)]
     public void PushCreaturesNames()
     {
-        using (var db = new DatabaseContext())
+        using var db = new DatabaseContext();
+        
+        var creatures = db.Creatures.ToList();
+
+        foreach (var creature in creatures)
         {
-            var creatures = db.Creatures.ToList();
-
-            foreach (var creature in creatures)
+            creature.SetNames(new List<LanguageSpecificTextInfo> 
             {
-                // var name = new LanguageSpecificTextInfo($"en-US::Name {creature.Id}");
-                // var altName = new LanguageSpecificTextInfo($"en-US::Name_alt {creature.Id + 1000}");
-
-                // creature.Names = new List<CreaturesNames>() { new(name), new(altName) };
-                creature.SetNames(new List<LanguageSpecificTextInfo> 
-                {
-                    new LanguageSpecificTextInfo($"en-US::Name {creature.Id}"),
-                    new LanguageSpecificTextInfo($"en-US::Name_alt {creature.Id + 1000}")
-                });
-            }
-
-            db.SaveChanges();
+                new($"en-US::Name {creature.Id}"),
+                new($"en-US::Name_alt {creature.Id + 1000}")
+            });
         }
+
+        db.SaveChanges();
     }
 
     [Test]
     [Order(6)]
     public void PushCreaturesRelationsTest()
     {
-        using (var db = new DatabaseContext())
+        using var db = new DatabaseContext();
+        
+        var creatures = db.Creatures.ToList();
+
+        var author = creatures.FirstOrDefault(c => c is Author);
+        var chara = creatures.FirstOrDefault(c => c is Character);
+
+        chara.SetRelations(new()
         {
-            var creatures = db.Creatures.ToList();
+            { author, CreatureRelations.Enemy }
+        });
 
-            var author = creatures.FirstOrDefault(c => c is Author);
-            var chara = creatures.FirstOrDefault(c => c is Character);
-
-            chara.SetRelations(new()
-            {
-                { author, CreatureRelations.Enemy }
-            });
-            // var cr = new CreaturesRelations();
-            // cr.Creature = chara;
-            // cr.RelatedCreature = author;
-            // cr.Relation = CreatureRelations.Enemy;
-            //
-            // db.CreaturesRelations.Add(cr);
-
-            db.SaveChanges();
-        }
+        db.SaveChanges();
     }
 
     [Test]
     [Order(7)]
     public void PushAuthorNames()
     {
-        using (var db = new DatabaseContext())
-        {
-            // var authors = db.Authors.ToList();
+        using var db = new DatabaseContext();
 
-            var author = db.Authors.FirstOrDefault();
+        var author = db.Authors.FirstOrDefault();
             
-            author.SetAuthorNames(new List<LanguageSpecificTextInfo>
-            {
-                new("en-US", "Author Name")
-            });
+        author.SetAuthorNames(new List<LanguageSpecificTextInfo>
+        {
+            new("en-US", "Author Name")
+        });
 
-            // var authorName = new AuthorsNames(authors.FirstOrDefault(), "Author Name", "en-US");
-
-            // db.AuthorsNames.Add(authorName);
-
-            db.SaveChanges();
-        }
+        db.SaveChanges();
     }
 
     [Test]
     [Order(8)]
     public void PushAuthorsCreationsTest()
     {
-        using (var db = new DatabaseContext())
+        using var db = new DatabaseContext();
+       
+        var authors = db.Authors.ToList();
+        var creations = db.Creations.ToList();
+
+        foreach (var author in authors)
         {
-            var authors = db.Authors.ToList();
-            var creations = db.Creations.ToList();
-
-            foreach (var author in authors)
+            author.SetCreations(new()
             {
-                // var ac = new AuthorsCreations();
-                // ac.Author = author;
-                // ac.Creation = creations.FirstOrDefault();
-                // ac.Role = AuthorRole.MainArtist;
-
-                // author.Creations = new List<AuthorsCreations>() { ac };
-                author.SetCreations(new()
-                {
-                    { creations.FirstOrDefault(), AuthorRole.MainArtist }
-                });
-            }
-
-            db.SaveChanges();
+                { creations.FirstOrDefault(), AuthorRole.MainArtist }
+            });
         }
+
+        db.SaveChanges();
     }
 
     [Test]
@@ -241,17 +214,12 @@ public class DatabaseTests
     public void PushCirclesTitles()
     {
         using var db = new DatabaseContext();
-        // var circles = db.Circles.ToList();
 
         var circle = db.Circles.FirstOrDefault();
         circle.SetTitles(new List<LanguageSpecificTextInfo>
         {
             new("en-US", "Circle Title")
         });
-
-        // var circleTitle = new CirclesTitles(circles.FirstOrDefault(), "Circle Title", "en-US");
-        //
-        // db.CirclesTitles.Add(circleTitle);
 
         db.SaveChanges();
     }
@@ -261,18 +229,13 @@ public class DatabaseTests
     public void PushCreationsTitles()
     {
         using var db = new DatabaseContext();
+        
         var creation = db.Creations.FirstOrDefault();
             
         creation.SetTitles(new List<LanguageSpecificTextInfo>
         {
             new("en-US", "Creation Title")
         });
-            
-        // var creations = db.Creations.ToList();
-        //
-        // var creationTitle = new CreationsTitles(creations.FirstOrDefault(), "Creation Title", "en-US");
-        //
-        // db.CreationsTitles.Add(creationTitle);
 
         db.SaveChanges();
     }
@@ -281,27 +244,19 @@ public class DatabaseTests
     [Order(11)]
     public void PushCreationsRelations()
     {
-        using (var db = new DatabaseContext())
+        using var db = new DatabaseContext();
+        
+        var creations = db.Creations.ToList();
+            
+        var creation = creations.FirstOrDefault();
+        var relatedCreation = creations.LastOrDefault();
+            
+        creation.SetRelations(new()
         {
-            var creations = db.Creations.ToList();
-            
-            var creation = creations.FirstOrDefault();
-            var relatedCreation = creations.LastOrDefault();
-            
-            creation.SetRelations(new()
-            {
-                { relatedCreation, CreationRelations.Parent }
-            });
+            { relatedCreation, CreationRelations.Parent }
+        });
 
-            // var cr = new CreationsRelations();
-            // cr.Creation = creations.FirstOrDefault();
-            // cr.RelatedCreation = creations.LastOrDefault();
-            // cr.Relation = CreationRelations.Parent;
-            //
-            // db.CreationsRelations.Add(cr);
-
-            db.SaveChanges();
-        }
+        db.SaveChanges();
     }
 
     #endregion
@@ -312,50 +267,48 @@ public class DatabaseTests
     [Order(1000)]
     public void ReadTagsTest()
     {
-        using (var db = new DatabaseContext())
+        using var db = new DatabaseContext();
+        
+        // TODO: find a way to ise GetNames method instead of property
+        var tags = db.Tags.Include(t => t.Creatures)
+                     .ThenInclude(c => c.CreaturesNames)
+                     .ToList();
+
+        Console.WriteLine("Tags:");
+        foreach (var tag in tags)
         {
-            // TODO: find a way to ise GetNames method instead of property
-            var tags = db.Tags.Include(t => t.Creatures)
-                               .ThenInclude(c => c.CreaturesNames)
-                              .ToList();
+            Console.WriteLine($"Tag: {tag.Value}");
 
-            Console.WriteLine("Tags:");
-            foreach (var tag in tags)
+            if (tag.GetMaster() is not null) Console.WriteLine($"- master: {tag.GetMaster()?.Value}");
+
+            if (tag.Slaves?.Count() > 0)
             {
-                Console.WriteLine($"Tag: {tag.Value}");
-
-                if (tag.GetMaster() is not null) Console.WriteLine($"- master: {tag.GetMaster()?.Value}");
-
-                if (tag.Slaves?.Count() > 0)
+                Console.WriteLine("- slaves:");
+                foreach (var slave in tag.Slaves)
                 {
-                    Console.WriteLine("- slaves:");
-                    foreach (var slave in tag.Slaves)
-                    {
-                        Console.WriteLine($"  - {slave.Value}");
-                    }
-                }
-
-                if (tag.Creatures?.Count() > 0)
-                {
-                    Console.WriteLine("- creatures:");
-                    foreach(var creature in tag.Creatures)
-                    {
-                        Console.WriteLine($"  - {creature?.GetNames()?.FirstOrDefault()?.Text}");
-                    }
+                    Console.WriteLine($"  - {slave.Value}");
                 }
             }
 
-            SerializeTags(tags);
-
-            // var fantasyTags = Tag.GetTagWithSlaves(tags, "fantasy");
-            // foreach (var tag in fantasyTags)
-            //     Console.WriteLine($"Fantasy tag: {tag.Value}");
+            if (tag.Creatures?.Count() <= 0) continue;
+            
+            Console.WriteLine("- creatures:");
+            foreach (var creature in tag.Creatures)
+            {
+                Console.WriteLine($"  - {creature?.GetNames()?.FirstOrDefault()?.Text}");
+            }
         }
+
+        SerializeTags(tags);
+
+        // var fantasyTags = Tag.GetTagWithSlaves(tags, "fantasy");
+        // foreach (var tag in fantasyTags)
+        //     Console.WriteLine($"Fantasy tag: {tag.Value}");
     }
 
     #endregion
 
-    public static void SerializeTags(IEnumerable<Tag> tags)
+    private static void SerializeTags(IEnumerable<Tag> tags)
     {
         var options = new JsonSerializerOptions();
         // Requires net8+
@@ -364,12 +317,5 @@ public class DatabaseTests
         var json = JsonSerializer.Serialize(tags, options);
 
         File.WriteAllText("../tags.json", json);
-    }
-
-    public static void SerializeLangs(IEnumerable<LanguageInfo> langs)
-    {
-        var json = JsonSerializer.Serialize(langs);
-
-        File.WriteAllText("../langs.json", json);
     }
 }

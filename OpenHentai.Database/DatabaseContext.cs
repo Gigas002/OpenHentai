@@ -14,7 +14,7 @@ public class DatabaseContext : DbContext
 {
     #region Properties
 
-    private readonly StreamWriter _logStream = new StreamWriter("log.txt", true);
+    private readonly StreamWriter _logStream = new("log.txt", true);
 
     public DbSet<Tag> Tags { get; set; } = null!;
     public DbSet<Creation> Creations { get; set; } = null!;
@@ -51,7 +51,7 @@ public class DatabaseContext : DbContext
 
         // convertable properties
 
-        var jsonSerializerOptions = new JsonSerializerOptions() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault };
+        var jsonSerializerOptions = new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault };
 
         modelBuilder.Entity<Tag>().Property(e => e.Description).HasConversion(
             v => JsonSerializer.Serialize(v, jsonSerializerOptions),
