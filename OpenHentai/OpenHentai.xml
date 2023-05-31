@@ -772,23 +772,6 @@
             </summary>
             <param name="uri">Source link</param>
         </member>
-        <member name="T:OpenHentai.DoujinCreator">
-            <summary>
-            ONLY FOR TESTING PURPOSES
-            </summary>
-        </member>
-        <member name="M:OpenHentai.DoujinCreator.CreateYukinoMinato">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:OpenHentai.DoujinCreator.CreateMinatoDoujin">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:OpenHentai.Events.IEvent">
             <summary>
             IRL event, e.g. comiket, comic1, etc
