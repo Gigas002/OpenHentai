@@ -16,14 +16,14 @@ public class CreationsTitles : ILanguageSpecificTextInfoEntity<Creation>
 
     [Column("title")]
     public string Text { get; set; } = null!;
-    public string Language { get; set; } = null!;
+    public string? Language { get; set; } = null!;
 
     public CreationsTitles() { }
 
-    public CreationsTitles(Creation creation, string name, string language) =>
+    public CreationsTitles(Creation creation, string name, string? language) =>
         (Entity, Text, Language) = (creation, name, language);
 
-    public CreationsTitles(Creation creation, string name, CultureInfo language) : this(creation, name, language.ToString()) { }
+    public CreationsTitles(Creation creation, string name, CultureInfo? language) : this(creation, name, language?.ToString()) { }
 
     public CreationsTitles(Creation creation, LanguageSpecificTextInfo name) : this(creation, name.Text, name.Language) { }
 }

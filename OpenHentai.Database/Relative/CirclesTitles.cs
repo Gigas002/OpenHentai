@@ -15,14 +15,14 @@ public class CirclesTitles : ILanguageSpecificTextInfoEntity<Circle>
 
     [Column("title")]
     public string Text { get; set; } = null!;
-    public string Language { get; set; } = null!;
+    public string? Language { get; set; } = null!;
 
     public CirclesTitles() { }
 
-    public CirclesTitles(Circle circle, string name, string language) =>
+    public CirclesTitles(Circle circle, string name, string? language) =>
         (Entity, Text, Language) = (circle, name, language);
 
-    public CirclesTitles(Circle circle, string name, CultureInfo language) : this(circle, name, language.ToString()) { }
+    public CirclesTitles(Circle circle, string name, CultureInfo? language) : this(circle, name, language?.ToString()) { }
 
     public CirclesTitles(Circle circle, LanguageSpecificTextInfo name) : this(circle, name.Text, name.Language) { }
 }

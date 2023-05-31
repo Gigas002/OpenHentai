@@ -16,20 +16,13 @@ public class CreaturesNames : ILanguageSpecificTextInfoEntity<Creature>
     [Column("name")]
     public string Text { get; set; } = null!;
 
-    public string Language { get; set; } = null!;
+    public string? Language { get; set; } = null!;
 
     public CreaturesNames() { }
 
-    public CreaturesNames(string name, string language) => (Text, Language) = (name, language);
+    public CreaturesNames(string name, string? language) => (Text, Language) = (name, language);
 
-    public CreaturesNames(string name, CultureInfo language) : this(name, language.ToString()) { }
+    public CreaturesNames(string name, CultureInfo? language) : this(name, language?.ToString()) { }
 
     public CreaturesNames(LanguageSpecificTextInfo name) : this(name.Text, name.Language) { }
-
-    public LanguageSpecificTextInfo GetNameInfo()
-    {
-        var ci = new CultureInfo(Language);
-
-        return new LanguageSpecificTextInfo(ci, Text);
-    }
 }

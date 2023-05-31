@@ -47,47 +47,51 @@ public class DatabaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        if (modelBuilder is null) throw new ArgumentNullException(nameof(modelBuilder));
+
         // convertable properties
 
+        var jsonSerializerOptions = new JsonSerializerOptions() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault };
+
         modelBuilder.Entity<Tag>().Property(e => e.Description).HasConversion(
-            v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
-            v => JsonSerializer.Deserialize<IEnumerable<LanguageSpecificTextInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
+            v => JsonSerializer.Deserialize<IEnumerable<LanguageSpecificTextInfo>>(v, jsonSerializerOptions));
 
         modelBuilder.Entity<Creature>().Property(e => e.Description).HasConversion(
-            v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
-            v => JsonSerializer.Deserialize<IEnumerable<LanguageSpecificTextInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
+            v => JsonSerializer.Deserialize<IEnumerable<LanguageSpecificTextInfo>>(v, jsonSerializerOptions));
 
         modelBuilder.Entity<Creature>().Property(e => e.Media).HasConversion(
-            v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
-            v => JsonSerializer.Deserialize<List<MediaInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
+            v => JsonSerializer.Deserialize<IEnumerable<MediaInfo>>(v, jsonSerializerOptions));
 
         modelBuilder.Entity<Author>().Property(e => e.ExternalLinks).HasConversion(
-            v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
-            v => JsonSerializer.Deserialize<List<ExternalLinkInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
+            v => JsonSerializer.Deserialize<IEnumerable<ExternalLinkInfo>>(v, jsonSerializerOptions));
 
         modelBuilder.Entity<Creation>().Property(e => e.Sources).HasConversion(
-            v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
-            v => JsonSerializer.Deserialize<List<ExternalLinkInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
+            v => JsonSerializer.Deserialize<IEnumerable<ExternalLinkInfo>>(v, jsonSerializerOptions));
 
         modelBuilder.Entity<Creation>().Property(e => e.Description).HasConversion(
-            v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
-            v => JsonSerializer.Deserialize<IEnumerable<LanguageSpecificTextInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
+            v => JsonSerializer.Deserialize<IEnumerable<LanguageSpecificTextInfo>>(v, jsonSerializerOptions));
 
         modelBuilder.Entity<Creation>().Property(e => e.Media).HasConversion(
-            v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
-            v => JsonSerializer.Deserialize<List<MediaInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
+            v => JsonSerializer.Deserialize<IEnumerable<MediaInfo>>(v, jsonSerializerOptions));
 
         modelBuilder.Entity<Creation>().Property(e => e.Languages).HasConversion(
-            v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
-            v => JsonSerializer.Deserialize<List<LanguageInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
+            v => JsonSerializer.Deserialize<IEnumerable<LanguageInfo>>(v, jsonSerializerOptions)!);
 
         modelBuilder.Entity<Creation>().Property(e => e.Censorship).HasConversion(
-            v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
-            v => JsonSerializer.Deserialize<List<CensorshipInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
+            v => JsonSerializer.Deserialize<IEnumerable<CensorshipInfo>>(v, jsonSerializerOptions));
 
         modelBuilder.Entity<Manga>().Property(e => e.ColoredInfo).HasConversion(
-            v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
-            v => JsonSerializer.Deserialize<List<ColoredInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
+            v => JsonSerializer.Deserialize<IEnumerable<ColoredInfo>>(v, jsonSerializerOptions)!);
 
         // modelBuilder.Entity<Creation>().UseTptMappingStrategy();
 
@@ -190,11 +194,13 @@ public class DatabaseContext : DbContext
     {
         base.Dispose();
         _logStream.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     public override async ValueTask DisposeAsync()
     {
-        await base.DisposeAsync();
-        await _logStream.DisposeAsync();
+        await base.DisposeAsync().ConfigureAwait(false);
+        await _logStream.DisposeAsync().ConfigureAwait(false);
+        GC.SuppressFinalize(this);
     }
 }

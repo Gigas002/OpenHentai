@@ -44,7 +44,7 @@ public class DatabaseTests
 
             var creatureTag = new Tag() { Category = TagCategory.BodyType, Value = "Adult" };
 
-            tag2.Master = tag1; // SetMaster(tag1);
+            tag2.SetMaster(tag1);
 
             db.Tags.AddRange(tag1, tag2, tag3, creatureTag);
             db.SaveChanges();
@@ -283,7 +283,7 @@ public class DatabaseTests
             {
                 Console.WriteLine($"Tag: {tag.Value}");
 
-                if (tag.Master is not null) Console.WriteLine($"- master: {tag.GetMaster()?.Value}");
+                if (tag.GetMaster() is not null) Console.WriteLine($"- master: {tag.GetMaster()?.Value}");
 
                 if (tag.Slaves?.Count() > 0)
                 {

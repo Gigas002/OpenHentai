@@ -15,14 +15,14 @@ public class AuthorsNames : ILanguageSpecificTextInfoEntity<Author>
 
     [Column("name")]
     public string Text { get; set; } = null!;
-    public string Language { get; set; } = null!;
+    public string? Language { get; set; }
 
     public AuthorsNames() { }
 
-    public AuthorsNames(Author author, string name, string language) =>
+    public AuthorsNames(Author author, string name, string? language) =>
         (Entity, Text, Language) = (author, name, language);
 
-    public AuthorsNames(Author author, string name, CultureInfo language) : this(author, name, language.ToString()) { }
+    public AuthorsNames(Author author, string name, CultureInfo? language) : this(author, name, language?.ToString()) { }
 
     public AuthorsNames(Author author, LanguageSpecificTextInfo name) : this(author, name.Text, name.Language) { }
 }
