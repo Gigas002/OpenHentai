@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using OpenHentai.Database.Circles;
 using OpenHentai.Database.Creations;
+using OpenHentai.Database.Relative;
 using OpenHentai.Descriptors;
 using OpenHentai.Roles;
 
@@ -15,8 +16,9 @@ public class Author : Creature //, IDatabaseEntity //, IAuthor
     #region Interfaces implementation
     
     /// <inheritdoc />
-    [NotMapped]
-    public IEnumerable<LanguageSpecificTextInfo> AuthorNames { get; set; }
+    // [NotMapped]
+    // public IEnumerable<LanguageSpecificTextInfo> AuthorNames { get; set; }
+    public List<AuthorsNames> AuthorNames { get; set; } = new();
 
     /// <inheritdoc />
     [NotMapped]

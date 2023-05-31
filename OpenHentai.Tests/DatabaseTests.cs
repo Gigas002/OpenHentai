@@ -155,6 +155,22 @@ public class DatabaseTests
         }
     }
 
+    [Test]
+    [Order(7)]
+    public void PushAuthorNames()
+    {
+        using (var db = new DatabaseContext())
+        {
+            var authors = db.Authors.ToList();
+
+            var authorName = new AuthorsNames(authors.FirstOrDefault(), "Author Name", "en-US");
+
+            db.AuthorsNames.Add(authorName);
+
+            db.SaveChanges();
+        }
+    }
+
     #endregion
 
     #region Read tests

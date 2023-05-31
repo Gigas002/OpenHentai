@@ -6,19 +6,21 @@ using System.Globalization;
 namespace OpenHentai.Database.Relative;
 
 [Table("creatures_names")]
-public class CreaturesNames : IDatabaseEntity
+public class CreaturesNames : ILanguageSpecificTextInfoEntity<Creature>
 {
     public ulong Id { get; set; }
 
-    public Creature Creature { get; set; }
+    [ForeignKey("creature_id")]
+    public Creature Entity { get; set; }
 
-    public string Name { get; set; }
+    [Column("name")]
+    public string Text { get; set; }
 
     public string Language { get; set; }
 
     public CreaturesNames() { }
 
-    public CreaturesNames(string name, string language) => (Name, Language) = (name, language);
+    public CreaturesNames(string name, string language) => (Text, Language) = (name, language);
 
     public CreaturesNames(string name, CultureInfo language) : this(name, language.ToString()) { }
 
@@ -28,6 +30,6 @@ public class CreaturesNames : IDatabaseEntity
     {
         var ci = new CultureInfo(Language);
 
-        return new LanguageSpecificTextInfo(ci, Name);
+        return new LanguageSpecificTextInfo(ci, Text);
     }
 }

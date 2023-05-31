@@ -40,9 +40,6 @@
         <member name="P:OpenHentai.Database.Creatures.Creature.Tags">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Creatures.Creature.Relations">
-            <inheritdoc />
-        </member>
         <member name="T:OpenHentai.Database.IDatabaseEntity">
             <summary>
             Basic database entries specification

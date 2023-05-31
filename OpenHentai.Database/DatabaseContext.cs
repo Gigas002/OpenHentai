@@ -26,6 +26,7 @@ public class DatabaseContext : DbContext
     public DbSet<CreationsCharacters> CreationsCharacters { get; set; } = null!;
     public DbSet<Circle> Circles { get; set; } = null!;
     public DbSet<CreaturesRelations> CreaturesRelations { get; set; } = null!;
+    public DbSet<AuthorsNames> AuthorsNames { get; set; } = null!;
 
     public string DatabasePath { get; init; } = null!;
 
