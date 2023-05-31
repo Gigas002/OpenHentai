@@ -19,6 +19,7 @@ public class Author : Creature //, IDatabaseEntity //, IAuthor
     public List<Circle> Circles { get; set; } = new();
 
     /// <inheritdoc />
+    [Column(TypeName = "jsonb")]
     public List<ExternalLinkInfo> ExternalLinks { get; set; } = new();
     
     public List<AuthorsCreations> Creations { get; init; } = new();

@@ -7,6 +7,7 @@ using OpenHentai.Statuses;
 using OpenHentai.Database.Tags;
 using System.ComponentModel.DataAnnotations.Schema;
 using OpenHentai.Database.Relative;
+using OpenHentai.Creations;
 
 namespace OpenHentai.Database.Creations;
 
@@ -15,20 +16,19 @@ public class Creation : IDatabaseEntity //: ICreation
 {
     public ulong Id { get; set; }
 
-    // [NotMapped]
-    // public IEnumerable<LanguageSpecificTextInfo> Titles { get; set; }
-    public List<CreationsTitles> Titles { get; set; }
+    public List<CreationsTitles> Titles { get; set; } = new();
     
     public List<AuthorsCreations> Authors { get; init; } = new();
 
-    public IEnumerable<Circle> Circles { get; set; }
+    // TODO: see ~CreationsCircles.cs
+    public List<Circle> Circles { get; set; } = new();
 
     public DateTime? PublishStarted { get; set; }
 
     public DateTime? PublishEnded { get; set; }
 
-    [NotMapped]
-    public IEnumerable<ExternalLinkInfo> Sources { get; set; }
+    [Column(TypeName = "jsonb")]
+    public List<ExternalLinkInfo> Sources { get; set; } = new();
 
     [NotMapped]
     public DescriptionInfo Description { get; set; }
@@ -47,7 +47,7 @@ public class Creation : IDatabaseEntity //: ICreation
     [NotMapped]
     public IEnumerable<LanguageInfo> Languages { get; set; }
 
-    public OpenHentai.Creations.Rating Rating { get; set; }
+    public Rating Rating { get; set; }
 
     public PublishStatus Status { get; set; }
 

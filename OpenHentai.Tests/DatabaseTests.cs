@@ -81,6 +81,7 @@ public class DatabaseTests
         using (var db = new DatabaseContext())
         {
             var manga = new Manga() { Length = 10 };
+            manga.Sources.Add(new("https://google.com"));
 
             db.Mangas.Add(manga);
 

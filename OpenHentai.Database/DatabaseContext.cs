@@ -62,6 +62,11 @@ public class DatabaseContext : DbContext
             v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
             v => JsonSerializer.Deserialize<List<ExternalLinkInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
 
+
+        modelBuilder.Entity<Creation>().Property(e => e.Sources).HasConversion(
+            v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
+            v => JsonSerializer.Deserialize<List<ExternalLinkInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+
         // modelBuilder.Entity<Creation>().UseTptMappingStrategy();
 
         // TODO: replace with relative class
