@@ -42,8 +42,8 @@ public class Creation : IDatabaseEntity //: ICreation
 
     public List<MediaInfo> Media { get; set; } = new();
     
-    [NotMapped]
-    public IEnumerable<LanguageInfo> Languages { get; set; }
+    [Column(TypeName = "jsonb")]
+    public List<LanguageInfo> Languages { get; set; } = new();
 
     public Rating Rating { get; set; }
 

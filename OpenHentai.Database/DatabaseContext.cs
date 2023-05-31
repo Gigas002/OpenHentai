@@ -75,6 +75,10 @@ public class DatabaseContext : DbContext
             v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
             v => JsonSerializer.Deserialize<List<MediaInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
 
+        modelBuilder.Entity<Creation>().Property(e => e.Languages).HasConversion(
+            v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
+            v => JsonSerializer.Deserialize<List<LanguageInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+
         // modelBuilder.Entity<Creation>().UseTptMappingStrategy();
 
         // TODO: replace with relative class

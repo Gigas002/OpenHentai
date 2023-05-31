@@ -84,6 +84,8 @@ public class DatabaseTests
             manga.Sources.Add(new("https://google.com"));
             manga.Description = new DescriptionInfo("en-US::Anime about camping");
             manga.Media.Add(new MediaInfo("https://google.com", MediaType.Image));
+            manga.Languages.Add(new("en-US", false));
+            // SerializeLangs(new List<LanguageInfo>() { new("en-US", false) });
 
             // var manga2 = new Manga() { Length = 100 };
             // manga.Sources.Add(new("https://bing.com"));
@@ -301,6 +303,13 @@ public class DatabaseTests
 
         var json = JsonSerializer.Serialize(tags, options);
 
-        File.WriteAllText("../list.json", json);
+        File.WriteAllText("../tags.json", json);
+    }
+
+    public static void SerializeLangs(IEnumerable<LanguageInfo> langs)
+    {
+        var json = JsonSerializer.Serialize(langs);
+
+        File.WriteAllText("../langs.json", json);
     }
 }
