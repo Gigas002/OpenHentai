@@ -68,5 +68,29 @@
         <member name="M:OpenHentai.Database.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:OpenHentai.Database.Migrations.AddCharactersCreations">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Database.Migrations.AddCharactersCreations.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Database.Migrations.AddCharactersCreations.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Database.Migrations.AddCharactersCreations.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:OpenHentai.Database.Migrations.AddCharactersPropForCreation">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Database.Migrations.AddCharactersPropForCreation.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Database.Migrations.AddCharactersPropForCreation.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Database.Migrations.AddCharactersPropForCreation.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

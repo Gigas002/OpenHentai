@@ -1,7 +1,10 @@
 using OpenHentai.Database.Circles;
+using OpenHentai.Database.Creations;
 using OpenHentai.Database.Creatures;
+using OpenHentai.Database.Relative;
 using OpenHentai.Database.Tags;
 using OpenHentai.Descriptors;
+using OpenHentai.Roles;
 using OpenHentai.Tags;
 using System.Text.Json;
 
@@ -19,6 +22,8 @@ public class DatabaseTests
             db.Database.EnsureCreated();
         }
     }
+
+    #region Push tests
 
     [Test]
     [Order(1)]
@@ -66,6 +71,50 @@ public class DatabaseTests
 
     [Test]
     [Order(3)]
+    public void PushCreation()
+    {
+        using (var db = new DatabaseContext())
+        {
+            var manga = new Manga() { Length = 10 };
+
+            db.Mangas.Add(manga);
+
+            db.SaveChanges();
+        }
+    }
+
+    [Test]
+    [Order(4)]
+    public void PushCharacterCreation()
+    {
+        using (var db = new DatabaseContext())
+        {
+            var mangas = db.Mangas.ToList();
+            var chars = db.Characters.ToList();
+
+            if (mangas.Count <= 0) Console.WriteLine("manganull");
+            if (chars.Count <= 0) Console.WriteLine("charnull");
+
+            foreach (var chara in chars)
+            {
+                var cc = new CharactersCreations();
+                cc.Character = chara;
+                cc.Creation = mangas.FirstOrDefault();
+                cc.CharacterRole = CharacterRole.Main;
+
+                chara.InCreations.Add(cc);
+            }
+
+            db.SaveChanges();
+        }
+    }
+
+    #endregion
+
+    #region Read tests
+
+    [Test]
+    [Order(1000)]
     public void ReadTagsTest()
     {
         using (var db = new DatabaseContext())
@@ -96,6 +145,8 @@ public class DatabaseTests
             //     Console.WriteLine($"Fantasy tag: {tag.Value}");
         }
     }
+
+    #endregion
 
     public static void SerializeTags(IEnumerable<Tag> tags)
     {

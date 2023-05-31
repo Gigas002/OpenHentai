@@ -1,12 +1,10 @@
-using OpenHentai.Creations;
-using OpenHentai.Roles;
 using System.ComponentModel.DataAnnotations.Schema;
+using OpenHentai.Database.Relative;
 
 namespace OpenHentai.Database.Creatures;
 
 [Table("characters")]
 public class Character : Creature //, ICharacter
 {
-    [NotMapped]
-    public IDictionary<ICreation, CharacterRole> InCreations { get; set; }
+    public List<CharactersCreations> InCreations { get; init; } = new List<CharactersCreations>();
 }

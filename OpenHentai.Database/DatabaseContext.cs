@@ -6,6 +6,7 @@ using OpenHentai.Database.Creatures;
 using OpenHentai.Database.Creations;
 using OpenHentai.Database.Circles;
 using OpenHentai.Descriptors;
+using OpenHentai.Database.Relative;
 
 namespace OpenHentai.Database;
 
@@ -21,6 +22,7 @@ public class DatabaseContext : DbContext
     public DbSet<Creature> Creatures { get; set; } = null!;
     public DbSet<Author> Authors { get; set; } = null!;
     public DbSet<Character> Characters { get; set; } = null!;
+    public DbSet<CharactersCreations> CharactersCreations { get; set; } = null!;
     public DbSet<Circle> Circles { get; set; } = null!;
 
     public string DatabasePath { get; init; } = null!;
@@ -58,6 +60,14 @@ public class DatabaseContext : DbContext
                     .WithMany()
                     .HasForeignKey("author_id")
             );
+
+        modelBuilder.Entity<CharactersCreations>()
+                    .HasOne(cc => cc.Character)
+                    .WithMany(c => c.InCreations);
+
+        modelBuilder.Entity<CharactersCreations>()
+                    .HasOne(cc => cc.Creation)
+                    .WithMany(c => c.Characters);
     }
 
     public override void Dispose()

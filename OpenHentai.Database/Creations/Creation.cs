@@ -6,6 +6,7 @@ using OpenHentai.Roles;
 using OpenHentai.Statuses;
 using OpenHentai.Database.Tags;
 using System.ComponentModel.DataAnnotations.Schema;
+using OpenHentai.Database.Relative;
 
 namespace OpenHentai.Database.Creations;
 
@@ -38,8 +39,7 @@ public class Creation : IDatabaseEntity //: ICreation
     // [NotMapped]
     // public IEnumerable<ICreationCollection> Collections { get; set; }
     
-    [NotMapped]
-    public IDictionary<Character, CharacterRole> Characters { get; init; }
+    public List<CharactersCreations> Characters { get; set; }
 
     [NotMapped]
     public IEnumerable<PictureInfo> Pictures { get; set; }
