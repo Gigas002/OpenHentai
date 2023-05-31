@@ -93,7 +93,7 @@ public class DatabaseTests
 
     [Test]
     [Order(3)]
-    public void PushCreation()
+    public void PushCreationTest()
     {
         using var db = new DatabaseContext();
         
@@ -116,7 +116,7 @@ public class DatabaseTests
 
     [Test]
     [Order(4)]
-    public void PushCharacterCreation()
+    public void PushCharacterCreationTest()
     {
         using var db = new DatabaseContext();
         
@@ -136,7 +136,7 @@ public class DatabaseTests
 
     [Test]
     [Order(5)]
-    public void PushCreaturesNames()
+    public void PushCreaturesNamesTest()
     {
         using var db = new DatabaseContext();
         
@@ -175,7 +175,7 @@ public class DatabaseTests
 
     [Test]
     [Order(7)]
-    public void PushAuthorNames()
+    public void PushAuthorNamesTest()
     {
         using var db = new DatabaseContext();
 
@@ -211,7 +211,7 @@ public class DatabaseTests
 
     [Test]
     [Order(9)]
-    public void PushCirclesTitles()
+    public void PushCirclesTitlesTest()
     {
         using var db = new DatabaseContext();
 
@@ -226,7 +226,7 @@ public class DatabaseTests
 
     [Test]
     [Order(10)]
-    public void PushCreationsTitles()
+    public void PushCreationsTitlesTest()
     {
         using var db = new DatabaseContext();
         
@@ -242,7 +242,7 @@ public class DatabaseTests
 
     [Test]
     [Order(11)]
-    public void PushCreationsRelations()
+    public void PushCreationsRelationsTest()
     {
         using var db = new DatabaseContext();
         
@@ -269,7 +269,7 @@ public class DatabaseTests
     {
         using var db = new DatabaseContext();
         
-        // TODO: find a way to ise GetNames method instead of property
+        // TODO: find a way to use GetNames method instead of property
         var tags = db.Tags.Include(t => t.Creatures)
                      .ThenInclude(c => c.CreaturesNames)
                      .ToList();
