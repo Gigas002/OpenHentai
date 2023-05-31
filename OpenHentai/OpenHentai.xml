@@ -4,21 +4,6 @@
         <name>OpenHentai</name>
     </assembly>
     <members>
-        <member name="T:OpenHentai.Circles.Circle">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Circles.Circle.Titles">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Circles.Circle.Authors">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Circles.Circle.Creations">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Circles.Circle.Id">
-            <inheritdoc />
-        </member>
         <member name="T:OpenHentai.Circles.ICircle">
             <summary>
             Author's circle
@@ -100,75 +85,6 @@
             <summary>
             Has at 40%+ colored
             </summary>
-        </member>
-        <member name="T:OpenHentai.Creations.Doujinshi">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Titles">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Authors">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.PublishStarted">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.PublishEnded">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Sources">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Description">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Relations">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Collections">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Characters">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Censorship">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Tags">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Languages">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Rating">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Status">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Pictures">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Length">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Volumes">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Chapters">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.HasImages">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.ColoredInfo">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.Id">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creations.Doujinshi.CreationId">
-            <inheritdoc />
         </member>
         <member name="T:OpenHentai.Creations.IArtbook">
             <summary>
@@ -354,87 +270,6 @@
             <summary>
             R18 + gore, scat, etc
             </summary>
-        </member>
-        <member name="T:OpenHentai.Creatures.Author">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.Names">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.Description">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.Birthday">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.Age">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.Pictures">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.Gender">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.Tags">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.AuthorNames">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.Circles">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.ExternalLinks">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.Creations">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.Id">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.CreatureId">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Author.Relations">
-            <inheritdoc />
-        </member>
-        <member name="T:OpenHentai.Creatures.Character">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.Names">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.Description">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.Birthday">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.Age">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.Pictures">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.Gender">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.Tags">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.Relations">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.InCreations">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.Id">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Creatures.Character.CreatureId">
-            <inheritdoc />
         </member>
         <member name="T:OpenHentai.Creatures.Gender">
             <summary>
