@@ -1,9 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using OpenHentai.Database.Circles;
-using OpenHentai.Database.Creations;
 using OpenHentai.Database.Relative;
 using OpenHentai.Descriptors;
-using OpenHentai.Roles;
 
 namespace OpenHentai.Database.Creatures;
 
@@ -23,9 +21,7 @@ public class Author : Creature //, IDatabaseEntity //, IAuthor
     /// <inheritdoc />
     public List<ExternalLinkInfo> ExternalLinks { get; set; } = new();
     
-    /// <inheritdoc />
-    [NotMapped]
-    public IDictionary<Creation, AuthorRole> Creations { get; init; }
+    public List<AuthorsCreations> Creations { get; init; } = new();
     
     #endregion
 

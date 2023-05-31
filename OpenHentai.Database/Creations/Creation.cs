@@ -18,8 +18,7 @@ public class Creation : IDatabaseEntity //: ICreation
     [NotMapped]
     public IEnumerable<LanguageSpecificTextInfo> Titles { get; set; }
     
-    [NotMapped]
-    public IDictionary<Author, AuthorRole> Authors { get; init; }
+    public List<AuthorsCreations> Authors { get; init; } = new();
 
     public IEnumerable<Circle> Circles { get; set; }
 

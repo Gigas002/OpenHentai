@@ -27,6 +27,7 @@ public class DatabaseContext : DbContext
     public DbSet<Circle> Circles { get; set; } = null!;
     public DbSet<CreaturesRelations> CreaturesRelations { get; set; } = null!;
     public DbSet<AuthorsNames> AuthorsNames { get; set; } = null!;
+    public DbSet<AuthorsCreations> AuthorsCreations { get; set; } = null!;
 
     public string DatabasePath { get; init; } = null!;
 
@@ -90,6 +91,15 @@ public class DatabaseContext : DbContext
 
         modelBuilder.Entity<CreaturesRelations>()
                     .HasOne(cr => cr.RelatedCreature);
+
+        modelBuilder.Entity<AuthorsCreations>()
+                    .HasOne(ac => ac.Author)
+                    .WithMany(a => a.Creations);
+
+        modelBuilder.Entity<AuthorsCreations>()
+                    .HasOne(ac => ac.Creation)
+                    .WithMany(c => c.Authors);
+
     }
 
     public override void Dispose()

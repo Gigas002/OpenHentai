@@ -173,6 +173,29 @@ public class DatabaseTests
         }
     }
 
+    [Test]
+    [Order(8)]
+    public void PushAuthorsCreationsTest()
+    {
+        using (var db = new DatabaseContext())
+        {
+            var authors = db.Authors.ToList();
+            var creations = db.Creations.ToList();
+
+            foreach (var author in authors)
+            {
+                var ac = new AuthorsCreations();
+                ac.Author = author;
+                ac.Creation = creations.FirstOrDefault();
+                ac.Role = AuthorRole.MainArtist;
+
+                author.Creations.Add(ac);
+            }
+
+            db.SaveChanges();
+        }
+    }
+
     #endregion
 
     #region Read tests

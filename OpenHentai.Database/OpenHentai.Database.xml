@@ -13,9 +13,6 @@
         <member name="P:OpenHentai.Database.Creatures.Author.ExternalLinks">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Creatures.Author.Creations">
-            <inheritdoc />
-        </member>
         <member name="P:OpenHentai.Database.Creatures.Creature.Id">
             <inheritdoc />
         </member>
