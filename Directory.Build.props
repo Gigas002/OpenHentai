@@ -36,6 +36,9 @@
         <!-- <PackageLicenseFile>LICENSE.md</PackageLicenseFile> -->
         <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+
+        <!-- Temporary disable xml-docs related warning -->
+        <NoWarn>1591</NoWarn>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)'=='Release'">

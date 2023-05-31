@@ -4,6 +4,9 @@
         <name>OpenHentai.Database</name>
     </assembly>
     <members>
+        <member name="P:OpenHentai.Database.Circles.Circle.Id">
+            <inheritdoc />
+        </member>
         <member name="T:OpenHentai.Database.Creatures.Author">
             <inheritdoc />
         </member>

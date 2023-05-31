@@ -8,6 +8,7 @@ namespace OpenHentai.Database.Circles;
 [Table("circles")]
 public class Circle : IDatabaseEntity//: ICircle
 {
+    /// <inheritdoc />
     public ulong Id { get; set; }
 
     public IEnumerable<CirclesTitles> Titles { get; set; } = null!;
