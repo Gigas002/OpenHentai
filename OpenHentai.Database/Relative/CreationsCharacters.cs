@@ -16,5 +16,5 @@ public class CreationsCharacters
     [ForeignKey("character_id")]
     public Character Character { get; set; } = null!;
 
-    public CharacterRole CharacterRole { get; set; }
+    public CharacterRole Role { get; set; }
 }

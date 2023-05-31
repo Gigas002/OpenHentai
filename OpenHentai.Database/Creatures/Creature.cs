@@ -15,36 +15,46 @@ public class Creature : IDatabaseEntity, ICreature
     public ulong Id { get; set; }
 
     /// <inheritdoc />
-    public IEnumerable<CreaturesNames> Names { get; set; } = null!;
+    public IEnumerable<CreaturesNames> CreaturesNames { get; set; } = null!;
 
     /// <inheritdoc />
     [Column(TypeName = "jsonb")]
-    public IEnumerable<LanguageSpecificTextInfo>? Description { get ; set ; }
-    
+    public IEnumerable<LanguageSpecificTextInfo>? Description { get; set; }
+
     /// <inheritdoc />
-    public DateTime? Birthday { get ; set ; }
-    
+    public DateTime? Birthday { get; set; }
+
     /// <inheritdoc />
-    public int Age { get ; set ; }
-    
+    public int Age { get; set; }
+
     public IEnumerable<MediaInfo>? Media { get; set; }
 
     /// <inheritdoc />
-    public Gender Gender { get ; set ; }
-    
+    public Gender Gender { get; set; }
+
     /// <inheritdoc />
-    public IEnumerable<Tag> Tags { get ; set ; } = null!;
-    
-    public IEnumerable<CreaturesRelations>? Relations { get; set; }
+    public IEnumerable<Tag> Tags { get; set; } = null!;
 
-    public IEnumerable<LanguageSpecificTextInfo> GetNames()
-    {
-        throw new NotImplementedException();
-    }
+    public IEnumerable<CreaturesRelations>? CreaturesRelations { get; set; }
 
-    public Dictionary<ICreature, CreatureRelations> GetRelations()
+    public IEnumerable<LanguageSpecificTextInfo> GetNames() =>
+        CreaturesNames.Select(n => n.GetLanguageSpecificTextInfo());
+
+    public void SetNames(IEnumerable<LanguageSpecificTextInfo> names) =>
+        // TODO: for unknown reasons, this REQUIRES ToList()
+        CreaturesNames = names.Select(n => new CreaturesNames(this, n)).ToList();
+
+    public Dictionary<ICreature, CreatureRelations> GetRelations() =>
+        CreaturesRelations.ToDictionary(cr => (ICreature)cr.Creature, cr => cr.Relation);
+
+    public void SetRelations(Dictionary<Creature, CreatureRelations> relations)
     {
-        throw new NotImplementedException();
+        CreaturesRelations = relations.Select(relation => new CreaturesRelations()
+        {
+            Creature = this,
+            RelatedCreature = relation.Key,
+            Relation = relation.Value
+        }).ToList();
     }
 
     public IEnumerable<ITag> GetTags() => Tags;

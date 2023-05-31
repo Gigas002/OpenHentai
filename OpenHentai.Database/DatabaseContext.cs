@@ -161,30 +161,30 @@ public class DatabaseContext : DbContext
 
         modelBuilder.Entity<CreationsCharacters>()
                     .HasOne(cc => cc.Creation)
-                    .WithMany(c => c.Characters);
+                    .WithMany(c => c.CreationsCharacters);
 
         modelBuilder.Entity<CreationsCharacters>()
                     .HasOne(cc => cc.Character)
-                    .WithMany(c => c.InCreations);
+                    .WithMany(c => c.CreationsCharacters);
 
         modelBuilder.Entity<CreaturesRelations>()
                     .HasOne(cr => cr.Creature)
-                    .WithMany(c => c.Relations);
+                    .WithMany(c => c.CreaturesRelations);
 
         modelBuilder.Entity<CreaturesRelations>()
                     .HasOne(cr => cr.RelatedCreature);
 
         modelBuilder.Entity<AuthorsCreations>()
                     .HasOne(ac => ac.Author)
-                    .WithMany(a => a.Creations);
+                    .WithMany(a => a.AuthorsCreations);
 
         modelBuilder.Entity<AuthorsCreations>()
                     .HasOne(ac => ac.Creation)
-                    .WithMany(c => c.Authors);
+                    .WithMany(c => c.AuthorsCreations);
 
         modelBuilder.Entity<CreationsRelations>()
                     .HasOne(cr => cr.Creation)
-                    .WithMany(c => c.Relations);
+                    .WithMany(c => c.CreationsRelations);
 
         modelBuilder.Entity<CreationsRelations>()
                     .HasOne(cr => cr.RelatedCreation);

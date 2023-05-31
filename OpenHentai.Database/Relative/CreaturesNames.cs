@@ -20,9 +20,15 @@ public class CreaturesNames : ILanguageSpecificTextInfoEntity<Creature>
 
     public CreaturesNames() { }
 
-    public CreaturesNames(string name, string? language) => (Text, Language) = (name, language);
+    public CreaturesNames(Creature creature, string name, string? language) =>
+        (Entity, Text, Language) = (creature, name, language);
 
-    public CreaturesNames(string name, CultureInfo? language) : this(name, language?.ToString()) { }
+    public CreaturesNames(Creature creature, string name, CultureInfo? language) :
+        this(creature, name, language?.ToString()) { }
 
-    public CreaturesNames(LanguageSpecificTextInfo name) : this(name.Text, name.Language) { }
+    public CreaturesNames(Creature creature, LanguageSpecificTextInfo name) :
+        this(creature, name.Text, name.Language) { }
+
+    public LanguageSpecificTextInfo GetLanguageSpecificTextInfo() =>
+        new LanguageSpecificTextInfo(Language, Text);
 }

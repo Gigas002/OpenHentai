@@ -25,4 +25,7 @@ public class AuthorsNames : ILanguageSpecificTextInfoEntity<Author>
     public AuthorsNames(Author author, string name, CultureInfo? language) : this(author, name, language?.ToString()) { }
 
     public AuthorsNames(Author author, LanguageSpecificTextInfo name) : this(author, name.Text, name.Language) { }
+
+    public LanguageSpecificTextInfo GetLanguageSpecificTextInfo() =>
+        new LanguageSpecificTextInfo(Language, Text);
 }

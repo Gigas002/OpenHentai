@@ -328,7 +328,7 @@
             Character
             </summary>
         </member>
-        <member name="M:OpenHentai.Creatures.ICharacter.GetInCreations">
+        <member name="M:OpenHentai.Creatures.ICharacter.GetCreations">
             <summary>
             Collection of creations, that has this character
             </summary>

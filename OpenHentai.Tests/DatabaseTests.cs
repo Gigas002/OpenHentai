@@ -121,11 +121,15 @@ public class DatabaseTests
             foreach (var chara in chars)
             {
                 var cc = new CreationsCharacters();
-                cc.Creation = mangas.FirstOrDefault();
-                cc.Character = chara;
-                cc.CharacterRole = CharacterRole.Main;
+                // cc.Creation = mangas.FirstOrDefault();
+                // cc.Character = chara;
+                // cc.Role = CharacterRole.Main;
+                // chara.InCreations = new List<CreationsCharacters>() { cc };
 
-                chara.InCreations = new List<CreationsCharacters>() { cc };
+                chara.SetCreations(new() 
+                {
+                    { mangas.FirstOrDefault(), CharacterRole.Main}
+                });
             }
 
             db.SaveChanges();
@@ -142,10 +146,15 @@ public class DatabaseTests
 
             foreach (var creature in creatures)
             {
-                var name = new LanguageSpecificTextInfo($"en-US::Name {creature.Id}");
-                var altName = new LanguageSpecificTextInfo($"en-US::Name_alt {creature.Id + 1000}");
+                // var name = new LanguageSpecificTextInfo($"en-US::Name {creature.Id}");
+                // var altName = new LanguageSpecificTextInfo($"en-US::Name_alt {creature.Id + 1000}");
 
-                creature.Names = new List<CreaturesNames>() { new(name), new(altName) };
+                // creature.Names = new List<CreaturesNames>() { new(name), new(altName) };
+                creature.SetNames(new List<LanguageSpecificTextInfo> 
+                {
+                    new LanguageSpecificTextInfo($"en-US::Name {creature.Id}"),
+                    new LanguageSpecificTextInfo($"en-US::Name_alt {creature.Id + 1000}")
+                });
             }
 
             db.SaveChanges();
@@ -201,12 +210,16 @@ public class DatabaseTests
 
             foreach (var author in authors)
             {
-                var ac = new AuthorsCreations();
-                ac.Author = author;
-                ac.Creation = creations.FirstOrDefault();
-                ac.Role = AuthorRole.MainArtist;
+                // var ac = new AuthorsCreations();
+                // ac.Author = author;
+                // ac.Creation = creations.FirstOrDefault();
+                // ac.Role = AuthorRole.MainArtist;
 
-                author.Creations = new List<AuthorsCreations>() { ac };
+                // author.Creations = new List<AuthorsCreations>() { ac };
+                author.SetCreations(new()
+                {
+                    { creations.FirstOrDefault(), AuthorRole.MainArtist }
+                });
             }
 
             db.SaveChanges();
@@ -275,7 +288,7 @@ public class DatabaseTests
         using (var db = new DatabaseContext())
         {
             var tags = db.Tags.Include(t => t.Creatures)
-                              .ThenInclude(c => c.Names)
+                              .ThenInclude(c => c.CreaturesNames)
                               .ToList();
 
             Console.WriteLine("Tags:");
@@ -299,7 +312,7 @@ public class DatabaseTests
                     Console.WriteLine("- creatures:");
                     foreach(var creature in tag.Creatures)
                     {
-                        Console.WriteLine($"  - {creature?.Names?.FirstOrDefault().Text}");
+                        Console.WriteLine($"  - {creature?.CreaturesNames?.FirstOrDefault()?.Text}");
                     }
                 }
             }

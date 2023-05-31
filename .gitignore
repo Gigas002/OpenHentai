@@ -430,3 +430,6 @@ TestResults/
 
 # ignore snyk report
 *.sarif
+
+# ignore vscode
+.vscode/

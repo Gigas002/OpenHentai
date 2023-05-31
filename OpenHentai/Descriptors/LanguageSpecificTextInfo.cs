@@ -52,6 +52,8 @@ public class LanguageSpecificTextInfo
     /// <param name="language">Line's culture/language</param>
     /// <param name="text">Line</param>
     public LanguageSpecificTextInfo(CultureInfo? language, string text) => (Language, Text) = (language, text);
+    
+    public LanguageSpecificTextInfo(string language, string text) : this(new CultureInfo(language), text) { }
 
     // TODO: const for "default" string
 

@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using OpenHentai.Database.Creations;
 using OpenHentai.Database.Creatures;
+using OpenHentai.Descriptors;
 using OpenHentai.Roles;
 
 namespace OpenHentai.Database.Relative;
@@ -13,6 +14,8 @@ public interface ILanguageSpecificTextInfoEntity<T> : IDatabaseEntity where T : 
     public string Text { get; set; }
 
     public string? Language { get; set; }
+
+    public LanguageSpecificTextInfo GetLanguageSpecificTextInfo();
 }
 
 

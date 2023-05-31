@@ -16,7 +16,7 @@ public class Circle : IDatabaseEntity, ICircle
     /// <inheritdoc />
     public ulong Id { get; set; }
 
-    public IEnumerable<CirclesTitles> Titles { get; set; } = null!;
+    public IEnumerable<CirclesTitles> CirclesTitles { get; set; } = null!;
 
     public IEnumerable<Author> Authors { get; set; } = null!;
 
@@ -25,8 +25,13 @@ public class Circle : IDatabaseEntity, ICircle
     /// <inheritdoc />
     public IEnumerable<IAuthor> GetAuthors() => Authors;
 
+    /// <inheritdoc />
     public IEnumerable<ICreation> GetCreations() => Creations;
 
+    /// <inheritdoc />
     public IEnumerable<LanguageSpecificTextInfo> GetTitles() =>
-        Titles.Select(t => new LanguageSpecificTextInfo(new(t.Language), t.Text));
+        CirclesTitles.Select(t => t.GetLanguageSpecificTextInfo());
+
+    public void SetTitles(IEnumerable<LanguageSpecificTextInfo> titles) =>
+        CirclesTitles = titles.Select(t => new CirclesTitles(this, t)).ToList();
 }
