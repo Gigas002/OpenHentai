@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
-using OpenHentai.Database.Circles;
 using OpenHentai.Database.Creations;
 using OpenHentai.Descriptors;
 
