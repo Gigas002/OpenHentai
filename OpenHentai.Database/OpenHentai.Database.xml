@@ -7,9 +7,6 @@
         <member name="T:OpenHentai.Database.Creatures.Author">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Creatures.Author.AuthorNames">
-            <inheritdoc />
-        </member>
         <member name="P:OpenHentai.Database.Creatures.Author.Circles">
             <inheritdoc />
         </member>

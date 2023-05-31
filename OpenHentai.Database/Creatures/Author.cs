@@ -15,14 +15,10 @@ public class Author : Creature //, IDatabaseEntity //, IAuthor
 
     #region Interfaces implementation
     
-    /// <inheritdoc />
-    // [NotMapped]
-    // public IEnumerable<LanguageSpecificTextInfo> AuthorNames { get; set; }
     public List<AuthorsNames> AuthorNames { get; set; } = new();
 
     /// <inheritdoc />
-    [NotMapped]
-    public IEnumerable<Circle> Circles { get; set; }
+    public List<Circle> Circles { get; set; } = new();
 
     /// <inheritdoc />
     [NotMapped]
