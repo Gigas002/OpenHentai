@@ -3,7 +3,8 @@ namespace OpenHentai.Descriptors;
 /// <summary>
 /// Picture info
 /// </summary>
-public class PictureInfo : IMediaInfo
+[Obsolete("Use MediaInfo with MediaType enum")]
+public class PictureInfo //: IMediaInfo
 {
     // TODO: consider adding IsMain property
     

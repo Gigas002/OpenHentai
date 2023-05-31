@@ -80,5 +80,17 @@
         <member name="M:OpenHentai.Database.Migrations.AddCreaturesNames.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:OpenHentai.Database.Migrations.AddMedia">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Database.Migrations.AddMedia.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Database.Migrations.AddMedia.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Database.Migrations.AddMedia.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

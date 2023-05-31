@@ -25,6 +25,7 @@ public class DatabaseContext : DbContext
     public DbSet<Character> Characters { get; set; } = null!;
     public DbSet<CreationsCharacters> CreationsCharacters { get; set; } = null!;
     public DbSet<Circle> Circles { get; set; } = null!;
+    public DbSet<Media> Media { get; set; } = null!;
 
     public string DatabasePath { get; init; } = null!;
 

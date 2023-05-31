@@ -669,19 +669,14 @@
             Can be used for pictures, videos, audio (not yet implemented)
             </summary>
         </member>
-        <member name="P:OpenHentai.Descriptors.IMediaInfo.MediaSource">
+        <member name="P:OpenHentai.Descriptors.IMediaInfo.Source">
             <summary>
             Media's external uri
             </summary>
         </member>
-        <member name="P:OpenHentai.Descriptors.IMediaInfo.MediaPath">
+        <member name="P:OpenHentai.Descriptors.IMediaInfo.Type">
             <summary>
-            Media's path on drive
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Descriptors.IMediaInfo.MediaBytes">
-            <summary>
-            Media's bytes, e.g read from stream
+            Type of media file
             </summary>
         </member>
         <member name="T:OpenHentai.Descriptors.LanguageInfo">
