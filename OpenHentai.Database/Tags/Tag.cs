@@ -36,8 +36,8 @@ public class Tag : ITag, IDatabaseEntity
     public DescriptionInfo? Description { get; set; }
 
     [JsonIgnore]
-    public IEnumerable<Creature> Creatures { get; set; }
+    public List<Creature> Creatures { get; set; } = new();
 
     [JsonIgnore]
-    public IEnumerable<Creation> Creations { get; set; }
+    public List<Creation> Creations { get; set; } = new();
 }

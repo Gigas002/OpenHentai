@@ -31,7 +31,7 @@ public class Creature : IDatabaseEntity //: ICreature
     public Gender Gender { get ; set ; }
     
     /// <inheritdoc />
-    public IEnumerable<Tag> Tags { get ; set ; }
+    public List<Tag> Tags { get ; set ; } = new();
     
     public List<CreaturesRelations> Relations { get; set; } = new();
 }

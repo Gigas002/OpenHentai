@@ -53,5 +53,5 @@ public class Creation : IDatabaseEntity //: ICreation
     [NotMapped]
     public IEnumerable<CensorshipInfo> Censorship { get; set; }
 
-    public IEnumerable<Tag> Tags { get; set; }
+    public List<Tag> Tags { get; set; } = new();
 }
