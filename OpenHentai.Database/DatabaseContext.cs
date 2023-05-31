@@ -47,6 +47,8 @@ public class DatabaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // convertable properties
+
         modelBuilder.Entity<Tag>().Property(e => e.Description).HasConversion(
             v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
             v => JsonSerializer.Deserialize<DescriptionInfo>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
@@ -89,7 +91,8 @@ public class DatabaseContext : DbContext
 
         // modelBuilder.Entity<Creation>().UseTptMappingStrategy();
 
-        // TODO: replace with relative class
+        // auto many-to-many zone
+
         modelBuilder.Entity<Author>()
             .HasMany(a => a.Circles)
             .WithMany(c => c.Authors)
@@ -104,6 +107,53 @@ public class DatabaseContext : DbContext
                     .WithMany()
                     .HasForeignKey("author_id")
             );
+
+        modelBuilder.Entity<Creation>()
+            .HasMany(c => c.Circles)
+            .WithMany(c => c.Creations)
+            .UsingEntity<Dictionary<string, object>>(
+                "creations_circles",
+                j => j
+                    .HasOne<Circle>()
+                    .WithMany()
+                    .HasForeignKey("circle_id"),
+                j => j
+                    .HasOne<Creation>()
+                    .WithMany()
+                    .HasForeignKey("creation_id")
+            );
+
+        modelBuilder.Entity<Creation>()
+            .HasMany(c => c.Tags)
+            .WithMany(t => t.Creations)
+            .UsingEntity<Dictionary<string, object>>(
+                "creations_tags",
+                j => j
+                    .HasOne<Tag>()
+                    .WithMany()
+                    .HasForeignKey("tag_id"),
+                j => j
+                    .HasOne<Creation>()
+                    .WithMany()
+                    .HasForeignKey("creation_id")
+            );
+
+        modelBuilder.Entity<Creature>()
+            .HasMany(c => c.Tags)
+            .WithMany(t => t.Creatures)
+            .UsingEntity<Dictionary<string, object>>(
+                "creatures_tags",
+                j => j
+                    .HasOne<Tag>()
+                    .WithMany()
+                    .HasForeignKey("tag_id"),
+                j => j
+                    .HasOne<Creature>()
+                    .WithMany()
+                    .HasForeignKey("creature_id")
+            );
+
+        // manual relations settings
 
         modelBuilder.Entity<CreationsCharacters>()
                     .HasOne(cc => cc.Creation)
