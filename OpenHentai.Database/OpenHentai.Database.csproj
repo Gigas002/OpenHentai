@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <!-- <PackageId>OpenHentai.Database</PackageId> -->
-    <!-- <Product>OpenHentai.Database</Product> -->
     <DocumentationFile>OpenHentai.Database.xml</DocumentationFile>
   </PropertyGroup>
 
