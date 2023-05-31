@@ -196,6 +196,22 @@ public class DatabaseTests
         }
     }
 
+    [Test]
+    [Order(9)]
+    public void PushCirclesTitles()
+    {
+        using (var db = new DatabaseContext())
+        {
+            var circles = db.Circles.ToList();
+
+            var circleTitle = new CirclesTitles(circles.FirstOrDefault(), "Circle Title", "en-US");
+
+            db.CirclesTitles.Add(circleTitle);
+
+            db.SaveChanges();
+        }
+    }
+
     #endregion
 
     #region Read tests
