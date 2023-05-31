@@ -17,22 +17,24 @@ public interface ICreation
     /// Alternative titles can be any
     /// e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
     /// </summary>
-    public IEnumerable<LanguageSpecificTextInfo> Titles { get; set; }
+    // public IEnumerable<LanguageSpecificTextInfo> Titles { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo> GetTitles();
     
     /// <summary>
     /// Authors
     /// </summary>
-    public IDictionary<IAuthor, AuthorRole> Authors { get; init; }
+    // public IDictionary<IAuthor, AuthorRole> Authors { get; init; }
+    public Dictionary<IAuthor, AuthorRole> GetAuthors();
 
     /// <summary>
     /// Estimate date of first release of this creation
     /// </summary>
-    public DateTime PublishStarted { get; set; }
+    public DateTime? PublishStarted { get; set; }
     
     /// <summary>
     /// Estimate date of final release of this creation
     /// </summary>
-    public DateTime PublishEnded { get; set; }
+    public DateTime? PublishEnded { get; set; }
 
     /// <summary>
     /// Available to purchase/read/etc at
@@ -48,7 +50,8 @@ public interface ICreation
     /// Collection of related creations
     /// Creation-Relation pair
     /// </summary>
-    public IDictionary<ICreation, CreationRelations> Relations { get; init; }
+    // public IDictionary<ICreation, CreationRelations> Relations { get; init; }
+    public Dictionary<ICreation, CreationRelations> GetRelations();
 
     // /// <summary>
     // /// Featured at events, e.g. C99, C100, etc
@@ -63,7 +66,8 @@ public interface ICreation
     /// <summary>
     /// Collection of characters
     /// </summary>
-    public IDictionary<ICharacter, CharacterRole> Characters { get; init; }
+    // public IDictionary<ICharacter, CharacterRole> Characters { get; init; }
+    public Dictionary<ICharacter, CharacterRole> GetCharacters();
 
     /// <summary>
     /// Collection of related pictures, including preview image
@@ -94,5 +98,6 @@ public interface ICreation
     /// Creation's tags
     /// e.g. franchise parody, themes, etc
     /// </summary>
-    public IEnumerable<ITag> Tags { get; set; }
+    // public IEnumerable<ITag> Tags { get; set; }
+    public IEnumerable<ITag> GetTags();
 }

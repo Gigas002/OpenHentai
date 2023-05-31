@@ -13,7 +13,8 @@ public interface ICreature
     /// Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)
     /// Alternative names can be any
     /// </summary>
-    public IEnumerable<LanguageSpecificTextInfo> Names { get; set; }
+    // public IEnumerable<LanguageSpecificTextInfo> Names { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo> GetNames();
 
     /// <summary>
     /// Description, e.g. this person is a dick
@@ -23,7 +24,7 @@ public interface ICreature
     /// <summary>
     /// Creature's birthday, e.g. 01.01.1922
     /// </summary>
-    public DateTime Birthday { get; set; }
+    public DateTime? Birthday { get; set; }
     
     /// <summary>
     /// Creature's age, e.g. 500
@@ -43,11 +44,13 @@ public interface ICreature
     /// <summary>
     /// Creature's additional details/tags
     /// </summary>
-    public IEnumerable<ITag> Tags { get; set; }
+    // public IEnumerable<ITag> Tags { get; set; }
+    public IEnumerable<ITag> GetTags();
     
     /// <summary>
     /// Collection of related and alternative characters,
     /// Chara-Relation pair, e.g. "Admiral, alternative"
     /// </summary>
-    public IDictionary<ICreature, CreatureRelations> Relations { get; }
+    // public IDictionary<ICreature, CreatureRelations> Relations { get; }
+    public Dictionary<ICreature, CreatureRelations> GetRelations();
 }

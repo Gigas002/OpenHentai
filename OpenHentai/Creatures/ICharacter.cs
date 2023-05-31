@@ -13,7 +13,8 @@ public interface ICharacter : ICreature
     /// <summary>
     /// Collection of creations, that has this character
     /// </summary>
-    public IDictionary<ICreation, CharacterRole> InCreations { get; }
+    // public IDictionary<ICreation, CharacterRole> InCreations { get; }
+    public Dictionary<ICreation, CharacterRole> GetInCreations();
 
     #endregion
 }

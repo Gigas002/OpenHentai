@@ -14,15 +14,18 @@ public interface ICircle
     /// Alternative titles can be any
     /// e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
     /// </summary>
-    public IEnumerable<LanguageSpecificTextInfo> Titles { get; set; }
+    // public IEnumerable<LanguageSpecificTextInfo> Titles { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo> GetTitles();
 
     /// <summary>
     /// Related authors
     /// </summary>
-    public IEnumerable<IAuthor> Authors { get; set; }
+    // public IEnumerable<IAuthor> Authors { get; set; }
+    public IEnumerable<IAuthor> GetAuthors();
 
     /// <summary>
     /// Related creations
     /// </summary>
-    public IEnumerable<ICreation> Creations { get; set; }
+    // public IEnumerable<ICreation> Creations { get; set; }
+    public IEnumerable<ICreation> GetCreations();
 }

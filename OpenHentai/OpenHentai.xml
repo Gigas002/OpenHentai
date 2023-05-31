@@ -9,19 +9,19 @@
             Author's circle
             </summary>
         </member>
-        <member name="P:OpenHentai.Circles.ICircle.Titles">
+        <member name="M:OpenHentai.Circles.ICircle.GetTitles">
             <summary>
             Main title must be romanization of native title (e.g. Hepburn romanization for ja-JP)
             Alternative titles can be any
             e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
             </summary>
         </member>
-        <member name="P:OpenHentai.Circles.ICircle.Authors">
+        <member name="M:OpenHentai.Circles.ICircle.GetAuthors">
             <summary>
             Related authors
             </summary>
         </member>
-        <member name="P:OpenHentai.Circles.ICircle.Creations">
+        <member name="M:OpenHentai.Circles.ICircle.GetCreations">
             <summary>
             Related creations
             </summary>
@@ -116,7 +116,7 @@
             Has images, except for covers?
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.IBook.ColoredInfo">
+        <member name="M:OpenHentai.Creations.IBook.GetColoredInfo">
             <summary>
             Information about colorization of this book
             </summary>
@@ -126,14 +126,14 @@
             Creation, e.g. doujinshi, game, etc
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Titles">
+        <member name="M:OpenHentai.Creations.ICreation.GetTitles">
             <summary>
             Main title must be romanization of native title (e.g. Hepburn romanization for ja-JP)
             Alternative titles can be any
             e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Authors">
+        <member name="M:OpenHentai.Creations.ICreation.GetAuthors">
             <summary>
             Authors
             </summary>
@@ -158,7 +158,7 @@
             Description
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Relations">
+        <member name="M:OpenHentai.Creations.ICreation.GetRelations">
             <summary>
             Collection of related creations
             Creation-Relation pair
@@ -169,7 +169,7 @@
             Member of collections
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Characters">
+        <member name="M:OpenHentai.Creations.ICreation.GetCharacters">
             <summary>
             Collection of characters
             </summary>
@@ -199,7 +199,7 @@
             Censorship type
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Tags">
+        <member name="M:OpenHentai.Creations.ICreation.GetTags">
             <summary>
             Creation's tags
             e.g. franchise parody, themes, etc
@@ -302,13 +302,13 @@
             Author
             </summary>
         </member>
-        <member name="P:OpenHentai.Creatures.IAuthor.AuthorNames">
+        <member name="M:OpenHentai.Creatures.IAuthor.GetAuthorNames">
             <summary>
             Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)
             Alternative names can be any
             </summary>
         </member>
-        <member name="P:OpenHentai.Creatures.IAuthor.Circles">
+        <member name="M:OpenHentai.Creatures.IAuthor.GetCircles">
             <summary>
             Author's circles
             </summary>
@@ -318,7 +318,7 @@
             Links to author's social networks, e.g. twitter, pixiv, fanbox, ci-en, etc
             </summary>
         </member>
-        <member name="P:OpenHentai.Creatures.IAuthor.Creations">
+        <member name="M:OpenHentai.Creatures.IAuthor.GetCreations">
             <summary>
             Collection of author works
             </summary>
@@ -328,7 +328,7 @@
             Character
             </summary>
         </member>
-        <member name="P:OpenHentai.Creatures.ICharacter.InCreations">
+        <member name="M:OpenHentai.Creatures.ICharacter.GetInCreations">
             <summary>
             Collection of creations, that has this character
             </summary>
@@ -338,7 +338,7 @@
             Creature
             </summary>
         </member>
-        <member name="P:OpenHentai.Creatures.ICreature.Names">
+        <member name="M:OpenHentai.Creatures.ICreature.GetNames">
             <summary>
             Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)
             Alternative names can be any
@@ -369,12 +369,12 @@
             Creature's gender
             </summary>
         </member>
-        <member name="P:OpenHentai.Creatures.ICreature.Tags">
+        <member name="M:OpenHentai.Creatures.ICreature.GetTags">
             <summary>
             Creature's additional details/tags
             </summary>
         </member>
-        <member name="P:OpenHentai.Creatures.ICreature.Relations">
+        <member name="M:OpenHentai.Creatures.ICreature.GetRelations">
             <summary>
             Collection of related and alternative characters,
             Chara-Relation pair, e.g. "Admiral, alternative"
