@@ -33,7 +33,7 @@ public class Tag : ITag, IDatabaseEntity
     public string Value { get; set; } = null!;
 
     [Column(TypeName = "jsonb")]
-    public DescriptionInfo? Description { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo>? Description { get; set; }
 
     [JsonIgnore]
     public IEnumerable<Creature>? Creatures { get; set; }

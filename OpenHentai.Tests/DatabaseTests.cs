@@ -34,8 +34,8 @@ public class DatabaseTests
     {
         using (var db = new DatabaseContext())
         {
-            var desc1 = new DescriptionInfo("en-US::Anime about camping");
-            var desc2 = new DescriptionInfo("en-US::Second season of Yuru Camp");
+            var desc1 = new List<LanguageSpecificTextInfo>() { new("en-US::Anime about camping") };
+            var desc2 = new List<LanguageSpecificTextInfo>() { new("en-US::Second season of Yuru Camp") };
 
             var tag1 = new Tag() { Category = TagCategory.Parody, Value = "Yuru Camp", Description = desc1 };
             var tag2 = new Tag() { Category = TagCategory.Parody, Value = "Yuru Camp Season 2", Description = desc2 };

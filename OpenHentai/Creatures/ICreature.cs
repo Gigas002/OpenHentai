@@ -18,7 +18,7 @@ public interface ICreature
     /// <summary>
     /// Description, e.g. this person is a dick
     /// </summary>
-    public DescriptionInfo Description { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo> Description { get; set; }
 
     /// <summary>
     /// Creature's birthday, e.g. 01.01.1922

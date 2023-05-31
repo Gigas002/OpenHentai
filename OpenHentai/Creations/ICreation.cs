@@ -42,7 +42,7 @@ public interface ICreation
     /// <summary>
     /// Description
     /// </summary>
-    public DescriptionInfo Description { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo> Description { get; set; }
     
     /// <summary>
     /// Collection of related creations

@@ -79,7 +79,7 @@ public interface ITag
     /// Tag description
     /// e.g. This tag resides for mitsudomoe franchise
     /// </summary>
-    public DescriptionInfo? Description { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo>? Description { get; set; }
 
     #endregion
 

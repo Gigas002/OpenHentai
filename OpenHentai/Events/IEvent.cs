@@ -29,7 +29,7 @@ public interface IEvent
     /// <summary>
     /// Event's description
     /// </summary>
-    public DescriptionInfo Description { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo> Description { get; set; }
 
     // original language or romanization?
     /// <summary>

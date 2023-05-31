@@ -51,7 +51,7 @@ public class DatabaseContext : DbContext
 
         modelBuilder.Entity<Tag>().Property(e => e.Description).HasConversion(
             v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
-            v => JsonSerializer.Deserialize<DescriptionInfo>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+            v => JsonSerializer.Deserialize<IEnumerable<LanguageSpecificTextInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
 
         modelBuilder.Entity<Creature>().Property(e => e.Description).HasConversion(
             v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
