@@ -8,14 +8,14 @@ namespace OpenHentai.Descriptors;
 /// <summary>
 /// Standard for json in non-indexed, localizable descriptions
 /// </summary>
-// TODO: WIP
+[Obsolete("Use IEnumerable<LanguageSpecificTextInfo>")]
 public class DescriptionInfo
 {
     /// <summary>
     /// Description's text
     /// </summary>
     [JsonPropertyName("description")]
-    public IEnumerable<LanguageSpecificTextInfo> Text { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo> Text { get; set; } = null!;
 
     /// <summary>
     /// Create new description
@@ -35,5 +35,8 @@ public class DescriptionInfo
         Text = description.Select(line => new LanguageSpecificTextInfo(line));
     }
 
+    /// <summary>
+    /// Create new description
+    /// </summary>
     public DescriptionInfo() { }
 }

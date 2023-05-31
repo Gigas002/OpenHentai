@@ -395,6 +395,18 @@
             Is this kind of censorship official?
             </summary>
         </member>
+        <member name="M:OpenHentai.Descriptors.CensorshipInfo.#ctor">
+            <summary>
+            Create new CensorshipInfo object
+            </summary>
+        </member>
+        <member name="M:OpenHentai.Descriptors.CensorshipInfo.#ctor(OpenHentai.Creations.Censorship,System.Boolean)">
+            <summary>
+            Create new CensorshipInfo object
+            </summary>
+            <param name="censorship">Censorship</param>
+            <param name="isOfficial">Is official?</param>
+        </member>
         <member name="T:OpenHentai.Descriptors.ColoredInfo">
             <summary>
             Used for manga-like objects that can be bw or colored
@@ -410,6 +422,18 @@
             <summary>
             Is creation colored officialy?
             </summary>
+        </member>
+        <member name="M:OpenHentai.Descriptors.ColoredInfo.#ctor">
+            <summary>
+            Create new ColoredInfo object
+            </summary>
+        </member>
+        <member name="M:OpenHentai.Descriptors.ColoredInfo.#ctor(OpenHentai.Creations.Color,System.Boolean)">
+            <summary>
+            Create new ColoredInfo object
+            </summary>
+            <param name="color">color</param>
+            <param name="isOfficial">Is official?</param>
         </member>
         <member name="T:OpenHentai.Descriptors.DescriptionInfo">
             <summary>
@@ -432,6 +456,11 @@
             Create new description
             </summary>
             <param name="description">Collection of formatted description lines</param>
+        </member>
+        <member name="M:OpenHentai.Descriptors.DescriptionInfo.#ctor">
+            <summary>
+            Create new description
+            </summary>
         </member>
         <member name="T:OpenHentai.Descriptors.EventEntryInfo">
             <summary>
@@ -489,19 +518,29 @@
             Description, e.g. author's official free pixiv
             </summary>
         </member>
-        <member name="M:OpenHentai.Descriptors.ExternalLinkInfo.#ctor(System.String)">
+        <member name="M:OpenHentai.Descriptors.ExternalLinkInfo.#ctor">
             <summary>
             Create new link
             </summary>
+        </member>
+        <member name="M:OpenHentai.Descriptors.ExternalLinkInfo.#ctor(System.String,System.Uri)">
+            <summary>
+            Create new link
+            </summary>
+            <param name="title">Title</param>
             <param name="link">Link</param>
         </member>
-        <member name="M:OpenHentai.Descriptors.ExternalLinkInfo.ToString">
-            <inheritdoc />
+        <member name="M:OpenHentai.Descriptors.ExternalLinkInfo.#ctor(System.String,System.String)">
+            <summary>
+            Create new link
+            </summary>
+            <param name="title">Title</param>
+            <param name="link">Link</param>
         </member>
         <member name="T:OpenHentai.Descriptors.IMediaInfo">
             <summary>
-            Media info
-            Can be used for pictures, videos, audio (not yet implemented)
+            Media info.
+            Can be used for pictures, videos, audio
             </summary>
         </member>
         <member name="P:OpenHentai.Descriptors.IMediaInfo.Source">
@@ -536,9 +575,14 @@
             Is official?
             </summary>
         </member>
+        <member name="M:OpenHentai.Descriptors.LanguageInfo.#ctor">
+            <summary>
+            Initialize new language info
+            </summary>
+        </member>
         <member name="M:OpenHentai.Descriptors.LanguageInfo.#ctor(System.String,System.Boolean)">
             <summary>
-            Initialize new translation info
+            Initialize new language info
             </summary>
             <param name="culture">Culture, e.g. "en-US"</param>
             <param name="isOfficial">Is translation official?</param>
@@ -562,6 +606,11 @@
             Text on chosen language
             </summary>
         </member>
+        <member name="M:OpenHentai.Descriptors.LanguageSpecificTextInfo.#ctor">
+            <summary>
+            Create new string with language info
+            </summary>
+        </member>
         <member name="M:OpenHentai.Descriptors.LanguageSpecificTextInfo.#ctor(System.String)">
             <summary>
             Create new string with language info
@@ -575,6 +624,9 @@
             <param name="language">Line's culture/language</param>
             <param name="text">Line</param>
         </member>
+        <member name="M:OpenHentai.Descriptors.LanguageSpecificTextInfo.ToString">
+            <inheritdoc />
+        </member>
         <member name="T:OpenHentai.Descriptors.MediaInfo">
             <inheritdoc />
         </member>
@@ -586,6 +638,47 @@
         </member>
         <member name="P:OpenHentai.Descriptors.MediaInfo.IsMain">
             <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Descriptors.MediaInfo.#ctor">
+            <summary>
+            Create new MediaInfo object
+            </summary>
+        </member>
+        <member name="M:OpenHentai.Descriptors.MediaInfo.#ctor(System.Uri,OpenHentai.Descriptors.MediaType,System.Boolean)">
+            <summary>
+            Create new MediaInfo object
+            </summary>
+            <param name="source">Media source</param>
+            <param name="type">Media type</param>
+            <param name="isMain">Is this main media?</param>
+        </member>
+        <member name="M:OpenHentai.Descriptors.MediaInfo.#ctor(System.String,OpenHentai.Descriptors.MediaType,System.Boolean)">
+            <summary>
+            Create new MediaInfo object
+            </summary>
+            <param name="source">Media source</param>
+            <param name="type">Media type</param>
+            <param name="isMain">Is this main media?</param>
+        </member>
+        <member name="T:OpenHentai.Descriptors.MediaType">
+            <summary>
+            Type of media file
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Descriptors.MediaType.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Descriptors.MediaType.Image">
+            <summary>
+            Image/picture
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Descriptors.MediaType.Video">
+            <summary>
+            Video
+            </summary>
         </member>
         <member name="T:OpenHentai.Events.IEvent">
             <summary>
@@ -696,6 +789,11 @@
             Author's role in creation
             It is needed since different authors can make different kind of work
             Plus, it makes search more powerful
+            </summary>
+        </member>
+        <member name="F:OpenHentai.Roles.AuthorRole.Unknown">
+            <summary>
+            Unknown
             </summary>
         </member>
         <member name="F:OpenHentai.Roles.AuthorRole.MainArtist">
@@ -842,6 +940,12 @@
             <summary>
             Tag description
             e.g. This tag resides for mitsudomoe franchise
+            </summary>
+        </member>
+        <member name="M:OpenHentai.Tags.ITag.GetMaster">
+            <summary>
+            Get this tag's master tag
+            <para/>null in case there's no master
             </summary>
         </member>
         <member name="T:OpenHentai.Tags.TagCategory">

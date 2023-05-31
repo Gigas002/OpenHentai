@@ -18,50 +18,56 @@ public class ExternalLinkInfo
     /// Title, e.g. pixiv
     /// </summary>
     [JsonPropertyName("title")]
-    public string Title { get; set; }
+    public string Title { get; set; } = null!;
 
     /// <summary>
     /// Uri
     /// </summary>
     [JsonPropertyName("link")]
-    public Uri Link { get; set; }
+    public Uri Link { get; set; } = null!;
 
     /// <summary>
     /// Official or not
     /// </summary>
     [JsonPropertyName("official_status")]
-    public OfficialStatus OfficialStatus { get; set; }
+    public OfficialStatus OfficialStatus { get; set; } = OfficialStatus.Unknown;
 
     /// <summary>
     /// Free or not
     /// </summary>
     [JsonPropertyName("paid_status")]
-    public PaidStatus PaidStatus { get; set; }
+    public PaidStatus PaidStatus { get; set; } = PaidStatus.Unknown;
 
     /// <summary>
     /// Description, e.g. author's official free pixiv
     /// </summary>
     [JsonPropertyName("description")]
-    public string Description { get; set; }
+    // TODO: consider using LanguageSpecific stuff
+    public string? Description { get; set; }
     
     #endregion
 
     #region Constructors
+    
+    /// <summary>
+    /// Create new link
+    /// </summary>
+    public ExternalLinkInfo() { }
 
     /// <summary>
     /// Create new link
     /// </summary>
+    /// <param name="title">Title</param>
     /// <param name="link">Link</param>
-    public ExternalLinkInfo(string link) => Link = new Uri(link);
+    public ExternalLinkInfo(string title, Uri link) => (Title, Link) = (title, link);
 
-    public ExternalLinkInfo() { }
-
-    #endregion
-
-    #region Methods
-
-    /// <inheritdoc />
-    public override string ToString() => Link.ToString();
+    /// <summary>
+    /// Create new link
+    /// </summary>
+    /// <param name="title">Title</param>
+    /// <param name="link">Link</param>
+    public ExternalLinkInfo(string title, string link) : this(title, new Uri(link))
+    { }
 
     #endregion
 }

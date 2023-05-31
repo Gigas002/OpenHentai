@@ -13,15 +13,15 @@ public enum PaidStatus
     /// <summary>
     /// Free
     /// </summary>
-    Free = 1,
+    Free,
     
     /// <summary>
     /// Requires payment
     /// </summary>
-    Paid = 2,
+    Paid,
     
     /// <summary>
     /// Nowhere to buy or read for free officially
     /// </summary>
-    Unavailable = 3
+    Unavailable
 }

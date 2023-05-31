@@ -17,7 +17,9 @@ public enum TagCategory
     Parody,
     
     // WIP zone, see tags.md in wt repo
-    
+
+#pragma warning disable CS1591 // xml-docs
+
     AgeChange,
     BodyType,
     BodyChange,

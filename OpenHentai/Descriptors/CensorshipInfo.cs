@@ -12,7 +12,7 @@ public class CensorshipInfo
     /// Censorship type
     /// </summary>
     [JsonPropertyName("censorship")]
-    public Censorship Censorship { get; set; }
+    public Censorship Censorship { get; set; } = Censorship.Unknown;
 
     /// <summary>
     /// Is this kind of censorship official?
@@ -20,5 +20,15 @@ public class CensorshipInfo
     [JsonPropertyName("is_official")]
     public bool IsOfficial { get; set; }
 
+    /// <summary>
+    /// Create new CensorshipInfo object
+    /// </summary>
     public CensorshipInfo() { }
+
+    /// <summary>
+    /// Create new CensorshipInfo object
+    /// </summary>
+    /// <param name="censorship">Censorship</param>
+    /// <param name="isOfficial">Is official?</param>
+    public CensorshipInfo(Censorship censorship, bool isOfficial) => (Censorship, IsOfficial) = (censorship, isOfficial);
 }

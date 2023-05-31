@@ -19,7 +19,7 @@ public class LanguageInfo
     /// </summary>
     [JsonPropertyName("language")]
     [JsonConverter(typeof(CultureInfoJsonConverter))]
-    public CultureInfo Language { get; set; }
+    public CultureInfo Language { get; set; } = null!;
 
     /// <summary>
     /// Is official?
@@ -27,10 +27,13 @@ public class LanguageInfo
     [JsonPropertyName("is_official")]
     public bool IsOfficial { get; set; }
 
+    /// <summary>
+    /// Initialize new language info
+    /// </summary>
     public LanguageInfo() { }
 
     /// <summary>
-    /// Initialize new translation info
+    /// Initialize new language info
     /// </summary>
     /// <param name="culture">Culture, e.g. "en-US"</param>
     /// <param name="isOfficial">Is translation official?</param>
@@ -41,5 +44,5 @@ public class LanguageInfo
     }
 
     /// <inheritdoc />
-    public override string ToString() => Language.NativeName;
+    public override string ToString() => Language.ToString();
 }

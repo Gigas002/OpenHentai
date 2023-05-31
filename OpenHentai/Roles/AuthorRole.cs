@@ -8,17 +8,22 @@ namespace OpenHentai.Roles;
 public enum AuthorRole
 {
     /// <summary>
+    /// Unknown
+    /// </summary>
+    Unknown = 0,
+
+    /// <summary>
     /// Main artist
     /// </summary>
-    MainArtist = 0,
+    MainArtist,
     
     /// <summary>
     /// Secondary artist (e.g. non-h chapters at the end of Comic LO)
     /// </summary>
-    SecondaryArtist = 1,
+    SecondaryArtist,
     
     /// <summary>
     /// Illustrator of main page (e.g. Comic LO covers)
     /// </summary>
-    MainPageIllustrator = 2
+    MainPageIllustrator
 }

@@ -14,20 +14,20 @@ public class EventEntryInfo
     /// <summary>
     /// Author
     /// </summary>
-    public ICreature Author { get; set; }
+    public ICreature? Author { get; set; }
 
     /// <summary>
     /// Sold creations
     /// </summary>
-    public IEnumerable<ICreation> Creations { get; set; }
+    public IEnumerable<ICreation>? Creations { get; set; }
 
     /// <summary>
     /// Was on event during dates
     /// </summary>
-    public IEnumerable<DateTime> Dates { get; set; }
+    public IEnumerable<DateTime>? Dates { get; set; }
 
     /// <summary>
     /// Which place on map this autor reside
     /// </summary>
-    public string Place { get; set; }
+    public string? Place { get; set; }
 }

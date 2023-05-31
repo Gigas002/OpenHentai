@@ -13,25 +13,25 @@ public enum PublishStatus
     /// <summary>
     /// Still publishing
     /// </summary>
-    Publishing = 1,
+    Publishing,
     
     /// <summary>
     /// Ended publishing
     /// </summary>
-    Published = 2,
+    Published,
     
     /// <summary>
     /// Release schedule on hold
     /// </summary>
-    OnHold = 3,
+    OnHold,
     
     /// <summary>
     /// Cancelled
     /// </summary>
-    Cancelled = 4,
+    Cancelled,
     
     /// <summary>
     /// Not yet published
     /// </summary>
-    NotYetPublished = 5
+    NotYetPublished
 }

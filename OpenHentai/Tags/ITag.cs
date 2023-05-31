@@ -62,14 +62,6 @@ id   value
 public interface ITag
 {
     #region Properties
-
-//     /// <summary>
-//     /// This tag's master tag
-//     /// <para/>null in case there's no master
-//     /// </summary>
-//     public ulong? MasterId { get; set; }
-
-    public ITag? GetMaster();
     
     /// <summary>
     /// Category of this tag
@@ -91,27 +83,9 @@ public interface ITag
 
     #endregion
 
-    #region Methods
-    
-    // Arguable if this is really needed inside interface
-    
-    // /// <summary>
-    // /// Get tag from tag source
-    // /// </summary>
-    // /// <returns>ITag object</returns>
-    // public ITag GetTag();
-    //
-    // /// <summary>
-    // /// Get master tag from tag source
-    // /// </summary>
-    // /// <returns>ITag object</returns>
-    // public ITag GetMaster();
-    //
-    // /// <summary>
-    // /// Get slave tags in case it's master tag from tag source
-    // /// </summary>
-    // /// <returns>Collection of ITag objects</returns>
-    // public IEnumerable<ITag> GetSlaves();
-
-    #endregion
+    /// <summary>
+    /// Get this tag's master tag
+    /// <para/>null in case there's no master
+    /// </summary>
+    public ITag? GetMaster();
 }

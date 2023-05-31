@@ -58,7 +58,7 @@ public class DatabaseTests
             author.Age = 10;
             author.Description = new DescriptionInfo("en-US::Author descr 1");
             author.Media = new List<MediaInfo>() { new("https://google.com", MediaType.Image) };
-            author.ExternalLinks = new List<ExternalLinkInfo>() { new("https://google.com") { OfficialStatus = OfficialStatus.Official, PaidStatus = PaidStatus.Free, Title = "google" } };
+            author.ExternalLinks = new List<ExternalLinkInfo>() { new("google", "https://google.com") { OfficialStatus = OfficialStatus.Official, PaidStatus = PaidStatus.Free,} };
 
             var circle = new Circle();
             circle.Authors = new List<Author>() { author };
@@ -82,7 +82,7 @@ public class DatabaseTests
         using (var db = new DatabaseContext())
         {
             var manga = new Manga() { Length = 10 };
-            manga.Sources = new List<ExternalLinkInfo>() { new("https://google.com") };
+            manga.Sources = new List<ExternalLinkInfo>() { new("google", "https://google.com") };
             manga.Description = new DescriptionInfo("en-US::Anime about camping");
             manga.Media = new List<MediaInfo>() { new("https://google.com", MediaType.Image) };
             manga.Languages = new List<LanguageInfo>() { new("en-US", false) };

@@ -13,10 +13,10 @@ public enum OfficialStatus
     /// <summary>
     /// Official
     /// </summary>
-    Official = 1,
+    Official,
     
     /// <summary>
     /// Unofficial
     /// </summary>
-    Unofficial = 2
+    Unofficial
 }

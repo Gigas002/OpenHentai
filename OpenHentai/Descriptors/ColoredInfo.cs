@@ -8,6 +8,7 @@ namespace OpenHentai.Descriptors;
 /// IBook object should have this property as collection
 /// </summary>
 
+// TODO: is it still relevant?
 // since search by color must be implemented, it should have it's own
 // indexed table:
 //
@@ -20,11 +21,23 @@ public class ColoredInfo
     /// Creation's color info
     /// </summary>
     [JsonPropertyName("color")]
-    public Color Color { get; set; }
+    public Color Color { get; set; } = Color.Unknown;
 
     /// <summary>
     /// Is creation colored officialy?
     /// </summary>
     [JsonPropertyName("is_official")]
     public bool IsOfficial { get; set; }
+
+    /// <summary>
+    /// Create new ColoredInfo object
+    /// </summary>
+    public ColoredInfo() { }
+
+    /// <summary>
+    /// Create new ColoredInfo object
+    /// </summary>
+    /// <param name="color">color</param>
+    /// <param name="isOfficial">Is official?</param>
+    public ColoredInfo(Color color, bool isOfficial) => (Color, IsOfficial) = (color, isOfficial);
 }
