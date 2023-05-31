@@ -84,7 +84,11 @@ public class DatabaseTests
             manga.Sources.Add(new("https://google.com"));
             manga.Description = new DescriptionInfo("en-US::Anime about camping");
 
-            db.Mangas.Add(manga);
+            // var manga2 = new Manga() { Length = 100 };
+            // manga.Sources.Add(new("https://bing.com"));
+            // manga.Description = new DescriptionInfo("en-US::Anime about something else");
+
+            db.Mangas.AddRange(manga); //, manga2);
 
             db.SaveChanges();
         }
@@ -128,7 +132,7 @@ public class DatabaseTests
             {
                 var name = new LanguageSpecificTextInfo($"en-US::Name {creature.Id}");
                 var altName = new LanguageSpecificTextInfo($"en-US::Name_alt {creature.Id + 1000}");
-                
+
                 creature.Names.Add(new(name));
                 creature.Names.Add(new(altName));
             }
@@ -225,6 +229,25 @@ public class DatabaseTests
             var creationTitle = new CreationsTitles(creations.FirstOrDefault(), "Creation Title", "en-US");
 
             db.CreationsTitles.Add(creationTitle);
+
+            db.SaveChanges();
+        }
+    }
+
+    [Test]
+    [Order(11)]
+    public void PushCreationsRelations()
+    {
+        using (var db = new DatabaseContext())
+        {
+            var creations = db.Creations.ToList();
+
+            var cr = new CreationsRelations();
+            cr.Creation = creations.FirstOrDefault();
+            cr.RelatedCreation = creations.LastOrDefault();
+            cr.Relation = CreationRelations.Parent;
+
+            db.CreationsRelations.Add(cr);
 
             db.SaveChanges();
         }

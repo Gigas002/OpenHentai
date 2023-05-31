@@ -30,6 +30,7 @@ public class DatabaseContext : DbContext
     public DbSet<AuthorsCreations> AuthorsCreations { get; set; } = null!;
     public DbSet<CirclesTitles> CirclesTitles { get; set; } = null!;
     public DbSet<CreationsTitles> CreationsTitles { get; set; } = null!;
+    public DbSet<CreationsRelations> CreationsRelations { get; set; } = null!;
 
     public string DatabasePath { get; init; } = null!;
 
@@ -111,6 +112,12 @@ public class DatabaseContext : DbContext
                     .HasOne(ac => ac.Creation)
                     .WithMany(c => c.Authors);
 
+        modelBuilder.Entity<CreationsRelations>()
+                    .HasOne(cr => cr.Creation)
+                    .WithMany(c => c.Relations);
+
+        modelBuilder.Entity<CreationsRelations>()
+                    .HasOne(cr => cr.RelatedCreation);
     }
 
     public override void Dispose()

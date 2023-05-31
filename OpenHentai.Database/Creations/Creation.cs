@@ -33,8 +33,7 @@ public class Creation : IDatabaseEntity //: ICreation
     [Column(TypeName = "jsonb")]
     public DescriptionInfo Description { get; set; }
     
-    [NotMapped]
-    public IDictionary<Creation, CreationRelations> Relations { get; init; }
+    public List<CreationsRelations> Relations { get; init; } = new();
     
     // [NotMapped]
     // public IEnumerable<ICreationCollection> Collections { get; set; }
