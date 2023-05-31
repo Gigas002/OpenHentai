@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# 
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHentai", "OpenHentai\OpenHentai.csproj", "{8CB66D96-D797-48FB-A9E7-E74D0DA2424A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHentai.Database", "OpenHentai.Database\OpenHentai.Database.csproj", "{97CF4C4F-05AA-4485-A4D7-5AF08F051409}"
@@ -11,6 +13,9 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8CB66D96-D797-48FB-A9E7-E74D0DA2424A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
