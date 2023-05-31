@@ -34,9 +34,6 @@
         <member name="P:OpenHentai.Database.Creatures.Creature.Age">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Creatures.Creature.Media">
-            <inheritdoc />
-        </member>
         <member name="P:OpenHentai.Database.Creatures.Creature.Gender">
             <inheritdoc />
         </member>

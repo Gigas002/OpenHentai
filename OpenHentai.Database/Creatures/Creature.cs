@@ -1,6 +1,5 @@
 using OpenHentai.Creatures;
 using OpenHentai.Descriptors;
-using OpenHentai.Relations;
 using OpenHentai.Database.Tags;
 using System.ComponentModel.DataAnnotations.Schema;
 using OpenHentai.Database.Relative;
@@ -26,9 +25,6 @@ public class Creature : IDatabaseEntity //: ICreature
     /// <inheritdoc />
     public int Age { get ; set ; }
     
-    /// <inheritdoc />
-    // [NotMapped]
-    // public IEnumerable<PictureInfo> Pictures { get ; set ; }
     public List<MediaInfo> Media { get; set; } = new();
 
     /// <inheritdoc />
@@ -37,7 +33,5 @@ public class Creature : IDatabaseEntity //: ICreature
     /// <inheritdoc />
     public IEnumerable<Tag> Tags { get ; set ; }
     
-    /// <inheritdoc />
-    [NotMapped]
-    public IDictionary<ICreature, CreatureRelations> Relations { get; set; }
+    public List<CreaturesRelations> Relations { get; set; } = new();
 }

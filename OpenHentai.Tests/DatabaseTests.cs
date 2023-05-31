@@ -4,6 +4,7 @@ using OpenHentai.Database.Creatures;
 using OpenHentai.Database.Relative;
 using OpenHentai.Database.Tags;
 using OpenHentai.Descriptors;
+using OpenHentai.Relations;
 using OpenHentai.Roles;
 using OpenHentai.Tags;
 using System.Text.Json;
@@ -127,6 +128,28 @@ public class DatabaseTests
                 creature.Names.Add(new(name));
                 creature.Names.Add(new(altName));
             }
+
+            db.SaveChanges();
+        }
+    }
+
+    [Test]
+    [Order(6)]
+    public void PushCreaturesRelationsTest()
+    {
+        using (var db = new DatabaseContext())
+        {
+            var creatures = db.Creatures.ToList();
+
+            var author = creatures.Where(c => c is Author).FirstOrDefault();
+            var chara = creatures.Where(c => c is Character).FirstOrDefault();
+
+            var cr = new CreaturesRelations();
+            cr.Creature = chara;
+            cr.RelatedCreature = author;
+            cr.Relation = CreatureRelations.Enemy;
+
+            db.CreaturesRelations.Add(cr);
 
             db.SaveChanges();
         }
