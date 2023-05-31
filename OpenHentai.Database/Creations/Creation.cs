@@ -17,7 +17,6 @@ public class Creation : IDatabaseEntity //: ICreation
     
     public IEnumerable<AuthorsCreations> Authors { get; set; } = null!;
 
-    // TODO: see ~CreationsCircles.cs
     public IEnumerable<Circle>? Circles { get; set; }
 
     public DateTime? PublishStarted { get; set; }
