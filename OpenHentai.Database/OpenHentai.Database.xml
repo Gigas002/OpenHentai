@@ -7,27 +7,6 @@
         <member name="T:OpenHentai.Database.Creatures.Author">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Creatures.Author.Names">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Database.Creatures.Author.Description">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Database.Creatures.Author.Birthday">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Database.Creatures.Author.Age">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Database.Creatures.Author.Pictures">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Database.Creatures.Author.Gender">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Database.Creatures.Author.Tags">
-            <inheritdoc />
-        </member>
         <member name="P:OpenHentai.Database.Creatures.Author.AuthorNames">
             <inheritdoc />
         </member>
@@ -40,10 +19,31 @@
         <member name="P:OpenHentai.Database.Creatures.Author.Creations">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Creatures.Author.CreatureId">
+        <member name="P:OpenHentai.Database.Creatures.Creature.Id">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Creatures.Author.Relations">
+        <member name="P:OpenHentai.Database.Creatures.Creature.Names">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Creature.Description">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Creature.Birthday">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Creature.Age">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Creature.Pictures">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Creature.Gender">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Creature.Tags">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Database.Creatures.Creature.Relations">
             <inheritdoc />
         </member>
         <member name="T:OpenHentai.Database.IDatabaseEntity">
@@ -56,22 +56,16 @@
             Entry's id in database
             </summary>
         </member>
-        <member name="T:OpenHentai.Database.Tags.Tag">
+        <member name="T:OpenHentai.Database.Migrations.InitialCreate">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Tags.Tag.Id">
+        <member name="M:OpenHentai.Database.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Tags.Tag.MasterId">
+        <member name="M:OpenHentai.Database.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
             <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Database.Tags.Tag.Category">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Database.Tags.Tag.Value">
-            <inheritdoc />
-        </member>
-        <member name="P:OpenHentai.Database.Tags.Tag.Description">
+        <member name="M:OpenHentai.Database.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
     </members>

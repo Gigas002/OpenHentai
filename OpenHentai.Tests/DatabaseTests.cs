@@ -1,0 +1,110 @@
+using OpenHentai.Database.Circles;
+using OpenHentai.Database.Creatures;
+using OpenHentai.Database.Tags;
+using OpenHentai.Descriptors;
+using OpenHentai.Tags;
+using System.Text.Json;
+
+namespace OpenHentai.Tests;
+
+public class DatabaseTests
+{
+    [SetUp]
+    public void Setup()
+    {
+        // don't use this in prod, use migrations instead
+        using (var db = new DatabaseContext())
+        {
+            // db.Database.EnsureDeleted();
+            db.Database.EnsureCreated();
+        }
+    }
+
+    [Test]
+    [Order(1)]
+    public void PushTagsTest()
+    {
+        using (var db = new DatabaseContext())
+        {
+            db.Database.EnsureCreated();
+            var desc1 = new DescriptionInfo("en-US::Anime about camping");
+            var desc2 = new DescriptionInfo("en-US::Second season of Yuru Camp");
+
+            var tag1 = new Tag() { Category = TagCategory.Parody, Value = "Yuru Camp", Description = desc1 };
+            var tag2 = new Tag() { Category = TagCategory.Parody, Value = "Yuru Camp Season 2", Description = desc2 };
+            var tag3 = new Tag() { Category = TagCategory.Parody, Value = "JJBA" };
+
+            tag2.Master = tag1; // SetMaster(tag1);
+
+            db.Tags.AddRange(tag1, tag2, tag3);
+            db.SaveChanges();
+        }
+    }
+
+    [Test]
+    [Order(2)]
+    public void PushCreaturesTest()
+    {
+        using (var db = new DatabaseContext())
+        {
+            var author = new Author();
+            author.Age = 10;
+
+            var circle = new Circle();
+            circle.Authors = new List<Author>() { author };
+
+            var character = new Character();
+            character.Age = 11;
+
+            db.Authors.Add(author);
+            db.Circles.Add(circle);
+            db.Characters.Add(character);
+
+            db.SaveChanges();
+        }
+    }
+
+    [Test]
+    [Order(3)]
+    public void ReadTagsTest()
+    {
+        using (var db = new DatabaseContext())
+        {
+            var tags = db.Tags.ToList();
+
+            Console.WriteLine("Tags:");
+            foreach (var tag in tags)
+            {
+                Console.WriteLine($"Tag: {tag.Value}");
+
+                if (tag.Master is not null) Console.WriteLine($"Master: {tag.GetMaster()?.Value}");
+
+                if (tag.Slaves?.Count() > 0)
+                {
+                    Console.WriteLine("Slaves:");
+                    foreach (var slave in tag.Slaves)
+                    {
+                        Console.WriteLine($"- {slave.Value}");
+                    }
+                }
+            }
+
+            SerializeTags(tags);
+
+            // var fantasyTags = Tag.GetTagWithSlaves(tags, "fantasy");
+            // foreach (var tag in fantasyTags)
+            //     Console.WriteLine($"Fantasy tag: {tag.Value}");
+        }
+    }
+
+    public static void SerializeTags(IEnumerable<Tag> tags)
+    {
+        var options = new JsonSerializerOptions();
+        // Requires net8+
+        // options.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
+
+        var json = JsonSerializer.Serialize(tags, options);
+
+        File.WriteAllText("../list.json", json);
+    }
+}
