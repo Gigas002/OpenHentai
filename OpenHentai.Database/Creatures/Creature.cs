@@ -3,11 +3,13 @@ using OpenHentai.Descriptors;
 using OpenHentai.Database.Tags;
 using System.ComponentModel.DataAnnotations.Schema;
 using OpenHentai.Database.Relative;
+using OpenHentai.Relations;
+using OpenHentai.Tags;
 
 namespace OpenHentai.Database.Creatures;
 
 [Table("creatures")]
-public class Creature : IDatabaseEntity //: ICreature
+public class Creature : IDatabaseEntity, ICreature
 {
     /// <inheritdoc />
     public ulong Id { get; set; }
@@ -34,4 +36,16 @@ public class Creature : IDatabaseEntity //: ICreature
     public IEnumerable<Tag> Tags { get ; set ; } = null!;
     
     public IEnumerable<CreaturesRelations>? Relations { get; set; }
+
+    public IEnumerable<LanguageSpecificTextInfo> GetNames()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Dictionary<ICreature, CreatureRelations> GetRelations()
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<ITag> GetTags() => Tags;
 }

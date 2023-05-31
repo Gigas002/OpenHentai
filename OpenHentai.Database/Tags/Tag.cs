@@ -18,7 +18,7 @@ public class Tag : ITag, IDatabaseEntity
     public ulong? MasterId { get; set; }
     
     [JsonIgnore]
-    private Tag? Master { get; set; }
+    public Tag? Master { get; set; }
     
     public ITag? GetMaster() => Master;
     
