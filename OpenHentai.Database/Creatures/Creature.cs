@@ -9,17 +9,19 @@ using OpenHentai.Tags;
 namespace OpenHentai.Database.Creatures;
 
 [Table("creatures")]
-public class Creature : IDatabaseEntity, ICreature
+public class Creature : IDatabaseEntity//, ICreature
 {
+    #region Properties
+
     /// <inheritdoc />
     public ulong Id { get; set; }
 
     /// <inheritdoc />
-    public IEnumerable<CreaturesNames> CreaturesNames { get; set; } = null!;
+    public HashSet<CreaturesNames> CreaturesNames { get; init; } = new();
 
     /// <inheritdoc />
     [Column(TypeName = "jsonb")]
-    public IEnumerable<LanguageSpecificTextInfo>? Description { get; set; }
+    public HashSet<LanguageSpecificTextInfo> Description { get; init; } = new();
 
     /// <inheritdoc />
     public DateTime? Birthday { get; set; }
@@ -27,34 +29,41 @@ public class Creature : IDatabaseEntity, ICreature
     /// <inheritdoc />
     public int Age { get; set; }
 
-    public IEnumerable<MediaInfo>? Media { get; set; }
+    public HashSet<MediaInfo> Media { get; init; } = new();
 
     /// <inheritdoc />
     public Gender Gender { get; set; }
 
     /// <inheritdoc />
-    public IEnumerable<Tag> Tags { get; set; } = null!;
+    public HashSet<Tag> Tags { get; init; } = new();
 
-    public IEnumerable<CreaturesRelations>? CreaturesRelations { get; set; }
+    public HashSet<CreaturesRelations> CreaturesRelations { get; init; } = new();
+    
+    #endregion
+
+    #region Methods
 
     public IEnumerable<LanguageSpecificTextInfo> GetNames() =>
         CreaturesNames.Select(n => n.GetLanguageSpecificTextInfo());
 
-    public void SetNames(IEnumerable<LanguageSpecificTextInfo> names) =>
-        CreaturesNames = names.Select(n => new CreaturesNames(this, n)).ToList();
-
+    public void AddNames(IEnumerable<LanguageSpecificTextInfo> names) =>
+        names.ToList().ForEach(AddName);
+    
+    public void AddName(LanguageSpecificTextInfo name) => CreaturesNames.Add(new(this, name));
+    
     public Dictionary<ICreature, CreatureRelations> GetRelations() =>
         CreaturesRelations.ToDictionary(cr => (ICreature)cr.Creature, cr => cr.Relation);
 
-    public void SetRelations(Dictionary<Creature, CreatureRelations> relations)
-    {
-        CreaturesRelations = relations.Select(relation => new CreaturesRelations
-        {
-            Creature = this,
-            RelatedCreature = relation.Key,
-            Relation = relation.Value
-        }).ToList();
-    }
+    public void AddRelations(Dictionary<Creature, CreatureRelations> relations) =>
+        relations.ToList().ForEach(AddRelation);
+    
+    public void AddRelation(KeyValuePair<Creature, CreatureRelations> relation) =>
+        AddRelation(relation.Key, relation.Value);
 
-    public IEnumerable<ITag> GetTags() => Tags;
+    public void AddRelation(Creature relatedCreature, CreatureRelations relation) =>
+        CreaturesRelations.Add(new(this, relatedCreature, relation));
+
+    // public IEnumerable<ITag> GetTags() => Tags;
+    
+    #endregion
 }

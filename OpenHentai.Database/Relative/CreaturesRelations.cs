@@ -16,4 +16,9 @@ public class CreaturesRelations
     public Creature RelatedCreature { get; set; } = null!;
 
     public CreatureRelations Relation { get; set; }
+    
+    public CreaturesRelations() { }
+    
+    public CreaturesRelations(Creature creature, Creature relatedCreature, CreatureRelations relation) =>
+        (Creature, RelatedCreature, Relation) = (creature, relatedCreature, relation);
 }

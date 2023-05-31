@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace OpenHentai.Database.Creations;
 
 [Table("manga")]
-public class Manga : Creation, IManga
+public class Manga : Creation//, IManga
 {
     public int Length { get; set; }
     public int Volumes { get; set; }
@@ -13,7 +13,7 @@ public class Manga : Creation, IManga
     public bool HasImages { get; set; }
     
     [Column(TypeName = "jsonb")]
-    public IEnumerable<ColoredInfo> ColoredInfo { get; set; } = null!;
+    public HashSet<ColoredInfo> ColoredInfo { get; init; } = new();
 
-    public IEnumerable<ColoredInfo> GetColoredInfo() => ColoredInfo;
+    // public IEnumerable<ColoredInfo> GetColoredInfo() => ColoredInfo;
 }

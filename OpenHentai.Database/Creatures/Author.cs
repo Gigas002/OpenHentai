@@ -12,45 +12,46 @@ namespace OpenHentai.Database.Creatures;
 
 /// <inheritdoc />
 [Table("authors")]
-public class Author : Creature, IAuthor
+public class Author : Creature//, IAuthor
 {
     #region Properties
-
-    #region Interfaces implementation
-
-    public IEnumerable<AuthorsNames> AuthorsNames { get; set; } = null!;
+    
+    public HashSet<AuthorsNames> AuthorsNames { get; init; } = new();
 
     /// <inheritdoc />
-    public IEnumerable<Circle>? Circles { get; set; }
+    public HashSet<Circle> Circles { get; init; } = new();
 
     /// <inheritdoc />
     [Column(TypeName = "jsonb")]
-    public IEnumerable<ExternalLinkInfo>? ExternalLinks { get; set; }
+    public HashSet<ExternalLinkInfo>? ExternalLinks { get; init; } = new();
 
-    public IEnumerable<AuthorsCreations>? AuthorsCreations { get; set; }
+    public HashSet<AuthorsCreations>? AuthorsCreations { get; init; } = new();
+    
+    #endregion
+
+    #region Methods
 
     public IEnumerable<LanguageSpecificTextInfo> GetAuthorNames() =>
         AuthorsNames.Select(an => an.GetLanguageSpecificTextInfo());
 
-    public void SetAuthorNames(IEnumerable<LanguageSpecificTextInfo> names) =>
-        AuthorsNames = names.Select(n => new AuthorsNames(this, n)).ToList();
+    public void AddAuthorNames(IEnumerable<LanguageSpecificTextInfo> names) =>
+        names.ToList().ForEach(AddName);
+    
+    public void AddAuthorName(LanguageSpecificTextInfo name) => AuthorsNames.Add(new(this, name));
 
-    public IEnumerable<ICircle> GetCircles() => Circles;
+    // public IEnumerable<ICircle> GetCircles() => Circles;
 
     public Dictionary<ICreation, AuthorRole> GetCreations() =>
         AuthorsCreations.ToDictionary(ac => (ICreation)ac.Creation, ac => ac.Role);
 
-    public void SetCreations(Dictionary<Creation, AuthorRole> creations)
-    {
-        AuthorsCreations = creations.Select(creation => new AuthorsCreations
-        {
-            Author = this,
-            Creation = creation.Key,
-            Role = creation.Value
-        }).ToList();
-    }
+    public void AddCreations(Dictionary<Creation, AuthorRole> creations) =>
+        creations.ToList().ForEach(AddCreation);
+    
+    public void AddCreation(KeyValuePair<Creation, AuthorRole> creation) =>
+        AddCreation(creation.Key, creation.Value);
 
-    #endregion
-
+    public void AddCreation(Creation creation, AuthorRole role) =>
+        AuthorsCreations.Add(new(this, creation, role));
+    
     #endregion
 }

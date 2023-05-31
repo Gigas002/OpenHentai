@@ -11,27 +11,36 @@ namespace OpenHentai.Database.Circles;
 
 /// <inheritdoc cref="ICircle"/>
 [Table("circles")]
-public class Circle : IDatabaseEntity, ICircle
+public class Circle : IDatabaseEntity//, ICircle
 {
-    /// <inheritdoc />
-    public ulong Id { get; set; }
-
-    public IEnumerable<CirclesTitles> CirclesTitles { get; set; } = null!;
-
-    public IEnumerable<Author> Authors { get; set; } = null!;
-
-    public IEnumerable<Creation>? Creations { get; set; }
+    #region Properties
 
     /// <inheritdoc />
-    public IEnumerable<IAuthor> GetAuthors() => Authors;
+    public ulong Id { get; init; }
 
-    /// <inheritdoc />
-    public IEnumerable<ICreation> GetCreations() => Creations;
+    public HashSet<CirclesTitles> CirclesTitles { get; } = new();
 
-    /// <inheritdoc />
+    public HashSet<Author> Authors { get; init; } = new();
+
+    public HashSet<Creation> Creations { get; init; } = new();
+    
+    #endregion
+
+    #region Methods
+
+    // /// <inheritdoc />
+    // public IEnumerable<IAuthor> GetAuthors() => Authors;
+    //
+    // /// <inheritdoc />
+    // public IEnumerable<ICreation> GetCreations() => Creations;
+    
     public IEnumerable<LanguageSpecificTextInfo> GetTitles() =>
         CirclesTitles.Select(t => t.GetLanguageSpecificTextInfo());
 
-    public void SetTitles(IEnumerable<LanguageSpecificTextInfo> titles) =>
-        CirclesTitles = titles.Select(t => new CirclesTitles(this, t)).ToList();
+    public void AddTitles(IEnumerable<LanguageSpecificTextInfo> titles) =>
+        titles.ToList().ForEach(AddTitle);
+    
+    public void AddTitle(LanguageSpecificTextInfo title) => CirclesTitles.Add(new(this, title));
+    
+    #endregion
 }

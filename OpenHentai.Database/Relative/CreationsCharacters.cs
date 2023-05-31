@@ -17,4 +17,9 @@ public class CreationsCharacters
     public Character Character { get; set; } = null!;
 
     public CharacterRole Role { get; set; }
+    
+    public CreationsCharacters() { }
+    
+    public CreationsCharacters(Creation creation, Character character, CharacterRole role) =>
+        (Creation, Character, Role) = (creation, character, role);
 }

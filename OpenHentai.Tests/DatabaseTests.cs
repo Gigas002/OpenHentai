@@ -60,29 +60,24 @@ public class DatabaseTests
 
         var author = new Author
         {
-            Age = 10,
-            Description = new List<LanguageSpecificTextInfo> { new("en-US::Author descr 1") },
-            Media = new List<MediaInfo> { new("https://google.com", MediaType.Image) },
-            ExternalLinks = new List<ExternalLinkInfo>
-            {
-                new("google", "https://google.com")
-                {
-                    OfficialStatus = OfficialStatus.Official, PaidStatus = PaidStatus.Free,
-                }
-            },
-            Tags = new List<Tag> { tag }
+            Age = 10
         };
-
-        var circle = new Circle
+        author.Description.Add(new("en-US::Author descr 1"));
+        author.Media.Add(new("https://google.com", MediaType.Image));
+        author.Tags.Add(tag);
+        author.ExternalLinks.Add(new("google", "https://google.com")
         {
-            Authors = new List<Author> { author }
-        };
+            OfficialStatus = OfficialStatus.Official, PaidStatus = PaidStatus.Free,
+        });
+
+        var circle = new Circle();
+        circle.Authors.Add(author);
 
         var character = new Character
         {
-            Age = 11,
-            Description = new List<LanguageSpecificTextInfo> { new("en-US::Chara descr 1") }
+            Age = 11
         };
+        character.Description.Add(new("en-US::Chara descr 1"));
 
         db.Authors.Add(author);
         db.Circles.Add(circle);
@@ -100,15 +95,14 @@ public class DatabaseTests
         var manga = new Manga
         {
             Length = 10,
-            Sources = new List<ExternalLinkInfo> { new("google", "https://google.com") },
-            Description = new List<LanguageSpecificTextInfo> { new("en-US::Anime about camping") },
-            Media = new List<MediaInfo> { new("https://google.com", MediaType.Image) },
-            Languages = new List<LanguageInfo> { new("en-US", false) },
-            Censorship = new List<CensorshipInfo> { new() { Censorship = Creations.Censorship.None, IsOfficial = true} },
-            ColoredInfo = new List<ColoredInfo> { new() { Color = Color.BlackWhite, IsOfficial = true} }
         };
-        // SerializeLangs(new List<LanguageInfo>() { new("en-US", false) });
-
+        manga.Media.Add(new("https://google.com", MediaType.Image));
+        manga.Languages.Add(new("en-US", false));
+        manga.Censorship.Add(new(Censorship.None, true));
+        manga.Sources.Add(new("google", "https://google.com"));
+        manga.Description.Add(new("en-US::Anime about camping"));
+        manga.ColoredInfo.Add(new(Color.BlackWhite, true));
+        
         db.Mangas.AddRange(manga);
 
         db.SaveChanges();
@@ -125,10 +119,7 @@ public class DatabaseTests
 
         foreach (var chara in chars)
         {
-            chara.SetCreations(new() 
-            {
-                { mangas.FirstOrDefault(), CharacterRole.Main}
-            });
+            chara.AddCreation(mangas.FirstOrDefault(), CharacterRole.Main);
         }
 
         db.SaveChanges();
@@ -144,7 +135,7 @@ public class DatabaseTests
 
         foreach (var creature in creatures)
         {
-            creature.SetNames(new List<LanguageSpecificTextInfo> 
+            creature.AddNames(new List<LanguageSpecificTextInfo> 
             {
                 new($"en-US::Name {creature.Id}"),
                 new($"en-US::Name_alt {creature.Id + 1000}")
@@ -164,11 +155,7 @@ public class DatabaseTests
 
         var author = creatures.FirstOrDefault(c => c is Author);
         var chara = creatures.FirstOrDefault(c => c is Character);
-
-        chara.SetRelations(new()
-        {
-            { author, CreatureRelations.Enemy }
-        });
+        chara.AddRelation(author, CreatureRelations.Enemy);
 
         db.SaveChanges();
     }
@@ -180,11 +167,7 @@ public class DatabaseTests
         using var db = new DatabaseContext();
 
         var author = db.Authors.FirstOrDefault();
-            
-        author.SetAuthorNames(new List<LanguageSpecificTextInfo>
-        {
-            new("en-US", "Author Name")
-        });
+        author.AddAuthorName(new("en-US", "Author Name"));
 
         db.SaveChanges();
     }
@@ -200,10 +183,7 @@ public class DatabaseTests
 
         foreach (var author in authors)
         {
-            author.SetCreations(new()
-            {
-                { creations.FirstOrDefault(), AuthorRole.MainArtist }
-            });
+            author.AddCreation(creations.FirstOrDefault(), AuthorRole.MainArtist);
         }
 
         db.SaveChanges();
@@ -216,10 +196,7 @@ public class DatabaseTests
         using var db = new DatabaseContext();
 
         var circle = db.Circles.FirstOrDefault();
-        circle.SetTitles(new List<LanguageSpecificTextInfo>
-        {
-            new("en-US", "Circle Title")
-        });
+        circle.AddTitle(new("en-US", "Circle Title"));
 
         db.SaveChanges();
     }
@@ -231,11 +208,8 @@ public class DatabaseTests
         using var db = new DatabaseContext();
         
         var creation = db.Creations.FirstOrDefault();
-            
-        creation.SetTitles(new List<LanguageSpecificTextInfo>
-        {
-            new("en-US", "Creation Title")
-        });
+        
+        creation.AddTitle(new("en-US", "Creation Title"));
 
         db.SaveChanges();
     }
@@ -250,11 +224,8 @@ public class DatabaseTests
             
         var creation = creations.FirstOrDefault();
         var relatedCreation = creations.LastOrDefault();
-            
-        creation.SetRelations(new()
-        {
-            { relatedCreation, CreationRelations.Parent }
-        });
+        
+        creation.AddRelation(relatedCreation, CreationRelations.Parent);
 
         db.SaveChanges();
     }
