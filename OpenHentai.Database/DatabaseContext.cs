@@ -22,7 +22,7 @@ public class DatabaseContext : DbContext
     public DbSet<Creature> Creatures { get; set; } = null!;
     public DbSet<Author> Authors { get; set; } = null!;
     public DbSet<Character> Characters { get; set; } = null!;
-    public DbSet<CharactersCreations> CharactersCreations { get; set; } = null!;
+    public DbSet<CreationsCharacters> CreationsCharacters { get; set; } = null!;
     public DbSet<Circle> Circles { get; set; } = null!;
 
     public string DatabasePath { get; init; } = null!;
@@ -61,13 +61,13 @@ public class DatabaseContext : DbContext
                     .HasForeignKey("author_id")
             );
 
-        modelBuilder.Entity<CharactersCreations>()
-                    .HasOne(cc => cc.Character)
-                    .WithMany(c => c.InCreations);
-
-        modelBuilder.Entity<CharactersCreations>()
+        modelBuilder.Entity<CreationsCharacters>()
                     .HasOne(cc => cc.Creation)
                     .WithMany(c => c.Characters);
+
+        modelBuilder.Entity<CreationsCharacters>()
+                    .HasOne(cc => cc.Character)
+                    .WithMany(c => c.InCreations);
     }
 
     public override void Dispose()

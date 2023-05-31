@@ -97,9 +97,9 @@ public class DatabaseTests
 
             foreach (var chara in chars)
             {
-                var cc = new CharactersCreations();
-                cc.Character = chara;
+                var cc = new CreationsCharacters();
                 cc.Creation = mangas.FirstOrDefault();
+                cc.Character = chara;
                 cc.CharacterRole = CharacterRole.Main;
 
                 chara.InCreations.Add(cc);

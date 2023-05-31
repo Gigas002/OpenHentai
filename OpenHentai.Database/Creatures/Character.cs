@@ -6,5 +6,5 @@ namespace OpenHentai.Database.Creatures;
 [Table("characters")]
 public class Character : Creature //, ICharacter
 {
-    public List<CharactersCreations> InCreations { get; init; } = new List<CharactersCreations>();
+    public List<CreationsCharacters> InCreations { get; init; } = new();
 }

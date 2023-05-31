@@ -39,7 +39,7 @@ public class Creation : IDatabaseEntity //: ICreation
     // [NotMapped]
     // public IEnumerable<ICreationCollection> Collections { get; set; }
     
-    public List<CharactersCreations> Characters { get; set; }
+    public List<CreationsCharacters> Characters { get; init; } = new();
 
     [NotMapped]
     public IEnumerable<PictureInfo> Pictures { get; set; }
