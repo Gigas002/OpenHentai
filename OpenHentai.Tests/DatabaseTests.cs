@@ -56,7 +56,7 @@ public class DatabaseTests
         {
             var author = new Author();
             author.Age = 10;
-            author.Description = new DescriptionInfo("en-US::Author descr 1");
+            author.Description = new List<LanguageSpecificTextInfo>() { new("en-US::Author descr 1") };
             author.Media = new List<MediaInfo>() { new("https://google.com", MediaType.Image) };
             author.ExternalLinks = new List<ExternalLinkInfo>() { new("google", "https://google.com") { OfficialStatus = OfficialStatus.Official, PaidStatus = PaidStatus.Free,} };
 
@@ -65,7 +65,7 @@ public class DatabaseTests
 
             var character = new Character();
             character.Age = 11;
-            character.Description = new DescriptionInfo("en-US::Chara descr 1");
+            character.Description = new List<LanguageSpecificTextInfo>() { new("en-US::Chara descr 1") };
 
             db.Authors.Add(author);
             db.Circles.Add(circle);
@@ -83,7 +83,7 @@ public class DatabaseTests
         {
             var manga = new Manga() { Length = 10 };
             manga.Sources = new List<ExternalLinkInfo>() { new("google", "https://google.com") };
-            manga.Description = new DescriptionInfo("en-US::Anime about camping");
+            manga.Description = new List<LanguageSpecificTextInfo>() { new("en-US::Anime about camping") };
             manga.Media = new List<MediaInfo>() { new("https://google.com", MediaType.Image) };
             manga.Languages = new List<LanguageInfo>() { new("en-US", false) };
             manga.Censorship = new List<CensorshipInfo>() { new() { Censorship = Creations.Censorship.None, IsOfficial = true} };

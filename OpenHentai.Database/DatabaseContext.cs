@@ -55,7 +55,7 @@ public class DatabaseContext : DbContext
 
         modelBuilder.Entity<Creature>().Property(e => e.Description).HasConversion(
             v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
-            v => JsonSerializer.Deserialize<DescriptionInfo>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+            v => JsonSerializer.Deserialize<IEnumerable<LanguageSpecificTextInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
 
         modelBuilder.Entity<Creature>().Property(e => e.Media).HasConversion(
             v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
@@ -71,7 +71,7 @@ public class DatabaseContext : DbContext
 
         modelBuilder.Entity<Creation>().Property(e => e.Description).HasConversion(
             v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
-            v => JsonSerializer.Deserialize<DescriptionInfo>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+            v => JsonSerializer.Deserialize<IEnumerable<LanguageSpecificTextInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
 
         modelBuilder.Entity<Creation>().Property(e => e.Media).HasConversion(
             v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),

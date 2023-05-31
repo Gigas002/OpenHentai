@@ -435,33 +435,6 @@
             <param name="color">color</param>
             <param name="isOfficial">Is official?</param>
         </member>
-        <member name="T:OpenHentai.Descriptors.DescriptionInfo">
-            <summary>
-            Standard for json in non-indexed, localizable descriptions
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Descriptors.DescriptionInfo.Text">
-            <summary>
-            Description's text
-            </summary>
-        </member>
-        <member name="M:OpenHentai.Descriptors.DescriptionInfo.#ctor(System.String)">
-            <summary>
-            Create new description
-            </summary>
-            <param name="descriptionLine">Formatted description line</param>
-        </member>
-        <member name="M:OpenHentai.Descriptors.DescriptionInfo.#ctor(System.Collections.Generic.IEnumerable{System.String})">
-            <summary>
-            Create new description
-            </summary>
-            <param name="description">Collection of formatted description lines</param>
-        </member>
-        <member name="M:OpenHentai.Descriptors.DescriptionInfo.#ctor">
-            <summary>
-            Create new description
-            </summary>
-        </member>
         <member name="T:OpenHentai.Descriptors.EventEntryInfo">
             <summary>
             Information about event's entry

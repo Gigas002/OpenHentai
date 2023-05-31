@@ -26,9 +26,8 @@ public class Creation : IDatabaseEntity //: ICreation
     [Column(TypeName = "jsonb")]
     public IEnumerable<ExternalLinkInfo>? Sources { get; set; }
 
-    // TODO: consider rework
     [Column(TypeName = "jsonb")]
-    public DescriptionInfo? Description { get; set; }
+    public IEnumerable<LanguageSpecificTextInfo>? Description { get; set; }
     
     public IEnumerable<CreationsRelations>? Relations { get; set; }
     

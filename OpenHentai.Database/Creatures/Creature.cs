@@ -17,7 +17,7 @@ public class Creature : IDatabaseEntity //: ICreature
 
     /// <inheritdoc />
     [Column(TypeName = "jsonb")]
-    public DescriptionInfo? Description { get ; set ; }
+    public IEnumerable<LanguageSpecificTextInfo>? Description { get ; set ; }
     
     /// <inheritdoc />
     public DateTime? Birthday { get ; set ; }
