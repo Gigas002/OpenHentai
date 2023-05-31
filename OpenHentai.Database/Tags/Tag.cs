@@ -29,5 +29,10 @@ public class Tag : ITag, IDatabaseEntity
     [Column(TypeName = "jsonb")]
     public DescriptionInfo Description { get; set; }
 
+    public ITag? GetMaster()
+    {
+        throw new NotImplementedException();
+    }
+
     #endregion
 }

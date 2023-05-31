@@ -1,64 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <!-- Project metadata and build instructions -->
 
     <PropertyGroup>
         <OutputType>Library</OutputType>
-        <TargetFramework>net7.0</TargetFramework>
-        <VersionPrefix>0.10.0</VersionPrefix>
-        <VersionSuffix>preview.0</VersionSuffix>
-        <AssemblyVersion>0.10.0.0</AssemblyVersion>
-        <FileVersion>0.10.0.0</FileVersion>
-        <!--<Platforms>x64</Platforms>-->
-        <Configurations>Debug;Release</Configurations>
-        <!--<PackageIcon>icon.png</PackageIcon>-->
-        <NeutralLanguage>en-US</NeutralLanguage>
-        <Authors>Gigas002</Authors>
-        <!-- <Company>OpenHentai</Company> -->
-        <Description>Core API for OpenHentai projects</Description>
-        <Copyright>Copyright © Gigas002 2023</Copyright>
-        <PackageProjectUrl>https://github.com/Gigas002/OpenHentai</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/Gigas002/OpenHentai</RepositoryUrl>
-        <PackageReleaseNotes>https://github.com/Gigas002/OpenHentai/blob/master/CHANGELOG.md</PackageReleaseNotes>
-		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-        <RepositoryType>git</RepositoryType>
-        <PackageTags>hentai openhentai doujinshi doujin</PackageTags>
-        <PackageId>OpenHentai</PackageId>
-		<Product>OpenHentai</Product>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <!-- Build properties -->
-        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-        <DebugType>portable</DebugType>
-        <DebugSymbols>true</DebugSymbols>
         <DocumentationFile>OpenHentai.xml</DocumentationFile>
-        <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-        <EnableNETAnalyzers>true</EnableNETAnalyzers>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)'=='Release'">
-        <!-- Release-specific properties -->
-        <PublishRepositoryUrl>true</PublishRepositoryUrl>
-        <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     </PropertyGroup>
 
     <ItemGroup>
-		<!-- Additional files -->
-		<!-- <None Include="..\.editorconfig" Link=".editorconfig" /> -->
-		<None Include="..\LICENSE.txt" Pack="true" PackagePath="$(PackageLicenseFile)" />
-		<!-- <None Include="..\Assets\icon.png" Pack="true" Visible="true" PackagePath="$(PackageIcon)" /> -->
-		<None Include="..\README.md" Pack="true" PackagePath="\" />
-	</ItemGroup>
-
-    <ItemGroup>
-        <!-- Dependencies -->
         <PackageReference Include="Microsoft.SourceLink.Github" Version="1.1.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
