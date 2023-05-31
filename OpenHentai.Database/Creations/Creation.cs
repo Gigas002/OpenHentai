@@ -30,7 +30,7 @@ public class Creation : IDatabaseEntity //: ICreation
     [Column(TypeName = "jsonb")]
     public List<ExternalLinkInfo> Sources { get; set; } = new();
 
-    [NotMapped]
+    [Column(TypeName = "jsonb")]
     public DescriptionInfo Description { get; set; }
     
     [NotMapped]

@@ -82,6 +82,7 @@ public class DatabaseTests
         {
             var manga = new Manga() { Length = 10 };
             manga.Sources.Add(new("https://google.com"));
+            manga.Description = new DescriptionInfo("en-US::Anime about camping");
 
             db.Mangas.Add(manga);
 
