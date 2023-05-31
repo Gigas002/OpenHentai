@@ -55,6 +55,10 @@ public class DatabaseContext : DbContext
             v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
             v => JsonSerializer.Deserialize<List<MediaInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
 
+        modelBuilder.Entity<Author>().Property(e => e.ExternalLinks).HasConversion(
+            v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
+            v => JsonSerializer.Deserialize<List<ExternalLinkInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+
         // modelBuilder.Entity<Creation>().UseTptMappingStrategy();
 
         modelBuilder.Entity<Author>()

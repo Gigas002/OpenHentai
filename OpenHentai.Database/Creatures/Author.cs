@@ -21,8 +21,7 @@ public class Author : Creature //, IDatabaseEntity //, IAuthor
     public List<Circle> Circles { get; set; } = new();
 
     /// <inheritdoc />
-    [NotMapped]
-    public IEnumerable<ExternalLinkInfo> ExternalLinks { get; set; }
+    public List<ExternalLinkInfo> ExternalLinks { get; set; } = new();
     
     /// <inheritdoc />
     [NotMapped]

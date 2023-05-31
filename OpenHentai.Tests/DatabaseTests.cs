@@ -6,6 +6,7 @@ using OpenHentai.Database.Tags;
 using OpenHentai.Descriptors;
 using OpenHentai.Relations;
 using OpenHentai.Roles;
+using OpenHentai.Statuses;
 using OpenHentai.Tags;
 using System.Text.Json;
 
@@ -56,6 +57,7 @@ public class DatabaseTests
             author.Age = 10;
             author.Description = new DescriptionInfo("en-US::Author descr 1");
             author.Media.Add(new MediaInfo("https://google.com", MediaType.Image));
+            author.ExternalLinks.Add(new ExternalLinkInfo("https://google.com") { OfficialStatus = OfficialStatus.Official, PaidStatus = PaidStatus.Free, Title = "google" });
 
             var circle = new Circle();
             circle.Authors = new List<Author>() { author };
