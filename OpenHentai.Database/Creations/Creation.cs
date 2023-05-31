@@ -49,8 +49,8 @@ public class Creation : IDatabaseEntity //: ICreation
 
     public PublishStatus Status { get; set; }
 
-    [NotMapped]
-    public IEnumerable<CensorshipInfo> Censorship { get; set; }
+    [Column(TypeName = "jsonb")]
+    public List<CensorshipInfo> Censorship { get; set; } = new();
 
     public List<Tag> Tags { get; set; } = new();
 }

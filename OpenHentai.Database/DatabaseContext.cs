@@ -79,6 +79,10 @@ public class DatabaseContext : DbContext
             v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
             v => JsonSerializer.Deserialize<List<LanguageInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
 
+        modelBuilder.Entity<Creation>().Property(e => e.Censorship).HasConversion(
+            v => JsonSerializer.Serialize(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }),
+            v => JsonSerializer.Deserialize<List<CensorshipInfo>>(v, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull }));
+
         // modelBuilder.Entity<Creation>().UseTptMappingStrategy();
 
         // TODO: replace with relative class

@@ -85,6 +85,7 @@ public class DatabaseTests
             manga.Description = new DescriptionInfo("en-US::Anime about camping");
             manga.Media.Add(new MediaInfo("https://google.com", MediaType.Image));
             manga.Languages.Add(new("en-US", false));
+            manga.Censorship.Add(new() { Censorship = Creations.Censorship.None, IsOfficial = true});
             // SerializeLangs(new List<LanguageInfo>() { new("en-US", false) });
 
             // var manga2 = new Manga() { Length = 100 };
