@@ -29,6 +29,7 @@ public class DatabaseContext : DbContext
     public DbSet<AuthorsNames> AuthorsNames { get; set; } = null!;
     public DbSet<AuthorsCreations> AuthorsCreations { get; set; } = null!;
     public DbSet<CirclesTitles> CirclesTitles { get; set; } = null!;
+    public DbSet<CreationsTitles> CreationsTitles { get; set; } = null!;
 
     public string DatabasePath { get; init; } = null!;
 
@@ -63,6 +64,7 @@ public class DatabaseContext : DbContext
 
         // modelBuilder.Entity<Creation>().UseTptMappingStrategy();
 
+        // TODO: replace with relative class
         modelBuilder.Entity<Author>()
             .HasMany(a => a.Circles)
             .WithMany(c => c.Authors)

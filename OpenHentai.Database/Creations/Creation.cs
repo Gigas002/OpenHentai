@@ -15,8 +15,9 @@ public class Creation : IDatabaseEntity //: ICreation
 {
     public ulong Id { get; set; }
 
-    [NotMapped]
-    public IEnumerable<LanguageSpecificTextInfo> Titles { get; set; }
+    // [NotMapped]
+    // public IEnumerable<LanguageSpecificTextInfo> Titles { get; set; }
+    public List<CreationsTitles> Titles { get; set; }
     
     public List<AuthorsCreations> Authors { get; init; } = new();
 

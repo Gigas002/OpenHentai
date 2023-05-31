@@ -212,6 +212,22 @@ public class DatabaseTests
         }
     }
 
+    [Test]
+    [Order(10)]
+    public void PushCreationsTitles()
+    {
+        using (var db = new DatabaseContext())
+        {
+            var creations = db.Creations.ToList();
+
+            var creationTitle = new CreationsTitles(creations.FirstOrDefault(), "Creation Title", "en-US");
+
+            db.CreationsTitles.Add(creationTitle);
+
+            db.SaveChanges();
+        }
+    }
+
     #endregion
 
     #region Read tests

@@ -19,10 +19,10 @@ public class CirclesTitles : ILanguageSpecificTextInfoEntity<Circle>
 
     public CirclesTitles() { }
 
-    public CirclesTitles(Circle author, string name, string language) =>
-        (Entity, Text, Language) = (author, name, language);
+    public CirclesTitles(Circle circle, string name, string language) =>
+        (Entity, Text, Language) = (circle, name, language);
 
-    public CirclesTitles(Circle author, string name, CultureInfo language) : this(author, name, language.ToString()) { }
+    public CirclesTitles(Circle circle, string name, CultureInfo language) : this(circle, name, language.ToString()) { }
 
-    public CirclesTitles(Circle author, LanguageSpecificTextInfo name) : this(author, name.Text, name.Language) { }
+    public CirclesTitles(Circle circle, LanguageSpecificTextInfo name) : this(circle, name.Text, name.Language) { }
 }
