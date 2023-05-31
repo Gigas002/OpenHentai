@@ -54,6 +54,7 @@ public class DatabaseTests
             var author = new Author();
             author.Age = 10;
             author.Description = new DescriptionInfo("en-US::Author descr 1");
+            author.Media.Add(new MediaInfo("https://google.com", MediaType.Image));
 
             var circle = new Circle();
             circle.Authors = new List<Author>() { author };

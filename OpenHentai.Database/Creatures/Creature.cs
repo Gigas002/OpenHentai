@@ -27,9 +27,10 @@ public class Creature : IDatabaseEntity //: ICreature
     public int Age { get ; set ; }
     
     /// <inheritdoc />
-    [NotMapped]
-    public IEnumerable<PictureInfo> Pictures { get ; set ; }
-    
+    // [NotMapped]
+    // public IEnumerable<PictureInfo> Pictures { get ; set ; }
+    public List<MediaInfo> Media { get; set; } = new();
+
     /// <inheritdoc />
     public Gender Gender { get ; set ; }
     

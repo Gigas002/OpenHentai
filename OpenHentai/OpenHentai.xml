@@ -679,6 +679,11 @@
             Type of media file
             </summary>
         </member>
+        <member name="P:OpenHentai.Descriptors.IMediaInfo.IsMain">
+            <summary>
+            Is this main media file?
+            </summary>
+        </member>
         <member name="T:OpenHentai.Descriptors.LanguageInfo">
             <summary>
             Information about translation
@@ -734,6 +739,18 @@
             </summary>
             <param name="language">Line's culture/language</param>
             <param name="text">Line</param>
+        </member>
+        <member name="T:OpenHentai.Descriptors.MediaInfo">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Descriptors.MediaInfo.Source">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Descriptors.MediaInfo.Type">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Descriptors.MediaInfo.IsMain">
+            <inheritdoc />
         </member>
         <member name="T:OpenHentai.Descriptors.PictureInfo">
             <summary>
