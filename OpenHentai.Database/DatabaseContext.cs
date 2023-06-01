@@ -69,31 +69,31 @@ public class DatabaseContext : DbContext
 
         modelBuilder.Entity<Tag>().Property(e => e.Description).HasConversion(
             v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<LanguageSpecificTextInfo>>(v, jsonSerializerOptions));
+            v => JsonSerializer.Deserialize<HashSet<LanguageSpecificTextInfo>>(v, jsonSerializerOptions)!);
 
         modelBuilder.Entity<Creature>().Property(e => e.Description).HasConversion(
             v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<LanguageSpecificTextInfo>>(v, jsonSerializerOptions));
+            v => JsonSerializer.Deserialize<HashSet<LanguageSpecificTextInfo>>(v, jsonSerializerOptions)!);
 
         modelBuilder.Entity<Creature>().Property(e => e.Media).HasConversion(
             v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<MediaInfo>>(v, jsonSerializerOptions));
+            v => JsonSerializer.Deserialize<HashSet<MediaInfo>>(v, jsonSerializerOptions)!);
 
         modelBuilder.Entity<Author>().Property(e => e.ExternalLinks).HasConversion(
             v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<ExternalLinkInfo>>(v, jsonSerializerOptions));
+            v => JsonSerializer.Deserialize<HashSet<ExternalLinkInfo>>(v, jsonSerializerOptions)!);
 
         modelBuilder.Entity<Creation>().Property(e => e.Sources).HasConversion(
             v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<ExternalLinkInfo>>(v, jsonSerializerOptions));
+            v => JsonSerializer.Deserialize<HashSet<ExternalLinkInfo>>(v, jsonSerializerOptions)!);
 
         modelBuilder.Entity<Creation>().Property(e => e.Description).HasConversion(
             v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<LanguageSpecificTextInfo>>(v, jsonSerializerOptions));
+            v => JsonSerializer.Deserialize<HashSet<LanguageSpecificTextInfo>>(v, jsonSerializerOptions)!);
 
         modelBuilder.Entity<Creation>().Property(e => e.Media).HasConversion(
             v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<MediaInfo>>(v, jsonSerializerOptions));
+            v => JsonSerializer.Deserialize<HashSet<MediaInfo>>(v, jsonSerializerOptions)!);
 
         modelBuilder.Entity<Creation>().Property(e => e.Languages).HasConversion(
             v => JsonSerializer.Serialize(v, jsonSerializerOptions),
@@ -101,7 +101,7 @@ public class DatabaseContext : DbContext
 
         modelBuilder.Entity<Creation>().Property(e => e.Censorship).HasConversion(
             v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<CensorshipInfo>>(v, jsonSerializerOptions));
+            v => JsonSerializer.Deserialize<HashSet<CensorshipInfo>>(v, jsonSerializerOptions)!);
 
         modelBuilder.Entity<Manga>().Property(e => e.ColoredInfo).HasConversion(
             v => JsonSerializer.Serialize(v, jsonSerializerOptions),

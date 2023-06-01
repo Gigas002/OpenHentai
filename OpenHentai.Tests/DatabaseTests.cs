@@ -63,7 +63,7 @@ public class DatabaseTests
         };
         author.Description.Add(new("en-US::Author descr 1"));
         author.Media.Add(new("https://google.com", MediaType.Image));
-        author.Tags.Add(tag);
+        author.Tags.Add(tag!);
         author.ExternalLinks.Add(new("google", "https://google.com")
         {
             OfficialStatus = OfficialStatus.Official, PaidStatus = PaidStatus.Free,
@@ -118,7 +118,7 @@ public class DatabaseTests
 
         foreach (var chara in chars)
         {
-            chara.AddCreation(mangas.FirstOrDefault(), CharacterRole.Main);
+            chara.AddCreation(mangas.FirstOrDefault()!, CharacterRole.Main);
         }
 
         db.SaveChanges();
@@ -154,7 +154,7 @@ public class DatabaseTests
 
         var author = creatures.FirstOrDefault(c => c is Author);
         var chara = creatures.FirstOrDefault(c => c is Character);
-        chara.AddRelation(author, CreatureRelations.Enemy);
+        chara?.AddRelation(author!, CreatureRelations.Enemy);
 
         db.SaveChanges();
     }
@@ -166,7 +166,7 @@ public class DatabaseTests
         using var db = new DatabaseContext();
 
         var author = db.Authors.FirstOrDefault();
-        author.AddAuthorName(new("en-US", "Author Name"));
+        author!.AddAuthorName(new("en-US", "Author Name"));
 
         db.SaveChanges();
     }
@@ -182,7 +182,7 @@ public class DatabaseTests
 
         foreach (var author in authors)
         {
-            author.AddCreation(creations.FirstOrDefault(), AuthorRole.MainArtist);
+            author.AddCreation(creations.FirstOrDefault()!, AuthorRole.MainArtist);
         }
 
         db.SaveChanges();
@@ -195,7 +195,7 @@ public class DatabaseTests
         using var db = new DatabaseContext();
 
         var circle = db.Circles.FirstOrDefault();
-        circle.AddTitle(new("en-US", "Circle Title"));
+        circle!.AddTitle(new("en-US", "Circle Title"));
 
         db.SaveChanges();
     }
@@ -208,7 +208,7 @@ public class DatabaseTests
         
         var creation = db.Creations.FirstOrDefault();
         
-        creation.AddTitle(new("en-US", "Creation Title"));
+        creation!.AddTitle(new("en-US", "Creation Title"));
 
         db.SaveChanges();
     }
@@ -224,7 +224,7 @@ public class DatabaseTests
         var creation = creations.FirstOrDefault();
         var relatedCreation = creations.LastOrDefault();
         
-        creation.AddRelation(relatedCreation, CreationRelations.Parent);
+        creation?.AddRelation(relatedCreation!, CreationRelations.Parent);
 
         db.SaveChanges();
     }
@@ -251,7 +251,7 @@ public class DatabaseTests
 
             if (tag.Master is not null) Console.WriteLine($"- master: {tag.Master.Value}");
 
-            if (tag.Slaves?.Count() > 0)
+            if (tag.Slaves?.Count > 0)
             {
                 Console.WriteLine("- slaves:");
                 foreach (var slave in tag.Slaves)
@@ -260,10 +260,10 @@ public class DatabaseTests
                 }
             }
 
-            if (tag.Creatures?.Count() <= 0) continue;
+            if (tag.Creatures?.Count <= 0) continue;
             
             Console.WriteLine("- creatures:");
-            foreach (var creature in tag.Creatures)
+            foreach (var creature in tag.Creatures!)
             {
                 Console.WriteLine($"  - {creature?.GetNames()?.FirstOrDefault()?.Text}");
             }
