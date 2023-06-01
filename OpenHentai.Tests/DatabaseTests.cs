@@ -107,7 +107,7 @@ public class DatabaseTests
         manga.Tags.UnionWith(tags);
         manga.Circles.Add(circle!);
         
-        db.Mangas.AddRange(manga);
+        db.Manga.AddRange(manga);
 
         db.SaveChanges();
     }
@@ -118,7 +118,7 @@ public class DatabaseTests
     {
         using var db = new DatabaseContext();
         
-        var mangas = db.Mangas.ToList();
+        var mangas = db.Manga.ToList();
         var chars = db.Characters.ToList();
 
         foreach (var chara in chars)
@@ -238,43 +238,89 @@ public class DatabaseTests
 
     #region Read tests
 
+    // These actions requires writing custom JsonConverters and some more work to be done
+
     [Test]
     [Order(1000)]
-    public void ReadTagsTest()
+    public void ReadAuthorsTest()
+    {
+        using var db = new DatabaseContext();
+        
+        var authors = db.Authors;
+
+        SerializeEntity(authors);
+    }
+
+    [Test]
+    [Order(1000)]
+    public void ReadCharactersTest()
+    {
+        using var db = new DatabaseContext();
+        
+        var characters = db.Characters;
+
+        SerializeEntity(characters);
+    }
+
+    [Test]
+    [Order(1000)]
+    public void ReadCirclesTest()
+    {
+        using var db = new DatabaseContext();
+        
+        var circles = db.Circles;
+
+        SerializeEntity(circles);
+    }
+
+    [Test]
+    [Order(1000)]
+    public void ReadMangaTest()
+    {
+        using var db = new DatabaseContext();
+        
+        var manga = db.Manga;
+
+        SerializeEntity(manga);
+    }
+
+    [Test]
+    [Order(1000)]
+    public void ReadAndSerializeTagsTest()
     {
         using var db = new DatabaseContext();
         
         // TODO: find a way to use GetNames method instead of property
         var tags = db.Tags.Include(t => t.Creatures)
-                     .ThenInclude(c => c.CreaturesNames)
-                     .ToList();
+                     .ThenInclude(c => c.CreaturesNames);
+                    //  .ToList();
 
-        Console.WriteLine("Tags:");
-        foreach (var tag in tags)
-        {
-            Console.WriteLine($"Tag: {tag.Value}");
+        // Console.WriteLine("Tags:");
+        // foreach (var tag in tags)
+        // {
+        //     Console.WriteLine($"Tag: {tag.Value}");
 
-            if (tag.Master is not null) Console.WriteLine($"- master: {tag.Master.Value}");
+        //     if (tag.Master is not null) Console.WriteLine($"- master: {tag.Master.Value}");
 
-            if (tag.Slaves?.Count > 0)
-            {
-                Console.WriteLine("- slaves:");
-                foreach (var slave in tag.Slaves)
-                {
-                    Console.WriteLine($"  - {slave.Value}");
-                }
-            }
+        //     if (tag.Slaves?.Count > 0)
+        //     {
+        //         Console.WriteLine("- slaves:");
+        //         foreach (var slave in tag.Slaves)
+        //         {
+        //             Console.WriteLine($"  - {slave.Value}");
+        //         }
+        //     }
 
-            if (tag.Creatures?.Count <= 0) continue;
+        //     if (tag.Creatures?.Count <= 0) continue;
             
-            Console.WriteLine("- creatures:");
-            foreach (var creature in tag.Creatures!)
-            {
-                Console.WriteLine($"  - {creature?.GetNames()?.FirstOrDefault()?.Text}");
-            }
-        }
+        //     Console.WriteLine("- creatures:");
+        //     foreach (var creature in tag.Creatures!)
+        //     {
+        //         Console.WriteLine($"  - {creature?.GetNames()?.FirstOrDefault()?.Text}");
+        //     }
+        // }
 
-        SerializeTags(tags);
+        SerializeEntity(tags);
 
         // var fantasyTags = Tag.GetTagWithSlaves(tags, "fantasy");
         // foreach (var tag in fantasyTags)
@@ -283,14 +329,14 @@ public class DatabaseTests
 
     #endregion
 
-    private static void SerializeTags(IEnumerable<Tag> tags)
+    private static void SerializeEntity<T>(IEnumerable<T> entity) where T : class
     {
         var options = new JsonSerializerOptions();
         // Requires net8+
         // options.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
 
-        var json = JsonSerializer.Serialize(tags, options);
+        var json = JsonSerializer.Serialize(entity, options);
 
-        File.WriteAllText("../tags.json", json);
+        File.WriteAllText($"../{typeof(T)}.json", json);
     }
 }

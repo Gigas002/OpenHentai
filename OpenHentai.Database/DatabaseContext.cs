@@ -20,7 +20,7 @@ public class DatabaseContext : DbContext
     
     public DbSet<Creation> Creations { get; set; } = null!;
     
-    public DbSet<Manga> Mangas { get; set; } = null!;
+    public DbSet<Manga> Manga { get; set; } = null!;
     
     public DbSet<Creature> Creatures { get; set; } = null!;
     
