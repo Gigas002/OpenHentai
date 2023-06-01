@@ -90,7 +90,10 @@ public class DatabaseTests
     public void PushCreationTest()
     {
         using var db = new DatabaseContext();
-        
+
+        var tags = db.Tags.Where(t => t.Category == TagCategory.Parody);
+        var circle = db.Circles.FirstOrDefault();
+
         var manga = new Manga
         {
             Length = 10,
@@ -101,6 +104,8 @@ public class DatabaseTests
         manga.Sources.Add(new("google", "https://google.com"));
         manga.Description.Add(new("en-US::Anime about camping"));
         manga.ColoredInfo.Add(new(Color.BlackWhite, true));
+        manga.Tags.UnionWith(tags);
+        manga.Circles.Add(circle!);
         
         db.Mangas.AddRange(manga);
 
