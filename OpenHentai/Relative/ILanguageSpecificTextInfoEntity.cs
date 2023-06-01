@@ -1,6 +1,6 @@
 using OpenHentai.Descriptors;
 
-namespace OpenHentai.Database.Relative;
+namespace OpenHentai.Relative;
 
 public interface ILanguageSpecificTextInfoEntity<T> : IDatabaseEntity where T : class
 {

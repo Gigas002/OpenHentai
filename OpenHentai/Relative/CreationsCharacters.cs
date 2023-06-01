@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using OpenHentai.Database.Creations;
-using OpenHentai.Database.Creatures;
+using OpenHentai.Creations;
+using OpenHentai.Creatures;
 using OpenHentai.Roles;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OpenHentai.Database.Relative;
+namespace OpenHentai.Relative;
 
 [Table("creations_characters")]
 [PrimaryKey("creation_id", "character_id")]

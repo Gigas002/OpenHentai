@@ -1,21 +1,19 @@
-using OpenHentai.Database.Circles;
+using OpenHentai.Circles;
 using OpenHentai.Descriptors;
 using OpenHentai.Statuses;
-using OpenHentai.Database.Tags;
+using OpenHentai.Tags;
 using System.ComponentModel.DataAnnotations.Schema;
-using OpenHentai.Database.Relative;
+using OpenHentai.Relative;
 using OpenHentai.Creations;
 using OpenHentai.Creatures;
 using OpenHentai.Roles;
 using OpenHentai.Relations;
-using OpenHentai.Tags;
-using OpenHentai.Database.Creatures;
 using System.Linq;
 
-namespace OpenHentai.Database.Creations;
+namespace OpenHentai.Creations;
 
 [Table("creations")]
-public abstract class Creation : IDatabaseEntity//, ICreation
+public abstract class Creation : IDatabaseEntity
 {
     #region Properties
 

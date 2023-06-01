@@ -1,14 +1,13 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using OpenHentai.Creations;
 using OpenHentai.Creatures;
-using OpenHentai.Database.Creations;
-using OpenHentai.Database.Relative;
+using OpenHentai.Relative;
 using OpenHentai.Roles;
 
-namespace OpenHentai.Database.Creatures;
+namespace OpenHentai.Creatures;
 
 [Table("characters")]
-public class Character : Creature//, ICharacter
+public class Character : Creature
 {
     #region Properties
 

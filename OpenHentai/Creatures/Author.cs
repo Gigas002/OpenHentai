@@ -2,13 +2,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using OpenHentai.Circles;
 using OpenHentai.Creations;
 using OpenHentai.Creatures;
-using OpenHentai.Database.Circles;
-using OpenHentai.Database.Creations;
-using OpenHentai.Database.Relative;
+using OpenHentai.Relative;
 using OpenHentai.Descriptors;
 using OpenHentai.Roles;
 
-namespace OpenHentai.Database.Creatures;
+namespace OpenHentai.Creatures;
 
 /// <inheritdoc />
 [Table("authors")]

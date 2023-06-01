@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHentai", "OpenHentai\OpenHentai.csproj", "{8CB66D96-D797-48FB-A9E7-E74D0DA2424A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHentai.Database", "OpenHentai.Database\OpenHentai.Database.csproj", "{97CF4C4F-05AA-4485-A4D7-5AF08F051409}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHentai.Tests", "OpenHentai.Tests\OpenHentai.Tests.csproj", "{D57AEB83-A819-40E0-9162-CF296D18B893}"
 EndProject
 Global
@@ -22,10 +20,6 @@ Global
 		{8CB66D96-D797-48FB-A9E7-E74D0DA2424A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CB66D96-D797-48FB-A9E7-E74D0DA2424A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CB66D96-D797-48FB-A9E7-E74D0DA2424A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{97CF4C4F-05AA-4485-A4D7-5AF08F051409}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{97CF4C4F-05AA-4485-A4D7-5AF08F051409}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{97CF4C4F-05AA-4485-A4D7-5AF08F051409}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{97CF4C4F-05AA-4485-A4D7-5AF08F051409}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D57AEB83-A819-40E0-9162-CF296D18B893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D57AEB83-A819-40E0-9162-CF296D18B893}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D57AEB83-A819-40E0-9162-CF296D18B893}.Release|Any CPU.ActiveCfg = Release|Any CPU

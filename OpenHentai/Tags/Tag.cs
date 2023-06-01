@@ -1,16 +1,16 @@
 using OpenHentai.Descriptors;
-using OpenHentai.Database.Creatures;
-using OpenHentai.Database.Creations;
+using OpenHentai.Creatures;
+using OpenHentai.Creations;
 using OpenHentai.Tags;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
+// using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
-using OpenHentai.Database.JsonConverters;
+using OpenHentai.JsonConverters;
 
-namespace OpenHentai.Database.Tags;
+namespace OpenHentai.Tags;
 
-[Index(nameof(Id), nameof(Value), IsUnique = true)]
+// [Index(nameof(Id), nameof(Value), IsUnique = true)]
 [Table("tags")]
 public class Tag : IDatabaseEntity//, ITag
 {

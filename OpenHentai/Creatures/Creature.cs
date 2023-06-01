@@ -1,15 +1,14 @@
 using OpenHentai.Creatures;
 using OpenHentai.Descriptors;
-using OpenHentai.Database.Tags;
 using System.ComponentModel.DataAnnotations.Schema;
-using OpenHentai.Database.Relative;
+using OpenHentai.Relative;
 using OpenHentai.Relations;
 using OpenHentai.Tags;
 
-namespace OpenHentai.Database.Creatures;
+namespace OpenHentai.Creatures;
 
 [Table("creatures")]
-public abstract class Creature : IDatabaseEntity//, ICreature
+public abstract class Creature : IDatabaseEntity
 {
     #region Properties
 

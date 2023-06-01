@@ -1,8 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using OpenHentai.Database.Tags;
+using OpenHentai.Tags;
 
-namespace OpenHentai.Database.JsonConverters;
+namespace OpenHentai.JsonConverters;
 
 public class TagMasterJsonConverter : JsonConverter<Tag?>
 {

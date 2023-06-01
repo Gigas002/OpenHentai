@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using OpenHentai.Database.Creations;
+using OpenHentai.Creations;
 using OpenHentai.Relations;
 
-namespace OpenHentai.Database.Relative;
+namespace OpenHentai.Relative;
 
 [Table("creations_relations")]
 [PrimaryKey("creation_id", "related_creation_id")]

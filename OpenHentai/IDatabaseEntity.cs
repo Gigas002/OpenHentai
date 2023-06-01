@@ -1,4 +1,4 @@
-namespace OpenHentai.Database;
+namespace OpenHentai;
 
 /// <summary>
 /// Basic database entries specification

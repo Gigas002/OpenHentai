@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OpenHentai\OpenHentai.csproj" />
-    <ProjectReference Include="..\OpenHentai.Database\OpenHentai.Database.csproj" />
   </ItemGroup>
 
 </Project>

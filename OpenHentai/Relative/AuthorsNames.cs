@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
-using OpenHentai.Database.Creatures;
+using OpenHentai.Creatures;
 using OpenHentai.Descriptors;
 
-namespace OpenHentai.Database.Relative;
+namespace OpenHentai.Relative;
 
 [Table("authors_names")]
 public class AuthorsNames : ILanguageSpecificTextInfoEntity<Author>

@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
-using OpenHentai.Database.Creations;
+using OpenHentai.Creations;
 using OpenHentai.Descriptors;
 
-namespace OpenHentai.Database.Relative;
+namespace OpenHentai.Relative;
 
 [Table("creations_titles")]
 public class CreationsTitles : ILanguageSpecificTextInfoEntity<Creation>

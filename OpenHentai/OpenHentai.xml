@@ -4,6 +4,9 @@
         <name>OpenHentai</name>
     </assembly>
     <members>
+        <member name="P:OpenHentai.Circles.Circle.Id">
+            <inheritdoc />
+        </member>
         <member name="T:OpenHentai.Circles.ICircle">
             <summary>
             Author's circle
@@ -270,6 +273,36 @@
             <summary>
             R18 + gore, scat, etc
             </summary>
+        </member>
+        <member name="T:OpenHentai.Creatures.Author">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.Circles">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.ExternalLinks">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Creature.Id">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Creature.CreaturesNames">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Creature.Description">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Creature.Birthday">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Creature.Age">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Creature.Gender">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Creatures.Creature.Tags">
+            <inheritdoc />
         </member>
         <member name="T:OpenHentai.Creatures.Gender">
             <summary>
@@ -684,6 +717,16 @@
             Event's entries
             </summary>
         </member>
+        <member name="T:OpenHentai.IDatabaseEntity">
+            <summary>
+            Basic database entries specification
+            </summary>
+        </member>
+        <member name="P:OpenHentai.IDatabaseEntity.Id">
+            <summary>
+            Entry's id in database
+            </summary>
+        </member>
         <member name="T:OpenHentai.JsonConverters.CultureInfoJsonConverter">
             <inheritdoc />
         </member>
@@ -691,6 +734,12 @@
             <inheritdoc />
         </member>
         <member name="M:OpenHentai.JsonConverters.CultureInfoJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.Globalization.CultureInfo,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.JsonConverters.TagMasterJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.JsonConverters.TagMasterJsonConverter.Write(System.Text.Json.Utf8JsonWriter,OpenHentai.Tags.Tag,System.Text.Json.JsonSerializerOptions)">
             <inheritdoc />
         </member>
         <member name="T:OpenHentai.Relations.CreationRelations">

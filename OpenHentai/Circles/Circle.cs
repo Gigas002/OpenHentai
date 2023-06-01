@@ -1,24 +1,21 @@
-using OpenHentai.Database.Creatures;
-using OpenHentai.Database.Creations;
-using System.ComponentModel.DataAnnotations.Schema;
-using OpenHentai.Database.Relative;
-using OpenHentai.Circles;
 using OpenHentai.Creatures;
 using OpenHentai.Creations;
+using System.ComponentModel.DataAnnotations.Schema;
+using OpenHentai.Relative;
+using OpenHentai.Circles;
 using OpenHentai.Descriptors;
 
-namespace OpenHentai.Database.Circles;
+namespace OpenHentai.Circles;
 
-/// <inheritdoc cref="ICircle"/>
 [Table("circles")]
-public class Circle : IDatabaseEntity//, ICircle
+public class Circle : IDatabaseEntity
 {
     #region Properties
 
     /// <inheritdoc />
     public ulong Id { get; init; }
 
-    public HashSet<CirclesTitles> CirclesTitles { get; } = new();
+    public HashSet<CirclesTitles> CirclesTitles { get; init; } = new();
 
     public HashSet<Author> Authors { get; init; } = new();
 

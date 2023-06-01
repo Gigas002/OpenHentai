@@ -2,10 +2,10 @@ using OpenHentai.Creations;
 using OpenHentai.Descriptors;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OpenHentai.Database.Creations;
+namespace OpenHentai.Creations;
 
 [Table("manga")]
-public class Manga : Creation//, IManga
+public class Manga : Creation
 {
     #region Properties
     

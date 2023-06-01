@@ -1,14 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using OpenHentai.Database.Tags;
-using OpenHentai.Database.Creatures;
-using OpenHentai.Database.Creations;
-using OpenHentai.Database.Circles;
+using OpenHentai.Tags;
+using OpenHentai.Creatures;
+using OpenHentai.Creations;
+using OpenHentai.Circles;
 using OpenHentai.Descriptors;
-using OpenHentai.Database.Relative;
+using OpenHentai.Relative;
 
-namespace OpenHentai.Database;
+namespace OpenHentai;
 
 public class DatabaseContext : DbContext
 {

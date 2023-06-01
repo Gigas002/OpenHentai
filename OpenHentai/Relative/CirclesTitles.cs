@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
-using OpenHentai.Database.Circles;
+using OpenHentai.Circles;
 using OpenHentai.Descriptors;
 
-namespace OpenHentai.Database.Relative;
+namespace OpenHentai.Relative;
 
 [Table("circles_titles")]
 public class CirclesTitles : ILanguageSpecificTextInfoEntity<Circle>
