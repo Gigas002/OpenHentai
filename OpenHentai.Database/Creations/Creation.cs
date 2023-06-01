@@ -15,7 +15,7 @@ using System.Linq;
 namespace OpenHentai.Database.Creations;
 
 [Table("creations")]
-public class Creation : IDatabaseEntity//, ICreation
+public abstract class Creation : IDatabaseEntity//, ICreation
 {
     #region Properties
 

@@ -21,7 +21,7 @@ public enum Color
     Colored = 2,
     
     /// <summary>
-    /// Has at 40%+ colored
+    /// Has at least 40%+ colored
     /// </summary>
     Mixed = 3
 }

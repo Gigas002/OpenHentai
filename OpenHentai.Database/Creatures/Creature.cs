@@ -9,7 +9,7 @@ using OpenHentai.Tags;
 namespace OpenHentai.Database.Creatures;
 
 [Table("creatures")]
-public class Creature : IDatabaseEntity//, ICreature
+public abstract class Creature : IDatabaseEntity//, ICreature
 {
     #region Properties
 
