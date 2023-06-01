@@ -343,7 +343,7 @@ public class DatabaseTests
     {
         using var db = new DatabaseContext();
         
-        var manga = db.Manga;
+        var manga = db.Manga.Include(m => m.CreationsRelations);//.ThenInclude(cr => cr.RelatedCreation);
 
         SerializeEntity(manga);
     }

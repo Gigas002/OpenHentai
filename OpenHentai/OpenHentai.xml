@@ -688,6 +688,12 @@
         <member name="M:OpenHentai.JsonConverters.CultureInfoJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.Globalization.CultureInfo,System.Text.Json.JsonSerializerOptions)">
             <inheritdoc />
         </member>
+        <member name="M:OpenHentai.JsonConverters.RelatedCreationJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.JsonConverters.RelatedCreationJsonConverter.Write(System.Text.Json.Utf8JsonWriter,OpenHentai.Creations.Creation,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
         <member name="M:OpenHentai.JsonConverters.TagMasterJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
             <inheritdoc />
         </member>
