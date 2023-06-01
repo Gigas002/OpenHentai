@@ -17,19 +17,33 @@ public class DatabaseContext : DbContext
     private readonly StreamWriter _logStream = new("log.txt", true);
 
     public DbSet<Tag> Tags { get; set; } = null!;
+    
     public DbSet<Creation> Creations { get; set; } = null!;
+    
     public DbSet<Manga> Mangas { get; set; } = null!;
+    
     public DbSet<Creature> Creatures { get; set; } = null!;
+    
     public DbSet<CreaturesNames> CreaturesNames { get; set; } = null!;
+    
     public DbSet<Author> Authors { get; set; } = null!;
+    
     public DbSet<Character> Characters { get; set; } = null!;
+    
     public DbSet<CreationsCharacters> CreationsCharacters { get; set; } = null!;
+    
     public DbSet<Circle> Circles { get; set; } = null!;
+    
     public DbSet<CreaturesRelations> CreaturesRelations { get; set; } = null!;
+    
     public DbSet<AuthorsNames> AuthorsNames { get; set; } = null!;
+    
     public DbSet<AuthorsCreations> AuthorsCreations { get; set; } = null!;
+    
     public DbSet<CirclesTitles> CirclesTitles { get; set; } = null!;
+    
     public DbSet<CreationsTitles> CreationsTitles { get; set; } = null!;
+    
     public DbSet<CreationsRelations> CreationsRelations { get; set; } = null!;
 
     public string DatabasePath { get; init; } = null!;

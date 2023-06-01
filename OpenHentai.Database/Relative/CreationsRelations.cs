@@ -9,6 +9,8 @@ namespace OpenHentai.Database.Relative;
 [PrimaryKey("creation_id", "related_creation_id")]
 public class CreationsRelations
 {
+    #region Properties
+
     [ForeignKey("creation_id")]
     public Creation Creation { get; set; } = null!;
 
@@ -17,8 +19,14 @@ public class CreationsRelations
 
     public CreationRelations Relation { get; set; }
 
+    #endregion
+
+    #region Constructors
+
     public CreationsRelations() { }
     
     public CreationsRelations(Creation creation, Creation relatedCreation, CreationRelations relation) =>
         (Creation, RelatedCreation, Relation) = (creation, relatedCreation, relation);
+
+    #endregion
 }

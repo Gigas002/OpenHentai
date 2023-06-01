@@ -23,9 +23,9 @@ public class Author : Creature//, IAuthor
 
     /// <inheritdoc />
     [Column(TypeName = "jsonb")]
-    public HashSet<ExternalLinkInfo>? ExternalLinks { get; init; } = new();
+    public HashSet<ExternalLinkInfo> ExternalLinks { get; init; } = new();
 
-    public HashSet<AuthorsCreations>? AuthorsCreations { get; init; } = new();
+    public HashSet<AuthorsCreations> AuthorsCreations { get; init; } = new();
     
     #endregion
 
@@ -39,10 +39,8 @@ public class Author : Creature//, IAuthor
     
     public void AddAuthorName(LanguageSpecificTextInfo name) => AuthorsNames.Add(new(this, name));
 
-    // public IEnumerable<ICircle> GetCircles() => Circles;
-
-    public Dictionary<ICreation, AuthorRole> GetCreations() =>
-        AuthorsCreations.ToDictionary(ac => (ICreation)ac.Creation, ac => ac.Role);
+    public Dictionary<Creation, AuthorRole> GetCreations() =>
+        AuthorsCreations.ToDictionary(ac => ac.Creation, ac => ac.Role);
 
     public void AddCreations(Dictionary<Creation, AuthorRole> creations) =>
         creations.ToList().ForEach(AddCreation);

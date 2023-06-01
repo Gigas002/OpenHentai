@@ -27,12 +27,6 @@ public class Circle : IDatabaseEntity//, ICircle
     #endregion
 
     #region Methods
-
-    // /// <inheritdoc />
-    // public IEnumerable<IAuthor> GetAuthors() => Authors;
-    //
-    // /// <inheritdoc />
-    // public IEnumerable<ICreation> GetCreations() => Creations;
     
     public IEnumerable<LanguageSpecificTextInfo> GetTitles() =>
         CirclesTitles.Select(t => t.GetLanguageSpecificTextInfo());

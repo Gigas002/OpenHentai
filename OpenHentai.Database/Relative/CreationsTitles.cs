@@ -8,6 +8,8 @@ namespace OpenHentai.Database.Relative;
 [Table("creations_titles")]
 public class CreationsTitles : ILanguageSpecificTextInfoEntity<Creation>
 {
+    #region Properties
+
     public ulong Id { get; set; }
 
     [ForeignKey("creation_id")]
@@ -15,7 +17,12 @@ public class CreationsTitles : ILanguageSpecificTextInfoEntity<Creation>
 
     [Column("title")]
     public string Text { get; set; } = null!;
+    
     public string? Language { get; set; } = null!;
+
+    #endregion
+
+    #region Constructors
 
     public CreationsTitles() { }
 
@@ -26,5 +33,11 @@ public class CreationsTitles : ILanguageSpecificTextInfoEntity<Creation>
 
     public CreationsTitles(Creation creation, LanguageSpecificTextInfo name) : this(creation, name.Text, name.Language) { }
 
+    #endregion
+
+    #region Methods
+
     public LanguageSpecificTextInfo GetLanguageSpecificTextInfo() => new(Language, Text);
+
+    #endregion
 }

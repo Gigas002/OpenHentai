@@ -62,8 +62,6 @@ public class Creature : IDatabaseEntity//, ICreature
 
     public void AddRelation(Creature relatedCreature, CreatureRelations relation) =>
         CreaturesRelations.Add(new(this, relatedCreature, relation));
-
-    // public IEnumerable<ITag> GetTags() => Tags;
     
     #endregion
 }

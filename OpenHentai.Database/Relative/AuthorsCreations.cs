@@ -10,6 +10,8 @@ namespace OpenHentai.Database.Relative;
 [PrimaryKey("author_id", "creation_id")]
 public class AuthorsCreations
 {
+    #region Properties
+
     [ForeignKey("author_id")]
     public Author Author { get; set; } = null!;
 
@@ -17,9 +19,15 @@ public class AuthorsCreations
     public Creation Creation { get; set; } = null!;
 
     public AuthorRole Role { get; set; }
+
+    #endregion
+
+    #region Constructors
     
     public AuthorsCreations() { }
 
     public AuthorsCreations(Author author, Creation creation, AuthorRole role) =>
         (Author, Creation, Role) = (author, creation, role);
+
+    #endregion
 }

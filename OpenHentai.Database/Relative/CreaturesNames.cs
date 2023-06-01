@@ -8,6 +8,8 @@ namespace OpenHentai.Database.Relative;
 [Table("creatures_names")]
 public class CreaturesNames : ILanguageSpecificTextInfoEntity<Creature>
 {
+    #region Properties
+
     public ulong Id { get; set; }
 
     [ForeignKey("creature_id")]
@@ -17,6 +19,10 @@ public class CreaturesNames : ILanguageSpecificTextInfoEntity<Creature>
     public string Text { get; set; } = null!;
 
     public string? Language { get; set; } = null!;
+
+    #endregion
+
+    #region Constructors
 
     public CreaturesNames() { }
 
@@ -29,5 +35,11 @@ public class CreaturesNames : ILanguageSpecificTextInfoEntity<Creature>
     public CreaturesNames(Creature creature, LanguageSpecificTextInfo name) :
         this(creature, name.Text, name.Language) { }
 
+    #endregion
+
+    #region Methods
+
     public LanguageSpecificTextInfo GetLanguageSpecificTextInfo() => new(Language, Text);
+
+    #endregion
 }

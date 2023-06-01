@@ -8,6 +8,8 @@ namespace OpenHentai.Database.Relative;
 [Table("circles_titles")]
 public class CirclesTitles : ILanguageSpecificTextInfoEntity<Circle>
 {
+    #region Properties
+
     public ulong Id { get; set; }
 
     [ForeignKey("circle_id")]
@@ -15,7 +17,12 @@ public class CirclesTitles : ILanguageSpecificTextInfoEntity<Circle>
 
     [Column("title")]
     public string Text { get; set; } = null!;
+    
     public string? Language { get; set; } = null!;
+
+    #endregion
+
+    #region Construtorcs
 
     public CirclesTitles() { }
 
@@ -26,5 +33,11 @@ public class CirclesTitles : ILanguageSpecificTextInfoEntity<Circle>
 
     public CirclesTitles(Circle circle, LanguageSpecificTextInfo name) : this(circle, name.Text, name.Language) { }
 
+    #endregion
+
+    #region Methods
+
     public LanguageSpecificTextInfo GetLanguageSpecificTextInfo() => new(Language, Text);
+
+    #endregion
 }

@@ -10,6 +10,7 @@ using OpenHentai.Roles;
 using OpenHentai.Relations;
 using OpenHentai.Tags;
 using OpenHentai.Database.Creatures;
+using System.Linq;
 
 namespace OpenHentai.Database.Creations;
 
@@ -42,7 +43,7 @@ public class Creation : IDatabaseEntity//, ICreation
     [NotMapped]
     public IEnumerable<ICreationCollection> Collections { get; set; }
 
-    public HashSet<CreationsCharacters>? CreationsCharacters { get; init; } = new();
+    public HashSet<CreationsCharacters> CreationsCharacters { get; init; } = new();
 
     public HashSet<MediaInfo> Media { get; init; } = new();
 
@@ -70,8 +71,8 @@ public class Creation : IDatabaseEntity//, ICreation
     
     public void AddTitle(LanguageSpecificTextInfo title) => CreationsTitles.Add(new(this, title));
 
-    public Dictionary<IAuthor, AuthorRole> GetAuthors() =>
-        AuthorsCreations.ToDictionary(ac => (IAuthor)ac.Author, ac => ac.Role);
+    public Dictionary<Author, AuthorRole> GetAuthors() =>
+        AuthorsCreations.ToDictionary(ac => ac.Author, ac => ac.Role);
 
     public void AddAuthors(Dictionary<Author, AuthorRole> authors) =>
         authors.ToList().ForEach(AddAuthor);
@@ -82,8 +83,8 @@ public class Creation : IDatabaseEntity//, ICreation
     public void AddAuthor(Author author, AuthorRole role) =>
         AuthorsCreations.Add(new(author, this, role));
 
-    public Dictionary<ICreation, CreationRelations> GetRelations() =>
-        CreationsRelations.ToDictionary(cr => (ICreation)cr.Creation, cr => cr.Relation);
+    public Dictionary<Creation, CreationRelations> GetRelations() =>
+        CreationsRelations.ToDictionary(cr => cr.Creation, cr => cr.Relation);
 
     public void AddRelations(Dictionary<Creation, CreationRelations> relations) =>
         relations.ToList().ForEach(AddRelation);
@@ -94,8 +95,8 @@ public class Creation : IDatabaseEntity//, ICreation
     public void AddRelation(Creation relatedCreation, CreationRelations relation) =>
         CreationsRelations.Add(new(this, relatedCreation, relation));
     
-    public Dictionary<ICharacter, CharacterRole> GetCharacters() =>
-        CreationsCharacters.ToDictionary(cc => (ICharacter)cc.Character, cc => cc.Role);
+    public Dictionary<Character, CharacterRole> GetCharacters() =>
+        CreationsCharacters.ToDictionary(cc => cc.Character, cc => cc.Role);
 
     public void AddCharacters(Dictionary<Character, CharacterRole> characters) =>
         characters.ToList().ForEach(AddCharacter);
@@ -105,8 +106,6 @@ public class Creation : IDatabaseEntity//, ICreation
 
     public void AddCharacter(Character character, CharacterRole role) =>
         CreationsCharacters.Add(new(this, character, role));
-
-    // public IEnumerable<ITag> GetTags() => Tags;
 
     #endregion
 }

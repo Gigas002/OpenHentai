@@ -35,16 +35,15 @@ public class DatabaseTests
     {
         using var db = new DatabaseContext();
         
-        var desc1 = new List<LanguageSpecificTextInfo> { new("en-US::Anime about camping") };
-        var desc2 = new List<LanguageSpecificTextInfo> { new("en-US::Second season of Yuru Camp") };
-
-        var tag1 = new Tag { Category = TagCategory.Parody, Value = "Yuru Camp", Description = desc1 };
-        var tag2 = new Tag { Category = TagCategory.Parody, Value = "Yuru Camp Season 2", Description = desc2 };
+        var tag1 = new Tag { Category = TagCategory.Parody, Value = "Yuru Camp" };
+        tag1.Description.Add(new("en-US::Anime about camping"));
+        var tag2 = new Tag { Category = TagCategory.Parody, Value = "Yuru Camp Season 2" };
+        tag2.Description.Add(new("en-US::Second season of Yuru Camp"));
         var tag3 = new Tag { Category = TagCategory.Parody, Value = "JJBA" };
 
         var creatureTag = new Tag { Category = TagCategory.BodyType, Value = "Adult" };
 
-        tag2.SetMaster(tag1);
+        tag2.Master = tag1;
 
         db.Tags.AddRange(tag1, tag2, tag3, creatureTag);
         db.SaveChanges();
@@ -250,7 +249,7 @@ public class DatabaseTests
         {
             Console.WriteLine($"Tag: {tag.Value}");
 
-            if (tag.GetMaster() is not null) Console.WriteLine($"- master: {tag.GetMaster()?.Value}");
+            if (tag.Master is not null) Console.WriteLine($"- master: {tag.Master.Value}");
 
             if (tag.Slaves?.Count() > 0)
             {

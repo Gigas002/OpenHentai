@@ -10,7 +10,13 @@ namespace OpenHentai.Database.Creatures;
 [Table("characters")]
 public class Character : Creature//, ICharacter
 {
+    #region Properties
+
     public HashSet<CreationsCharacters> CreationsCharacters { get; init; } = new();
+
+    #endregion
+
+    #region Methods
 
     public Dictionary<ICreation, CharacterRole> GetCreations() =>
         CreationsCharacters.ToDictionary(cc => (ICreation)cc.Creation, cc => cc.Role);
@@ -23,4 +29,6 @@ public class Character : Creature//, ICharacter
 
     public void AddCreation(Creation creation, CharacterRole role) =>
         CreationsCharacters.Add(new(creation, this, role));
+
+    #endregion
 }

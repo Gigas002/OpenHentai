@@ -11,21 +11,18 @@ namespace OpenHentai.Database.Tags;
 
 [Index(nameof(Id), nameof(Value), IsUnique = true)]
 [Table("tags")]
-public class Tag : ITag, IDatabaseEntity
+public class Tag : IDatabaseEntity//, ITag
 {
+    #region Properties
+
     public ulong Id { get; set; }
     
-    public ulong? MasterId { get; set; }
-    
-    [JsonIgnore]
+    // TODO: json converter to write Ids only
+    // [JsonIgnore]
     public Tag? Master { get; set; }
     
-    public ITag? GetMaster() => Master;
-    
-    public void SetMaster(ITag tag) => Master = tag as Tag;
-    
     [JsonIgnore]
-    public IEnumerable<Tag> Slaves { get; set; } = null!;
+    public HashSet<Tag> Slaves { get; init; } = null!;
 
     [Required]
     public TagCategory Category { get; set; } = TagCategory.Unknown;
@@ -33,11 +30,13 @@ public class Tag : ITag, IDatabaseEntity
     public string Value { get; set; } = null!;
 
     [Column(TypeName = "jsonb")]
-    public IEnumerable<LanguageSpecificTextInfo>? Description { get; set; }
+    public HashSet<LanguageSpecificTextInfo> Description { get; init; } = new();
 
     [JsonIgnore]
-    public IEnumerable<Creature>? Creatures { get; set; }
+    public HashSet<Creature> Creatures { get; init; } = new();
 
     [JsonIgnore]
-    public IEnumerable<Creation>? Creations { get; set; }
+    public HashSet<Creation> Creations { get; init; } = new();
+
+    #endregion
 }

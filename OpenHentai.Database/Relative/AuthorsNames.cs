@@ -8,6 +8,8 @@ namespace OpenHentai.Database.Relative;
 [Table("authors_names")]
 public class AuthorsNames : ILanguageSpecificTextInfoEntity<Author>
 {
+    #region Properties
+
     public ulong Id { get; set; }
 
     [ForeignKey("author_id")]
@@ -15,7 +17,12 @@ public class AuthorsNames : ILanguageSpecificTextInfoEntity<Author>
 
     [Column("name")]
     public string Text { get; set; } = null!;
+    
     public string? Language { get; set; }
+
+    #endregion
+
+    #region Construtorcs
 
     public AuthorsNames() { }
 
@@ -26,5 +33,11 @@ public class AuthorsNames : ILanguageSpecificTextInfoEntity<Author>
 
     public AuthorsNames(Author author, LanguageSpecificTextInfo name) : this(author, name.Text, name.Language) { }
 
+    #endregion
+
+    #region Methods
+
     public LanguageSpecificTextInfo GetLanguageSpecificTextInfo() => new(Language, Text);
+
+    #endregion
 }
