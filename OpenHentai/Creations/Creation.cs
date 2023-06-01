@@ -1,60 +1,119 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using OpenHentai.Circles;
 using OpenHentai.Descriptors;
 using OpenHentai.Statuses;
 using OpenHentai.Tags;
-using System.ComponentModel.DataAnnotations.Schema;
 using OpenHentai.Relative;
-using OpenHentai.Creations;
 using OpenHentai.Creatures;
 using OpenHentai.Roles;
 using OpenHentai.Relations;
-using System.Linq;
 
 namespace OpenHentai.Creations;
 
+/// <summary>
+/// Creation, e.g. doujinshi, manga, etc
+/// </summary>
 [Table("creations")]
 public abstract class Creation : IDatabaseEntity
 {
     #region Properties
 
+    /// <inheritdoc />
     public ulong Id { get; init; }
 
+    /// <summary>
+    /// Main title must be romanization of native title (e.g. Hepburn romanization for ja-JP)
+    /// Alternative titles can be any
+    /// e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
+    /// </summary>
     public HashSet<CreationsTitles> CreationsTitles { get; init; } = new();
 
+    /// <summary>
+    /// Authors and their roles
+    /// </summary>
     public HashSet<AuthorsCreations> AuthorsCreations { get; init; } = new();
 
+    /// <summary>
+    /// Circles
+    /// </summary>
     public HashSet<Circle> Circles { get; init; } = new();
 
+    /// <summary>
+    /// Estimate date of first release of this creation
+    /// </summary>
     public DateTime? PublishStarted { get; set; }
 
+    /// <summary>
+    /// Estimate date of final release of this creation
+    /// </summary>
     public DateTime? PublishEnded { get; set; }
 
+    /// <summary>
+    /// Available to purchase/read/etc at
+    /// </summary>
     [Column(TypeName = "jsonb")]
     public HashSet<ExternalLinkInfo> Sources { get; init; } = new();
 
+    /// <summary>
+    /// Description
+    /// </summary>
     [Column(TypeName = "jsonb")]
     public HashSet<LanguageSpecificTextInfo> Description { get; init; } = new();
 
+    /// <summary>
+    /// Collection of related creations
+    /// Creation-Relation pair
+    /// </summary>
     public HashSet<CreationsRelations> CreationsRelations { get; init; } = new();
 
-    // TODO: this
-    [NotMapped]
-    public IEnumerable<ICreationCollection> Collections { get; set; }
+    // /// <summary>
+    // /// Featured at events, e.g. C99, C100, etc
+    // /// </summary>
+    // public IEnumerable<IEvent> Events { get; set; }
 
+    // /// <summary>
+    // /// Member of collections
+    // /// </summary>
+    // TODO: this
+    // [NotMapped]
+    // public IEnumerable<ICreationCollection> Collections { get; set; }
+
+    /// <summary>
+    /// Collection of characters
+    /// </summary>
     public HashSet<CreationsCharacters> CreationsCharacters { get; init; } = new();
 
+    /// <summary>
+    /// Collection of related media, including preview image
+    /// </summary>
     public HashSet<MediaInfo> Media { get; init; } = new();
 
+    /// <summary>
+    /// Available on languages
+    /// </summary>
     [Column(TypeName = "jsonb")]
     public HashSet<LanguageInfo> Languages { get; init; } = new();
 
+    /// <summary>
+    /// Age rating
+    /// </summary>
     public Rating Rating { get; set; }
 
+    /// <summary>
+    /// Publishing status
+    /// </summary>
     public PublishStatus Status { get; set; }
 
+    /// <summary>
+    /// Censorship type
+    /// </summary>
     [Column(TypeName = "jsonb")]
     public HashSet<CensorshipInfo> Censorship { get; init; } = new();
 
+    /// <summary>
+    /// Creation's tags
+    /// e.g. franchise parody, themes, etc
+    /// </summary>
     public HashSet<Tag> Tags { get; init; } = new();
     
     #endregion

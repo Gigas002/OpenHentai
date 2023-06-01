@@ -1,28 +1,40 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using OpenHentai.Circles;
 using OpenHentai.Creations;
-using OpenHentai.Creatures;
 using OpenHentai.Relative;
 using OpenHentai.Descriptors;
 using OpenHentai.Roles;
 
 namespace OpenHentai.Creatures;
 
-/// <inheritdoc />
+/// <summary>
+/// Author
+/// </summary>
 [Table("authors")]
-public class Author : Creature//, IAuthor
+public class Author : Creature
 {
     #region Properties
     
+    /// <summary>
+    /// Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)
+    /// Alternative names can be any
+    /// </summary>
     public HashSet<AuthorsNames> AuthorsNames { get; init; } = new();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Author's circles
+    /// </summary>
     public HashSet<Circle> Circles { get; init; } = new();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Links to author's social networks, e.g. twitter, pixiv, fanbox, ci-en, etc
+    /// </summary>
     [Column(TypeName = "jsonb")]
     public HashSet<ExternalLinkInfo> ExternalLinks { get; init; } = new();
 
+    /// <summary>
+    /// Collection of author works
+    /// </summary>
     public HashSet<AuthorsCreations> AuthorsCreations { get; init; } = new();
     
     #endregion

@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using OpenHentai.Descriptors;
 
 namespace OpenHentai.Creations;
@@ -5,7 +6,7 @@ namespace OpenHentai.Creations;
 /// <summary>
 /// Book, e.g. doujinshi, artbook, etc
 /// </summary>
-public interface IBook : ICreation
+public class Book : Creation
 {
     /// <summary>
     /// Pages count
@@ -30,6 +31,6 @@ public interface IBook : ICreation
     /// <summary>
     /// Information about colorization of this book
     /// </summary>
-    // public IEnumerable<ColoredInfo> ColoredInfo { get; set; }
-    public IEnumerable<ColoredInfo> GetColoredInfo();
+    [Column(TypeName = "jsonb")]
+    public HashSet<ColoredInfo> ColoredInfo { get; init; } = new();
 }

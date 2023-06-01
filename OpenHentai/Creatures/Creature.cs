@@ -1,12 +1,14 @@
-using OpenHentai.Creatures;
-using OpenHentai.Descriptors;
 using System.ComponentModel.DataAnnotations.Schema;
+using OpenHentai.Descriptors;
 using OpenHentai.Relative;
 using OpenHentai.Relations;
 using OpenHentai.Tags;
 
 namespace OpenHentai.Creatures;
 
+/// <summary>
+/// Creature
+/// </summary>
 [Table("creatures")]
 public abstract class Creature : IDatabaseEntity
 {
@@ -15,27 +17,47 @@ public abstract class Creature : IDatabaseEntity
     /// <inheritdoc />
     public ulong Id { get; set; }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)
+    /// Alternative names can be any
+    /// </summary>
     public HashSet<CreaturesNames> CreaturesNames { get; init; } = new();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Description, e.g. this person is a dick
+    /// </summary>
     [Column(TypeName = "jsonb")]
     public HashSet<LanguageSpecificTextInfo> Description { get; init; } = new();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Creature's birthday, e.g. 01.01.1922
+    /// </summary>
     public DateTime? Birthday { get; set; }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Creature's age, e.g. 500
+    /// </summary>
     public int Age { get; set; }
 
+    /// <summary>
+    /// Collection of related pictures
+    /// </summary>
     public HashSet<MediaInfo> Media { get; init; } = new();
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Creature's gender
+    /// </summary>
     public Gender Gender { get; set; }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Creature's additional details/tags
+    /// </summary>
     public HashSet<Tag> Tags { get; init; } = new();
 
+    /// <summary>
+    /// Collection of related and alternative creatures,
+    /// Creature-Relation pair, e.g. "Admiral, alternative"
+    /// </summary>
     public HashSet<CreaturesRelations> CreaturesRelations { get; init; } = new();
     
     #endregion
@@ -50,8 +72,8 @@ public abstract class Creature : IDatabaseEntity
     
     public void AddName(LanguageSpecificTextInfo name) => CreaturesNames.Add(new(this, name));
     
-    public Dictionary<ICreature, CreatureRelations> GetRelations() =>
-        CreaturesRelations.ToDictionary(cr => (ICreature)cr.Creature, cr => cr.Relation);
+    public Dictionary<Creature, CreatureRelations> GetRelations() =>
+        CreaturesRelations.ToDictionary(cr => cr.Creature, cr => cr.Relation);
 
     public void AddRelations(Dictionary<Creature, CreatureRelations> relations) =>
         relations.ToList().ForEach(AddRelation);

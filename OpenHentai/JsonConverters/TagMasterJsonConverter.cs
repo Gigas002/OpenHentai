@@ -17,6 +17,9 @@ public class TagMasterJsonConverter : JsonConverter<Tag?>
     /// <inheritdoc />
     public override void Write(Utf8JsonWriter writer, Tag? value, JsonSerializerOptions options)
     {
-        writer.WriteNumberValue(value.Id);
+        if (value is null)
+            writer.WriteNullValue();
+        else
+            writer.WriteNumberValue(value.Id);
     }
 }

@@ -14,12 +14,12 @@ public class EventEntryInfo
     /// <summary>
     /// Author
     /// </summary>
-    public ICreature? Author { get; set; }
+    public Creature? Author { get; set; }
 
     /// <summary>
     /// Sold creations
     /// </summary>
-    public IEnumerable<ICreation>? Creations { get; set; }
+    public IEnumerable<Creation>? Creations { get; set; }
 
     /// <summary>
     /// Was on event during dates

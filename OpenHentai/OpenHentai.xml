@@ -4,29 +4,76 @@
         <name>OpenHentai</name>
     </assembly>
     <members>
-        <member name="P:OpenHentai.Circles.Circle.Id">
-            <inheritdoc />
-        </member>
-        <member name="T:OpenHentai.Circles.ICircle">
+        <member name="T:OpenHentai.Circles.Circle">
             <summary>
             Author's circle
             </summary>
         </member>
-        <member name="M:OpenHentai.Circles.ICircle.GetTitles">
+        <member name="P:OpenHentai.Circles.Circle.Id">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Circles.Circle.CirclesTitles">
             <summary>
             Main title must be romanization of native title (e.g. Hepburn romanization for ja-JP)
             Alternative titles can be any
             e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
             </summary>
         </member>
-        <member name="M:OpenHentai.Circles.ICircle.GetAuthors">
+        <member name="P:OpenHentai.Circles.Circle.Authors">
             <summary>
             Related authors
             </summary>
         </member>
-        <member name="M:OpenHentai.Circles.ICircle.GetCreations">
+        <member name="P:OpenHentai.Circles.Circle.Creations">
             <summary>
             Related creations
+            </summary>
+        </member>
+        <member name="M:OpenHentai.Circles.Circle.GetTitles">
+            <summary>
+            Convert relational database's object into collection of formatted objects
+            </summary>    
+        </member>
+        <member name="M:OpenHentai.Circles.Circle.AddTitles(System.Collections.Generic.IEnumerable{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
+            <summary>
+            Add titles to the relational database
+            </summary>   
+            <param name="titles">Titles</param>
+        </member>
+        <member name="M:OpenHentai.Circles.Circle.AddTitle(OpenHentai.Descriptors.LanguageSpecificTextInfo)">
+            <summary>
+            Add title to the relational database
+            </summary>
+            <param name="title">Title</param>
+        </member>
+        <member name="T:OpenHentai.Creations.Book">
+            <summary>
+            Book, e.g. doujinshi, artbook, etc
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.Book.Length">
+            <summary>
+            Pages count
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.Book.Volumes">
+            <summary>
+            Volumes count
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.Book.Chapters">
+            <summary>
+            Chapters count
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.Book.HasImages">
+            <summary>
+            Has images, except for covers?
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.Book.ColoredInfo">
+            <summary>
+            Information about colorization of this book
             </summary>
         </member>
         <member name="T:OpenHentai.Creations.Censorship">
@@ -89,159 +136,91 @@
             Has at least 40%+ colored
             </summary>
         </member>
-        <member name="T:OpenHentai.Creations.IArtbook">
+        <member name="T:OpenHentai.Creations.Creation">
             <summary>
-            Artbook
+            Creation, e.g. doujinshi, manga, etc
             </summary>
         </member>
-        <member name="T:OpenHentai.Creations.IBook">
-            <summary>
-            Book, e.g. doujinshi, artbook, etc
-            </summary>
+        <member name="P:OpenHentai.Creations.Creation.Id">
+            <inheritdoc />
         </member>
-        <member name="P:OpenHentai.Creations.IBook.Length">
-            <summary>
-            Pages count
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creations.IBook.Volumes">
-            <summary>
-            Volumes count
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creations.IBook.Chapters">
-            <summary>
-            Chapters count
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creations.IBook.HasImages">
-            <summary>
-            Has images, except for covers?
-            </summary>
-        </member>
-        <member name="M:OpenHentai.Creations.IBook.GetColoredInfo">
-            <summary>
-            Information about colorization of this book
-            </summary>
-        </member>
-        <member name="T:OpenHentai.Creations.ICreation">
-            <summary>
-            Creation, e.g. doujinshi, game, etc
-            </summary>
-        </member>
-        <member name="M:OpenHentai.Creations.ICreation.GetTitles">
+        <member name="P:OpenHentai.Creations.Creation.CreationsTitles">
             <summary>
             Main title must be romanization of native title (e.g. Hepburn romanization for ja-JP)
             Alternative titles can be any
             e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
             </summary>
         </member>
-        <member name="M:OpenHentai.Creations.ICreation.GetAuthors">
+        <member name="P:OpenHentai.Creations.Creation.AuthorsCreations">
             <summary>
-            Authors
+            Authors and their roles
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.PublishStarted">
+        <member name="P:OpenHentai.Creations.Creation.Circles">
+            <summary>
+            Circles
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creations.Creation.PublishStarted">
             <summary>
             Estimate date of first release of this creation
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.PublishEnded">
+        <member name="P:OpenHentai.Creations.Creation.PublishEnded">
             <summary>
             Estimate date of final release of this creation
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Sources">
+        <member name="P:OpenHentai.Creations.Creation.Sources">
             <summary>
             Available to purchase/read/etc at
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Description">
+        <member name="P:OpenHentai.Creations.Creation.Description">
             <summary>
             Description
             </summary>
         </member>
-        <member name="M:OpenHentai.Creations.ICreation.GetRelations">
+        <member name="P:OpenHentai.Creations.Creation.CreationsRelations">
             <summary>
             Collection of related creations
             Creation-Relation pair
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Collections">
-            <summary>
-            Member of collections
-            </summary>
-        </member>
-        <member name="M:OpenHentai.Creations.ICreation.GetCharacters">
+        <member name="P:OpenHentai.Creations.Creation.CreationsCharacters">
             <summary>
             Collection of characters
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Media">
+        <member name="P:OpenHentai.Creations.Creation.Media">
             <summary>
-            Collection of related pictures, including preview image
+            Collection of related media, including preview image
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Languages">
+        <member name="P:OpenHentai.Creations.Creation.Languages">
             <summary>
             Available on languages
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Rating">
+        <member name="P:OpenHentai.Creations.Creation.Rating">
             <summary>
             Age rating
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Status">
+        <member name="P:OpenHentai.Creations.Creation.Status">
             <summary>
             Publishing status
             </summary>
         </member>
-        <member name="P:OpenHentai.Creations.ICreation.Censorship">
+        <member name="P:OpenHentai.Creations.Creation.Censorship">
             <summary>
             Censorship type
             </summary>
         </member>
-        <member name="M:OpenHentai.Creations.ICreation.GetTags">
+        <member name="P:OpenHentai.Creations.Creation.Tags">
             <summary>
             Creation's tags
             e.g. franchise parody, themes, etc
-            </summary>
-        </member>
-        <member name="T:OpenHentai.Creations.ICreationCollection">
-            <summary>
-            Collection of related creations, e.g. tankoubon, magazine, serialization
-            </summary>
-        </member>
-        <member name="T:OpenHentai.Creations.IDoujinshi">
-            <summary>
-            Doujinshi
-            </summary>
-        </member>
-        <member name="T:OpenHentai.Creations.IGame">
-            <summary>
-            Games
-            </summary>
-        </member>
-        <member name="T:OpenHentai.Creations.IMagazine">
-            <summary>
-            Doujinshi magazines
-            E.g. towako, comic lo
-            </summary>
-        </member>
-        <member name="T:OpenHentai.Creations.IManga">
-            <summary>
-            Original manga
-            </summary>
-        </member>
-        <member name="T:OpenHentai.Creations.ITankoubon">
-            <summary>
-            Tankoubon
-            </summary>
-        </member>
-        <member name="T:OpenHentai.Creations.IVideo">
-            <summary>
-            Hentai, hmv, mmd, etc
             </summary>
         </member>
         <member name="T:OpenHentai.Creations.Rating">
@@ -275,34 +254,90 @@
             </summary>
         </member>
         <member name="T:OpenHentai.Creatures.Author">
-            <inheritdoc />
+            <summary>
+            Author
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.AuthorsNames">
+            <summary>
+            Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)
+            Alternative names can be any
+            </summary>
         </member>
         <member name="P:OpenHentai.Creatures.Author.Circles">
-            <inheritdoc />
+            <summary>
+            Author's circles
+            </summary>
         </member>
         <member name="P:OpenHentai.Creatures.Author.ExternalLinks">
-            <inheritdoc />
+            <summary>
+            Links to author's social networks, e.g. twitter, pixiv, fanbox, ci-en, etc
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.Author.AuthorsCreations">
+            <summary>
+            Collection of author works
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creatures.Character">
+            <summary>
+            Character
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.Character.CreationsCharacters">
+            <summary>
+            Collection of creations, that has this character
+            </summary>
+        </member>
+        <member name="T:OpenHentai.Creatures.Creature">
+            <summary>
+            Creature
+            </summary>
         </member>
         <member name="P:OpenHentai.Creatures.Creature.Id">
             <inheritdoc />
         </member>
         <member name="P:OpenHentai.Creatures.Creature.CreaturesNames">
-            <inheritdoc />
+            <summary>
+            Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)
+            Alternative names can be any
+            </summary>
         </member>
         <member name="P:OpenHentai.Creatures.Creature.Description">
-            <inheritdoc />
+            <summary>
+            Description, e.g. this person is a dick
+            </summary>
         </member>
         <member name="P:OpenHentai.Creatures.Creature.Birthday">
-            <inheritdoc />
+            <summary>
+            Creature's birthday, e.g. 01.01.1922
+            </summary>
         </member>
         <member name="P:OpenHentai.Creatures.Creature.Age">
-            <inheritdoc />
+            <summary>
+            Creature's age, e.g. 500
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.Creature.Media">
+            <summary>
+            Collection of related pictures
+            </summary>
         </member>
         <member name="P:OpenHentai.Creatures.Creature.Gender">
-            <inheritdoc />
+            <summary>
+            Creature's gender
+            </summary>
         </member>
         <member name="P:OpenHentai.Creatures.Creature.Tags">
-            <inheritdoc />
+            <summary>
+            Creature's additional details/tags
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Creatures.Creature.CreaturesRelations">
+            <summary>
+            Collection of related and alternative creatures,
+            Creature-Relation pair, e.g. "Admiral, alternative"
+            </summary>
         </member>
         <member name="T:OpenHentai.Creatures.Gender">
             <summary>
@@ -328,89 +363,6 @@
         <member name="F:OpenHentai.Creatures.Gender.None">
             <summary>
             None, e.g. slime
-            </summary>
-        </member>
-        <member name="T:OpenHentai.Creatures.IAuthor">
-            <summary>
-            Author
-            </summary>
-        </member>
-        <member name="M:OpenHentai.Creatures.IAuthor.GetAuthorNames">
-            <summary>
-            Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)
-            Alternative names can be any
-            </summary>
-        </member>
-        <member name="M:OpenHentai.Creatures.IAuthor.GetCircles">
-            <summary>
-            Author's circles
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creatures.IAuthor.ExternalLinks">
-            <summary>
-            Links to author's social networks, e.g. twitter, pixiv, fanbox, ci-en, etc
-            </summary>
-        </member>
-        <member name="M:OpenHentai.Creatures.IAuthor.GetCreations">
-            <summary>
-            Collection of author works
-            </summary>
-        </member>
-        <member name="T:OpenHentai.Creatures.ICharacter">
-            <summary>
-            Character
-            </summary>
-        </member>
-        <member name="M:OpenHentai.Creatures.ICharacter.GetCreations">
-            <summary>
-            Collection of creations, that has this character
-            </summary>
-        </member>
-        <member name="T:OpenHentai.Creatures.ICreature">
-            <summary>
-            Creature
-            </summary>
-        </member>
-        <member name="M:OpenHentai.Creatures.ICreature.GetNames">
-            <summary>
-            Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)
-            Alternative names can be any
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creatures.ICreature.Description">
-            <summary>
-            Description, e.g. this person is a dick
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creatures.ICreature.Birthday">
-            <summary>
-            Creature's birthday, e.g. 01.01.1922
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creatures.ICreature.Age">
-            <summary>
-            Creature's age, e.g. 500
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creatures.ICreature.Media">
-            <summary>
-            Collection of related pictures
-            </summary>
-        </member>
-        <member name="P:OpenHentai.Creatures.ICreature.Gender">
-            <summary>
-            Creature's gender
-            </summary>
-        </member>
-        <member name="M:OpenHentai.Creatures.ICreature.GetTags">
-            <summary>
-            Creature's additional details/tags
-            </summary>
-        </member>
-        <member name="M:OpenHentai.Creatures.ICreature.GetRelations">
-            <summary>
-            Collection of related and alternative characters,
-            Chara-Relation pair, e.g. "Admiral, alternative"
             </summary>
         </member>
         <member name="T:OpenHentai.Descriptors.CensorshipInfo">
@@ -942,33 +894,36 @@
             Not yet published
             </summary>
         </member>
-        <member name="T:OpenHentai.Tags.ITag">
+        <member name="T:OpenHentai.Tags.Tag">
             <summary>
             Basic interface for tagging purposes
             </summary>
         </member>
-        <member name="P:OpenHentai.Tags.ITag.Category">
+        <member name="P:OpenHentai.Tags.Tag.Id">
+            <inheritdoc />
+        </member>
+        <member name="P:OpenHentai.Tags.Tag.Master">
+            <summary>
+            This tag's master tag
+            <para/>null in case there's no master
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Tags.Tag.Category">
             <summary>
             Category of this tag
             e.g. `parody`
             </summary>
         </member>
-        <member name="P:OpenHentai.Tags.ITag.Value">
+        <member name="P:OpenHentai.Tags.Tag.Value">
             <summary>
             Tag's value
             e.g. Mitsudomoe
             </summary>
         </member>
-        <member name="P:OpenHentai.Tags.ITag.Description">
+        <member name="P:OpenHentai.Tags.Tag.Description">
             <summary>
             Tag description
             e.g. This tag resides for mitsudomoe franchise
-            </summary>
-        </member>
-        <member name="M:OpenHentai.Tags.ITag.GetMaster">
-            <summary>
-            Get this tag's master tag
-            <para/>null in case there's no master
             </summary>
         </member>
         <member name="T:OpenHentai.Tags.TagCategory">
