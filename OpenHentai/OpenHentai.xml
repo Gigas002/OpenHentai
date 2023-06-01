@@ -719,12 +719,12 @@
             Child story
             </summary>
         </member>
-        <member name="F:OpenHentai.Relations.CreationRelations.CollectionMaster">
+        <member name="F:OpenHentai.Relations.CreationRelations.Master">
             <summary>
             This is master in creation collection
             </summary>
         </member>
-        <member name="F:OpenHentai.Relations.CreationRelations.CollectionSlave">
+        <member name="F:OpenHentai.Relations.CreationRelations.Slave">
             <summary>
             This is a slave object in creation collection
             </summary>

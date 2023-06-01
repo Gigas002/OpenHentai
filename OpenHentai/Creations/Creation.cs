@@ -141,7 +141,7 @@ public abstract class Creation : IDatabaseEntity
         AuthorsCreations.Add(new(author, this, role));
 
     public Dictionary<Creation, CreationRelations> GetRelations() =>
-        CreationsRelations.ToDictionary(cr => cr.Creation, cr => cr.Relation);
+        CreationsRelations.ToDictionary(cr => cr.RelatedCreation, cr => cr.Relation);
 
     public void AddRelations(Dictionary<Creation, CreationRelations> relations) =>
         relations.ToList().ForEach(AddRelation);
@@ -166,3 +166,13 @@ public abstract class Creation : IDatabaseEntity
 
     #endregion
 }
+
+
+// colletions through relations:
+// creation_1 = manga vol1
+// creation_2 = manga vol2
+// creation_col = manga full (vol1, vol2)
+
+// creation_1 relations: creation_2--parent; creation_col--slave
+// creation_2 relations: creation_1--child; creation_col--slave
+// creation_col relations: creation_1--master; creation_2--master

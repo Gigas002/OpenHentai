@@ -73,7 +73,7 @@ public abstract class Creature : IDatabaseEntity
     public void AddName(LanguageSpecificTextInfo name) => CreaturesNames.Add(new(this, name));
     
     public Dictionary<Creature, CreatureRelations> GetRelations() =>
-        CreaturesRelations.ToDictionary(cr => cr.Creature, cr => cr.Relation);
+        CreaturesRelations.ToDictionary(cr => cr.RelatedCreature, cr => cr.Relation);
 
     public void AddRelations(Dictionary<Creature, CreatureRelations> relations) =>
         relations.ToList().ForEach(AddRelation);

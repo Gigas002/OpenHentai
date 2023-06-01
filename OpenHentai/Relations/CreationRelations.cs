@@ -28,10 +28,10 @@ public enum CreationRelations
     /// <summary>
     /// This is master in creation collection
     /// </summary>
-    CollectionMaster = 4,
+    Master = 4,
     
     /// <summary>
     /// This is a slave object in creation collection
     /// </summary>
-    CollectionSlave = 5
+    Slave = 5
 }

@@ -174,20 +174,27 @@ public class DatabaseTests
         var tags = db.Tags.Where(t => t.Category == TagCategory.Parody);
         var circle = db.Circles.FirstOrDefault();
 
-        var manga = new Manga
+        var manga1 = new Manga
         {
             Length = 10,
         };
-        manga.Media.Add(new("https://google.com", MediaType.Image));
-        manga.Languages.Add(new("en-US", false));
-        manga.Censorship.Add(new(Censorship.None, true));
-        manga.Sources.Add(new("google", "https://google.com"));
-        manga.Description.Add(new("en-US::Anime about camping"));
-        manga.ColoredInfo.Add(new(Color.BlackWhite, true));
-        manga.Tags.UnionWith(tags);
-        manga.Circles.Add(circle!);
+        manga1.AddTitle(new("en-US", "manga1"));
+        manga1.Media.Add(new("https://google.com", MediaType.Image));
+        manga1.Languages.Add(new("en-US", false));
+        manga1.Censorship.Add(new(Censorship.None, true));
+        manga1.Sources.Add(new("google", "https://google.com"));
+        manga1.Description.Add(new("en-US::Anime about camping"));
+        manga1.ColoredInfo.Add(new(Color.BlackWhite, true));
+        manga1.Tags.UnionWith(tags);
+        manga1.Circles.Add(circle!);
+
+        var manga2 = new Manga();
+        manga2.AddTitle(new("en-US", "manga2"));
+
+        var mangaCol = new Manga();
+        mangaCol.AddTitle(new("en-US", "mangaCol"));
         
-        db.Manga.AddRange(manga);
+        db.Manga.AddRange(manga1, manga2, mangaCol);
 
         db.SaveChanges();
     }
@@ -264,13 +271,30 @@ public class DatabaseTests
     {
         using var db = new DatabaseContext();
         
-        var creations = db.Creations.ToList();
-            
-        var creation = creations.FirstOrDefault();
-        var relatedCreation = creations.LastOrDefault();
-        
-        creation?.AddRelation(relatedCreation!, CreationRelations.Parent);
+        var manga = db.Manga.ToHashSet();
 
+        var manga1 = manga.FirstOrDefault(m => m.Id == 1);
+        var manga2 = manga.FirstOrDefault(m => m.Id == 2);
+        var mangaCol = manga.FirstOrDefault(m => m.Id == 3);
+            
+        manga1!.AddRelations(new()
+        {
+            { manga2!, CreationRelations.Parent },
+            { mangaCol!, CreationRelations.Slave }
+        });
+
+        manga2!.AddRelations(new()
+        {
+            { manga1, CreationRelations.Child },
+            { mangaCol!, CreationRelations.Slave }
+        });
+
+        mangaCol!.AddRelations(new()
+        {
+            { manga1, CreationRelations.Master },
+            { manga2, CreationRelations.Master }
+        });
+        
         db.SaveChanges();
     }
 
@@ -365,6 +389,35 @@ public class DatabaseTests
         // var fantasyTags = Tag.GetTagWithSlaves(tags, "fantasy");
         // foreach (var tag in fantasyTags)
         //     Console.WriteLine($"Fantasy tag: {tag.Value}");
+    }
+
+    [Test]
+    [Order(1000)]
+    public void ReadRelationsTest()
+    {
+        var db = new DatabaseContext();
+
+        var manga = db.Manga.Include(m => m.CreationsRelations)
+                            .ThenInclude(cr => cr.RelatedCreation)
+                            .ThenInclude(cr => cr.CreationsTitles)
+                            .Include(m => m.CreationsTitles);
+
+        Console.WriteLine("Relations:");
+        foreach (var m in manga)
+        {
+            var id = m.Id;
+            var title = m.GetTitles().FirstOrDefault()!.Text;
+            Console.WriteLine($"-{id}-{title}:");
+            
+            var relations = m.GetRelations();
+
+            foreach (var relation in relations)
+            {
+                var relatedTitle = relation.Key.GetTitles().FirstOrDefault()!.Text;
+                
+                Console.WriteLine($"--{relatedTitle}--{relation.Value}");
+            }
+        }
     }
 
     #endregion
