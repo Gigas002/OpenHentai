@@ -42,16 +42,18 @@ public class DatabaseTests
         var tag3 = new Tag { Category = TagCategory.Parody, Value = "JJBA" };
 
         var creatureTag = new Tag { Category = TagCategory.BodyType, Value = "Adult" };
+        var charaTag = new Tag { Category = TagCategory.BodyType, Value = "Loli" };
 
         tag2.Master = tag1;
 
-        db.Tags.AddRange(tag1, tag2, tag3, creatureTag);
+        db.Tags.AddRange(tag1, tag2, tag3, creatureTag, charaTag);
         db.SaveChanges();
     }
 
+    // depends on PushTagsTest(1)
     [Test]
     [Order(2)]
-    public void PushCreaturesTest()
+    public void PushAuthorsTest()
     {
         using var db = new DatabaseContext();
         
@@ -69,25 +71,107 @@ public class DatabaseTests
             OfficialStatus = OfficialStatus.Official, PaidStatus = PaidStatus.Free,
         });
 
-        var circle = new Circle();
-        circle.Authors.Add(author);
+        db.Authors.Add(author);
+
+        db.SaveChanges();
+    }
+
+    // depends on PushTagsTest(1)
+    [Test]
+    [Order(2)]
+    public void PushCharactersTest()
+    {
+        using var db = new DatabaseContext();
+
+        var tag = db.Tags.FirstOrDefault(t => t.Category == TagCategory.BodyType && t.Value == "Loli");
 
         var character = new Character
         {
             Age = 11
         };
         character.Description.Add(new("en-US::Chara descr 1"));
+        character.Tags.Add(tag!);
 
-        db.Authors.Add(author);
-        db.Circles.Add(circle);
         db.Characters.Add(character);
 
         db.SaveChanges();
     }
 
+    // depends on PushAuthorsTest(2)
     [Test]
     [Order(3)]
-    public void PushCreationTest()
+    public void PushCirclesTest()
+    {
+        using var db = new DatabaseContext();
+
+        var author = db.Authors.FirstOrDefault();
+
+        var circle = new Circle();
+        circle.Authors.Add(author!);
+
+        db.Circles.Add(circle);
+
+        db.SaveChanges();
+    }
+
+    // depends on PushAuthorsTest(2)
+    // or
+    // depends on PushCharactersTest(2)
+    [Test]
+    [Order(3)]
+    public void PushCreaturesNamesTest()
+    {
+        using var db = new DatabaseContext();
+        
+        var creatures = db.Creatures.ToList();
+
+        foreach (var creature in creatures)
+        {
+            creature.AddNames(new List<LanguageSpecificTextInfo> 
+            {
+                new($"en-US::Name {creature.Id}"),
+                new($"en-US::Name_alt {creature.Id + 1000}")
+            });
+        }
+
+        db.SaveChanges();
+    }
+
+    // depends on PushAuthorsTest(2)
+    // depends on PushCharacterTest(2)
+    [Test]
+    [Order(3)]
+    public void PushCreaturesRelationsTest()
+    {
+        using var db = new DatabaseContext();
+        
+        var creatures = db.Creatures.ToList();
+
+        var author = creatures.FirstOrDefault(c => c is Author);
+        var chara = creatures.FirstOrDefault(c => c is Character);
+        chara?.AddRelation(author!, CreatureRelations.Enemy);
+
+        db.SaveChanges();
+    }
+
+    // depends on PushAuthorsTest(2)
+    [Test]
+    [Order(3)]
+    public void PushAuthorNamesTest()
+    {
+        using var db = new DatabaseContext();
+
+        var author = db.Authors.FirstOrDefault();
+        author!.AddAuthorName(new("en-US", "Author Name"));
+
+        db.SaveChanges();
+    }
+
+    // depends on PushTagsTest(1)
+    // depends on PushCirclesTest(3)
+    [Test]
+    [Order(4)]
+    public void PushMangaTest()
     {
         using var db = new DatabaseContext();
 
@@ -112,8 +196,23 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
+    // depends on PushCirclesTest(3)
     [Test]
     [Order(4)]
+    public void PushCirclesTitlesTest()
+    {
+        using var db = new DatabaseContext();
+
+        var circle = db.Circles.FirstOrDefault();
+        circle!.AddTitle(new("en-US", "Circle Title"));
+
+        db.SaveChanges();
+    }
+
+    // depends on PushCharactersTest(2)
+    // depends on PushMangaTest(4)
+    [Test]
+    [Order(5)]
     public void PushCharacterCreationTest()
     {
         using var db = new DatabaseContext();
@@ -129,55 +228,10 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
+    // depends on PushAuthorsTest(2)
+    // depends on PushMangaTest(4)
     [Test]
     [Order(5)]
-    public void PushCreaturesNamesTest()
-    {
-        using var db = new DatabaseContext();
-        
-        var creatures = db.Creatures.ToList();
-
-        foreach (var creature in creatures)
-        {
-            creature.AddNames(new List<LanguageSpecificTextInfo> 
-            {
-                new($"en-US::Name {creature.Id}"),
-                new($"en-US::Name_alt {creature.Id + 1000}")
-            });
-        }
-
-        db.SaveChanges();
-    }
-
-    [Test]
-    [Order(6)]
-    public void PushCreaturesRelationsTest()
-    {
-        using var db = new DatabaseContext();
-        
-        var creatures = db.Creatures.ToList();
-
-        var author = creatures.FirstOrDefault(c => c is Author);
-        var chara = creatures.FirstOrDefault(c => c is Character);
-        chara?.AddRelation(author!, CreatureRelations.Enemy);
-
-        db.SaveChanges();
-    }
-
-    [Test]
-    [Order(7)]
-    public void PushAuthorNamesTest()
-    {
-        using var db = new DatabaseContext();
-
-        var author = db.Authors.FirstOrDefault();
-        author!.AddAuthorName(new("en-US", "Author Name"));
-
-        db.SaveChanges();
-    }
-
-    [Test]
-    [Order(8)]
     public void PushAuthorsCreationsTest()
     {
         using var db = new DatabaseContext();
@@ -193,20 +247,9 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
+    // depends on PushMangaTest(4)
     [Test]
-    [Order(9)]
-    public void PushCirclesTitlesTest()
-    {
-        using var db = new DatabaseContext();
-
-        var circle = db.Circles.FirstOrDefault();
-        circle!.AddTitle(new("en-US", "Circle Title"));
-
-        db.SaveChanges();
-    }
-
-    [Test]
-    [Order(10)]
+    [Order(5)]
     public void PushCreationsTitlesTest()
     {
         using var db = new DatabaseContext();
@@ -218,8 +261,9 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
+    // depends on PushMangaTest(4)
     [Test]
-    [Order(11)]
+    [Order(5)]
     public void PushCreationsRelationsTest()
     {
         using var db = new DatabaseContext();
