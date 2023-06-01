@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using OpenHentai.Database.JsonConverters;
 
 namespace OpenHentai.Database.Tags;
 
@@ -17,12 +18,11 @@ public class Tag : IDatabaseEntity//, ITag
 
     public ulong Id { get; set; }
     
-    // TODO: json converter to write Ids only
-    // [JsonIgnore]
+    [JsonConverter(typeof(TagMasterJsonConverter))]
     public Tag? Master { get; set; }
     
     [JsonIgnore]
-    public HashSet<Tag> Slaves { get; init; } = null!;
+    public HashSet<Tag> Slaves { get; init; } = new();
 
     [Required]
     public TagCategory Category { get; set; } = TagCategory.Unknown;

@@ -50,5 +50,11 @@
             Entry's id in database
             </summary>
         </member>
+        <member name="M:OpenHentai.Database.JsonConverters.TagMasterJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.Database.JsonConverters.TagMasterJsonConverter.Write(System.Text.Json.Utf8JsonWriter,OpenHentai.Database.Tags.Tag,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>
