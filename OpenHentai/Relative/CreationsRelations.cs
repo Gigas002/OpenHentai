@@ -7,7 +7,6 @@ using OpenHentai.Relations;
 
 namespace OpenHentai.Relative;
 
-[Table("creations_relations")]
 [PrimaryKey("creation_id", "related_creation_id")]
 public class CreationsRelations
 {

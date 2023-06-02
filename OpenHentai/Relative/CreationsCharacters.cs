@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OpenHentai.Relative;
 
-[Table("creations_characters")]
 [PrimaryKey("creation_id", "character_id")]
 public class CreationsCharacters
 {

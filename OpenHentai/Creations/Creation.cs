@@ -71,13 +71,6 @@ public class Creation : IDatabaseEntity
     // /// </summary>
     // public IEnumerable<IEvent> Events { get; set; }
 
-    // /// <summary>
-    // /// Member of collections
-    // /// </summary>
-    // TODO: this
-    // [NotMapped]
-    // public IEnumerable<ICreationCollection> Collections { get; set; }
-
     /// <summary>
     /// Collection of characters
     /// </summary>
@@ -170,13 +163,3 @@ public class Creation : IDatabaseEntity
 
     public Creation(ulong id) => Id = id;
 }
-
-
-// colletions through relations:
-// creation_1 = manga vol1
-// creation_2 = manga vol2
-// creation_col = manga full (vol1, vol2)
-
-// creation_1 relations: creation_2--parent; creation_col--slave
-// creation_2 relations: creation_1--child; creation_col--slave
-// creation_col relations: creation_1--master; creation_2--master

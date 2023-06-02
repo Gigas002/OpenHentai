@@ -6,7 +6,6 @@ using OpenHentai.Roles;
 
 namespace OpenHentai.Relative;
 
-[Table("authors_creations")]
 [PrimaryKey("author_id", "creation_id")]
 public class AuthorsCreations
 {

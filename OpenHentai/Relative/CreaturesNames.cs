@@ -5,7 +5,6 @@ using System.Globalization;
 
 namespace OpenHentai.Relative;
 
-[Table("creatures_names")]
 public class CreaturesNames : ILanguageSpecificTextInfoEntity<Creature>
 {
     #region Properties

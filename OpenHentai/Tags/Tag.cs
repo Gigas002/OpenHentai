@@ -67,7 +67,6 @@ id   value
 /// </summary>
 
 // [Index(nameof(Id), nameof(Value), IsUnique = true)]
-[Table("tags")]
 public class Tag : IDatabaseEntity
 {
     #region Properties

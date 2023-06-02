@@ -5,7 +5,6 @@ using OpenHentai.Descriptors;
 
 namespace OpenHentai.Relative;
 
-[Table("circles_titles")]
 public class CirclesTitles : ILanguageSpecificTextInfoEntity<Circle>
 {
     #region Properties
