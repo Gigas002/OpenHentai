@@ -65,7 +65,7 @@ public class DatabaseContext : DbContext
 
         // convertable properties
 
-        var jsonSerializerOptions = new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault };
+        var jsonSerializerOptions = Essential.JsonSerializerOptions;
 
         modelBuilder.Entity<Tag>().Property(e => e.Description).HasConversion(
             v => JsonSerializer.Serialize(v, jsonSerializerOptions),

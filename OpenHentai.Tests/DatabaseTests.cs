@@ -424,10 +424,7 @@ public class DatabaseTests
 
     private static void SerializeEntity<T>(IEnumerable<T> entity) where T : class
     {
-        var options = new JsonSerializerOptions();
-        // Requires net8+
-        // options.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
-
+        var options = Essential.JsonSerializerOptions;
         var json = JsonSerializer.Serialize(entity, options);
 
         File.WriteAllText($"../{typeof(T)}.json", json);
