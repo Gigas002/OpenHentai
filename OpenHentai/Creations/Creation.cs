@@ -14,7 +14,7 @@ namespace OpenHentai.Creations;
 /// Creation, e.g. doujinshi, manga, etc
 /// </summary>
 [Table("creations")]
-public abstract class Creation : IDatabaseEntity
+public class Creation : IDatabaseEntity
 {
     #region Properties
 
@@ -165,6 +165,10 @@ public abstract class Creation : IDatabaseEntity
         CreationsCharacters.Add(new(this, character, role));
 
     #endregion
+
+    public Creation() { }
+
+    public Creation(ulong id) => Id = id;
 }
 
 

@@ -11,8 +11,8 @@ public class RelatedCreationJsonConverter : JsonConverter<Creation>
     {
         var masterExists = reader.TryGetUInt64(out var id);
 
-        // TODO: this is wrong
-        return new Manga() { Id = id };
+        // TODO: this is wrong if creation is abstract
+        return new Creation(id);
     }
 
     /// <inheritdoc />
