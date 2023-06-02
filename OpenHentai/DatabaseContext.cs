@@ -1,5 +1,4 @@
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using OpenHentai.Tags;
 using OpenHentai.Creatures;
@@ -14,7 +13,7 @@ public class DatabaseContext : DbContext
 {
     #region Properties
 
-    private readonly StreamWriter _logStream = new("log.txt", true);
+    // private readonly StreamWriter _logStream = new("log.txt", true);
 
     public DbSet<Tag> Tags { get; set; } = null!;
     
@@ -55,15 +54,29 @@ public class DatabaseContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite($"Data Source={DatabasePath}")
-                      .UseSnakeCaseNamingConvention()
-                      .LogTo(_logStream.WriteLine);
+                      .UseSnakeCaseNamingConvention();
+                    //   .LogTo(_logStream.WriteLine);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         if (modelBuilder is null) throw new ArgumentNullException(nameof(modelBuilder));
 
-        // convertable properties
+        #region Force strategy
+
+        // table-per-hierarchy; parent and children in one table
+        // modelBuilder.Entity<Creation>().UseTphMappingStrategy();
+
+        // table-per-type: every type has own table
+        // modelBuilder.Entity<Creation>().UseTptMappingStrategy();
+        // modelBuilder.Entity<Creature>().UseTptMappingStrategy();
+
+        // table-per-class: every class has own table
+        // modelBuilder.Entity<Creation>().UseTptMappingStrategy();
+
+        #endregion
+
+        #region Convertable properties
 
         var jsonSerializerOptions = Essential.JsonSerializerOptions;
 
@@ -107,9 +120,9 @@ public class DatabaseContext : DbContext
             v => JsonSerializer.Serialize(v, jsonSerializerOptions),
             v => JsonSerializer.Deserialize<HashSet<ColoredInfo>>(v, jsonSerializerOptions)!);
 
-        // modelBuilder.Entity<Creation>().UseTptMappingStrategy();
+        #endregion
 
-        // auto many-to-many zone
+        #region Auto many-to-many zone
 
         modelBuilder.Entity<Author>()
             .HasMany(a => a.Circles)
@@ -171,7 +184,9 @@ public class DatabaseContext : DbContext
                     .HasForeignKey("creature_id")
             );
 
-        // manual relations settings
+        #endregion
+
+        #region Manual relations settings
 
         modelBuilder.Entity<CreationsCharacters>()
                     .HasOne(cc => cc.Creation)
@@ -202,19 +217,21 @@ public class DatabaseContext : DbContext
 
         modelBuilder.Entity<CreationsRelations>()
                     .HasOne(cr => cr.RelatedCreation);
+
+        #endregion
     }
 
     public override void Dispose()
     {
         base.Dispose();
-        _logStream.Dispose();
+        // _logStream.Dispose();
         GC.SuppressFinalize(this);
     }
 
     public override async ValueTask DisposeAsync()
     {
         await base.DisposeAsync().ConfigureAwait(false);
-        await _logStream.DisposeAsync().ConfigureAwait(false);
+        // await _logStream.DisposeAsync().ConfigureAwait(false);
         GC.SuppressFinalize(this);
     }
 }

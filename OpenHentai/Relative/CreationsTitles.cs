@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using System.Globalization;
 using OpenHentai.Creations;
 using OpenHentai.Descriptors;
@@ -12,6 +13,7 @@ public class CreationsTitles : ILanguageSpecificTextInfoEntity<Creation>
     public ulong Id { get; set; }
 
     [ForeignKey("creation_id")]
+    [JsonIgnore]
     public Creation Entity { get; set; } = null!;
 
     [Column("title")]

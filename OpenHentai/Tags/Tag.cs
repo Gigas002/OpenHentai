@@ -81,6 +81,7 @@ public class Tag : IDatabaseEntity
     [JsonConverter(typeof(TagMasterJsonConverter))]
     public Tag? Master { get; set; }
     
+    // TODO: consider adding property
     [JsonIgnore]
     public HashSet<Tag> Slaves { get; init; } = new();
 

@@ -2,9 +2,6 @@ using System.Globalization;
 using System.Text.Json.Serialization;
 using OpenHentai.JsonConverters;
 
-// TODO: snake_case for props names in dotnet 8
-// see: https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonnamingpolicy.snakecaselower?view=net-8.0#system-text-json-jsonnamingpolicy-snakecaselower
-
 namespace OpenHentai.Descriptors;
 
 /// <summary>
@@ -17,14 +14,12 @@ public class LanguageSpecificTextInfo
     /// Text language
     /// <para/> In case it's null - romanized value is passed
     /// </summary>
-    [JsonPropertyName("language")]
     [JsonConverter(typeof(CultureInfoJsonConverter))]
     public CultureInfo? Language { get; set; }
     
     /// <summary>
     /// Text on chosen language
     /// </summary>
-    [JsonPropertyName("text")]
     public string Text { get; set; } = null!;
 
     /// <summary>
@@ -45,6 +40,9 @@ public class LanguageSpecificTextInfo
         Language = textLanguage[0] == "default" || textLanguage.Length < 1 ?
             null : new CultureInfo(textLanguage[0]);
     }
+
+    // TODO: Consider changing the order of arguments, so everywhere will be
+    // (text,lang) or (lang,text)
 
     /// <summary>
     /// Create new string with language info

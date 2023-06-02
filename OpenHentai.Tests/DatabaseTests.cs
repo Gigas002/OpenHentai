@@ -17,7 +17,7 @@ public class DatabaseTests
     public void Setup()
     {
         using var db = new DatabaseContext();
-        
+
         // don't use this in prod, use migrations instead
         // db.Database.EnsureDeleted();
         db.Database.EnsureCreated();
@@ -30,7 +30,7 @@ public class DatabaseTests
     public void PushTagsTest()
     {
         using var db = new DatabaseContext();
-        
+
         var tag1 = new Tag { Category = TagCategory.Parody, Value = "Yuru Camp" };
         tag1.Description.Add(new("en-US::Anime about camping"));
         var tag2 = new Tag { Category = TagCategory.Parody, Value = "Yuru Camp Season 2" };
@@ -52,7 +52,7 @@ public class DatabaseTests
     public void PushAuthorsTest()
     {
         using var db = new DatabaseContext();
-        
+
         var tag = db.Tags.FirstOrDefault(t => t.Category == TagCategory.BodyType);
 
         var author = new Author
@@ -64,7 +64,8 @@ public class DatabaseTests
         author.Tags.Add(tag!);
         author.ExternalLinks.Add(new("google", "https://google.com")
         {
-            OfficialStatus = OfficialStatus.Official, PaidStatus = PaidStatus.Free,
+            OfficialStatus = OfficialStatus.Official,
+            PaidStatus = PaidStatus.Free,
         });
 
         db.Authors.Add(author);
@@ -87,6 +88,7 @@ public class DatabaseTests
         };
         character.Description.Add(new("en-US::Chara descr 1"));
         character.Tags.Add(tag!);
+        character.Media.Add(new("https://bing.com", MediaType.Image));
 
         db.Characters.Add(character);
 
@@ -118,12 +120,12 @@ public class DatabaseTests
     public void PushCreaturesNamesTest()
     {
         using var db = new DatabaseContext();
-        
+
         var creatures = db.Creatures.ToList();
 
         foreach (var creature in creatures)
         {
-            creature.AddNames(new List<LanguageSpecificTextInfo> 
+            creature.AddNames(new List<LanguageSpecificTextInfo>
             {
                 new($"en-US::Name {creature.Id}"),
                 new($"en-US::Name_alt {creature.Id + 1000}")
@@ -140,7 +142,7 @@ public class DatabaseTests
     public void PushCreaturesRelationsTest()
     {
         using var db = new DatabaseContext();
-        
+
         var creatures = db.Creatures.ToList();
 
         var author = creatures.FirstOrDefault(c => c is Author);
@@ -193,7 +195,7 @@ public class DatabaseTests
 
         var mangaCol = new Manga();
         mangaCol.AddTitle(new("en-US", "mangaCol"));
-        
+
         db.Manga.AddRange(manga1, manga2, mangaCol);
 
         db.SaveChanges();
@@ -219,7 +221,7 @@ public class DatabaseTests
     public void PushCharacterCreationTest()
     {
         using var db = new DatabaseContext();
-        
+
         var mangas = db.Manga.ToList();
         var chars = db.Characters.ToList();
 
@@ -238,7 +240,7 @@ public class DatabaseTests
     public void PushAuthorsCreationsTest()
     {
         using var db = new DatabaseContext();
-       
+
         var authors = db.Authors.ToList();
         var creations = db.Creations.ToList();
 
@@ -256,9 +258,9 @@ public class DatabaseTests
     public void PushCreationsTitlesTest()
     {
         using var db = new DatabaseContext();
-        
+
         var creation = db.Creations.FirstOrDefault();
-        
+
         creation!.AddTitle(new("en-US", "Creation Title"));
 
         db.SaveChanges();
@@ -270,13 +272,13 @@ public class DatabaseTests
     public void PushCreationsRelationsTest()
     {
         using var db = new DatabaseContext();
-        
+
         var manga = db.Manga.ToHashSet();
 
         var manga1 = manga.FirstOrDefault(m => m.Id == 1);
         var manga2 = manga.FirstOrDefault(m => m.Id == 2);
         var mangaCol = manga.FirstOrDefault(m => m.Id == 3);
-            
+
         manga1!.AddRelations(new()
         {
             { manga2!, CreationRelations.Parent },
@@ -294,7 +296,7 @@ public class DatabaseTests
             { manga1, CreationRelations.Master },
             { manga2, CreationRelations.Master }
         });
-        
+
         db.SaveChanges();
     }
 
@@ -309,8 +311,16 @@ public class DatabaseTests
     public void ReadAuthorsTest()
     {
         using var db = new DatabaseContext();
-        
-        var authors = db.Authors;
+
+        var authors = db.Authors.Include(a => a.AuthorsNames)
+
+                                // .Include(a => a.Circles)
+                                // .Include(a => a.AuthorsCreations)
+                                .Include(a => a.CreaturesNames)
+                                // .Include(a => a.Tags)
+                                // .Include(a => a.CreaturesRelations)
+
+                                .ToList();
 
         SerializeEntity(authors);
     }
@@ -320,8 +330,14 @@ public class DatabaseTests
     public void ReadCharactersTest()
     {
         using var db = new DatabaseContext();
-        
-        var characters = db.Characters;
+
+        var characters = db.Characters.Include(c => c.CreaturesNames)
+
+                                    //   .Include(c => c.CreationsCharacters)
+                                    //   .Include(c => c.Tags)
+                                    //   .Include(c => c.CreaturesRelations)
+                                    
+                                      .ToList();
 
         SerializeEntity(characters);
     }
@@ -331,8 +347,13 @@ public class DatabaseTests
     public void ReadCirclesTest()
     {
         using var db = new DatabaseContext();
-        
-        var circles = db.Circles;
+
+        var circles = db.Circles.Include(c => c.CirclesTitles)
+
+                                // .Include(c => c.Authors)
+                                // .Include(c => c.Creations)
+
+                                .ToList();
 
         SerializeEntity(circles);
     }
@@ -342,82 +363,31 @@ public class DatabaseTests
     public void ReadMangaTest()
     {
         using var db = new DatabaseContext();
-        
-        var manga = db.Manga.Include(m => m.CreationsRelations).ToList();
+
+        var manga = db.Manga.Include(m => m.CreationsRelations)
+                            .Include(m => m.CreationsTitles)
+
+                            // .Include(m => m.AuthorsCreations)
+                            // .Include(m => m.Circles)
+                            // .Include(m => m.CreationsCharacters)
+                            // .Include(m => m.Tags)
+
+                            .ToList();
 
         SerializeEntity(manga);
     }
 
     [Test]
     [Order(1000)]
-    public void ReadAndSerializeTagsTest()
+    public void ReadTagsTest()
     {
         using var db = new DatabaseContext();
-        
-        // TODO: find a way to use GetNames method instead of property
+
         var tags = db.Tags.Include(t => t.Creatures)
-                     .ThenInclude(c => c.CreaturesNames);
-                    //  .ToList();
-
-        // Console.WriteLine("Tags:");
-        // foreach (var tag in tags)
-        // {
-        //     Console.WriteLine($"Tag: {tag.Value}");
-
-        //     if (tag.Master is not null) Console.WriteLine($"- master: {tag.Master.Value}");
-
-        //     if (tag.Slaves?.Count > 0)
-        //     {
-        //         Console.WriteLine("- slaves:");
-        //         foreach (var slave in tag.Slaves)
-        //         {
-        //             Console.WriteLine($"  - {slave.Value}");
-        //         }
-        //     }
-
-        //     if (tag.Creatures?.Count <= 0) continue;
-            
-        //     Console.WriteLine("- creatures:");
-        //     foreach (var creature in tag.Creatures!)
-        //     {
-        //         Console.WriteLine($"  - {creature?.GetNames()?.FirstOrDefault()?.Text}");
-        //     }
-        // }
+                          .ThenInclude(c => c.CreaturesNames)
+                          .ToList();
 
         SerializeEntity(tags);
-
-        // var fantasyTags = Tag.GetTagWithSlaves(tags, "fantasy");
-        // foreach (var tag in fantasyTags)
-        //     Console.WriteLine($"Fantasy tag: {tag.Value}");
-    }
-
-    [Test]
-    [Order(1000)]
-    public void ReadRelationsTest()
-    {
-        var db = new DatabaseContext();
-
-        var manga = db.Manga.Include(m => m.CreationsRelations)
-                            .ThenInclude(cr => cr.RelatedCreation)
-                            .ThenInclude(cr => cr.CreationsTitles)
-                            .Include(m => m.CreationsTitles);
-
-        Console.WriteLine("Relations:");
-        foreach (var m in manga)
-        {
-            var id = m.Id;
-            var title = m.GetTitles().FirstOrDefault()!.Text;
-            Console.WriteLine($"-{id}-{title}:");
-            
-            var relations = m.GetRelations();
-
-            foreach (var relation in relations)
-            {
-                var relatedTitle = relation.Key.GetTitles().FirstOrDefault()!.Text;
-                
-                Console.WriteLine($"--{relatedTitle}--{relation.Value}");
-            }
-        }
     }
 
     #endregion

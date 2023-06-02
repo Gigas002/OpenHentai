@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using OpenHentai.Creations;
 
 namespace OpenHentai.Descriptors;
@@ -20,13 +19,11 @@ public class ColoredInfo
     /// <summary>
     /// Creation's color info
     /// </summary>
-    [JsonPropertyName("color")]
     public Color Color { get; set; } = Color.Unknown;
 
     /// <summary>
     /// Is creation colored officialy?
     /// </summary>
-    [JsonPropertyName("is_official")]
     public bool IsOfficial { get; set; }
 
     /// <summary>

@@ -111,6 +111,14 @@ public class Creation : IDatabaseEntity
     
     #endregion
 
+    #region Constructors
+
+    public Creation() { }
+
+    public Creation(ulong id) => Id = id;
+
+    #endregion
+
     #region Methods
     
     public IEnumerable<LanguageSpecificTextInfo> GetTitles() =>
@@ -158,8 +166,4 @@ public class Creation : IDatabaseEntity
         CreationsCharacters.Add(new(this, character, role));
 
     #endregion
-
-    public Creation() { }
-
-    public Creation(ulong id) => Id = id;
 }

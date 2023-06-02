@@ -2,9 +2,6 @@ using System.Globalization;
 using System.Text.Json.Serialization;
 using OpenHentai.JsonConverters;
 
-// TODO: snake_case for props names in dotnet 8
-// see: https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonnamingpolicy.snakecaselower?view=net-8.0#system-text-json-jsonnamingpolicy-snakecaselower
-
 namespace OpenHentai.Descriptors;
 
 /// <summary>
@@ -17,14 +14,12 @@ public class LanguageInfo
     /// <summary>
     /// Language
     /// </summary>
-    [JsonPropertyName("language")]
     [JsonConverter(typeof(CultureInfoJsonConverter))]
     public CultureInfo Language { get; set; } = null!;
 
     /// <summary>
     /// Is official?
     /// </summary>
-    [JsonPropertyName("is_official")]
     public bool IsOfficial { get; set; }
 
     /// <summary>

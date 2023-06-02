@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using OpenHentai.Creatures;
 using OpenHentai.Relations;
@@ -11,6 +12,7 @@ public class CreaturesRelations
     #region Properties
 
     [ForeignKey("creature_id")]
+    [JsonIgnore]
     public Creature Creature { get; set; } = null!;
 
     [ForeignKey("related_creature_id")]

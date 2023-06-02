@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using System.Globalization;
 using OpenHentai.Circles;
 using OpenHentai.Descriptors;
@@ -12,6 +13,7 @@ public class CirclesTitles : ILanguageSpecificTextInfoEntity<Circle>
     public ulong Id { get; set; }
 
     [ForeignKey("circle_id")]
+    [JsonIgnore]
     public Circle Entity { get; set; } = null!;
 
     [Column("title")]
