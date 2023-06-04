@@ -79,6 +79,11 @@ public class DatabaseContext : DbContext
         #region Convertable properties
 
         var jsonSerializerOptions = Essential.JsonSerializerOptions;
+        
+        // TODO: use ValueConverter
+        // see: https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations
+        // probably redundant in net8+
+        // see: https://github.com/dotnet/efcore/issues/13947
 
         modelBuilder.Entity<Tag>().Property(e => e.Description).HasConversion(
             v => JsonSerializer.Serialize(v, jsonSerializerOptions),
