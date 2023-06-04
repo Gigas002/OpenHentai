@@ -7,11 +7,10 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
       
   - package-ecosystem: "nuget"
-    directory: "/" # Location of package manifests
+    directory: "/"
     schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 10
-    
+      interval: "daily"
+      
