@@ -127,7 +127,7 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Author>()
             .HasMany(a => a.Circles)
             .WithMany(c => c.Authors)
-            .UsingEntity<Dictionary<string, object>>(
+            .UsingEntity<Dictionary<ulong, ulong>>(
                 "authors_circles",
                 j => j
                     .HasOne<Circle>()
@@ -142,7 +142,7 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Creation>()
             .HasMany(c => c.Circles)
             .WithMany(c => c.Creations)
-            .UsingEntity<Dictionary<string, object>>(
+            .UsingEntity<Dictionary<ulong, ulong>>(
                 "creations_circles",
                 j => j
                     .HasOne<Circle>()
@@ -157,7 +157,7 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Creation>()
             .HasMany(c => c.Tags)
             .WithMany(t => t.Creations)
-            .UsingEntity<Dictionary<string, object>>(
+            .UsingEntity<Dictionary<ulong, ulong>>(
                 "creations_tags",
                 j => j
                     .HasOne<Tag>()
@@ -172,7 +172,7 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Creature>()
             .HasMany(c => c.Tags)
             .WithMany(t => t.Creatures)
-            .UsingEntity<Dictionary<string, object>>(
+            .UsingEntity<Dictionary<ulong, ulong>>(
                 "creatures_tags",
                 j => j
                     .HasOne<Tag>()
