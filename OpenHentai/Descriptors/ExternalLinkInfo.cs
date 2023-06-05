@@ -33,8 +33,7 @@ public class ExternalLinkInfo
     /// <summary>
     /// Description, e.g. author's official free pixiv
     /// </summary>
-    // TODO: consider using LanguageSpecific stuff
-    public string? Description { get; set; }
+    public HashSet<LanguageSpecificTextInfo> Description { get; init; } = new();
     
     #endregion
 
