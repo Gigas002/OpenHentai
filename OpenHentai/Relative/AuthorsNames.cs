@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using System.Globalization;
 using OpenHentai.Creatures;
 using OpenHentai.Descriptors;
+using OpenHentai.Constants;
 
 namespace OpenHentai.Relative;
 
@@ -12,11 +13,12 @@ public class AuthorsNames : ILanguageSpecificTextInfoEntity<Author>
 
     public ulong Id { get; init; }
 
-    [ForeignKey("author_id")]
+    [ForeignKey(FieldNames.AuthorId)]
     [JsonIgnore]
     public Author Entity { get; set; } = null!;
 
-    [Column("name")]
+    [Column(FieldNames.NameColumn)]
+    [JsonPropertyName(FieldNames.NameColumn)]
     public string Text { get; set; } = null!;
     
     public string? Language { get; set; }

@@ -6,13 +6,14 @@ using OpenHentai.Descriptors;
 using OpenHentai.Roles;
 using System.Text.Json.Serialization;
 using OpenHentai.JsonConverters;
+using OpenHentai.Constants;
 
 namespace OpenHentai.Creatures;
 
 /// <summary>
 /// Author
 /// </summary>
-[Table("authors")]
+[Table(TableNames.Authors)]
 public class Author : Creature
 {
     #region Properties
@@ -32,7 +33,7 @@ public class Author : Creature
     /// <summary>
     /// Links to author's social networks, e.g. twitter, pixiv, fanbox, ci-en, etc
     /// </summary>
-    [Column(TypeName = "jsonb")]
+    [Column(TypeName = DataTypes.Jsonb)]
     public HashSet<ExternalLinkInfo> ExternalLinks { get; init; } = new();
 
     /// <summary>

@@ -1,22 +1,25 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using OpenHentai.Constants;
 using OpenHentai.Creations;
 using OpenHentai.JsonConverters;
 using OpenHentai.Relations;
 
 namespace OpenHentai.Relative;
 
-[PrimaryKey("creation_id", "related_creation_id")]
+[PrimaryKey(FieldNames.CreationId, FieldNames.RelatedCreationId)]
 public class CreationsRelations
 {
     #region Properties
 
-    [ForeignKey("creation_id")]
+    [ForeignKey(FieldNames.CreationId)]
+    [JsonPropertyName(FieldNames.CreationId)]
     [JsonConverter(typeof(DatabaseEntityJsonConverter<Creation>))]
     public Creation Creation { get; set; } = null!;
 
-    [ForeignKey("related_creation_id")]
+    [ForeignKey(FieldNames.RelatedCreationId)]
+    [JsonPropertyName(FieldNames.RelatedCreationId)]
     [JsonConverter(typeof(DatabaseEntityJsonConverter<Creation>))]
     public Creation RelatedCreation { get; set; } = null!;
 

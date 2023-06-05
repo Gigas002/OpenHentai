@@ -6,14 +6,23 @@ using OpenHentai.Circles;
 using OpenHentai.Descriptors;
 using OpenHentai.Relative;
 using OpenHentai.ValueConverters;
+using OpenHentai.Constants;
 
 namespace OpenHentai;
 
 public class DatabaseContext : DbContext
 {
+    #region Constants
+
+    // for debug purposes
+    internal const string LogPath = "../log.txt";
+    internal const string SqliteDatabasePath = "../openhentai.db";
+
+    #endregion
+
     #region Properties
 
-    private readonly StreamWriter _logStream = new("../log.txt", true);
+    private readonly StreamWriter _logStream = new(LogPath, true);
 
     public DbSet<Tag> Tags { get; set; } = null!;
     
@@ -49,7 +58,7 @@ public class DatabaseContext : DbContext
 
     #endregion
 
-    public DatabaseContext(string databasePath = "../openhentai.db") => DatabasePath = databasePath;
+    public DatabaseContext(string databasePath = SqliteDatabasePath) => DatabasePath = databasePath;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -123,75 +132,75 @@ public class DatabaseContext : DbContext
             .HasMany(a => a.Circles)
             .WithMany(c => c.Authors)
             .UsingEntity<Dictionary<ulong, ulong>>(
-                "authors_circles",
+                TableNames.AuthorsCircles,
                 j => j
                     .HasOne<Circle>()
                     .WithMany()
-                    .HasForeignKey("circle_id"),
+                    .HasForeignKey(FieldNames.CircleId),
                 j => j
                     .HasOne<Author>()
                     .WithMany()
-                    .HasForeignKey("author_id")
+                    .HasForeignKey(FieldNames.AuthorId)
             );
 
         modelBuilder.Entity<Creation>()
             .HasMany(c => c.Circles)
             .WithMany(c => c.Creations)
             .UsingEntity<Dictionary<ulong, ulong>>(
-                "creations_circles",
+                TableNames.CreationsCircles,
                 j => j
                     .HasOne<Circle>()
                     .WithMany()
-                    .HasForeignKey("circle_id"),
+                    .HasForeignKey(FieldNames.CircleId),
                 j => j
                     .HasOne<Creation>()
                     .WithMany()
-                    .HasForeignKey("creation_id")
+                    .HasForeignKey(FieldNames.CreationId)
             );
 
         modelBuilder.Entity<Creation>()
             .HasMany(c => c.Tags)
             .WithMany(t => t.Creations)
             .UsingEntity<Dictionary<ulong, ulong>>(
-                "creations_tags",
+                TableNames.CreationsTags,
                 j => j
                     .HasOne<Tag>()
                     .WithMany()
-                    .HasForeignKey("tag_id"),
+                    .HasForeignKey(FieldNames.TagId),
                 j => j
                     .HasOne<Creation>()
                     .WithMany()
-                    .HasForeignKey("creation_id")
+                    .HasForeignKey(FieldNames.CreationId)
             );
 
         modelBuilder.Entity<Creature>()
             .HasMany(c => c.Tags)
             .WithMany(t => t.Creatures)
             .UsingEntity<Dictionary<ulong, ulong>>(
-                "creatures_tags",
+                TableNames.CreaturesTags,
                 j => j
                     .HasOne<Tag>()
                     .WithMany()
-                    .HasForeignKey("tag_id"),
+                    .HasForeignKey(FieldNames.TagId),
                 j => j
                     .HasOne<Creature>()
                     .WithMany()
-                    .HasForeignKey("creature_id")
+                    .HasForeignKey(FieldNames.CreatureId)
             );
 
         modelBuilder.Entity<Circle>()
             .HasMany(c => c.Tags)
             .WithMany(t => t.Circles)
             .UsingEntity<Dictionary<ulong, ulong>>(
-                "circles_tags",
+                TableNames.CirclesTags,
                 j => j
                     .HasOne<Tag>()
                     .WithMany()
-                    .HasForeignKey("tag_id"),
+                    .HasForeignKey(FieldNames.TagId),
                 j => j
                     .HasOne<Circle>()
                     .WithMany()
-                    .HasForeignKey("circle_id")
+                    .HasForeignKey(FieldNames.CircleId)
             );
 
         #endregion

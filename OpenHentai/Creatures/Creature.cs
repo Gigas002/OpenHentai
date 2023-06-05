@@ -5,13 +5,14 @@ using OpenHentai.Relations;
 using OpenHentai.Tags;
 using System.Text.Json.Serialization;
 using OpenHentai.JsonConverters;
+using OpenHentai.Constants;
 
 namespace OpenHentai.Creatures;
 
 /// <summary>
 /// Creature
 /// </summary>
-[Table("creatures")]
+[Table(TableNames.Creatures)]
 public class Creature : IDatabaseEntity
 {
     #region Properties
@@ -28,7 +29,7 @@ public class Creature : IDatabaseEntity
     /// <summary>
     /// Description, e.g. this person is a dick
     /// </summary>
-    [Column(TypeName = "jsonb")]
+    [Column(TypeName = DataTypes.Jsonb)]
     public HashSet<LanguageSpecificTextInfo> Description { get; init; } = new();
 
     /// <summary>

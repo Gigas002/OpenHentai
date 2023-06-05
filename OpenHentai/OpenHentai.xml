@@ -590,6 +590,11 @@
             Language is not chosen, refer to default field values
             </summary>
         </member>
+        <member name="F:OpenHentai.Descriptors.LanguageSpecificTextInfo.LanguageDelimiter">
+            <summary>
+            Symbols to delim language from text
+            </summary>
+        </member>
         <member name="P:OpenHentai.Descriptors.LanguageSpecificTextInfo.Language">
             <summary>
             Text language

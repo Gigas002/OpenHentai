@@ -9,13 +9,14 @@ using OpenHentai.Roles;
 using OpenHentai.Relations;
 using System.Text.Json.Serialization;
 using OpenHentai.JsonConverters;
+using OpenHentai.Constants;
 
 namespace OpenHentai.Creations;
 
 /// <summary>
 /// Creation, e.g. doujinshi, manga, etc
 /// </summary>
-[Table("creations")]
+[Table(TableNames.Creations)]
 public class Creation : IDatabaseEntity
 {
     #region Properties
@@ -54,13 +55,13 @@ public class Creation : IDatabaseEntity
     /// <summary>
     /// Available to purchase/read/etc at
     /// </summary>
-    [Column(TypeName = "jsonb")]
+    [Column(TypeName = DataTypes.Jsonb)]
     public HashSet<ExternalLinkInfo> Sources { get; init; } = new();
 
     /// <summary>
     /// Description
     /// </summary>
-    [Column(TypeName = "jsonb")]
+    [Column(TypeName = DataTypes.Jsonb)]
     public HashSet<LanguageSpecificTextInfo> Description { get; init; } = new();
 
     /// <summary>
@@ -87,7 +88,7 @@ public class Creation : IDatabaseEntity
     /// <summary>
     /// Available on languages
     /// </summary>
-    [Column(TypeName = "jsonb")]
+    [Column(TypeName = DataTypes.Jsonb)]
     public HashSet<LanguageInfo> Languages { get; init; } = new();
 
     /// <summary>
@@ -103,7 +104,7 @@ public class Creation : IDatabaseEntity
     /// <summary>
     /// Censorship type
     /// </summary>
-    [Column(TypeName = "jsonb")]
+    [Column(TypeName = DataTypes.Jsonb)]
     public HashSet<CensorshipInfo> Censorship { get; init; } = new();
 
     /// <summary>

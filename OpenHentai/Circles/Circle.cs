@@ -6,13 +6,14 @@ using OpenHentai.Descriptors;
 using System.Text.Json.Serialization;
 using OpenHentai.JsonConverters;
 using OpenHentai.Tags;
+using OpenHentai.Constants;
 
 namespace OpenHentai.Circles;
 
 /// <summary>
 /// Author's circle
 /// </summary>
-[Table("circles")]
+[Table(TableNames.Circles)]
 public class Circle : IDatabaseEntity
 {
     #region Properties

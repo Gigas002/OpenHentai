@@ -6,6 +6,7 @@ using OpenHentai.Creatures;
 using OpenHentai.Creations;
 using OpenHentai.JsonConverters;
 using OpenHentai.Circles;
+using OpenHentai.Constants;
 
 namespace OpenHentai.Tags;
 
@@ -102,7 +103,7 @@ public class Tag : IDatabaseEntity
     /// Tag description
     /// e.g. This tag resides for mitsudomoe franchise
     /// </summary>
-    [Column(TypeName = "jsonb")]
+    [Column(TypeName = DataTypes.Jsonb)]
     public HashSet<LanguageSpecificTextInfo> Description { get; init; } = new();
 
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Creature>))]

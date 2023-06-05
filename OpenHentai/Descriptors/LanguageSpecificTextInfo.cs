@@ -10,12 +10,21 @@ namespace OpenHentai.Descriptors;
 /// </summary>
 public class LanguageSpecificTextInfo
 {
-    #region Properties
+    #region Constants
 
     /// <summary>
     /// Language is not chosen, refer to default field values
     /// </summary>
     public const string DefaultLanguage = "default";
+
+    /// <summary>
+    /// Symbols to delim language from text
+    /// </summary>
+    public const string LanguageDelimiter = "::";
+
+    #endregion
+    
+    #region Properties
 
     /// <summary>
     /// Text language
@@ -44,7 +53,7 @@ public class LanguageSpecificTextInfo
     /// <param name="formatedText">Formatted text line</param>
     public LanguageSpecificTextInfo(string formatedText)
     {
-        var textLanguage = formatedText.Split("::");
+        var textLanguage = formatedText.Split(LanguageDelimiter);
         Text = textLanguage[1];
         Language = textLanguage[0] == DefaultLanguage || textLanguage.Length < 1 ?
             null : new CultureInfo(textLanguage[0]);
@@ -66,9 +75,9 @@ public class LanguageSpecificTextInfo
     /// <inheritdoc />
     public override string ToString()
     {
-        var language = Language is null ? "default" : Language.ToString();
+        var language = Language is null ? DefaultLanguage : Language.ToString();
 
-        return $"{language}::{Text}";
+        return $"{language}{LanguageDelimiter}{Text}";
     }
 
     #endregion

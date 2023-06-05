@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using OpenHentai.Constants;
 using OpenHentai.Descriptors;
 
 namespace OpenHentai.Creations;
@@ -31,6 +32,6 @@ public class Book : Creation
     /// <summary>
     /// Information about colorization of this book
     /// </summary>
-    [Column(TypeName = "jsonb")]
+    [Column(TypeName = DataTypes.Jsonb)]
     public HashSet<ColoredInfo> ColoredInfo { get; init; } = new();
 }

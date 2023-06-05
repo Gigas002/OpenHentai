@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using OpenHentai.Constants;
 using OpenHentai.Creations;
 using OpenHentai.Relative;
 using OpenHentai.Roles;
@@ -8,7 +9,7 @@ namespace OpenHentai.Creatures;
 /// <summary>
 /// Character
 /// </summary>
-[Table("characters")]
+[Table(TableNames.Characters)]
 public class Character : Creature
 {
     #region Properties

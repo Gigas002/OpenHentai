@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using OpenHentai.Constants;
 using OpenHentai.Creations;
 using OpenHentai.Creatures;
 using OpenHentai.JsonConverters;
@@ -8,16 +9,18 @@ using System.Text.Json.Serialization;
 
 namespace OpenHentai.Relative;
 
-[PrimaryKey("creation_id", "character_id")]
+[PrimaryKey(FieldNames.CreationId, FieldNames.CharacterId)]
 public class CreationsCharacters
 {
     #region Properties
 
-    [ForeignKey("creation_id")]
+    [ForeignKey(FieldNames.CreationId)]
+    [JsonPropertyName(FieldNames.CreationId)]
     [JsonConverter(typeof(DatabaseEntityJsonConverter<Creation>))]
     public Creation Creation { get; set; } = null!;
 
-    [ForeignKey("character_id")]
+    [ForeignKey(FieldNames.CharacterId)]
+    [JsonPropertyName(FieldNames.CharacterId)]
     [JsonConverter(typeof(DatabaseEntityJsonConverter<Character>))]
     public Character Character { get; set; } = null!;
 
