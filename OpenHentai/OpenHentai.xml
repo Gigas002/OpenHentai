@@ -694,12 +694,6 @@
         <member name="M:OpenHentai.JsonConverters.DatabaseEntityJsonConverter`1.Write(System.Text.Json.Utf8JsonWriter,`0,System.Text.Json.JsonSerializerOptions)">
             <inheritdoc />
         </member>
-        <member name="M:OpenHentai.JsonConverters.TagMasterJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
-            <inheritdoc />
-        </member>
-        <member name="M:OpenHentai.JsonConverters.TagMasterJsonConverter.Write(System.Text.Json.Utf8JsonWriter,OpenHentai.Tags.Tag,System.Text.Json.JsonSerializerOptions)">
-            <inheritdoc />
-        </member>
         <member name="T:OpenHentai.Relations.CreationRelations">
             <summary>
             Relation to another creation

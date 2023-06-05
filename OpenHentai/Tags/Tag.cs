@@ -78,7 +78,7 @@ public class Tag : IDatabaseEntity
     /// This tag's master tag
     /// <para/>null in case there's no master
     /// </summary>
-    [JsonConverter(typeof(TagMasterJsonConverter))]
+    [JsonConverter(typeof(DatabaseEntityJsonConverter<Tag>))]
     public Tag? Master { get; set; }
     
     // TODO: consider adding property

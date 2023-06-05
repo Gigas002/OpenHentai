@@ -14,8 +14,10 @@ public class DatabaseEntityJsonConverter<T> : JsonConverter<T> where T : IDataba
     }
 
     /// <inheritdoc />
-    public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, T? value, JsonSerializerOptions options)
     {
-        writer.WriteNumberValue(value.Id);
-    }
+        if (value is null)
+            writer.WriteNullValue();
+        else
+            writer.WriteNumberValue(value.Id);    }
 }
