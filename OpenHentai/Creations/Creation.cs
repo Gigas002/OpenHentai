@@ -147,7 +147,7 @@ public class Creation : IDatabaseEntity
 
     /// <inheritdoc  cref="GetTitles" />
     public Dictionary<Author, AuthorRole> GetAuthors() =>
-        AuthorsCreations.ToDictionary(ac => ac.Author, ac => ac.Role);
+        AuthorsCreations.ToDictionary(ac => ac.Origin, ac => ac.Relation);
 
     public void AddAuthors(Dictionary<Author, AuthorRole> authors) =>
         authors.ToList().ForEach(AddAuthor);
@@ -160,7 +160,7 @@ public class Creation : IDatabaseEntity
 
     /// <inheritdoc  cref="GetTitles" />
     public Dictionary<Creation, CreationRelations> GetRelations() =>
-        CreationsRelations.ToDictionary(cr => cr.RelatedCreation, cr => cr.Relation);
+        CreationsRelations.ToDictionary(cr => cr.Related, cr => cr.Relation);
 
     public void AddRelations(Dictionary<Creation, CreationRelations> relations) =>
         relations.ToList().ForEach(AddRelation);
@@ -173,7 +173,7 @@ public class Creation : IDatabaseEntity
 
     /// <inheritdoc  cref="GetTitles" />
     public Dictionary<Character, CharacterRole> GetCharacters() =>
-        CreationsCharacters.ToDictionary(cc => cc.Character, cc => cc.Role);
+        CreationsCharacters.ToDictionary(cc => cc.Related, cc => cc.Relation);
 
     public void AddCharacters(Dictionary<Character, CharacterRole> characters) =>
         characters.ToList().ForEach(AddCharacter);

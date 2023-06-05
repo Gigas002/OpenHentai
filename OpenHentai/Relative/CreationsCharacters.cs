@@ -10,21 +10,21 @@ using System.Text.Json.Serialization;
 namespace OpenHentai.Relative;
 
 [PrimaryKey(FieldNames.CreationId, FieldNames.CharacterId)]
-public class CreationsCharacters
+public class CreationsCharacters : IRelativeDatabaseEntity<Creation, Character, CharacterRole>
 {
     #region Properties
 
     [ForeignKey(FieldNames.CreationId)]
     [JsonPropertyName(FieldNames.CreationId)]
     [JsonConverter(typeof(DatabaseEntityJsonConverter<Creation>))]
-    public Creation Creation { get; set; } = null!;
+    public Creation Origin { get; set; } = null!;
 
     [ForeignKey(FieldNames.CharacterId)]
     [JsonPropertyName(FieldNames.CharacterId)]
     [JsonConverter(typeof(DatabaseEntityJsonConverter<Character>))]
-    public Character Character { get; set; } = null!;
+    public Character Related { get; set; } = null!;
 
-    public CharacterRole Role { get; set; }
+    public CharacterRole Relation { get; set; }
     
     #endregion
 
@@ -33,7 +33,7 @@ public class CreationsCharacters
     public CreationsCharacters() { }
 
     public CreationsCharacters(Creation creation, Character character, CharacterRole role) =>
-        (Creation, Character, Role) = (creation, character, role);
+        (Origin, Related, Relation) = (creation, character, role);
 
     #endregion
 }

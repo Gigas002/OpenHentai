@@ -318,11 +318,11 @@ public class DatabaseTests
         var authors = db.Authors.Include(a => a.AuthorsNames)
                                 .Include(a => a.Circles)
                                 .Include(a => a.AuthorsCreations)
-                                .ThenInclude(ac => ac.Creation)
+                                .ThenInclude(ac => ac.Related)
                                 .Include(a => a.CreaturesNames)
                                 .Include(a => a.Tags)
                                 .Include(a => a.CreaturesRelations)
-                                .ThenInclude(cr => cr.RelatedCreature)
+                                .ThenInclude(cr => cr.Related)
                                 .ToList();
 
         SerializeEntity(authors);
@@ -336,10 +336,10 @@ public class DatabaseTests
 
         var characters = db.Characters.Include(c => c.CreaturesNames)
                                       .Include(c => c.CreationsCharacters)
-                                      .ThenInclude(cc => cc.Creation)
+                                      .ThenInclude(cc => cc.Origin)
                                       .Include(c => c.Tags)
                                       .Include(c => c.CreaturesRelations)
-                                      .ThenInclude(cr => cr.RelatedCreature)
+                                      .ThenInclude(cr => cr.Related)
                                       .ToList();
 
         SerializeEntity(characters);
@@ -369,10 +369,10 @@ public class DatabaseTests
         var manga = db.Manga.Include(m => m.CreationsRelations)
                             .Include(m => m.CreationsTitles)
                             .Include(m => m.AuthorsCreations)
-                            .ThenInclude(ac => ac.Author)
+                            .ThenInclude(ac => ac.Origin)
                             .Include(m => m.Circles)
                             .Include(m => m.CreationsCharacters)
-                            .ThenInclude(cc => cc.Character)
+                            .ThenInclude(cc => cc.Related)
                             .Include(m => m.Tags)
                             .ToList();
 

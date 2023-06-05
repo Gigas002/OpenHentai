@@ -24,7 +24,7 @@ public class Character : Creature
     #region Methods
 
     public Dictionary<Creation, CharacterRole> GetCreations() =>
-        CreationsCharacters.ToDictionary(cc => cc.Creation, cc => cc.Role);
+        CreationsCharacters.ToDictionary(cc => cc.Origin, cc => cc.Relation);
 
     public void AddCreations(Dictionary<Creation, CharacterRole> creations) =>
         creations.ToList().ForEach(AddCreation);

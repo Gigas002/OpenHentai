@@ -208,11 +208,11 @@ public class DatabaseContext : DbContext
         #region Manual relations settings
 
         modelBuilder.Entity<CreaturesRelations>()
-                    .HasOne(cr => cr.Creature)
+                    .HasOne(cr => cr.Origin)
                     .WithMany(c => c.CreaturesRelations);
 
         modelBuilder.Entity<CreationsRelations>()
-                    .HasOne(cr => cr.Creation)
+                    .HasOne(cr => cr.Origin)
                     .WithMany(c => c.CreationsRelations);
 
         #endregion

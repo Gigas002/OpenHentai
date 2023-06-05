@@ -54,7 +54,7 @@ public class Author : Creature
     public void AddAuthorName(LanguageSpecificTextInfo name) => AuthorsNames.Add(new(this, name));
 
     public Dictionary<Creation, AuthorRole> GetCreations() =>
-        AuthorsCreations.ToDictionary(ac => ac.Creation, ac => ac.Role);
+        AuthorsCreations.ToDictionary(ac => ac.Related, ac => ac.Relation);
 
     public void AddCreations(Dictionary<Creation, AuthorRole> creations) =>
         creations.ToList().ForEach(AddCreation);

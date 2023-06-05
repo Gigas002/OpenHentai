@@ -9,19 +9,19 @@ using OpenHentai.Relations;
 namespace OpenHentai.Relative;
 
 [PrimaryKey(FieldNames.CreatureId, FieldNames.RelatedCreatureId)]
-public class CreaturesRelations
+public class CreaturesRelations : IRelativeDatabaseEntity<Creature, Creature, CreatureRelations>
 {
     #region Properties
 
     [ForeignKey(FieldNames.CreatureId)]
     [JsonPropertyName(FieldNames.CreatureId)]
     [JsonConverter(typeof(DatabaseEntityJsonConverter<Creature>))]
-    public Creature Creature { get; set; } = null!;
+    public Creature Origin { get; set; } = null!;
 
     [ForeignKey(FieldNames.RelatedCreatureId)]
     [JsonPropertyName(FieldNames.RelatedCreatureId)]
     [JsonConverter(typeof(DatabaseEntityJsonConverter<Creature>))]
-    public Creature RelatedCreature { get; set; } = null!;
+    public Creature Related { get; set; } = null!;
 
     public CreatureRelations Relation { get; set; }
 
@@ -32,7 +32,7 @@ public class CreaturesRelations
     public CreaturesRelations() { }
 
     public CreaturesRelations(Creature creature, Creature relatedCreature, CreatureRelations relation) =>
-        (Creature, RelatedCreature, Relation) = (creature, relatedCreature, relation);
+        (Origin, Related, Relation) = (creature, relatedCreature, relation);
 
     #endregion
 }

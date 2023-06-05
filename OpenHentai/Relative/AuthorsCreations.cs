@@ -10,21 +10,21 @@ using OpenHentai.Roles;
 namespace OpenHentai.Relative;
 
 [PrimaryKey(FieldNames.AuthorId, FieldNames.CreationId)]
-public class AuthorsCreations
+public class AuthorsCreations : IRelativeDatabaseEntity<Author, Creation, AuthorRole>
 {
     #region Properties
 
     [ForeignKey(FieldNames.AuthorId)]
     [JsonPropertyName(FieldNames.AuthorId)]
     [JsonConverter(typeof(DatabaseEntityJsonConverter<Author>))]
-    public Author Author { get; set; } = null!;
+    public Author Origin { get; set; } = null!;
 
     [ForeignKey(FieldNames.CreationId)]
     [JsonPropertyName(FieldNames.CreationId)]
     [JsonConverter(typeof(DatabaseEntityJsonConverter<Creation>))]
-    public Creation Creation { get; set; } = null!;
+    public Creation Related { get; set; } = null!;
 
-    public AuthorRole Role { get; set; }
+    public AuthorRole Relation { get; set; }
 
     #endregion
 
@@ -33,7 +33,7 @@ public class AuthorsCreations
     public AuthorsCreations() { }
 
     public AuthorsCreations(Author author, Creation creation, AuthorRole role) =>
-        (Author, Creation, Role) = (author, creation, role);
+        (Origin, Related, Relation) = (author, creation, role);
 
     #endregion
 }
