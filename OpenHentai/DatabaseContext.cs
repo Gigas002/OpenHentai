@@ -1,4 +1,3 @@
-using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using OpenHentai.Tags;
 using OpenHentai.Creatures;
@@ -14,7 +13,7 @@ public class DatabaseContext : DbContext
 {
     #region Properties
 
-    // private readonly StreamWriter _logStream = new("log.txt", true);
+    private readonly StreamWriter _logStream = new("../log.txt", true);
 
     public DbSet<Tag> Tags { get; set; } = null!;
     
@@ -55,8 +54,8 @@ public class DatabaseContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite($"Data Source={DatabasePath}")
-                      .UseSnakeCaseNamingConvention();
-                    //   .LogTo(_logStream.WriteLine);
+                      .UseSnakeCaseNamingConvention()
+                      .LogTo(_logStream.WriteLine);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -117,6 +116,8 @@ public class DatabaseContext : DbContext
         #endregion
 
         #region Auto many-to-many zone
+
+        // see: https://github.com/dotnet/efcore/issues/31019
 
         modelBuilder.Entity<Author>()
             .HasMany(a => a.Circles)
@@ -182,35 +183,13 @@ public class DatabaseContext : DbContext
 
         #region Manual relations settings
 
-        modelBuilder.Entity<CreationsCharacters>()
-                    .HasOne(cc => cc.Creation)
-                    .WithMany(c => c.CreationsCharacters);
-
-        modelBuilder.Entity<CreationsCharacters>()
-                    .HasOne(cc => cc.Character)
-                    .WithMany(c => c.CreationsCharacters);
-
         modelBuilder.Entity<CreaturesRelations>()
                     .HasOne(cr => cr.Creature)
                     .WithMany(c => c.CreaturesRelations);
 
-        modelBuilder.Entity<CreaturesRelations>()
-                    .HasOne(cr => cr.RelatedCreature);
-
-        modelBuilder.Entity<AuthorsCreations>()
-                    .HasOne(ac => ac.Author)
-                    .WithMany(a => a.AuthorsCreations);
-
-        modelBuilder.Entity<AuthorsCreations>()
-                    .HasOne(ac => ac.Creation)
-                    .WithMany(c => c.AuthorsCreations);
-
         modelBuilder.Entity<CreationsRelations>()
                     .HasOne(cr => cr.Creation)
                     .WithMany(c => c.CreationsRelations);
-
-        modelBuilder.Entity<CreationsRelations>()
-                    .HasOne(cr => cr.RelatedCreation);
 
         #endregion
     }
@@ -218,14 +197,14 @@ public class DatabaseContext : DbContext
     public override void Dispose()
     {
         base.Dispose();
-        // _logStream.Dispose();
+        _logStream.Dispose();
         GC.SuppressFinalize(this);
     }
 
     public override async ValueTask DisposeAsync()
     {
         await base.DisposeAsync().ConfigureAwait(false);
-        // await _logStream.DisposeAsync().ConfigureAwait(false);
+        await _logStream.DisposeAsync().ConfigureAwait(false);
         GC.SuppressFinalize(this);
     }
 }
