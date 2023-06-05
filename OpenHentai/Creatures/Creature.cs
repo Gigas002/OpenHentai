@@ -15,7 +15,7 @@ public abstract class Creature : IDatabaseEntity
     #region Properties
 
     /// <inheritdoc />
-    public ulong Id { get; set; }
+    public ulong Id { get; init; }
 
     /// <summary>
     /// Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)

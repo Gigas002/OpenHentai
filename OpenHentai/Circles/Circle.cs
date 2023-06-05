@@ -36,6 +36,14 @@ public class Circle : IDatabaseEntity
     
     #endregion
 
+    #region Constructors
+
+    public Circle() { }
+
+    public Circle(ulong id) => Id = id;
+
+    #endregion
+
     #region Methods
 
     /// <summary>

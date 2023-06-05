@@ -8,5 +8,5 @@ public interface IDatabaseEntity
     /// <summary>
     /// Entry's id in database
     /// </summary>
-    public ulong Id { get; }
+    public ulong Id { get; init; }
 }

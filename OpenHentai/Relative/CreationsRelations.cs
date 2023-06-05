@@ -17,7 +17,7 @@ public class CreationsRelations
     public Creation Creation { get; set; } = null!;
 
     [ForeignKey("related_creation_id")]
-    [JsonConverter(typeof(RelatedCreationJsonConverter))]
+    [JsonConverter(typeof(DatabaseEntityJsonConverter<Creation>))]
     public Creation RelatedCreation { get; set; } = null!;
 
     public CreationRelations Relation { get; set; }

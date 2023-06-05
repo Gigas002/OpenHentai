@@ -13,4 +13,6 @@ public static class Essential
         // WriteIndented = true,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
     };
+
+    public static T GetEntityById<T>(ulong id) where T : IDatabaseEntity, new() => new T() { Id = id };
 }

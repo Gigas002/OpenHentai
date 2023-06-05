@@ -10,7 +10,7 @@ public class AuthorsNames : ILanguageSpecificTextInfoEntity<Author>
 {
     #region Properties
 
-    public ulong Id { get; set; }
+    public ulong Id { get; init; }
 
     [ForeignKey("author_id")]
     [JsonIgnore]

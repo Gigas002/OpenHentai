@@ -10,7 +10,7 @@ public class CirclesTitles : ILanguageSpecificTextInfoEntity<Circle>
 {
     #region Properties
 
-    public ulong Id { get; set; }
+    public ulong Id { get; init; }
 
     [ForeignKey("circle_id")]
     [JsonIgnore]

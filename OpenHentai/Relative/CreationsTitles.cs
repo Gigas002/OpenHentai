@@ -10,7 +10,7 @@ public class CreationsTitles : ILanguageSpecificTextInfoEntity<Creation>
 {
     #region Properties
 
-    public ulong Id { get; set; }
+    public ulong Id { get; init; }
 
     [ForeignKey("creation_id")]
     [JsonIgnore]
