@@ -16,6 +16,8 @@ namespace OpenHentai.Descriptors;
 
 public class ColoredInfo
 {
+    #region Properties
+
     /// <summary>
     /// Creation's color info
     /// </summary>
@@ -25,6 +27,10 @@ public class ColoredInfo
     /// Is creation colored officialy?
     /// </summary>
     public bool IsOfficial { get; set; }
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
     /// Create new ColoredInfo object
@@ -37,4 +43,6 @@ public class ColoredInfo
     /// <param name="color">color</param>
     /// <param name="isOfficial">Is official?</param>
     public ColoredInfo(Color color, bool isOfficial) => (Color, IsOfficial) = (color, isOfficial);
+
+    #endregion
 }

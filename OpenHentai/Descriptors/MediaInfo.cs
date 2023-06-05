@@ -3,6 +3,8 @@ namespace OpenHentai.Descriptors;
 /// <inheritdoc />
 public class MediaInfo : IMediaInfo
 {
+    #region Properties
+
     /// <inheritdoc />
     public Uri Source { get; set; } = null!;
     
@@ -11,6 +13,10 @@ public class MediaInfo : IMediaInfo
 
     /// <inheritdoc />
     public bool IsMain { get; set; }
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
     /// Create new MediaInfo object
@@ -34,4 +40,6 @@ public class MediaInfo : IMediaInfo
     /// <param name="isMain">Is this main media?</param>
     public MediaInfo(string source, MediaType type, bool isMain = false) : this(new Uri(source), type, isMain)
     { }
+
+    #endregion
 }

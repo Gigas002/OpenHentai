@@ -7,6 +7,8 @@ namespace OpenHentai.Descriptors;
 /// </summary>
 public class CensorshipInfo
 {
+    #region Properties
+
     /// <summary>
     /// Censorship type
     /// </summary>
@@ -16,6 +18,10 @@ public class CensorshipInfo
     /// Is this kind of censorship official?
     /// </summary>
     public bool IsOfficial { get; set; }
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
     /// Create new CensorshipInfo object
@@ -28,4 +34,6 @@ public class CensorshipInfo
     /// <param name="censorship">Censorship</param>
     /// <param name="isOfficial">Is official?</param>
     public CensorshipInfo(Censorship censorship, bool isOfficial) => (Censorship, IsOfficial) = (censorship, isOfficial);
+    
+    #endregion
 }

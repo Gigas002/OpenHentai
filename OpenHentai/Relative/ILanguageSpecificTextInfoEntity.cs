@@ -26,7 +26,7 @@ public interface ILanguageSpecificTextInfoEntity<T> : IDatabaseEntity where T : 
 
 // public interface IManyToMany<TOrigin,TRelated,TEnum> where TOrigin : class
 //                                                      where TRelated : class
-//                                                      where TEnum : System.Enum
+//                                                      where TEnum : Enum
 // {
 //     public TOrigin OriginEntity { get; set; }
 

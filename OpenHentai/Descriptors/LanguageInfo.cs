@@ -11,6 +11,8 @@ namespace OpenHentai.Descriptors;
 /// </summary>
 public class LanguageInfo
 {
+    #region Properties
+
     /// <summary>
     /// Language
     /// </summary>
@@ -21,6 +23,10 @@ public class LanguageInfo
     /// Is official?
     /// </summary>
     public bool IsOfficial { get; set; }
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
     /// Initialize new language info
@@ -38,6 +44,12 @@ public class LanguageInfo
         IsOfficial = isOfficial;
     }
 
+    #endregion
+
+    #region Methods
+
     /// <inheritdoc />
     public override string ToString() => Language.ToString();
+
+    #endregion
 }

@@ -23,7 +23,7 @@ public class DatabaseEntityCollectionJsonConverter<T> : JsonConverter<HashSet<T>
 
             var entry = existsInDb ? Essential.GetEntityById<T>(id) : default(T?);
 
-            set.Add(entry);
+            set.Add(entry!);
         }
 
         return set;

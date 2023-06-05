@@ -10,6 +10,8 @@ namespace OpenHentai.Descriptors;
 /// </summary>
 public class LanguageSpecificTextInfo
 {
+    #region Properties
+
     /// <summary>
     /// Text language
     /// <para/> In case it's null - romanized value is passed
@@ -21,6 +23,10 @@ public class LanguageSpecificTextInfo
     /// Text on chosen language
     /// </summary>
     public string Text { get; set; } = null!;
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
     /// Create new string with language info
@@ -55,6 +61,10 @@ public class LanguageSpecificTextInfo
 
     // TODO: const for "default" string
 
+    #endregion
+
+    #region Methods
+
     /// <inheritdoc />
     public override string ToString()
     {
@@ -62,4 +72,6 @@ public class LanguageSpecificTextInfo
 
         return $"{language}::{Text}";
     }
+
+    #endregion
 }

@@ -27,7 +27,12 @@
         <member name="P:OpenHentai.Circles.Circle.Creations">
             <summary>
             Related creations
-            </summary>\
+            </summary>
+        </member>
+        <member name="P:OpenHentai.Circles.Circle.Tags">
+            <summary>
+            Tags
+            </summary>
         </member>
         <member name="M:OpenHentai.Circles.Circle.GetTitles">
             <summary>
@@ -222,6 +227,32 @@
             Creation's tags
             e.g. franchise parody, themes, etc
             </summary>
+        </member>
+        <member name="M:OpenHentai.Creations.Creation.GetTitles">
+            <summary>
+            Convert relational database's object into collection of formatted objects
+            </summary>
+        </member>
+        <member name="M:OpenHentai.Creations.Creation.AddTitles(System.Collections.Generic.IEnumerable{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
+            <summary>
+            Add titles to the relational database
+            </summary>   
+            <param name="titles">Titles</param>
+        </member>
+        <member name="M:OpenHentai.Creations.Creation.AddTitle(OpenHentai.Descriptors.LanguageSpecificTextInfo)">
+            <summary>
+            Add title to the relational database
+            </summary>
+            <param name="title">Title</param>
+        </member>
+        <member name="M:OpenHentai.Creations.Creation.GetAuthors">
+            <inheritdoc  cref="M:OpenHentai.Creations.Creation.GetTitles" />
+        </member>
+        <member name="M:OpenHentai.Creations.Creation.GetRelations">
+            <inheritdoc  cref="M:OpenHentai.Creations.Creation.GetTitles" />
+        </member>
+        <member name="M:OpenHentai.Creations.Creation.GetCharacters">
+            <inheritdoc  cref="M:OpenHentai.Creations.Creation.GetTitles" />
         </member>
         <member name="T:OpenHentai.Creations.Rating">
             <summary>

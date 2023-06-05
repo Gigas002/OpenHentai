@@ -112,7 +112,7 @@ public class Creation : IDatabaseEntity
     /// </summary>
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Tag>))]
     public HashSet<Tag> Tags { get; init; } = new();
-    
+
     #endregion
 
     #region Constructors
@@ -124,45 +124,59 @@ public class Creation : IDatabaseEntity
     #endregion
 
     #region Methods
-    
+
+    /// <summary>
+    /// Convert relational database's object into collection of formatted objects
+    /// </summary>
     public IEnumerable<LanguageSpecificTextInfo> GetTitles() =>
         CreationsTitles.Select(t => t.GetLanguageSpecificTextInfo());
 
+    /// <summary>
+    /// Add titles to the relational database
+    /// </summary>   
+    /// <param name="titles">Titles</param>
     public void AddTitles(IEnumerable<LanguageSpecificTextInfo> titles) =>
         titles.ToList().ForEach(AddTitle);
-    
+
+    /// <summary>
+    /// Add title to the relational database
+    /// </summary>
+    /// <param name="title">Title</param>
     public void AddTitle(LanguageSpecificTextInfo title) => CreationsTitles.Add(new(this, title));
 
+    /// <inheritdoc  cref="GetTitles" />
     public Dictionary<Author, AuthorRole> GetAuthors() =>
         AuthorsCreations.ToDictionary(ac => ac.Author, ac => ac.Role);
 
     public void AddAuthors(Dictionary<Author, AuthorRole> authors) =>
         authors.ToList().ForEach(AddAuthor);
-    
+
     public void AddAuthor(KeyValuePair<Author, AuthorRole> author) =>
         AddAuthor(author.Key, author.Value);
-    
+
     public void AddAuthor(Author author, AuthorRole role) =>
         AuthorsCreations.Add(new(author, this, role));
 
+    /// <inheritdoc  cref="GetTitles" />
     public Dictionary<Creation, CreationRelations> GetRelations() =>
         CreationsRelations.ToDictionary(cr => cr.RelatedCreation, cr => cr.Relation);
 
     public void AddRelations(Dictionary<Creation, CreationRelations> relations) =>
         relations.ToList().ForEach(AddRelation);
-    
+
     public void AddRelation(KeyValuePair<Creation, CreationRelations> relation) =>
         AddRelation(relation.Key, relation.Value);
 
     public void AddRelation(Creation relatedCreation, CreationRelations relation) =>
         CreationsRelations.Add(new(this, relatedCreation, relation));
-    
+
+    /// <inheritdoc  cref="GetTitles" />
     public Dictionary<Character, CharacterRole> GetCharacters() =>
         CreationsCharacters.ToDictionary(cc => cc.Character, cc => cc.Role);
 
     public void AddCharacters(Dictionary<Character, CharacterRole> characters) =>
         characters.ToList().ForEach(AddCharacter);
-    
+
     public void AddCharacter(KeyValuePair<Character, CharacterRole> character) =>
         AddCharacter(character.Key, character.Value);
 

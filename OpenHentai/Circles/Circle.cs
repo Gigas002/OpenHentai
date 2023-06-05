@@ -35,10 +35,13 @@ public class Circle : IDatabaseEntity
 
     /// <summary>
     /// Related creations
-    /// </summary>\
+    /// </summary>
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Creation>))]
     public HashSet<Creation> Creations { get; init; } = new();
 
+    /// <summary>
+    /// Tags
+    /// </summary>
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Tag>))]
     public HashSet<Tag> Tags { get; init; } = new();
 
