@@ -13,7 +13,7 @@ public class CreationsRelations
     #region Properties
 
     [ForeignKey("creation_id")]
-    [JsonIgnore]
+    [JsonConverter(typeof(DatabaseEntityJsonConverter<Creation>))]
     public Creation Creation { get; set; } = null!;
 
     [ForeignKey("related_creation_id")]

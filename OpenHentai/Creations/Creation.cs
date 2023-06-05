@@ -7,6 +7,8 @@ using OpenHentai.Relative;
 using OpenHentai.Creatures;
 using OpenHentai.Roles;
 using OpenHentai.Relations;
+using System.Text.Json.Serialization;
+using OpenHentai.JsonConverters;
 
 namespace OpenHentai.Creations;
 
@@ -36,6 +38,7 @@ public class Creation : IDatabaseEntity
     /// <summary>
     /// Circles
     /// </summary>
+    [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Circle>))]
     public HashSet<Circle> Circles { get; init; } = new();
 
     /// <summary>
@@ -107,6 +110,7 @@ public class Creation : IDatabaseEntity
     /// Creation's tags
     /// e.g. franchise parody, themes, etc
     /// </summary>
+    [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Tag>))]
     public HashSet<Tag> Tags { get; init; } = new();
     
     #endregion

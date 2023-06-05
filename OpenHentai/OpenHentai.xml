@@ -27,7 +27,7 @@
         <member name="P:OpenHentai.Circles.Circle.Creations">
             <summary>
             Related creations
-            </summary>
+            </summary>\
         </member>
         <member name="M:OpenHentai.Circles.Circle.GetTitles">
             <summary>
@@ -686,6 +686,12 @@
             <inheritdoc />
         </member>
         <member name="M:OpenHentai.JsonConverters.CultureInfoJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.Globalization.CultureInfo,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.JsonConverters.DatabaseEntityCollectionJsonConverter`1.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:OpenHentai.JsonConverters.DatabaseEntityCollectionJsonConverter`1.Write(System.Text.Json.Utf8JsonWriter,System.Collections.Generic.HashSet{`0},System.Text.Json.JsonSerializerOptions)">
             <inheritdoc />
         </member>
         <member name="M:OpenHentai.JsonConverters.DatabaseEntityJsonConverter`1.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">

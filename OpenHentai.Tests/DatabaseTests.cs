@@ -304,8 +304,6 @@ public class DatabaseTests
 
     #region Read tests
 
-    // These actions requires writing custom JsonConverters and some more work to be done
-
     [Test]
     [Order(1000)]
     public void ReadAuthorsTest()
@@ -313,13 +311,13 @@ public class DatabaseTests
         using var db = new DatabaseContext();
 
         var authors = db.Authors.Include(a => a.AuthorsNames)
-
-                                // .Include(a => a.Circles)
-                                // .Include(a => a.AuthorsCreations)
+                                .Include(a => a.Circles)
+                                .Include(a => a.AuthorsCreations)
+                                .ThenInclude(ac => ac.Creation)
                                 .Include(a => a.CreaturesNames)
-                                // .Include(a => a.Tags)
-                                // .Include(a => a.CreaturesRelations)
-
+                                .Include(a => a.Tags)
+                                .Include(a => a.CreaturesRelations)
+                                .ThenInclude(cr => cr.RelatedCreature)
                                 .ToList();
 
         SerializeEntity(authors);
@@ -332,11 +330,11 @@ public class DatabaseTests
         using var db = new DatabaseContext();
 
         var characters = db.Characters.Include(c => c.CreaturesNames)
-
-                                    //   .Include(c => c.CreationsCharacters)
-                                    //   .Include(c => c.Tags)
-                                    //   .Include(c => c.CreaturesRelations)
-                                    
+                                      .Include(c => c.CreationsCharacters)
+                                      .ThenInclude(cc => cc.Creation)
+                                      .Include(c => c.Tags)
+                                      .Include(c => c.CreaturesRelations)
+                                      .ThenInclude(cr => cr.RelatedCreature)
                                       .ToList();
 
         SerializeEntity(characters);
@@ -349,10 +347,8 @@ public class DatabaseTests
         using var db = new DatabaseContext();
 
         var circles = db.Circles.Include(c => c.CirclesTitles)
-
-                                // .Include(c => c.Authors)
-                                // .Include(c => c.Creations)
-
+                                .Include(c => c.Authors)
+                                .Include(c => c.Creations)
                                 .ToList();
 
         SerializeEntity(circles);
@@ -366,12 +362,12 @@ public class DatabaseTests
 
         var manga = db.Manga.Include(m => m.CreationsRelations)
                             .Include(m => m.CreationsTitles)
-
-                            // .Include(m => m.AuthorsCreations)
-                            // .Include(m => m.Circles)
-                            // .Include(m => m.CreationsCharacters)
-                            // .Include(m => m.Tags)
-
+                            .Include(m => m.AuthorsCreations)
+                            .ThenInclude(ac => ac.Author)
+                            .Include(m => m.Circles)
+                            .Include(m => m.CreationsCharacters)
+                            .ThenInclude(cc => cc.Character)
+                            .Include(m => m.Tags)
                             .ToList();
 
         SerializeEntity(manga);

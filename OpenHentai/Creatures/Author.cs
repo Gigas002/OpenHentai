@@ -4,6 +4,8 @@ using OpenHentai.Creations;
 using OpenHentai.Relative;
 using OpenHentai.Descriptors;
 using OpenHentai.Roles;
+using System.Text.Json.Serialization;
+using OpenHentai.JsonConverters;
 
 namespace OpenHentai.Creatures;
 
@@ -24,6 +26,7 @@ public class Author : Creature
     /// <summary>
     /// Author's circles
     /// </summary>
+    [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Circle>))]
     public HashSet<Circle> Circles { get; init; } = new();
 
     /// <summary>

@@ -3,6 +3,8 @@ using OpenHentai.Creatures;
 using OpenHentai.Creations;
 using OpenHentai.Relative;
 using OpenHentai.Descriptors;
+using System.Text.Json.Serialization;
+using OpenHentai.JsonConverters;
 
 namespace OpenHentai.Circles;
 
@@ -27,13 +29,17 @@ public class Circle : IDatabaseEntity
     /// <summary>
     /// Related authors
     /// </summary>
+    [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Author>))]
     public HashSet<Author> Authors { get; init; } = new();
 
     /// <summary>
     /// Related creations
-    /// </summary>
+    /// </summary>\
+    [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Creation>))]
     public HashSet<Creation> Creations { get; init; } = new();
-    
+
+    // TODO: tags
+
     #endregion
 
     #region Constructors
@@ -58,12 +64,12 @@ public class Circle : IDatabaseEntity
     /// <param name="titles">Titles</param>
     public void AddTitles(IEnumerable<LanguageSpecificTextInfo> titles) =>
         titles.ToList().ForEach(AddTitle);
-    
+
     /// <summary>
     /// Add title to the relational database
     /// </summary>
     /// <param name="title">Title</param>
     public void AddTitle(LanguageSpecificTextInfo title) => CirclesTitles.Add(new(this, title));
-    
+
     #endregion
 }

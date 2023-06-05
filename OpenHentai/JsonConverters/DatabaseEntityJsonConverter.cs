@@ -19,5 +19,6 @@ public class DatabaseEntityJsonConverter<T> : JsonConverter<T> where T : IDataba
         if (value is null)
             writer.WriteNullValue();
         else
-            writer.WriteNumberValue(value.Id);    }
+            writer.WriteNumberValue(value.Id);
+    }
 }

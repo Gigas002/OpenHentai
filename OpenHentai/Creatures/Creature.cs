@@ -3,6 +3,8 @@ using OpenHentai.Descriptors;
 using OpenHentai.Relative;
 using OpenHentai.Relations;
 using OpenHentai.Tags;
+using System.Text.Json.Serialization;
+using OpenHentai.JsonConverters;
 
 namespace OpenHentai.Creatures;
 
@@ -10,7 +12,7 @@ namespace OpenHentai.Creatures;
 /// Creature
 /// </summary>
 [Table("creatures")]
-public abstract class Creature : IDatabaseEntity
+public class Creature : IDatabaseEntity
 {
     #region Properties
 
@@ -52,6 +54,7 @@ public abstract class Creature : IDatabaseEntity
     /// <summary>
     /// Creature's additional details/tags
     /// </summary>
+    [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Tag>))]
     public HashSet<Tag> Tags { get; init; } = new();
 
     /// <summary>
@@ -60,6 +63,14 @@ public abstract class Creature : IDatabaseEntity
     /// </summary>
     public HashSet<CreaturesRelations> CreaturesRelations { get; init; } = new();
     
+    #endregion
+
+    #region Constructors
+
+    public Creature() { }
+
+    public Creature(ulong id) => Id = id;
+
     #endregion
 
     #region Methods

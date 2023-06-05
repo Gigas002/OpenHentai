@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using OpenHentai.Creatures;
+using OpenHentai.JsonConverters;
 using OpenHentai.Relations;
 
 namespace OpenHentai.Relative;
@@ -12,20 +13,21 @@ public class CreaturesRelations
     #region Properties
 
     [ForeignKey("creature_id")]
-    [JsonIgnore]
+    [JsonConverter(typeof(DatabaseEntityJsonConverter<Creature>))]
     public Creature Creature { get; set; } = null!;
 
     [ForeignKey("related_creature_id")]
+    [JsonConverter(typeof(DatabaseEntityJsonConverter<Creature>))]
     public Creature RelatedCreature { get; set; } = null!;
 
     public CreatureRelations Relation { get; set; }
-    
+
     #endregion
 
     #region Constructors
 
     public CreaturesRelations() { }
-    
+
     public CreaturesRelations(Creature creature, Creature relatedCreature, CreatureRelations relation) =>
         (Creature, RelatedCreature, Relation) = (creature, relatedCreature, relation);
 
