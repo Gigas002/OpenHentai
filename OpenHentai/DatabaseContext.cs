@@ -6,6 +6,7 @@ using OpenHentai.Creations;
 using OpenHentai.Circles;
 using OpenHentai.Descriptors;
 using OpenHentai.Relative;
+using OpenHentai.ValueConverters;
 
 namespace OpenHentai;
 
@@ -80,50 +81,38 @@ public class DatabaseContext : DbContext
 
         var jsonSerializerOptions = Essential.JsonSerializerOptions;
         
-        // TODO: use ValueConverter
-        // see: https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations
-        // probably redundant in net8+
+        // TODO: probably redundant in net8+
         // see: https://github.com/dotnet/efcore/issues/13947
 
-        modelBuilder.Entity<Tag>().Property(e => e.Description).HasConversion(
-            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<LanguageSpecificTextInfo>>(v, jsonSerializerOptions)!);
+        modelBuilder.Entity<Tag>().Property(e => e.Description)
+                                  .HasConversion<JsonValueConverter<HashSet<LanguageSpecificTextInfo>>>();
 
-        modelBuilder.Entity<Creature>().Property(e => e.Description).HasConversion(
-            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<LanguageSpecificTextInfo>>(v, jsonSerializerOptions)!);
+        modelBuilder.Entity<Creature>().Property(e => e.Description)
+                                  .HasConversion<JsonValueConverter<HashSet<LanguageSpecificTextInfo>>>();
 
-        modelBuilder.Entity<Creature>().Property(e => e.Media).HasConversion(
-            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<MediaInfo>>(v, jsonSerializerOptions)!);
+        modelBuilder.Entity<Creature>().Property(e => e.Media)
+                                  .HasConversion<JsonValueConverter<HashSet<MediaInfo>>>();        
 
-        modelBuilder.Entity<Author>().Property(e => e.ExternalLinks).HasConversion(
-            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<ExternalLinkInfo>>(v, jsonSerializerOptions)!);
+        modelBuilder.Entity<Author>().Property(e => e.ExternalLinks)
+                                  .HasConversion<JsonValueConverter<HashSet<ExternalLinkInfo>>>();        
 
-        modelBuilder.Entity<Creation>().Property(e => e.Sources).HasConversion(
-            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<ExternalLinkInfo>>(v, jsonSerializerOptions)!);
+        modelBuilder.Entity<Creation>().Property(e => e.Sources)
+                                  .HasConversion<JsonValueConverter<HashSet<ExternalLinkInfo>>>();        
 
-        modelBuilder.Entity<Creation>().Property(e => e.Description).HasConversion(
-            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<LanguageSpecificTextInfo>>(v, jsonSerializerOptions)!);
+        modelBuilder.Entity<Creation>().Property(e => e.Description)
+                                  .HasConversion<JsonValueConverter<HashSet<LanguageSpecificTextInfo>>>();        
 
-        modelBuilder.Entity<Creation>().Property(e => e.Media).HasConversion(
-            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<MediaInfo>>(v, jsonSerializerOptions)!);
+        modelBuilder.Entity<Creation>().Property(e => e.Media)
+                                  .HasConversion<JsonValueConverter<HashSet<MediaInfo>>>();        
 
-        modelBuilder.Entity<Creation>().Property(e => e.Languages).HasConversion(
-            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<LanguageInfo>>(v, jsonSerializerOptions)!);
+        modelBuilder.Entity<Creation>().Property(e => e.Languages)
+                                  .HasConversion<JsonValueConverter<HashSet<LanguageInfo>>>();        
 
-        modelBuilder.Entity<Creation>().Property(e => e.Censorship).HasConversion(
-            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<CensorshipInfo>>(v, jsonSerializerOptions)!);
+        modelBuilder.Entity<Creation>().Property(e => e.Censorship)
+                                  .HasConversion<JsonValueConverter<HashSet<CensorshipInfo>>>();        
 
-        modelBuilder.Entity<Manga>().Property(e => e.ColoredInfo).HasConversion(
-            v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-            v => JsonSerializer.Deserialize<HashSet<ColoredInfo>>(v, jsonSerializerOptions)!);
+        modelBuilder.Entity<Manga>().Property(e => e.ColoredInfo)
+                                  .HasConversion<JsonValueConverter<HashSet<ColoredInfo>>>();        
 
         #endregion
 

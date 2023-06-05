@@ -10,7 +10,7 @@ public static class Essential
     public static JsonSerializerOptions JsonSerializerOptions => new JsonSerializerOptions
     {
         PropertyNamingPolicy = new SnakeCaseLowerNamingPolicy(),
-        WriteIndented = true,
+        // WriteIndented = true,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
     };
 }
