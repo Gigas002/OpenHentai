@@ -585,6 +585,11 @@
             including localizable text
             </summary>
         </member>
+        <member name="F:OpenHentai.Descriptors.LanguageSpecificTextInfo.DefaultLanguage">
+            <summary>
+            Language is not chosen, refer to default field values
+            </summary>
+        </member>
         <member name="P:OpenHentai.Descriptors.LanguageSpecificTextInfo.Language">
             <summary>
             Text language
@@ -607,12 +612,12 @@
             </summary>
             <param name="formatedText">Formatted text line</param>
         </member>
-        <member name="M:OpenHentai.Descriptors.LanguageSpecificTextInfo.#ctor(System.Globalization.CultureInfo,System.String)">
+        <member name="M:OpenHentai.Descriptors.LanguageSpecificTextInfo.#ctor(System.String,System.Globalization.CultureInfo)">
             <summary>
             Create new string with language info
             </summary>
-            <param name="language">Line's culture/language</param>
             <param name="text">Line</param>
+            <param name="language">Line's culture/language</param>
         </member>
         <member name="M:OpenHentai.Descriptors.LanguageSpecificTextInfo.ToString">
             <inheritdoc />

@@ -165,7 +165,7 @@ public class DatabaseTests
         using var db = new DatabaseContext();
 
         var author = db.Authors.FirstOrDefault();
-        author!.AddAuthorName(new("en-US", "Author Name"));
+        author!.AddAuthorName(new("Author Name", "en-US"));
 
         db.SaveChanges();
     }
@@ -185,7 +185,7 @@ public class DatabaseTests
         {
             Length = 10,
         };
-        manga1.AddTitle(new("en-US", "manga1"));
+        manga1.AddTitle(new("manga1", "en-US"));
         manga1.Media.Add(new("https://google.com", MediaType.Image));
         manga1.Languages.Add(new("en-US", false));
         manga1.Censorship.Add(new(Censorship.None, true));
@@ -196,10 +196,10 @@ public class DatabaseTests
         manga1.Circles.Add(circle!);
 
         var manga2 = new Manga();
-        manga2.AddTitle(new("en-US", "manga2"));
+        manga2.AddTitle(new("manga2", "en-US"));
 
         var mangaCol = new Manga();
-        mangaCol.AddTitle(new("en-US", "mangaCol"));
+        mangaCol.AddTitle(new("mangaCol", "en-US"));
 
         db.Manga.AddRange(manga1, manga2, mangaCol);
 
@@ -214,7 +214,7 @@ public class DatabaseTests
         using var db = new DatabaseContext();
 
         var circle = db.Circles.FirstOrDefault();
-        circle!.AddTitle(new("en-US", "Circle Title"));
+        circle!.AddTitle(new("Circle Title", "en-US"));
 
         db.SaveChanges();
     }
@@ -266,7 +266,7 @@ public class DatabaseTests
 
         var creation = db.Creations.FirstOrDefault();
 
-        creation!.AddTitle(new("en-US", "Creation Title"));
+        creation!.AddTitle(new("Creation Title", "en-US"));
 
         db.SaveChanges();
     }

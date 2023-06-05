@@ -13,6 +13,11 @@ public class LanguageSpecificTextInfo
     #region Properties
 
     /// <summary>
+    /// Language is not chosen, refer to default field values
+    /// </summary>
+    public const string DefaultLanguage = "default";
+
+    /// <summary>
     /// Text language
     /// <para/> In case it's null - romanized value is passed
     /// </summary>
@@ -41,25 +46,18 @@ public class LanguageSpecificTextInfo
     {
         var textLanguage = formatedText.Split("::");
         Text = textLanguage[1];
-        // TODO: set prop by default and throw otherwise
-        // Invariant culture is selected by default, if lang not specified
-        Language = textLanguage[0] == "default" || textLanguage.Length < 1 ?
+        Language = textLanguage[0] == DefaultLanguage || textLanguage.Length < 1 ?
             null : new CultureInfo(textLanguage[0]);
     }
-
-    // TODO: Consider changing the order of arguments, so everywhere will be
-    // (text,lang) or (lang,text)
 
     /// <summary>
     /// Create new string with language info
     /// </summary>
-    /// <param name="language">Line's culture/language</param>
     /// <param name="text">Line</param>
-    public LanguageSpecificTextInfo(CultureInfo? language, string text) => (Language, Text) = (language, text);
+    /// <param name="language">Line's culture/language</param>
+    public LanguageSpecificTextInfo(string text, CultureInfo? language) => (Text, Language) = (text, language);
     
-    public LanguageSpecificTextInfo(string language, string text) : this(new CultureInfo(language), text) { }
-
-    // TODO: const for "default" string
+    public LanguageSpecificTextInfo(string text, string language) : this(text, new CultureInfo(language)) { }
 
     #endregion
 

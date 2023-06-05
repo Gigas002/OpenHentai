@@ -38,7 +38,7 @@ public class CirclesTitles : ILanguageSpecificTextInfoEntity<Circle>
 
     #region Methods
 
-    public LanguageSpecificTextInfo GetLanguageSpecificTextInfo() => new(Language, Text);
+    public LanguageSpecificTextInfo GetLanguageSpecificTextInfo() => new(Text, Language);
 
     #endregion
 }
