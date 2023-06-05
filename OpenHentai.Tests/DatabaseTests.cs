@@ -40,9 +40,11 @@ public class DatabaseTests
         var creatureTag = new Tag { Category = TagCategory.BodyType, Value = "Adult" };
         var charaTag = new Tag { Category = TagCategory.BodyType, Value = "Loli" };
 
+        var circleTag = new Tag { Category = TagCategory.Personality, Value = "Yandere" };
+
         tag2.Master = tag1;
 
-        db.Tags.AddRange(tag1, tag2, tag3, creatureTag, charaTag);
+        db.Tags.AddRange(tag1, tag2, tag3, creatureTag, charaTag, circleTag);
         db.SaveChanges();
     }
 
@@ -95,6 +97,7 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
+    // depends on PushTagsTest(1)
     // depends on PushAuthorsTest(2)
     [Test]
     [Order(3)]
@@ -103,9 +106,11 @@ public class DatabaseTests
         using var db = new DatabaseContext();
 
         var author = db.Authors.FirstOrDefault();
+        var tag = db.Tags.FirstOrDefault(t => t.Value == "Yandere");
 
         var circle = new Circle();
         circle.Authors.Add(author!);
+        circle.Tags.Add(tag!);
 
         db.Circles.Add(circle);
 
@@ -349,6 +354,7 @@ public class DatabaseTests
         var circles = db.Circles.Include(c => c.CirclesTitles)
                                 .Include(c => c.Authors)
                                 .Include(c => c.Creations)
+                                .Include(c => c.Tags)
                                 .ToList();
 
         SerializeEntity(circles);
@@ -380,7 +386,8 @@ public class DatabaseTests
         using var db = new DatabaseContext();
 
         var tags = db.Tags.Include(t => t.Creatures)
-                          .ThenInclude(c => c.CreaturesNames)
+                          .Include(t => t.Circles)
+                          .Include(t => t.Creations)
                           .ToList();
 
         SerializeEntity(tags);

@@ -5,6 +5,7 @@ using OpenHentai.Relative;
 using OpenHentai.Descriptors;
 using System.Text.Json.Serialization;
 using OpenHentai.JsonConverters;
+using OpenHentai.Tags;
 
 namespace OpenHentai.Circles;
 
@@ -38,7 +39,8 @@ public class Circle : IDatabaseEntity
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Creation>))]
     public HashSet<Creation> Creations { get; init; } = new();
 
-    // TODO: tags
+    [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Tag>))]
+    public HashSet<Tag> Tags { get; init; } = new();
 
     #endregion
 

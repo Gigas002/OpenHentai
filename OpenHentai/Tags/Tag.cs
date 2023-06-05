@@ -5,6 +5,7 @@ using OpenHentai.Descriptors;
 using OpenHentai.Creatures;
 using OpenHentai.Creations;
 using OpenHentai.JsonConverters;
+using OpenHentai.Circles;
 
 namespace OpenHentai.Tags;
 
@@ -81,8 +82,7 @@ public class Tag : IDatabaseEntity
     [JsonConverter(typeof(DatabaseEntityJsonConverter<Tag>))]
     public Tag? Master { get; set; }
     
-    // TODO: consider adding property
-    [JsonIgnore]
+    [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Tag>))]
     public HashSet<Tag> Slaves { get; init; } = new();
 
     /// <summary>
@@ -105,11 +105,14 @@ public class Tag : IDatabaseEntity
     [Column(TypeName = "jsonb")]
     public HashSet<LanguageSpecificTextInfo> Description { get; init; } = new();
 
-    [JsonIgnore]
+    [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Creature>))]
     public HashSet<Creature> Creatures { get; init; } = new();
 
-    [JsonIgnore]
+    [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Creation>))]
     public HashSet<Creation> Creations { get; init; } = new();
+
+    [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Circle>))]
+    public HashSet<Circle> Circles { get; init; } = new();
 
     #endregion
 }

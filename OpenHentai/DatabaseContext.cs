@@ -179,6 +179,21 @@ public class DatabaseContext : DbContext
                     .HasForeignKey("creature_id")
             );
 
+        modelBuilder.Entity<Circle>()
+            .HasMany(c => c.Tags)
+            .WithMany(t => t.Circles)
+            .UsingEntity<Dictionary<ulong, ulong>>(
+                "circles_tags",
+                j => j
+                    .HasOne<Tag>()
+                    .WithMany()
+                    .HasForeignKey("tag_id"),
+                j => j
+                    .HasOne<Circle>()
+                    .WithMany()
+                    .HasForeignKey("circle_id")
+            );
+
         #endregion
 
         #region Manual relations settings
