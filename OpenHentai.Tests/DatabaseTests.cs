@@ -604,6 +604,8 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
+    // depends on PushCirclesTest(1)
+    // depends on PushTagsTest(1)
     [Test]
     [Order(2)]
     public void PushCirclesTagsTest()
