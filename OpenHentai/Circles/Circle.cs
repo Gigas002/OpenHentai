@@ -50,9 +50,18 @@ public class Circle : IDatabaseEntity
 
     #region Constructors
 
+    /// <summary>
+    /// Create a new circle
+    /// </summary>
     public Circle() { }
 
+    /// <inheritdoc cref="Circle()" />
+    /// <param name="id">Id</param>
     public Circle(ulong id) => Id = id;
+
+    /// <inheritdoc cref="Circle()" />
+    /// <param name="title">Title</param>
+    public Circle(LanguageSpecificTextInfo title) => AddTitle(title);
 
     #endregion
 

@@ -34,6 +34,19 @@
             Tags
             </summary>
         </member>
+        <member name="M:OpenHentai.Circles.Circle.#ctor">
+            <summary>
+            Create a new circle
+            </summary>
+        </member>
+        <member name="M:OpenHentai.Circles.Circle.#ctor(System.UInt64)">
+            <inheritdoc cref="M:OpenHentai.Circles.Circle.#ctor" />
+            <param name="id">Id</param>
+        </member>
+        <member name="M:OpenHentai.Circles.Circle.#ctor(OpenHentai.Descriptors.LanguageSpecificTextInfo)">
+            <inheritdoc cref="M:OpenHentai.Circles.Circle.#ctor" />
+            <param name="title">Title</param>
+        </member>
         <member name="M:OpenHentai.Circles.Circle.GetTitles">
             <summary>
             Convert relational database's object into collection of formatted objects

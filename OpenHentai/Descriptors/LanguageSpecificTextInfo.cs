@@ -4,6 +4,10 @@ using OpenHentai.JsonConverters;
 
 namespace OpenHentai.Descriptors;
 
+// TODO: consider changing the standard
+// problem: arguments order '(text, lang)' doesn't match 'lang::text'
+
+
 /// <summary>
 /// Class for describing strings with language info,
 /// including localizable text
@@ -55,7 +59,7 @@ public class LanguageSpecificTextInfo
     {
         var textLanguage = formatedText.Split(LanguageDelimiter);
         Text = textLanguage[1];
-        Language = textLanguage[0] == DefaultLanguage || textLanguage.Length < 1 ?
+        Language = textLanguage[0] == DefaultLanguage ?
             null : new CultureInfo(textLanguage[0]);
     }
 
@@ -66,7 +70,8 @@ public class LanguageSpecificTextInfo
     /// <param name="language">Line's culture/language</param>
     public LanguageSpecificTextInfo(string text, CultureInfo? language) => (Text, Language) = (text, language);
     
-    public LanguageSpecificTextInfo(string text, string language) : this(text, new CultureInfo(language)) { }
+    public LanguageSpecificTextInfo(string text, string language) :
+        this($"{language}{LanguageDelimiter}{text}") { }
 
     #endregion
 

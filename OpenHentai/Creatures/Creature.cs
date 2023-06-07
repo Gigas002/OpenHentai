@@ -70,7 +70,11 @@ public class Creature : IDatabaseEntity
 
     public Creature() { }
 
-    public Creature(ulong id) => Id = id;
+    public Creature(ulong id) : this() => Id = id;
+
+    public Creature(LanguageSpecificTextInfo name) : this() => AddName(name);
+
+    public Creature(string formattedName) : this(new LanguageSpecificTextInfo(formattedName)) { }
 
     #endregion
 

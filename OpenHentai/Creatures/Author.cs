@@ -43,6 +43,18 @@ public class Author : Creature
     
     #endregion
 
+    #region Constructors
+
+    public Author() : base() { }
+
+    public Author(ulong id) : base(id) { }
+
+    public Author(LanguageSpecificTextInfo name) : base(name) { }
+
+    public Author(string formattedName) : base(new LanguageSpecificTextInfo(formattedName)) { }
+
+    #endregion
+
     #region Methods
 
     public IEnumerable<LanguageSpecificTextInfo> GetAuthorNames() =>

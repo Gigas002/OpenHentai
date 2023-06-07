@@ -39,6 +39,8 @@
 
         <!-- Temporary disable xml-docs related warning -->
         <NoWarn>1591</NoWarn>
+        <!-- TODO: this is ignored for unknown reasons -->
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)'=='Release'">

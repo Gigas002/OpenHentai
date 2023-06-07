@@ -75,14 +75,14 @@ public class Tag : IDatabaseEntity
 
     /// <inheritdoc />
     public ulong Id { get; init; }
-    
+
     /// <summary>
     /// This tag's master tag
     /// <para/>null in case there's no master
     /// </summary>
     [JsonConverter(typeof(DatabaseEntityJsonConverter<Tag>))]
     public Tag? Master { get; set; }
-    
+
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Tag>))]
     public HashSet<Tag> Slaves { get; init; } = new();
 
@@ -92,7 +92,7 @@ public class Tag : IDatabaseEntity
     /// </summary>
     [Required]
     public TagCategory Category { get; set; } = TagCategory.Unknown;
-    
+
     /// <summary>
     /// Tag's value
     /// e.g. Mitsudomoe
@@ -114,6 +114,14 @@ public class Tag : IDatabaseEntity
 
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Circle>))]
     public HashSet<Circle> Circles { get; init; } = new();
+
+    #endregion
+
+    #region Constructors
+
+    public Tag() { }
+
+    public Tag(TagCategory category, string value) => (Category, Value) = (category, value);
 
     #endregion
 }

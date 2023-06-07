@@ -122,6 +122,12 @@ public class Creation : IDatabaseEntity
 
     public Creation(ulong id) => Id = id;
 
+    public Creation(LanguageSpecificTextInfo title, Author author, AuthorRole authorRole)
+    {
+        AddTitle(title);
+        AddAuthor(author, authorRole);
+    }
+
     #endregion
 
     #region Methods

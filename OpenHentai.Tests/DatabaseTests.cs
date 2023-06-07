@@ -31,20 +31,34 @@ public class DatabaseTests
     {
         using var db = new DatabaseContext();
 
-        var tag1 = new Tag { Category = TagCategory.Parody, Value = "Yuru Camp" };
-        tag1.Description.Add(new("en-US::Anime about camping"));
-        var tag2 = new Tag { Category = TagCategory.Parody, Value = "Yuru Camp Season 2" };
-        tag2.Description.Add(new("en-US::Second season of Yuru Camp"));
-        var tag3 = new Tag { Category = TagCategory.Parody, Value = "JJBA" };
+        // init tag for basic categories
 
-        var creatureTag = new Tag { Category = TagCategory.BodyType, Value = "Adult" };
-        var charaTag = new Tag { Category = TagCategory.BodyType, Value = "Loli" };
+        var ycTag = new Tag(TagCategory.Parody, "Yuru Camp");
+        ycTag.Description.Add(new("en-US::Anime about camping"));
+        ycTag.Description.Add(new("en-US::()[[138-841/\"gaga\"/n\n\r\t\t/t/r/n]])"));
+        ycTag.Description.Add(new("ru-RU::Аниме про кемпинг"));
 
-        var circleTag = new Tag { Category = TagCategory.Personality, Value = "Yandere" };
+        var yc2Tag = new Tag(TagCategory.Parody, "Yuru Camp Season 2");
+        yc2Tag.Description.Add(new("en-US::Second season of Yuru Camp"));
 
-        tag2.Master = tag1;
+        var jjbaTag = new Tag(TagCategory.Parody, "Jojo Bizzare Adventures");
+        jjbaTag.Description.Add(new("First part of JJBA saga", "default"));
 
-        db.Tags.AddRange(tag1, tag2, tag3, creatureTag, charaTag, circleTag);
+        var circleTag = new Tag(TagCategory.Personality, "Lazy");
+        circleTag.Description.Add(new("en-US::This circle is lazy to release new chapters"));
+
+        var authorTag = new Tag(TagCategory.BodyType, "Adult");
+        authorTag.Description.Add(new("en-US::This author is adult"));
+
+        var charaTag = new Tag(TagCategory.Species, "Human");
+        charaTag.Description.Add(new("en-US::This character is human"));
+
+        // set master-slave realtions
+
+        yc2Tag.Master = ycTag;
+
+        db.Tags.AddRange(ycTag, yc2Tag, jjbaTag, circleTag, authorTag, charaTag);
+
         db.SaveChanges();
     }
 
@@ -55,22 +69,44 @@ public class DatabaseTests
     {
         using var db = new DatabaseContext();
 
+        // TODO: move this into it's own test -> decrease this order to 1 since to dependencies
+        // get author tag by searching for BodyType category
         var tag = db.Tags.FirstOrDefault(t => t.Category == TagCategory.BodyType);
 
-        var author = new Author
+        // TODO: test default lang string (not here)
+        var ycAuthor = new Author("en-US::Afro")
         {
-            Age = 10
+            Birthday = new(2000, 01, 01),
+            Age = 30,
+            Gender = Gender.Male
         };
-        author.Description.Add(new("en-US::Author descr 1"));
-        author.Media.Add(new("https://google.com", MediaType.Image));
-        author.Tags.Add(tag!);
-        author.ExternalLinks.Add(new("google", "https://google.com")
+        ycAuthor.AddAuthorName(new("ja-JP::あｆろ"));
+        ycAuthor.Description.Add(new("en-US::Author of Yuru Camp manga"));
+        ycAuthor.Media.Add(new("https://cdn.myanimelist.net/images/anime/4/89877.jpg", MediaType.Image));
+        ycAuthor.Tags.Add(tag!);
+        ycAuthor.ExternalLinks.Add(new("twitter", "https://twitter.com/afro_2021")
         {
             OfficialStatus = OfficialStatus.Official,
-            PaidStatus = PaidStatus.Free,
+            PaidStatus = PaidStatus.Free
         });
 
-        db.Authors.Add(author);
+        var jjbaAuthor = new Author("en-US::Araki")
+        {
+            Birthday = new(1999, 09, 09),
+            Age = 99,
+            Gender = Gender.Male
+        };
+        jjbaAuthor.AddAuthorName(new("ja-JP::あらき"));
+        jjbaAuthor.Description.Add(new("en-US::Author of JJBA manga"));
+        jjbaAuthor.Media.Add(new("https://cdn.myanimelist.net/images/anime/4/89877.jpg", MediaType.Image));
+        jjbaAuthor.Tags.Add(tag!);
+        jjbaAuthor.ExternalLinks.Add(new("twitter", "https://twitter.com/afro_2021")
+        {
+            OfficialStatus = OfficialStatus.Official,
+            PaidStatus = PaidStatus.Free
+        });
+
+        db.Authors.AddRange(ycAuthor, jjbaAuthor);
 
         db.SaveChanges();
     }
@@ -82,7 +118,7 @@ public class DatabaseTests
     {
         using var db = new DatabaseContext();
 
-        var tag = db.Tags.FirstOrDefault(t => t.Category == TagCategory.BodyType && t.Value == "Loli");
+        var tag = db.Tags.FirstOrDefault(t => t.Category == TagCategory.Species && t.Value == "Human");
 
         var character = new Character
         {
@@ -106,7 +142,7 @@ public class DatabaseTests
         using var db = new DatabaseContext();
 
         var author = db.Authors.FirstOrDefault();
-        var tag = db.Tags.FirstOrDefault(t => t.Value == "Yandere");
+        var tag = db.Tags.FirstOrDefault(t => t.Value == "Lazy");
 
         var circle = new Circle();
         circle.Authors.Add(author!);
