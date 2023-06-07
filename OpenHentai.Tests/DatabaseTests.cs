@@ -354,14 +354,18 @@ public class DatabaseTests
 
         var authors = db.Authors.Include(a => a.AuthorsNames).ToHashSet();
 
-        // TODO: ugly asf
-        var ym = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Yukino Minato") != null);
-        var asanagi = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Asanagi") != null);
-
+        var ym = authors.FirstOrDefault(a => a.AuthorsNames.Any(an => an.Text == "Yukino Minato"));
+        var asanagi = authors.FirstOrDefault(a => a.AuthorsNames.Any(an => an.Text == "Asanagi"));
+        
         var circles = db.Circles.Include(c => c.CirclesTitles).ToHashSet();
 
-        var nnnt = circles.FirstOrDefault(c => c.CirclesTitles.FirstOrDefault(ct => ct.Text == "noraneko-no-tama") != null);
-        var fatalpulse = circles.FirstOrDefault(c => c.CirclesTitles.FirstOrDefault(ct => ct.Text == "Fatalpulse") != null);
+        // or by searching through relative table:
+        // var cts = db.CirclesTitles.ToHashSet();
+        // var nnntCt = cts.FirstOrDefault(ct => ct.Text == "noraneko-no-tama");
+        // var nnnt = circles.FirstOrDefault(c => c.Id == nnntCt.Id);
+
+        var nnnt = circles.FirstOrDefault(c => c.CirclesTitles.Any(ct => ct.Text == "noraneko-no-tama"));
+        var fatalpulse = circles.FirstOrDefault(c => c.CirclesTitles.Any(ct => ct.Text == "Fatalpulse"));
 
         ym!.Circles.Add(nnnt!);
         fatalpulse!.Authors.Add(asanagi!);
@@ -379,15 +383,15 @@ public class DatabaseTests
         
         var authors = db.Authors.Include(a => a.AuthorsNames).ToHashSet();
 
-        var ym = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Yukino Minato") != null);
-        var asanagi = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Asanagi") != null);
+        var ym = authors.FirstOrDefault(a => a.AuthorsNames.Any(an => an.Text == "Yukino Minato"));
+        var asanagi = authors.FirstOrDefault(a => a.AuthorsNames.Any(an => an.Text == "Asanagi"));
 
         var manga = db.Manga.Include(m => m.CreationsTitles).ToHashSet();
 
-        var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono Shoya") != null);
-        var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono") != null);
-        var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 24") != null);
-        var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 25") != null);
+        var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "Monokemono Shoya"));
+        var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "Monokemono"));
+        var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "VictimGirls 24"));
+        var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "VictimGirls 25"));
 
         ym!.AddCreation(ymM1!, AuthorRole.MainArtist);
         ym.AddCreation(ymM2!, AuthorRole.MainArtist);
@@ -407,17 +411,17 @@ public class DatabaseTests
 
         var characters = db.Characters.Include(a => a.CreaturesNames).ToHashSet();
 
-        var ymM1M = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Unnamed male") != null);
-        var ymM2F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Akaname") != null);
-        var aM1F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Ajax") != null);
-        var aM2F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Aliza") != null);
+        var ymM1M = characters.FirstOrDefault(c => c.CreaturesNames.Any(cn => cn.Text == "Unnamed male"));
+        var ymM2F = characters.FirstOrDefault(c => c.CreaturesNames.Any(cn => cn.Text == "Akaname"));
+        var aM1F = characters.FirstOrDefault(c => c.CreaturesNames.Any(cn => cn.Text == "Ajax"));
+        var aM2F = characters.FirstOrDefault(c => c.CreaturesNames.Any(cn => cn.Text == "Aliza"));
 
         var manga = db.Manga.Include(m => m.CreationsTitles).ToHashSet();
 
-        var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono Shoya") != null);
-        var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono") != null);
-        var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 24") != null);
-        var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 25") != null);
+        var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "Monokemono Shoya"));
+        var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "Monokemono"));
+        var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "VictimGirls 24"));
+        var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "VictimGirls 25"));
 
         ymM1M!.AddCreation(ymM1!, CharacterRole.Main);
         ymM1M.AddCreation(ymM2!, CharacterRole.Secondary);
@@ -438,8 +442,8 @@ public class DatabaseTests
         
         var authors = db.Authors.Include(a => a.AuthorsNames).ToHashSet();
 
-        var ym = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Yukino Minato") != null);
-        var asanagi = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Asanagi") != null);
+        var ym = authors.FirstOrDefault(a => a.AuthorsNames.Any(an => an.Text == "Yukino Minato"));
+        var asanagi = authors.FirstOrDefault(a => a.AuthorsNames.Any(an => an.Text == "Asanagi"));
 
         var tags = db.Tags.Include(tag => tag.Creatures).ToHashSet();
 
@@ -464,9 +468,9 @@ public class DatabaseTests
         
         var characters = db.Characters.Include(a => a.CreaturesNames).ToHashSet();
 
-        var ymM2F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Akaname") != null);
-        var aM1F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Ajax") != null);
-        var aM2F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Aliza") != null);
+        var ymM2F = characters.FirstOrDefault(c => c.CreaturesNames.Any(cn => cn.Text == "Akaname"));
+        var aM1F = characters.FirstOrDefault(c => c.CreaturesNames.Any(cn => cn.Text == "Ajax"));
+        var aM2F = characters.FirstOrDefault(c => c.CreaturesNames.Any(cn => cn.Text == "Aliza"));
 
         var tags = db.Tags.Include(tag => tag.Creatures).ToHashSet();
 
@@ -491,8 +495,8 @@ public class DatabaseTests
         
         var authors = db.Authors.Include(a => a.AuthorsNames).ToHashSet();
 
-        var ym = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Yukino Minato") != null);
-        var asanagi = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Asanagi") != null);
+        var ym = authors.FirstOrDefault(a => a.AuthorsNames.Any(an => an.Text == "Yukino Minato"));
+        var asanagi = authors.FirstOrDefault(a => a.AuthorsNames.Any(an => an.Text == "Asanagi"));
 
         ym!.AddRelation(asanagi!, CreatureRelations.Unknown);
         asanagi!.AddRelation(ym, CreatureRelations.Friend);
@@ -509,10 +513,10 @@ public class DatabaseTests
         
         var characters = db.Characters.Include(a => a.CreaturesNames).ToHashSet();
 
-        var ymM1M = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Unnamed male") != null);
-        var ymM2F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Akaname") != null);
-        var aM1F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Ajax") != null);
-        var aM2F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Aliza") != null);
+        var ymM1M = characters.FirstOrDefault(c => c.CreaturesNames.Any(cn => cn.Text == "Unnamed male"));
+        var ymM2F = characters.FirstOrDefault(c => c.CreaturesNames.Any(cn => cn.Text == "Akaname"));
+        var aM1F = characters.FirstOrDefault(c => c.CreaturesNames.Any(cn => cn.Text == "Ajax"));
+        var aM2F = characters.FirstOrDefault(c => c.CreaturesNames.Any(cn => cn.Text == "Aliza"));
 
         ymM1M!.AddRelation(ymM2F!, CreatureRelations.Unknown);
         aM1F!.AddRelation(aM2F!, CreatureRelations.Enemy);
@@ -530,15 +534,15 @@ public class DatabaseTests
         
         var manga = db.Manga.Include(m => m.CreationsTitles).ToHashSet();
 
-        var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono Shoya") != null);
-        var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono") != null);
-        var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 24") != null);
-        var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 25") != null);
+        var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "Monokemono Shoya"));
+        var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "Monokemono"));
+        var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "VictimGirls 24"));
+        var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "VictimGirls 25"));
 
         var circles = db.Circles.Include(c => c.CirclesTitles).Include(circle => circle.Creations).ToHashSet();
 
-        var nnnt = circles.FirstOrDefault(c => c.CirclesTitles.FirstOrDefault(ct => ct.Text == "noraneko-no-tama") != null);
-        var fatalpulse = circles.FirstOrDefault(c => c.CirclesTitles.FirstOrDefault(ct => ct.Text == "Fatalpulse") != null);
+        var nnnt = circles.FirstOrDefault(c => c.CirclesTitles.Any(ct => ct.Text == "noraneko-no-tama"));
+        var fatalpulse = circles.FirstOrDefault(c => c.CirclesTitles.Any(ct => ct.Text == "Fatalpulse"));
 
         ymM1!.Circles.Add(nnnt!);
         ymM2!.Circles.Add(nnnt!);
@@ -557,10 +561,10 @@ public class DatabaseTests
         
         var manga = db.Manga.Include(m => m.CreationsTitles).ToHashSet();
 
-        var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono Shoya") != null);
-        var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono") != null);
-        var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 24") != null);
-        var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 25") != null);
+        var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "Monokemono Shoya"));
+        var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "Monokemono"));
+        var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "VictimGirls 24"));
+        var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "VictimGirls 25"));
         
         ymM1!.AddRelation(ymM2!, CreationRelations.Slave);
         ymM2!.AddRelation(ymM1, CreationRelations.Master);
@@ -580,10 +584,10 @@ public class DatabaseTests
         
         var manga = db.Manga.Include(m => m.CreationsTitles).ToHashSet();
 
-        var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono Shoya") != null);
-        var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono") != null);
-        var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 24") != null);
-        var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 25") != null);
+        var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "Monokemono Shoya"));
+        var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "Monokemono"));
+        var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "VictimGirls 24"));
+        var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "VictimGirls 25"));
         
         var tags = db.Tags.Include(tag => tag.Creations).ToHashSet();
 
@@ -608,8 +612,8 @@ public class DatabaseTests
         
         var circles = db.Circles.Include(c => c.CirclesTitles).Include(circle => circle.Creations).ToHashSet();
 
-        var nnnt = circles.FirstOrDefault(c => c.CirclesTitles.FirstOrDefault(ct => ct.Text == "noraneko-no-tama") != null);
-        var fatalpulse = circles.FirstOrDefault(c => c.CirclesTitles.FirstOrDefault(ct => ct.Text == "Fatalpulse") != null);
+        var nnnt = circles.FirstOrDefault(c => c.CirclesTitles.Any(ct => ct.Text == "noraneko-no-tama"));
+        var fatalpulse = circles.FirstOrDefault(c => c.CirclesTitles.Any(ct => ct.Text == "Fatalpulse"));
 
         var tags = db.Tags.Include(tag => tag.Circles).ToHashSet();
 
