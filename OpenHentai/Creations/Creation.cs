@@ -122,6 +122,10 @@ public class Creation : IDatabaseEntity
 
     public Creation(ulong id) => Id = id;
 
+    public Creation(LanguageSpecificTextInfo title) => AddTitle(title);
+
+    public Creation(string formattedTitle) : this(new LanguageSpecificTextInfo(formattedTitle)) { }
+
     public Creation(LanguageSpecificTextInfo title, Author author, AuthorRole authorRole)
     {
         AddTitle(title);

@@ -57,7 +57,7 @@ public class LanguageSpecificTextInfo
     /// <param name="formatedText">Formatted text line</param>
     public LanguageSpecificTextInfo(string formatedText)
     {
-        var textLanguage = formatedText.Split(LanguageDelimiter);
+        var textLanguage = formatedText.Trim().Split(LanguageDelimiter);
         Text = textLanguage[1];
         Language = textLanguage[0] == DefaultLanguage ?
             null : new CultureInfo(textLanguage[0]);

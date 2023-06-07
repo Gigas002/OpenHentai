@@ -62,6 +62,8 @@ public class Circle : IDatabaseEntity
     /// <inheritdoc cref="Circle()" />
     /// <param name="title">Title</param>
     public Circle(LanguageSpecificTextInfo title) => AddTitle(title);
+    
+    public Circle(string formattedTitle) : this(new LanguageSpecificTextInfo(formattedTitle)) { }
 
     #endregion
 

@@ -25,6 +25,275 @@ public class DatabaseTests
 
     #region Push tests
 
+    #region Push without dependencies
+
+    [Test]
+    [Order(1)]
+    public void PushAuthorsTest()
+    {
+        using var db = new DatabaseContext();
+
+        // using templates for unknown values
+        var ym = new Author("default::Yukino Minato")
+        {
+            Birthday = new(1900, 01, 01),
+            Age = 999,
+            Gender = Gender.Female
+        };
+        ym.AddAuthorName(new("ja-JP::雪野 みなと"));
+        ym.AddName(new("default::Yukinominato"));
+        ym.Description.Add(new("en-US::Popular loli doujinshi artist"));
+        ym.Media.Add(new("https://pbs.twimg.com/profile_images/1587354886751993856/vSCQYP59_400x400.jpg", MediaType.Image));
+        ym.ExternalLinks.Add(new("twitter", "https://twitter.com/straycat_2018")
+        {
+            OfficialStatus = OfficialStatus.Official,
+            PaidStatus = PaidStatus.Free
+        });
+        ym.ExternalLinks.Add(new("fanbox", "https://noraneko-no-tama.fanbox.cc/")
+        {
+            OfficialStatus = OfficialStatus.Official,
+            PaidStatus = PaidStatus.Paid
+        });
+        
+        var asanagi = new Author("default::Asanagi")
+        {
+            Birthday = new(1900, 01, 01),
+            Age = 999,
+            Gender = Gender.Male
+        };
+        asanagi.AddAuthorName(new("ja-JP::朝凪"));
+        asanagi.AddName(new("default::asanagi"));
+        asanagi.Description.Add(new("en-US::Popular mindbreak artist"));
+        asanagi.Media.Add(new("https://pbs.twimg.com/profile_images/991625674757570562/MHkJ_qqa_400x400.jpg", MediaType.Image));
+        asanagi.ExternalLinks.Add(new("twitter", "https://twitter.com/Victim_Girls")
+        {
+            OfficialStatus = OfficialStatus.Official,
+            PaidStatus = PaidStatus.Free
+        });
+        asanagi.ExternalLinks.Add(new("fantia", "https://fantia.jp/asanagi")
+        {
+            OfficialStatus = OfficialStatus.Official,
+            PaidStatus = PaidStatus.Paid
+        });
+
+        db.Authors.AddRange(ym, asanagi);
+
+        db.SaveChanges();
+    }
+    
+    [Test]
+    [Order(1)]
+    public void PushCirclesTest()
+    {
+        using var db = new DatabaseContext();
+        
+        var nnntCircle = new Circle("default::noraneko-no-tama");
+        nnntCircle.AddTitle(new("ja-JP::ノラネコノタマ"));
+
+        var fCircle = new Circle("default::Fatalpulse");
+
+        db.Circles.AddRange(nnntCircle, fCircle);
+
+        db.SaveChanges();
+    }
+    
+    [Test]
+    [Order(1)]
+    public void PushMangaTest()
+    {
+        using var db = new DatabaseContext();
+        
+        // descriptions and metadata taken from toranoana/melonbooks/etc
+        
+        var ymManga1 = new Manga("default::Monokemono Shoya")
+        {
+            Length = 18,
+            Volumes = 1,
+            Chapters = 1,
+            HasImages = true,
+            PublishStarted = new DateTime(2012, 12, 28),
+            PublishEnded = new DateTime(2012, 12, 28),
+            Rating = Rating.R18,
+            Status = PublishStatus.Published
+        };
+        ymManga1.AddTitle(new("ja-JP::ものけもの 初夜"));
+        ymManga1.ColoredInfo.Add(new(Color.BlackWhite, true));
+        ymManga1.Languages.Add(new("ja-JP"));
+        ymManga1.Languages.Add(new("ru-RU", false));
+        ymManga1.Sources.Add(new("melonbooks", "https://www.melonbooks.co.jp/detail/detail.php?product_id=244658")
+        {
+            OfficialStatus = OfficialStatus.Official,
+            PaidStatus = PaidStatus.Paid
+        });
+        ymManga1.Media.Add(new("https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=990000160064.jpg", MediaType.Image));
+        ymManga1.Censorship.Add(new(Censorship.Tank, true));
+        ymManga1.Censorship.Add(new(Censorship.None, false));
+        ymManga1.Description.Add(new("ja-JP::サークル「ノラネコノタマ」オリジナル新シリーズ第一弾!いわくつきの物件での新生活。訪れるのは幸か不幸か・・・。世にも奇妙でほんとはえろい話。"));
+        
+        var ymManga2 = new Manga("default::Monokemono")
+        {
+            Length = 225,
+            Volumes = 1,
+            Chapters = 11,
+            HasImages = true,
+            PublishStarted = new DateTime(2012, 12, 28),
+            PublishEnded = new DateTime(2014, 11, 1),
+            Rating = Rating.R18,
+            Status = PublishStatus.Published
+        };
+        ymManga2.AddTitle(new("ja-JP::ものけもの 妖児艶童怪異譚"));
+        ymManga2.ColoredInfo.Add(new(Color.BlackWhite, true));
+        ymManga2.Languages.Add(new("ja-JP"));
+        ymManga2.Sources.Add(new("toranoana", "https://ec.toranoana.jp/tora_r/ec/item/200011974236/")
+        {
+            OfficialStatus = OfficialStatus.Official,
+            PaidStatus = PaidStatus.Paid
+        });
+        ymManga2.Media.Add(new("https://ecdnimg.toranoana.jp/ec/img/20/0011/97/42/200011974236-1p.jpg", MediaType.Image));
+        ymManga2.Censorship.Add(new(Censorship.Tank, true));
+        ymManga2.Description.Add(new("""
+            ja-JP::
+            妖しき少女とみだらな行為に耽る日々。
+            妖と交わり、妖に犯され・・・この世のものとは思えない気持ちよさ♥
+            ロリ系で圧倒的な人気の「ノラネコノタマ」作品集！！
+            新作描き下ろしも含んだ単行本化シリーズ第３弾！！
+        """));
+
+        var asanagiManga1 = new Manga("default::VictimGirls 24")
+        {
+            Length = 32,
+            Volumes = 1,
+            Chapters = 1,
+            HasImages = true,
+            PublishStarted = new DateTime(2017, 12, 31),
+            PublishEnded = new DateTime(2017, 12, 31),
+            Rating = Rating.R18,
+            Status = PublishStatus.Published
+        };
+        asanagiManga1.AddTitle(new("ja-JP::VictimGirls24　クソ生意気なドS娘に睡眠薬を"));
+        asanagiManga1.ColoredInfo.Add(new(Color.BlackWhite, true));
+        asanagiManga1.Languages.Add(new("ja-JP"));
+        asanagiManga1.Languages.Add(new("ru-RU", false));
+        asanagiManga1.Sources.Add(new("toranoana", "https://ec.toranoana.jp/tora_r/ec/item/040030597248/")
+        {
+            OfficialStatus = OfficialStatus.Official,
+            PaidStatus = PaidStatus.Paid
+        });
+        asanagiManga1.Media.Add(new("https://ecdnimg.toranoana.jp/ec/img/04/0030/59/72/040030597248-1p.jpg", MediaType.Image));
+        asanagiManga1.Censorship.Add(new(Censorship.Tank, true));
+        asanagiManga1.Censorship.Add(new(Censorship.None, false));
+        asanagiManga1.Description.Add(new("""
+            ja-JP::
+            サークル【Fatalpulse】からコミケ93新刊[アズールレーン]本！
+            『VictimGirls23 クソ生意気なドS娘に睡眠薬を』をご紹介。
+
+            日頃から高飛車な態度が目につくエイジャックス。
+            多少の無礼はともかく彼女は上官である指揮官を子豚呼ばわりし、
+            挙句、彼の服を隠して他の艦船少女の前で恥をかかせた。
+
+            度が過ぎる屈辱。自尊心を踏みにじられて湧き上がった怒りは治まらず、
+            夜深く心に黒い衝動を抱きながら、指揮官は足音をそっと忍ばせる。
+
+            息を殺して扉を開ければそこには薬で眠りに落ちたエイジャックス。
+
+            どちらが上なのか教えてやる。
+            寝息をたてるエイジャックスの柔肌を前に指揮官の情動が熱く滾る……。
+
+            クソ生意気なドS娘・エイジャックスが痴態を晒すさまに興奮必至。
+            実用度バツグンのいっさつとなっておりますのでどうぞお見逃しなく。
+        """));
+
+        var asanagiManga2 = new Manga("default::VictimGirls 25")
+        {
+            Length = 32,
+            Volumes = 1,
+            Chapters = 1,
+            HasImages = true,
+            PublishStarted = new DateTime(2018, 08, 12),
+            PublishEnded = new DateTime(2018, 08, 12),
+            Rating = Rating.R18,
+            Status = PublishStatus.Published
+        };
+        asanagiManga2.AddTitle(new("ja-JP::VictimGirls25　デカ乳低身長種族♀の角を折る話"));
+        asanagiManga2.ColoredInfo.Add(new(Color.BlackWhite, true));
+        asanagiManga2.Languages.Add(new("ja-JP"));
+        asanagiManga2.Languages.Add(new("ru-RU", false));
+        asanagiManga2.Sources.Add(new("toranoana", "https://ec.toranoana.jp/tora_r/ec/item/040030655691/")
+        {
+            OfficialStatus = OfficialStatus.Official,
+            PaidStatus = PaidStatus.Paid
+        });
+        asanagiManga2.Media.Add(new("https://ecdnimg.toranoana.jp/ec/img/04/0030/65/56/040030655691-1p.jpg", MediaType.Image));
+        asanagiManga2.Censorship.Add(new(Censorship.Tank, true));
+        asanagiManga2.Censorship.Add(new(Censorship.None, false));
+        asanagiManga2.Description.Add(new("""
+            ja-JP::
+            サークル【Fatalpulse】が贈るコミケ94の新刊
+            [グランブルーファンタジー]本の『VictimGirls25　デカ乳低身長種族♀の角を折る話』をご紹介致します。
+
+            「待ってろよぉもう一本折ったら次はお前だからな」
+            ドラフの女の子達を並べて角をノコギリで折っていくならず者の男。
+            そこへラスティナが助けに来るのだが、敢え無く敗れてしまう。
+            そんな彼女も角を折られ、所属している騎空団に箱詰めされて送り返されてしまう。
+
+            ラスティナの敵討ちとばかりにならず者達の居る場所に向かうアリーザ達だったが
+            そこで悲惨な光景を目の当たりにする。
+            怒ったアリーザ達はならず者達を次々と倒していくのだが
+            最後に現れたドラフの男に圧倒されてしまう事に……。
+            そして敗北した彼女達はオナホにされ蹂躙されてしまう。
+            果たして彼女達の運命は……！？
+
+            続きはお手元にてお楽しみ下さい。
+        """));
+        
+        db.Manga.AddRange(ymManga1, ymManga2, asanagiManga1, asanagiManga2);
+
+        db.SaveChanges();
+    }
+
+    [Test]
+    [Order(1)]
+    public void PushCharactersTest()
+    {
+        using var db = new DatabaseContext();
+        
+        var ymM1M = new Character("default::Unnamed male")
+        {
+            Birthday = new DateTime(1900, 01, 01),
+            Age = 25,
+            Gender = Gender.Male
+        };
+        ymM1M.Description.Add(new("en-US::Protagonist of Monokemono Shoya"));
+
+        var ymM2F = new Character("default::Akaname")
+        {
+            Birthday = new DateTime(1900, 01, 01),
+            Age = 10,
+            Gender = Gender.Female
+        };
+        ymM2F.Description.Add(new("en-US::Protagonist of Monokemono Yonya"));
+        
+        var aM1F = new Character("default::Ajax")
+        {
+            Birthday = new DateTime(1900, 01, 01),
+            Age = 15,
+            Gender = Gender.Female
+        };
+        aM1F.Description.Add(new("en-US::Azur lane character"));
+        
+        var aM2F = new Character("default::Aliza")
+        {
+            Birthday = new DateTime(1900, 01, 01),
+            Age = 500,
+            Gender = Gender.Female
+        };
+        aM2F.Description.Add(new("en-US::Granblue fantasy character"));
+        
+        db.Characters.AddRange(ymM1M, ymM2F, aM1F, aM2F);
+
+        db.SaveChanges();
+    }
+    
     [Test]
     [Order(1)]
     public void PushTagsTest()
@@ -33,320 +302,337 @@ public class DatabaseTests
 
         // init tag for basic categories
 
-        var ycTag = new Tag(TagCategory.Parody, "Yuru Camp");
-        ycTag.Description.Add(new("en-US::Anime about camping"));
-        ycTag.Description.Add(new("en-US::()[[138-841/\"gaga\"/n\n\r\t\t/t/r/n]])"));
-        ycTag.Description.Add(new("ru-RU::Аниме про кемпинг"));
+        // author (related works), circle, character, manga
+        var loliTag = new Tag(TagCategory.BodyType, "Loli");
+        loliTag.Description.Add(new("en-US::Little girl"));
+        loliTag.Description.Add(new("ru-RU::Маленькая девочка"));
+        
+        // character, manga
+        var alTag = new Tag(TagCategory.Parody, "Azur Lane");
+        alTag.Description.Add(new("en-US::Azur Lane parody tag"));
 
-        var yc2Tag = new Tag(TagCategory.Parody, "Yuru Camp Season 2");
-        yc2Tag.Description.Add(new("en-US::Second season of Yuru Camp"));
+        // character, manga
+        var gfTag = new Tag(TagCategory.Parody, "Granblue Fantasy");
+        gfTag.Description.Add(new("en-US::Granblue Fantasy tag"));
 
-        var jjbaTag = new Tag(TagCategory.Parody, "Jojo Bizzare Adventures");
-        jjbaTag.Description.Add(new("First part of JJBA saga", "default"));
+        var al2Tag = new Tag(TagCategory.Parody, "azurlane");
+        al2Tag.Description.Add(new("en-US::Alias for Azur Lane tag"));
 
-        var circleTag = new Tag(TagCategory.Personality, "Lazy");
-        circleTag.Description.Add(new("en-US::This circle is lazy to release new chapters"));
-
-        var authorTag = new Tag(TagCategory.BodyType, "Adult");
-        authorTag.Description.Add(new("en-US::This author is adult"));
-
-        var charaTag = new Tag(TagCategory.Species, "Human");
-        charaTag.Description.Add(new("en-US::This character is human"));
-
-        // set master-slave realtions
-
-        yc2Tag.Master = ycTag;
-
-        db.Tags.AddRange(ycTag, yc2Tag, jjbaTag, circleTag, authorTag, charaTag);
+        db.Tags.AddRange(loliTag, alTag, gfTag, al2Tag);
 
         db.SaveChanges();
     }
+    
+    #endregion
+
+    #region Dependent pushes
 
     // depends on PushTagsTest(1)
     [Test]
     [Order(2)]
-    public void PushAuthorsTest()
+    public void PushTagsRelationsTest()
     {
         using var db = new DatabaseContext();
 
-        // TODO: move this into it's own test -> decrease this order to 1 since to dependencies
-        // get author tag by searching for BodyType category
-        var tag = db.Tags.FirstOrDefault(t => t.Category == TagCategory.BodyType);
+        var tags = db.Tags.ToHashSet();
 
-        // TODO: test default lang string (not here)
-        var ycAuthor = new Author("en-US::Afro")
-        {
-            Birthday = new(2000, 01, 01),
-            Age = 30,
-            Gender = Gender.Male
-        };
-        ycAuthor.AddAuthorName(new("ja-JP::あｆろ"));
-        ycAuthor.Description.Add(new("en-US::Author of Yuru Camp manga"));
-        ycAuthor.Media.Add(new("https://cdn.myanimelist.net/images/anime/4/89877.jpg", MediaType.Image));
-        ycAuthor.Tags.Add(tag!);
-        ycAuthor.ExternalLinks.Add(new("twitter", "https://twitter.com/afro_2021")
-        {
-            OfficialStatus = OfficialStatus.Official,
-            PaidStatus = PaidStatus.Free
-        });
-
-        var jjbaAuthor = new Author("en-US::Araki")
-        {
-            Birthday = new(1999, 09, 09),
-            Age = 99,
-            Gender = Gender.Male
-        };
-        jjbaAuthor.AddAuthorName(new("ja-JP::あらき"));
-        jjbaAuthor.Description.Add(new("en-US::Author of JJBA manga"));
-        jjbaAuthor.Media.Add(new("https://cdn.myanimelist.net/images/anime/4/89877.jpg", MediaType.Image));
-        jjbaAuthor.Tags.Add(tag!);
-        jjbaAuthor.ExternalLinks.Add(new("twitter", "https://twitter.com/afro_2021")
-        {
-            OfficialStatus = OfficialStatus.Official,
-            PaidStatus = PaidStatus.Free
-        });
-
-        db.Authors.AddRange(ycAuthor, jjbaAuthor);
-
+        var alTag = tags.FirstOrDefault(t => t.Value == "Azur Lane");
+        var al2Tag = tags.FirstOrDefault(t => t.Value == "azurlane");
+        
+        al2Tag!.Master = alTag;
+        
         db.SaveChanges();
     }
 
-    // depends on PushTagsTest(1)
+    // depends on PushAuthorsTest(1)
+    // depends on PushCirclesTest(1)
     [Test]
     [Order(2)]
-    public void PushCharactersTest()
+    public void PushAuthorsCirclesTest()
     {
         using var db = new DatabaseContext();
 
-        var tag = db.Tags.FirstOrDefault(t => t.Category == TagCategory.Species && t.Value == "Human");
+        var authors = db.Authors.Include(a => a.AuthorsNames).ToHashSet();
 
-        var character = new Character
-        {
-            Age = 11
-        };
-        character.Description.Add(new("en-US::Chara descr 1"));
-        character.Tags.Add(tag!);
-        character.Media.Add(new("https://bing.com", MediaType.Image));
+        // TODO: ugly asf
+        var ym = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Yukino Minato") != null);
+        var asanagi = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Asanagi") != null);
 
-        db.Characters.Add(character);
+        var circles = db.Circles.Include(c => c.CirclesTitles).ToHashSet();
 
+        var nnnt = circles.FirstOrDefault(c => c.CirclesTitles.FirstOrDefault(ct => ct.Text == "noraneko-no-tama") != null);
+        var fatalpulse = circles.FirstOrDefault(c => c.CirclesTitles.FirstOrDefault(ct => ct.Text == "Fatalpulse") != null);
+
+        ym!.Circles.Add(nnnt!);
+        fatalpulse!.Authors.Add(asanagi!);
+        
         db.SaveChanges();
     }
 
-    // depends on PushTagsTest(1)
-    // depends on PushAuthorsTest(2)
+    // depends on PushAuthorsTest(1)
+    // depends on PushMangaTest(1)
     [Test]
-    [Order(3)]
-    public void PushCirclesTest()
-    {
-        using var db = new DatabaseContext();
-
-        var author = db.Authors.FirstOrDefault();
-        var tag = db.Tags.FirstOrDefault(t => t.Value == "Lazy");
-
-        var circle = new Circle();
-        circle.Authors.Add(author!);
-        circle.Tags.Add(tag!);
-
-        db.Circles.Add(circle);
-
-        db.SaveChanges();
-    }
-
-    // depends on PushAuthorsTest(2)
-    // or
-    // depends on PushCharactersTest(2)
-    [Test]
-    [Order(3)]
-    public void PushCreaturesNamesTest()
-    {
-        using var db = new DatabaseContext();
-
-        var creatures = db.Creatures.ToList();
-
-        foreach (var creature in creatures)
-        {
-            creature.AddNames(new List<LanguageSpecificTextInfo>
-            {
-                new($"en-US::Name {creature.Id}"),
-                new($"en-US::Name_alt {creature.Id + 1000}")
-            });
-        }
-
-        db.SaveChanges();
-    }
-
-    // depends on PushAuthorsTest(2)
-    // depends on PushCharacterTest(2)
-    [Test]
-    [Order(3)]
-    public void PushCreaturesRelationsTest()
-    {
-        using var db = new DatabaseContext();
-
-        var creatures = db.Creatures.ToList();
-
-        var author = creatures.FirstOrDefault(c => c is Author);
-        var chara = creatures.FirstOrDefault(c => c is Character);
-        chara?.AddRelation(author!, CreatureRelations.Enemy);
-
-        db.SaveChanges();
-    }
-
-    // depends on PushAuthorsTest(2)
-    [Test]
-    [Order(3)]
-    public void PushAuthorNamesTest()
-    {
-        using var db = new DatabaseContext();
-
-        var author = db.Authors.FirstOrDefault();
-        author!.AddAuthorName(new("Author Name", "en-US"));
-
-        db.SaveChanges();
-    }
-
-    // depends on PushTagsTest(1)
-    // depends on PushCirclesTest(3)
-    [Test]
-    [Order(4)]
-    public void PushMangaTest()
-    {
-        using var db = new DatabaseContext();
-
-        var tags = db.Tags.Where(t => t.Category == TagCategory.Parody);
-        var circle = db.Circles.FirstOrDefault();
-
-        var manga1 = new Manga
-        {
-            Length = 10,
-        };
-        manga1.AddTitle(new("manga1", "en-US"));
-        manga1.Media.Add(new("https://google.com", MediaType.Image));
-        manga1.Languages.Add(new("en-US", false));
-        manga1.Censorship.Add(new(Censorship.None, true));
-        manga1.Sources.Add(new("google", "https://google.com"));
-        manga1.Description.Add(new("en-US::Anime about camping"));
-        manga1.ColoredInfo.Add(new(Color.BlackWhite, true));
-        manga1.Tags.UnionWith(tags);
-        manga1.Circles.Add(circle!);
-
-        var manga2 = new Manga();
-        manga2.AddTitle(new("manga2", "en-US"));
-
-        var mangaCol = new Manga();
-        mangaCol.AddTitle(new("mangaCol", "en-US"));
-
-        db.Manga.AddRange(manga1, manga2, mangaCol);
-
-        db.SaveChanges();
-    }
-
-    // depends on PushCirclesTest(3)
-    [Test]
-    [Order(4)]
-    public void PushCirclesTitlesTest()
-    {
-        using var db = new DatabaseContext();
-
-        var circle = db.Circles.FirstOrDefault();
-        circle!.AddTitle(new("Circle Title", "en-US"));
-
-        db.SaveChanges();
-    }
-
-    // depends on PushCharactersTest(2)
-    // depends on PushMangaTest(4)
-    [Test]
-    [Order(5)]
-    public void PushCharacterCreationTest()
-    {
-        using var db = new DatabaseContext();
-
-        var mangas = db.Manga.ToList();
-        var chars = db.Characters.ToList();
-
-        foreach (var chara in chars)
-        {
-            chara.AddCreation(mangas.FirstOrDefault()!, CharacterRole.Main);
-        }
-
-        db.SaveChanges();
-    }
-
-    // depends on PushAuthorsTest(2)
-    // depends on PushMangaTest(4)
-    [Test]
-    [Order(5)]
+    [Order(2)]
     public void PushAuthorsCreationsTest()
     {
         using var db = new DatabaseContext();
+        
+        var authors = db.Authors.Include(a => a.AuthorsNames).ToHashSet();
 
-        var authors = db.Authors.ToList();
-        var creations = db.Creations.ToList();
+        var ym = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Yukino Minato") != null);
+        var asanagi = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Asanagi") != null);
 
-        foreach (var author in authors)
-        {
-            author.AddCreation(creations.FirstOrDefault()!, AuthorRole.MainArtist);
-        }
+        var manga = db.Manga.Include(m => m.CreationsTitles).ToHashSet();
+
+        var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono Shoya") != null);
+        var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono") != null);
+        var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 24") != null);
+        var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 25") != null);
+
+        ym!.AddCreation(ymM1!, AuthorRole.MainArtist);
+        ym.AddCreation(ymM2!, AuthorRole.MainArtist);
+        aM1!.AddAuthor(asanagi!, AuthorRole.MainArtist);
+        aM2!.AddAuthor(asanagi!, AuthorRole.MainArtist);
 
         db.SaveChanges();
     }
-
-    // depends on PushMangaTest(4)
+    
+    // depends on PushCharactersTest(1)
+    // depends on PushMangaTest(1)
     [Test]
-    [Order(5)]
-    public void PushCreationsTitlesTest()
+    [Order(2)]
+    public void PushCharactersCreationsTest()
     {
         using var db = new DatabaseContext();
 
-        var creation = db.Creations.FirstOrDefault();
+        var characters = db.Characters.Include(a => a.CreaturesNames).ToHashSet();
 
-        creation!.AddTitle(new("Creation Title", "en-US"));
+        var ymM1M = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Unnamed male") != null);
+        var ymM2F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Akaname") != null);
+        var aM1F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Ajax") != null);
+        var aM2F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Aliza") != null);
+
+        var manga = db.Manga.Include(m => m.CreationsTitles).ToHashSet();
+
+        var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono Shoya") != null);
+        var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono") != null);
+        var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 24") != null);
+        var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 25") != null);
+
+        ymM1M!.AddCreation(ymM1!, CharacterRole.Main);
+        ymM1M.AddCreation(ymM2!, CharacterRole.Secondary);
+        ymM2F!.AddCreation(ymM2!, CharacterRole.Main);
+        aM1!.AddCharacter(aM1F!, CharacterRole.Main);
+        aM2!.AddCharacter(aM2F!, CharacterRole.Main);
 
         db.SaveChanges();
     }
 
-    // depends on PushMangaTest(4)
+    // depends on PushTagsTest(1)
+    // depends on PushAuthorsTest(1)
     [Test]
-    [Order(5)]
+    [Order(2)]
+    public void PushAuthorsTagsTest()
+    {
+        using var db = new DatabaseContext();
+        
+        var authors = db.Authors.Include(a => a.AuthorsNames).ToHashSet();
+
+        var ym = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Yukino Minato") != null);
+        var asanagi = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Asanagi") != null);
+
+        var tags = db.Tags.Include(tag => tag.Creatures).ToHashSet();
+
+        var loliTag = tags.FirstOrDefault(t => t.Value == "Loli");
+        var alTag = tags.FirstOrDefault(t => t.Value == "Azur Lane");
+        var gfTag = tags.FirstOrDefault(t => t.Value == "Granblue Fantasy");
+
+        ym!.Tags.Add(loliTag!);
+        alTag!.Creatures.Add(asanagi!);
+        gfTag!.Creatures.Add(asanagi!);
+        
+        db.SaveChanges();
+    }
+    
+    // depends on PushTagsTest(1)
+    // depends on PushCharactersTest(1)
+    [Test]
+    [Order(2)]
+    public void PushCharactersTagsTest()
+    {
+        using var db = new DatabaseContext();
+        
+        var characters = db.Characters.Include(a => a.CreaturesNames).ToHashSet();
+
+        var ymM2F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Akaname") != null);
+        var aM1F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Ajax") != null);
+        var aM2F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Aliza") != null);
+
+        var tags = db.Tags.Include(tag => tag.Creatures).ToHashSet();
+
+        var loliTag = tags.FirstOrDefault(t => t.Value == "Loli");
+        var alTag = tags.FirstOrDefault(t => t.Value == "Azur Lane");
+        var gfTag = tags.FirstOrDefault(t => t.Value == "Granblue Fantasy");
+
+        ymM2F!.Tags.Add(loliTag!);
+        loliTag!.Creatures.Add(aM1F!);
+        alTag!.Creatures.Add(aM1F!);
+        gfTag!.Creatures.Add(aM2F!);
+        
+        db.SaveChanges();
+    }
+
+    // depends on PushAuthorsTest(1)
+    [Test]
+    [Order(2)]
+    public void PushAuthorsRelationsTest()
+    {
+        using var db = new DatabaseContext();
+        
+        var authors = db.Authors.Include(a => a.AuthorsNames).ToHashSet();
+
+        var ym = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Yukino Minato") != null);
+        var asanagi = authors.FirstOrDefault(a => a.AuthorsNames.FirstOrDefault(an => an.Text == "Asanagi") != null);
+
+        ym!.AddRelation(asanagi!, CreatureRelations.Unknown);
+        asanagi!.AddRelation(ym, CreatureRelations.Friend);
+        
+        db.SaveChanges();
+    }
+    
+    // depends on PushCharactersTest(1)
+    [Test]
+    [Order(2)]
+    public void PushCharactersRelationsTest()
+    {
+        using var db = new DatabaseContext();
+        
+        var characters = db.Characters.Include(a => a.CreaturesNames).ToHashSet();
+
+        var ymM1M = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Unnamed male") != null);
+        var ymM2F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Akaname") != null);
+        var aM1F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Ajax") != null);
+        var aM2F = characters.FirstOrDefault(c => c.CreaturesNames.FirstOrDefault(cn => cn.Text == "Aliza") != null);
+
+        ymM1M!.AddRelation(ymM2F!, CreatureRelations.Unknown);
+        aM1F!.AddRelation(aM2F!, CreatureRelations.Enemy);
+        
+        db.SaveChanges();
+    }
+
+    // depends on PushMangaTest(1)
+    // depends on PushCirclesTest(1)
+    [Test]
+    [Order(2)]
+    public void PushCreationsCirclesTest()
+    {
+        using var db = new DatabaseContext();
+        
+        var manga = db.Manga.Include(m => m.CreationsTitles).ToHashSet();
+
+        var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono Shoya") != null);
+        var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono") != null);
+        var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 24") != null);
+        var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 25") != null);
+
+        var circles = db.Circles.Include(c => c.CirclesTitles).Include(circle => circle.Creations).ToHashSet();
+
+        var nnnt = circles.FirstOrDefault(c => c.CirclesTitles.FirstOrDefault(ct => ct.Text == "noraneko-no-tama") != null);
+        var fatalpulse = circles.FirstOrDefault(c => c.CirclesTitles.FirstOrDefault(ct => ct.Text == "Fatalpulse") != null);
+
+        ymM1!.Circles.Add(nnnt!);
+        ymM2!.Circles.Add(nnnt!);
+        fatalpulse!.Creations.Add(aM1!);
+        fatalpulse.Creations.Add(aM2!);
+
+        db.SaveChanges();
+    }
+
+    // depends on PushMangaTest(1)
+    [Test]
+    [Order(2)]
     public void PushCreationsRelationsTest()
     {
         using var db = new DatabaseContext();
+        
+        var manga = db.Manga.Include(m => m.CreationsTitles).ToHashSet();
 
-        var manga = db.Manga.ToHashSet();
-
-        var manga1 = manga.FirstOrDefault(m => m.Id == 1);
-        var manga2 = manga.FirstOrDefault(m => m.Id == 2);
-        var mangaCol = manga.FirstOrDefault(m => m.Id == 3);
-
-        manga1!.AddRelations(new()
-        {
-            { manga2!, CreationRelations.Parent },
-            { mangaCol!, CreationRelations.Slave }
-        });
-
-        manga2!.AddRelations(new()
-        {
-            { manga1, CreationRelations.Child },
-            { mangaCol!, CreationRelations.Slave }
-        });
-
-        mangaCol!.AddRelations(new()
-        {
-            { manga1, CreationRelations.Master },
-            { manga2, CreationRelations.Master }
-        });
+        var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono Shoya") != null);
+        var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono") != null);
+        var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 24") != null);
+        var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 25") != null);
+        
+        ymM1!.AddRelation(ymM2!, CreationRelations.Slave);
+        ymM2!.AddRelation(ymM1, CreationRelations.Master);
+        aM1!.AddRelation(aM2!, CreationRelations.Parent);
+        aM2!.AddRelation(aM1, CreationRelations.Child);
 
         db.SaveChanges();
     }
+
+    // depends on PushMangaTest(1)
+    // depends on PushTagsTest(1)
+    [Test]
+    [Order(2)]
+    public void PushCreationsTagsTest()
+    {
+        using var db = new DatabaseContext();
+        
+        var manga = db.Manga.Include(m => m.CreationsTitles).ToHashSet();
+
+        var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono Shoya") != null);
+        var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "Monokemono") != null);
+        var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 24") != null);
+        var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.FirstOrDefault(ct => ct.Text == "VictimGirls 25") != null);
+        
+        var tags = db.Tags.Include(tag => tag.Creations).ToHashSet();
+
+        var loliTag = tags.FirstOrDefault(t => t.Value == "Loli");
+        var alTag = tags.FirstOrDefault(t => t.Value == "Azur Lane");
+        var gfTag = tags.FirstOrDefault(t => t.Value == "Granblue Fantasy");
+
+        ymM1!.Tags.Add(loliTag!);
+        ymM2!.Tags.Add(loliTag!);
+        loliTag!.Creations.Add(aM1!);
+        alTag!.Creations.Add(aM1!);
+        gfTag!.Creations.Add(aM2!);
+        
+        db.SaveChanges();
+    }
+
+    [Test]
+    [Order(2)]
+    public void PushCirclesTagsTest()
+    {
+        using var db = new DatabaseContext();
+        
+        var circles = db.Circles.Include(c => c.CirclesTitles).Include(circle => circle.Creations).ToHashSet();
+
+        var nnnt = circles.FirstOrDefault(c => c.CirclesTitles.FirstOrDefault(ct => ct.Text == "noraneko-no-tama") != null);
+        var fatalpulse = circles.FirstOrDefault(c => c.CirclesTitles.FirstOrDefault(ct => ct.Text == "Fatalpulse") != null);
+
+        var tags = db.Tags.Include(tag => tag.Circles).ToHashSet();
+
+        var loliTag = tags.FirstOrDefault(t => t.Value == "Loli");
+        var alTag = tags.FirstOrDefault(t => t.Value == "Azur Lane");
+        var gfTag = tags.FirstOrDefault(t => t.Value == "Granblue Fantasy");
+
+        nnnt!.Tags.Add(loliTag!);
+        loliTag!.Circles.Add(fatalpulse!);
+        alTag!.Circles.Add(fatalpulse!);
+        gfTag!.Circles.Add(fatalpulse!);
+        
+        db.SaveChanges();
+    }
+    
+    #endregion
 
     #endregion
 
     #region Read tests
 
     [Test]
-    [Order(1000)]
+    [Order(10)]
     public void ReadAuthorsTest()
     {
         using var db = new DatabaseContext();
@@ -365,7 +651,7 @@ public class DatabaseTests
     }
 
     [Test]
-    [Order(1000)]
+    [Order(10)]
     public void ReadCharactersTest()
     {
         using var db = new DatabaseContext();
@@ -382,7 +668,7 @@ public class DatabaseTests
     }
 
     [Test]
-    [Order(1000)]
+    [Order(10)]
     public void ReadCirclesTest()
     {
         using var db = new DatabaseContext();
@@ -397,7 +683,7 @@ public class DatabaseTests
     }
 
     [Test]
-    [Order(1000)]
+    [Order(10)]
     public void ReadMangaTest()
     {
         using var db = new DatabaseContext();
@@ -416,7 +702,7 @@ public class DatabaseTests
     }
 
     [Test]
-    [Order(1000)]
+    [Order(10)]
     public void ReadTagsTest()
     {
         using var db = new DatabaseContext();

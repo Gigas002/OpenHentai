@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using OpenHentai.Constants;
 using OpenHentai.Creations;
+using OpenHentai.Descriptors;
 using OpenHentai.Relative;
 using OpenHentai.Roles;
 
@@ -18,6 +19,18 @@ public class Character : Creature
     /// Collection of creations, that has this character
     /// </summary>
     public HashSet<CreationsCharacters> CreationsCharacters { get; init; } = new();
+
+    #endregion
+
+    #region Constructors
+
+    public Character() : base() { }
+
+    public Character(ulong id) : base(id) { }
+
+    public Character(LanguageSpecificTextInfo name) : base(name) { }
+
+    public Character(string formattedName) : base(formattedName) { }
 
     #endregion
 

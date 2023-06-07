@@ -9,6 +9,8 @@ namespace OpenHentai.Creations;
 /// </summary>
 public class Book : Creation
 {
+    #region Properties
+
     /// <summary>
     /// Pages count
     /// </summary>
@@ -34,4 +36,18 @@ public class Book : Creation
     /// </summary>
     [Column(TypeName = DataTypes.Jsonb)]
     public HashSet<ColoredInfo> ColoredInfo { get; init; } = new();
+    
+    #endregion
+
+    #region Constructors
+
+    public Book() : base() { }
+
+    public Book(ulong id) : base(id) { }
+
+    public Book(LanguageSpecificTextInfo title) : base(title) { }
+
+    public Book(string formattedTitle) : base(formattedTitle) { }
+
+    #endregion
 }

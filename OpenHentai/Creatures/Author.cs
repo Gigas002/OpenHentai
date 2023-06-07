@@ -49,9 +49,9 @@ public class Author : Creature
 
     public Author(ulong id) : base(id) { }
 
-    public Author(LanguageSpecificTextInfo name) : base(name) { }
+    public Author(LanguageSpecificTextInfo authorName) => AddAuthorName(authorName);
 
-    public Author(string formattedName) : base(new LanguageSpecificTextInfo(formattedName)) { }
+    public Author(string formattedAuthorName) : this(new LanguageSpecificTextInfo(formattedAuthorName)) { }
 
     #endregion
 
@@ -63,6 +63,7 @@ public class Author : Creature
     public void AddAuthorNames(IEnumerable<LanguageSpecificTextInfo> names) =>
         names.ToList().ForEach(AddName);
     
+    // TODO: take formatted string on input
     public void AddAuthorName(LanguageSpecificTextInfo name) => AuthorsNames.Add(new(this, name));
 
     public Dictionary<Creation, AuthorRole> GetCreations() =>
