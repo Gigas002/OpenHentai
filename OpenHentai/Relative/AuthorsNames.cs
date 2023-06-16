@@ -13,7 +13,7 @@ public class AuthorsNames : ILanguageSpecificTextInfoEntity<Author>
     #region Properties
 
     public ulong Id { get; set; }
-
+    
     [ForeignKey(FieldNames.AuthorId)]
     [JsonPropertyName(FieldNames.AuthorId)]
     [JsonConverter(typeof(DatabaseEntityJsonConverter<Author>))]

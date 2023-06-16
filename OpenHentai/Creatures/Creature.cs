@@ -87,6 +87,9 @@ public class Creature : IDatabaseEntity
         names.ToList().ForEach(AddName);
     
     public void AddName(LanguageSpecificTextInfo name) => CreaturesNames.Add(new(this, name));
+
+    public void AddName(string formattedName) =>
+        AddName(new LanguageSpecificTextInfo(formattedName));
     
     public Dictionary<Creature, CreatureRelations> GetRelations() =>
         CreaturesRelations.ToDictionary(cr => cr.Related, cr => cr.Relation);

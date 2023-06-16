@@ -63,8 +63,10 @@ public class Author : Creature
     public void AddAuthorNames(IEnumerable<LanguageSpecificTextInfo> names) =>
         names.ToList().ForEach(AddName);
     
-    // TODO: take formatted string on input
     public void AddAuthorName(LanguageSpecificTextInfo name) => AuthorsNames.Add(new(this, name));
+
+    public void AddAuthorName(string formattedAuthorName) =>
+        AddAuthorName(new LanguageSpecificTextInfo(formattedAuthorName));
 
     public Dictionary<Creation, AuthorRole> GetCreations() =>
         AuthorsCreations.ToDictionary(ac => ac.Related, ac => ac.Relation);

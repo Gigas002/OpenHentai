@@ -41,8 +41,8 @@ public class DatabaseTests
             Age = 999,
             Gender = Gender.Female
         };
-        ym.AddAuthorName(new("ja-JP::雪野 みなと"));
-        ym.AddName(new("default::Yukinominato"));
+        ym.AddAuthorName("ja-JP::雪野 みなと");
+        ym.AddName("default::Yukinominato");
         ym.Description.Add(new("en-US::Popular loli doujinshi artist"));
         ym.Media.Add(new("https://pbs.twimg.com/profile_images/1587354886751993856/vSCQYP59_400x400.jpg", MediaType.Image));
         ym.ExternalLinks.Add(new("twitter", "https://twitter.com/straycat_2018")
@@ -62,8 +62,8 @@ public class DatabaseTests
             Age = 999,
             Gender = Gender.Male
         };
-        asanagi.AddAuthorName(new("ja-JP::朝凪"));
-        asanagi.AddName(new("default::asanagi"));
+        asanagi.AddAuthorName("ja-JP::朝凪");
+        asanagi.AddName("default::asanagi");
         asanagi.Description.Add(new("en-US::Popular mindbreak artist"));
         asanagi.Media.Add(new("https://pbs.twimg.com/profile_images/991625674757570562/MHkJ_qqa_400x400.jpg", MediaType.Image));
         asanagi.ExternalLinks.Add(new("twitter", "https://twitter.com/Victim_Girls")
@@ -89,7 +89,7 @@ public class DatabaseTests
         using var db = new DatabaseContext();
 
         var nnntCircle = new Circle("default::noraneko-no-tama");
-        nnntCircle.AddTitle(new("ja-JP::ノラネコノタマ"));
+        nnntCircle.AddTitle("ja-JP::ノラネコノタマ");
 
         var fCircle = new Circle("default::Fatalpulse");
 
@@ -117,7 +117,7 @@ public class DatabaseTests
             Rating = Rating.R18,
             Status = PublishStatus.Published
         };
-        ymManga1.AddTitle(new("ja-JP::ものけもの 初夜"));
+        ymManga1.AddTitle("ja-JP::ものけもの 初夜");
         ymManga1.ColoredInfo.Add(new(Color.BlackWhite, true));
         ymManga1.Languages.Add(new("ja-JP"));
         ymManga1.Languages.Add(new("ru-RU", false));
@@ -142,7 +142,7 @@ public class DatabaseTests
             Rating = Rating.R18,
             Status = PublishStatus.Published
         };
-        ymManga2.AddTitle(new("ja-JP::ものけもの 妖児艶童怪異譚"));
+        ymManga2.AddTitle("ja-JP::ものけもの 妖児艶童怪異譚");
         ymManga2.ColoredInfo.Add(new(Color.BlackWhite, true));
         ymManga2.Languages.Add(new("ja-JP"));
         ymManga2.Sources.Add(new("toranoana", "https://ec.toranoana.jp/tora_r/ec/item/200011974236/")
@@ -171,7 +171,7 @@ public class DatabaseTests
             Rating = Rating.R18,
             Status = PublishStatus.Published
         };
-        asanagiManga1.AddTitle(new("ja-JP::VictimGirls24　クソ生意気なドS娘に睡眠薬を"));
+        asanagiManga1.AddTitle("ja-JP::VictimGirls24　クソ生意気なドS娘に睡眠薬を");
         asanagiManga1.ColoredInfo.Add(new(Color.BlackWhite, true));
         asanagiManga1.Languages.Add(new("ja-JP"));
         asanagiManga1.Languages.Add(new("ru-RU", false));
@@ -215,7 +215,7 @@ public class DatabaseTests
             Rating = Rating.R18,
             Status = PublishStatus.Published
         };
-        asanagiManga2.AddTitle(new("ja-JP::VictimGirls25　デカ乳低身長種族♀の角を折る話"));
+        asanagiManga2.AddTitle("ja-JP::VictimGirls25　デカ乳低身長種族♀の角を折る話");
         asanagiManga2.ColoredInfo.Add(new(Color.BlackWhite, true));
         asanagiManga2.Languages.Add(new("ja-JP"));
         asanagiManga2.Languages.Add(new("ru-RU", false));

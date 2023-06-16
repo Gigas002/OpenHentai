@@ -259,13 +259,13 @@
             <param name="title">Title</param>
         </member>
         <member name="M:OpenHentai.Creations.Creation.GetAuthors">
-            <inheritdoc  cref="M:OpenHentai.Creations.Creation.GetTitles" />
+            <inheritdoc cref="M:OpenHentai.Creations.Creation.GetTitles" />
         </member>
         <member name="M:OpenHentai.Creations.Creation.GetRelations">
-            <inheritdoc  cref="M:OpenHentai.Creations.Creation.GetTitles" />
+            <inheritdoc cref="M:OpenHentai.Creations.Creation.GetTitles" />
         </member>
         <member name="M:OpenHentai.Creations.Creation.GetCharacters">
-            <inheritdoc  cref="M:OpenHentai.Creations.Creation.GetTitles" />
+            <inheritdoc cref="M:OpenHentai.Creations.Creation.GetTitles" />
         </member>
         <member name="T:OpenHentai.Creations.Rating">
             <summary>

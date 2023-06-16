@@ -88,5 +88,8 @@ public class Circle : IDatabaseEntity
     /// <param name="title">Title</param>
     public void AddTitle(LanguageSpecificTextInfo title) => CirclesTitles.Add(new(this, title));
 
+    public void AddTitle(string formattedTitle) =>
+        AddTitle(new LanguageSpecificTextInfo(formattedTitle));
+
     #endregion
 }

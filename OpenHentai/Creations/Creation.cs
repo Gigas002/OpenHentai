@@ -155,7 +155,10 @@ public class Creation : IDatabaseEntity
     /// <param name="title">Title</param>
     public void AddTitle(LanguageSpecificTextInfo title) => CreationsTitles.Add(new(this, title));
 
-    /// <inheritdoc  cref="GetTitles" />
+    public void AddTitle(string formattedTitle) =>
+        AddTitle(new LanguageSpecificTextInfo(formattedTitle));
+
+    /// <inheritdoc cref="GetTitles" />
     public Dictionary<Author, AuthorRole> GetAuthors() =>
         AuthorsCreations.ToDictionary(ac => ac.Origin, ac => ac.Relation);
 
@@ -168,7 +171,7 @@ public class Creation : IDatabaseEntity
     public void AddAuthor(Author author, AuthorRole role) =>
         AuthorsCreations.Add(new(author, this, role));
 
-    /// <inheritdoc  cref="GetTitles" />
+    /// <inheritdoc cref="GetTitles" />
     public Dictionary<Creation, CreationRelations> GetRelations() =>
         CreationsRelations.ToDictionary(cr => cr.Related, cr => cr.Relation);
 
@@ -181,7 +184,7 @@ public class Creation : IDatabaseEntity
     public void AddRelation(Creation relatedCreation, CreationRelations relation) =>
         CreationsRelations.Add(new(this, relatedCreation, relation));
 
-    /// <inheritdoc  cref="GetTitles" />
+    /// <inheritdoc cref="GetTitles" />
     public Dictionary<Character, CharacterRole> GetCharacters() =>
         CreationsCharacters.ToDictionary(cc => cc.Related, cc => cc.Relation);
 
