@@ -6,6 +6,7 @@ using OpenHentai.Descriptors;
 using OpenHentai.Relations;
 using OpenHentai.Roles;
 using OpenHentai.Statuses;
+using OpenHentai.Contexts;
 
 #pragma warning disable CA1303
 
@@ -643,15 +644,7 @@ public class DatabaseTests
     {
         using var db = new DatabaseContext();
 
-        var authors = db.Authors.Include(a => a.AuthorsNames)
-                                .Include(a => a.Circles)
-                                .Include(a => a.AuthorsCreations)
-                                .ThenInclude(ac => ac.Related)
-                                .Include(a => a.CreaturesNames)
-                                .Include(a => a.Tags)
-                                .Include(a => a.CreaturesRelations)
-                                .ThenInclude(cr => cr.Related)
-                                .ToList();
+        var authors = AuthorsContext.GetAuthorsWithProps(db);
 
         SerializeEntity(authors);
     }

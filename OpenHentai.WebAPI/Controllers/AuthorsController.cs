@@ -1,10 +1,7 @@
 using System.Net.Mime;
-using OpenHentai;
 using Microsoft.AspNetCore.Mvc;
-using SystemTextJsonPatch;
-using SystemTextJsonPatch.Operations;
 using OpenHentai.Creatures;
-using Microsoft.EntityFrameworkCore;
+using OpenHentai.Contexts;
 
 namespace OpenHentai.WebAPI.Controllers;
 
@@ -57,19 +54,7 @@ public class AuthorController : ControllerBase
     {
         Console.WriteLine($"Enter into GET: /authors/{id}");
 
-        var authors = _context.Authors
-            .Include(a => a.AuthorsNames)
-            .Include(a => a.Circles)
-            .Include(a => a.AuthorsCreations)
-            .ThenInclude(ac => ac.Related)
-            .Include(a => a.CreaturesNames)
-            .Include(a => a.Tags)
-            .Include(a => a.CreaturesRelations)
-            .ThenInclude(cr => cr.Related);
-
-        var author = await authors.FirstOrDefaultAsync(a => a.Id == id).ConfigureAwait(false);
-
-        // var author = await _context.Authors.FindAsync(id).ConfigureAwait(false);
+        var author = await AuthorsContext.GetAuthorAsync(_context, id).ConfigureAwait(false);
 
         if (author is null)
             return BadRequest(new ProblemDetails { Detail = $"Author with id={id} doesn't exist" });
@@ -106,9 +91,7 @@ public class AuthorController : ControllerBase
 
         if (author == null) return BadRequest();
 
-        await _context.Authors.AddAsync(author).ConfigureAwait(false);
-
-        await _context.SaveChangesAsync().ConfigureAwait(false);
+        await AuthorsContext.AddAuthorAsync(_context, author).ConfigureAwait(false);
 
         return CreatedAtAction(nameof(GetAuthorAsync), new { id = author.Id }, author);
     }
