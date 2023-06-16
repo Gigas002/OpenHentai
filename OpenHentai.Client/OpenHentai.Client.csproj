@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SystemTextJsonPatch" Version="2.0.1" />
+    
+    <ProjectReference Include="..\OpenHentai\OpenHentai.csproj" />
+  </ItemGroup>
+
+</Project>

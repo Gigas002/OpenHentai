@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHentai.Tests", "OpenHen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHentai.WebAPI", "OpenHentai.WebAPI\OpenHentai.WebAPI.csproj", "{DD73AF22-DAA4-45D1-8E31-A8748C1E35A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHentai.Client", "OpenHentai.Client\OpenHentai.Client.csproj", "{621AE57F-D958-4278-83C1-E65A833E2390}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{DD73AF22-DAA4-45D1-8E31-A8748C1E35A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD73AF22-DAA4-45D1-8E31-A8748C1E35A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD73AF22-DAA4-45D1-8E31-A8748C1E35A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{621AE57F-D958-4278-83C1-E65A833E2390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{621AE57F-D958-4278-83C1-E65A833E2390}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{621AE57F-D958-4278-83C1-E65A833E2390}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{621AE57F-D958-4278-83C1-E65A833E2390}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

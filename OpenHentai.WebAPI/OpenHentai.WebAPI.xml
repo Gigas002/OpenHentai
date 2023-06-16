@@ -4,5 +4,24 @@
         <name>OpenHentai.WebAPI</name>
     </assembly>
     <members>
+        <member name="T:OpenHentai.WebAPI.Controllers.AuthorController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.#ctor(OpenHentai.DatabaseContext)">
+            <summary>
+            Database context
+            </summary>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetAuthorAsync(System.UInt64)">
+            <summary>
+            Get author from database by id
+            </summary>
+            <param name="id">Author's id</param>
+            <returns>Author</returns>
+            <response code="200">Returns requested author</response>
+            <response code="400">Author is null</response>
+        </member>
     </members>
 </doc>
