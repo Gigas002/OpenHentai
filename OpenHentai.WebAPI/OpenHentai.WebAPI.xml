@@ -9,7 +9,7 @@
             
             </summary>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.#ctor(OpenHentai.DatabaseContext)">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.#ctor(OpenHentai.Contexts.DatabaseContext)">
             <summary>
             Database context
             </summary>
@@ -42,12 +42,20 @@
              <response code="201">Returns the created author</response>
              <response code="400">Author is null</response>
         </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.DeleteAuthorAsync(System.UInt64)">
+            <summary>
+            Delete author
+            </summary>
+            <param name="id">Id of author to delete</param>
+            <returns>Deleted author</returns>
+            <response code="200">Returns the removed author</response>
+        </member>
         <member name="T:OpenHentai.WebAPI.Controllers.MangaController">
             <summary>
             
             </summary>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.#ctor(OpenHentai.DatabaseContext)">
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.#ctor(OpenHentai.Contexts.DatabaseContext)">
             <summary>
             Database context
             </summary>

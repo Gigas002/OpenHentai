@@ -41,4 +41,20 @@ public static class AuthorsContext
 
         if (saveChanges) await context.SaveChangesAsync();
     }
+
+    public static async Task DeleteAuthorAsync(DatabaseContext context, Author author, bool saveChanges = true)
+    {
+        context.Authors.Remove(author);
+
+        if (saveChanges) await context.SaveChangesAsync();
+    }
+
+    public static async Task<Author> DeleteAuthorAsync(DatabaseContext context, ulong id, bool saveChanges = true)
+    {
+        var author = await context.Authors.FindAsync(id);
+
+        await DeleteAuthorAsync(context, author, saveChanges);
+
+        return author;
+    }
 }

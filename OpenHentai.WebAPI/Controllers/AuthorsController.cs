@@ -98,6 +98,28 @@ public class AuthorController : ControllerBase
 
     #endregion
 
+    #region DELETE
+
+    // DELETE: authors/1
+    /// <summary>
+    /// Delete author
+    /// </summary>
+    /// <param name="id">Id of author to delete</param>
+    /// <returns>Deleted author</returns>
+    /// <response code="200">Returns the removed author</response>
+    [HttpDelete("{id}")]
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> DeleteAuthorAsync(ulong id)
+    {
+        Console.WriteLine($"Enter into DELETE: /authors/{id}");
+
+        var author = await AuthorsContext.DeleteAuthorAsync(_context, id).ConfigureAwait(false);
+
+        return Ok(author);
+    }
+
+    #endregion
+
     #endregion
 
     #endregion

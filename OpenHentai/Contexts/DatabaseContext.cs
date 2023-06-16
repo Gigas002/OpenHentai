@@ -8,7 +8,7 @@ using OpenHentai.Relative;
 using OpenHentai.ValueConverters;
 using OpenHentai.Constants;
 
-namespace OpenHentai;
+namespace OpenHentai.Contexts;
 
 public class DatabaseContext : DbContext
 {
