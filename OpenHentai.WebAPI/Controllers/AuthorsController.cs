@@ -77,6 +77,44 @@ public class AuthorController : ControllerBase
             return Ok(author);
     }
 
+    #region POST
+
+    // POST: authors/
+    /// <summary>
+    /// Add author to database
+    /// </summary>
+    /// <param name="author">Author to add</param>
+    /// <returns>Created author</returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     POST /authors/
+    ///     {
+    ///        "Name": "Mikhail",
+    ///        "Age": 69
+    ///     }
+    ///
+    /// </remarks>
+    /// <response code="201">Returns the created author</response>
+    /// <response code="400">Author is null</response>
+    [HttpPost]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult<Author>> PostUserAsync(Author author)
+    {
+        Console.WriteLine("Enter into POST: /authors/");
+
+        if (author == null) return BadRequest();
+
+        await _context.Authors.AddAsync(author).ConfigureAwait(false);
+
+        await _context.SaveChangesAsync().ConfigureAwait(false);
+
+        return CreatedAtAction(nameof(GetAuthorAsync), new { id = author.Id }, author);
+    }
+
+    #endregion
+
     #endregion
 
     #endregion

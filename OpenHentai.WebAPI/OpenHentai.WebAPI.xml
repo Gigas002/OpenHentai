@@ -23,6 +23,25 @@
             <response code="200">Returns requested author</response>
             <response code="400">Author is null</response>
         </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostUserAsync(OpenHentai.Creatures.Author)">
+             <summary>
+             Add author to database
+             </summary>
+             <param name="author">Author to add</param>
+             <returns>Created author</returns>
+             <remarks>
+             Sample request:
+            
+                 POST /authors/
+                 {
+                    "Name": "Mikhail",
+                    "Age": 69
+                 }
+            
+             </remarks>
+             <response code="201">Returns the created author</response>
+             <response code="400">Author is null</response>
+        </member>
         <member name="T:OpenHentai.WebAPI.Controllers.MangaController">
             <summary>
             
