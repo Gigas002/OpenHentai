@@ -22,9 +22,6 @@ public static class Program
                 listenOptions.UseHttps();
             });
         });
-
-        // builder.Services.Configure<JsonSerializerOptions>(options =>
-        //     options = Essential.JsonSerializerOptions);
         
         builder.Services.AddAntiforgery();
 

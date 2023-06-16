@@ -16,7 +16,7 @@ namespace OpenHentai.WebAPI.Controllers;
 // [AutoValidateAntiforgeryToken]
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
-[Route("/")]
+[Route("/authors")]
 public class AuthorController : ControllerBase
 {
     #region Properties
@@ -49,7 +49,7 @@ public class AuthorController : ControllerBase
     /// <returns>Author</returns>
     /// <response code="200">Returns requested author</response>
     /// <response code="400">Author is null</response>
-    [HttpGet("authors/{id}")]
+    [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Produces(MediaTypeNames.Application.Json)]
