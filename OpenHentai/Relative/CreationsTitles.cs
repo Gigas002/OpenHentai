@@ -11,7 +11,7 @@ public class CreationsTitles : ILanguageSpecificTextInfoEntity<Creation>
 {
     #region Properties
 
-    public ulong Id { get; init; }
+    public ulong Id { get; set; }
 
     [ForeignKey(FieldNames.CreationId)]
     [JsonIgnore]

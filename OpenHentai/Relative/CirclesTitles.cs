@@ -11,7 +11,7 @@ public class CirclesTitles : ILanguageSpecificTextInfoEntity<Circle>
 {
     #region Properties
 
-    public ulong Id { get; init; }
+    public ulong Id { get; set; }
 
     [ForeignKey(FieldNames.CircleId)]
     [JsonIgnore]

@@ -77,6 +77,6 @@ public class Author : Creature
 
     public void AddCreation(Creation creation, AuthorRole role) =>
         AuthorsCreations.Add(new(this, creation, role));
-    
+
     #endregion
 }

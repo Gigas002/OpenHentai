@@ -50,6 +50,26 @@
             <returns>Deleted author</returns>
             <response code="200">Returns the removed author</response>
         </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutUserAsync(System.UInt64,OpenHentai.Creatures.Author)">
+             <summary>
+             Update author
+             </summary>
+             <param name="id">Id of author to update</param>
+             <param name="author">Updated for author</param>
+             <returns>A created author</returns>
+             <remarks>
+             Sample request:
+            
+                 PUT /authors/1
+                 {
+                     "name": "Petka",
+                     "age": 88
+                 }
+            
+             </remarks>
+             <response code="200">Returns the created author</response>
+             <response code="400">New author is null</response>
+        </member>
         <member name="T:OpenHentai.WebAPI.Controllers.MangaController">
             <summary>
             

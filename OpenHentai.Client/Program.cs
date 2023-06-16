@@ -16,7 +16,7 @@ public static class Program
     static async Task Main()
     {
         var serverAddress = IPv4ServerAddress;
-        var authorId = 1;
+        ulong authorId = 1;
 
         using var httpClient = new HttpClient
         {
@@ -32,16 +32,37 @@ public static class Program
 
         Stopwatch stopwatch = Stopwatch.StartNew();
 
-        await GetAsync(httpClient, uri).ConfigureAwait(false);
+        var author = await GetAsync(httpClient, uri).ConfigureAwait(false);
 
         stopwatch.Stop();
 
         Console.WriteLine($"Elapsed time: {stopwatch.ElapsedMilliseconds}");
 
         #endregion
+
+        #region PUT
+
+        // The point of PUT/PATCH is to update existing entry, so we don't need
+        // to create a new one, it's supposed to work with the one we GET
+        // but still is a good feature to have the ability to push
+        // a completely new object
+
+        Console.WriteLine("PUT");
+
+        uri = new Uri($"{serverAddress}/authors/{authorId}");
+
+        author.Age = 2022;
+
+        var newAuthor = new Author() { Age = 2018 };
+
+        using var response = await httpClient.PutAsJsonAsync(uri, newAuthor).ConfigureAwait(false);
+        
+        var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+        #endregion
     }
 
-    public static async Task GetAsync(HttpClient httpClient, Uri uri)
+    public static async Task<Author?> GetAsync(HttpClient httpClient, Uri uri)
     {
         if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
 
@@ -55,8 +76,10 @@ public static class Program
         }
         else
         {
-            var author = await response.Content.ReadFromJsonAsync<Author>().ConfigureAwait(false);
+            return await response.Content.ReadFromJsonAsync<Author>().ConfigureAwait(false);
         }
+
+        return null;
     }
 }
 

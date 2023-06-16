@@ -74,7 +74,7 @@ public class Tag : IDatabaseEntity
     #region Properties
 
     /// <inheritdoc />
-    public ulong Id { get; init; }
+    public ulong Id { get; set; }
 
     /// <summary>
     /// This tag's master tag

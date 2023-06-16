@@ -57,4 +57,14 @@ public static class AuthorsContext
 
         return author;
     }
+
+    public static async Task UpdateAuthorAsync(DatabaseContext context, ulong id, Author newAuthor)
+    {
+        newAuthor.Id = id;
+
+        context.Attach(newAuthor);
+        context.Authors.Update(newAuthor);
+        
+        await context.SaveChangesAsync();
+    }
 }

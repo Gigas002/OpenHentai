@@ -22,7 +22,7 @@ public class Creation : IDatabaseEntity
     #region Properties
 
     /// <inheritdoc />
-    public ulong Id { get; init; }
+    public ulong Id { get; set; }
 
     /// <summary>
     /// Main title must be romanization of native title (e.g. Hepburn romanization for ja-JP)

@@ -11,7 +11,7 @@ public class CreaturesNames : ILanguageSpecificTextInfoEntity<Creature>
 {
     #region Properties
 
-    public ulong Id { get; init; }
+    public ulong Id { get; set; }
 
     [ForeignKey(FieldNames.CreatureId)]
     [JsonIgnore]

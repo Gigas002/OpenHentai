@@ -120,6 +120,43 @@ public class AuthorController : ControllerBase
 
     #endregion
 
+    #region PUT
+
+    // PUT: authors/1
+    /// <summary>
+    /// Update author
+    /// </summary>
+    /// <param name="id">Id of author to update</param>
+    /// <param name="author">Updated for author</param>
+    /// <returns>A created author</returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     PUT /authors/1
+    ///     {
+    ///         "name": "Petka",
+    ///         "age": 88
+    ///     }
+    ///
+    /// </remarks>
+    /// <response code="200">Returns the created author</response>
+    /// <response code="400">New author is null</response>
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult<Author>> PutUserAsync(ulong id, Author author)
+    {
+        Console.WriteLine($"Enter into PUT: /authors/{id}");
+
+        await AuthorsContext.UpdateAuthorAsync(_context, id, author).ConfigureAwait(false);
+
+        return Ok(author);
+    }
+
+    #endregion
+
     #endregion
 
     #endregion
