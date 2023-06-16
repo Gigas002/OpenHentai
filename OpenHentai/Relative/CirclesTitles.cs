@@ -4,6 +4,7 @@ using System.Globalization;
 using OpenHentai.Circles;
 using OpenHentai.Descriptors;
 using OpenHentai.Constants;
+using OpenHentai.JsonConverters;
 
 namespace OpenHentai.Relative;
 
@@ -14,7 +15,8 @@ public class CirclesTitles : ILanguageSpecificTextInfoEntity<Circle>
     public ulong Id { get; set; }
 
     [ForeignKey(FieldNames.CircleId)]
-    [JsonIgnore]
+    [JsonPropertyName(FieldNames.CircleId)]
+    [JsonConverter(typeof(DatabaseEntityJsonConverter<Circle>))]
     public Circle Entity { get; set; } = null!;
 
     [Column(FieldNames.TitleColumn)]

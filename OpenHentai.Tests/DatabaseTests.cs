@@ -55,7 +55,7 @@ public class DatabaseTests
             OfficialStatus = OfficialStatus.Official,
             PaidStatus = PaidStatus.Paid
         });
-        
+
         var asanagi = new Author("default::Asanagi")
         {
             Birthday = new(1900, 01, 01),
@@ -81,13 +81,13 @@ public class DatabaseTests
 
         db.SaveChanges();
     }
-    
+
     [Test]
     [Order(1)]
     public void PushCirclesTest()
     {
         using var db = new DatabaseContext();
-        
+
         var nnntCircle = new Circle("default::noraneko-no-tama");
         nnntCircle.AddTitle(new("ja-JP::ノラネコノタマ"));
 
@@ -97,15 +97,15 @@ public class DatabaseTests
 
         db.SaveChanges();
     }
-    
+
     [Test]
     [Order(1)]
     public void PushMangaTest()
     {
         using var db = new DatabaseContext();
-        
+
         // descriptions and metadata taken from toranoana/melonbooks/etc
-        
+
         var ymManga1 = new Manga("default::Monokemono Shoya")
         {
             Length = 18,
@@ -130,7 +130,7 @@ public class DatabaseTests
         ymManga1.Censorship.Add(new(Censorship.Tank, true));
         ymManga1.Censorship.Add(new(Censorship.None, false));
         ymManga1.Description.Add(new("ja-JP::サークル「ノラネコノタマ」オリジナル新シリーズ第一弾!いわくつきの物件での新生活。訪れるのは幸か不幸か・・・。世にも奇妙でほんとはえろい話。"));
-        
+
         var ymManga2 = new Manga("default::Monokemono")
         {
             Length = 225,
@@ -246,7 +246,7 @@ public class DatabaseTests
 
             続きはお手元にてお楽しみ下さい。
         """));
-        
+
         db.Manga.AddRange(ymManga1, ymManga2, asanagiManga1, asanagiManga2);
 
         db.SaveChanges();
@@ -257,7 +257,7 @@ public class DatabaseTests
     public void PushCharactersTest()
     {
         using var db = new DatabaseContext();
-        
+
         var ymM1M = new Character("default::Unnamed male")
         {
             Birthday = new DateTime(1900, 01, 01),
@@ -273,7 +273,7 @@ public class DatabaseTests
             Gender = Gender.Female
         };
         ymM2F.Description.Add(new("en-US::Protagonist of Monokemono Yonya"));
-        
+
         var aM1F = new Character("default::Ajax")
         {
             Birthday = new DateTime(1900, 01, 01),
@@ -281,7 +281,7 @@ public class DatabaseTests
             Gender = Gender.Female
         };
         aM1F.Description.Add(new("en-US::Azur lane character"));
-        
+
         var aM2F = new Character("default::Aliza")
         {
             Birthday = new DateTime(1900, 01, 01),
@@ -289,12 +289,12 @@ public class DatabaseTests
             Gender = Gender.Female
         };
         aM2F.Description.Add(new("en-US::Granblue fantasy character"));
-        
+
         db.Characters.AddRange(ymM1M, ymM2F, aM1F, aM2F);
 
         db.SaveChanges();
     }
-    
+
     [Test]
     [Order(1)]
     public void PushTagsTest()
@@ -307,7 +307,7 @@ public class DatabaseTests
         var loliTag = new Tag(TagCategory.BodyType, "Loli");
         loliTag.Description.Add(new("en-US::Little girl"));
         loliTag.Description.Add(new("ru-RU::Маленькая девочка"));
-        
+
         // character, manga
         var alTag = new Tag(TagCategory.Parody, "Azur Lane");
         alTag.Description.Add(new("en-US::Azur Lane parody tag"));
@@ -323,7 +323,7 @@ public class DatabaseTests
 
         db.SaveChanges();
     }
-    
+
     #endregion
 
     #region Dependent pushes
@@ -339,9 +339,9 @@ public class DatabaseTests
 
         var alTag = tags.FirstOrDefault(t => t.Value == "Azur Lane");
         var al2Tag = tags.FirstOrDefault(t => t.Value == "azurlane");
-        
+
         al2Tag!.Master = alTag;
-        
+
         db.SaveChanges();
     }
 
@@ -357,7 +357,7 @@ public class DatabaseTests
 
         var ym = authors.FirstOrDefault(a => a.AuthorsNames.Any(an => an.Text == "Yukino Minato"));
         var asanagi = authors.FirstOrDefault(a => a.AuthorsNames.Any(an => an.Text == "Asanagi"));
-        
+
         var circles = db.Circles.Include(c => c.CirclesTitles).ToHashSet();
 
         // or by searching through relative table:
@@ -370,7 +370,7 @@ public class DatabaseTests
 
         ym!.Circles.Add(nnnt!);
         fatalpulse!.Authors.Add(asanagi!);
-        
+
         db.SaveChanges();
     }
 
@@ -381,7 +381,7 @@ public class DatabaseTests
     public void PushAuthorsCreationsTest()
     {
         using var db = new DatabaseContext();
-        
+
         var authors = db.Authors.Include(a => a.AuthorsNames).ToHashSet();
 
         var ym = authors.FirstOrDefault(a => a.AuthorsNames.Any(an => an.Text == "Yukino Minato"));
@@ -401,7 +401,7 @@ public class DatabaseTests
 
         db.SaveChanges();
     }
-    
+
     // depends on PushCharactersTest(1)
     // depends on PushMangaTest(1)
     [Test]
@@ -440,7 +440,7 @@ public class DatabaseTests
     public void PushAuthorsTagsTest()
     {
         using var db = new DatabaseContext();
-        
+
         var authors = db.Authors.Include(a => a.AuthorsNames).ToHashSet();
 
         var ym = authors.FirstOrDefault(a => a.AuthorsNames.Any(an => an.Text == "Yukino Minato"));
@@ -455,10 +455,10 @@ public class DatabaseTests
         ym!.Tags.Add(loliTag!);
         alTag!.Creatures.Add(asanagi!);
         gfTag!.Creatures.Add(asanagi!);
-        
+
         db.SaveChanges();
     }
-    
+
     // depends on PushTagsTest(1)
     // depends on PushCharactersTest(1)
     [Test]
@@ -466,7 +466,7 @@ public class DatabaseTests
     public void PushCharactersTagsTest()
     {
         using var db = new DatabaseContext();
-        
+
         var characters = db.Characters.Include(a => a.CreaturesNames).ToHashSet();
 
         var ymM2F = characters.FirstOrDefault(c => c.CreaturesNames.Any(cn => cn.Text == "Akaname"));
@@ -483,7 +483,7 @@ public class DatabaseTests
         loliTag!.Creatures.Add(aM1F!);
         alTag!.Creatures.Add(aM1F!);
         gfTag!.Creatures.Add(aM2F!);
-        
+
         db.SaveChanges();
     }
 
@@ -493,7 +493,7 @@ public class DatabaseTests
     public void PushAuthorsRelationsTest()
     {
         using var db = new DatabaseContext();
-        
+
         var authors = db.Authors.Include(a => a.AuthorsNames).ToHashSet();
 
         var ym = authors.FirstOrDefault(a => a.AuthorsNames.Any(an => an.Text == "Yukino Minato"));
@@ -501,17 +501,17 @@ public class DatabaseTests
 
         ym!.AddRelation(asanagi!, CreatureRelations.Unknown);
         asanagi!.AddRelation(ym, CreatureRelations.Friend);
-        
+
         db.SaveChanges();
     }
-    
+
     // depends on PushCharactersTest(1)
     [Test]
     [Order(2)]
     public void PushCharactersRelationsTest()
     {
         using var db = new DatabaseContext();
-        
+
         var characters = db.Characters.Include(a => a.CreaturesNames).ToHashSet();
 
         var ymM1M = characters.FirstOrDefault(c => c.CreaturesNames.Any(cn => cn.Text == "Unnamed male"));
@@ -521,7 +521,7 @@ public class DatabaseTests
 
         ymM1M!.AddRelation(ymM2F!, CreatureRelations.Unknown);
         aM1F!.AddRelation(aM2F!, CreatureRelations.Enemy);
-        
+
         db.SaveChanges();
     }
 
@@ -532,7 +532,7 @@ public class DatabaseTests
     public void PushCreationsCirclesTest()
     {
         using var db = new DatabaseContext();
-        
+
         var manga = db.Manga.Include(m => m.CreationsTitles).ToHashSet();
 
         var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "Monokemono Shoya"));
@@ -559,14 +559,14 @@ public class DatabaseTests
     public void PushCreationsRelationsTest()
     {
         using var db = new DatabaseContext();
-        
+
         var manga = db.Manga.Include(m => m.CreationsTitles).ToHashSet();
 
         var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "Monokemono Shoya"));
         var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "Monokemono"));
         var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "VictimGirls 24"));
         var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "VictimGirls 25"));
-        
+
         ymM1!.AddRelation(ymM2!, CreationRelations.Slave);
         ymM2!.AddRelation(ymM1, CreationRelations.Master);
         aM1!.AddRelation(aM2!, CreationRelations.Parent);
@@ -582,14 +582,14 @@ public class DatabaseTests
     public void PushCreationsTagsTest()
     {
         using var db = new DatabaseContext();
-        
+
         var manga = db.Manga.Include(m => m.CreationsTitles).ToHashSet();
 
         var ymM1 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "Monokemono Shoya"));
         var ymM2 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "Monokemono"));
         var aM1 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "VictimGirls 24"));
         var aM2 = manga.FirstOrDefault(m => m.CreationsTitles.Any(ct => ct.Text == "VictimGirls 25"));
-        
+
         var tags = db.Tags.Include(tag => tag.Creations).ToHashSet();
 
         var loliTag = tags.FirstOrDefault(t => t.Value == "Loli");
@@ -601,7 +601,7 @@ public class DatabaseTests
         loliTag!.Creations.Add(aM1!);
         alTag!.Creations.Add(aM1!);
         gfTag!.Creations.Add(aM2!);
-        
+
         db.SaveChanges();
     }
 
@@ -612,7 +612,7 @@ public class DatabaseTests
     public void PushCirclesTagsTest()
     {
         using var db = new DatabaseContext();
-        
+
         var circles = db.Circles.Include(c => c.CirclesTitles).Include(circle => circle.Creations).ToHashSet();
 
         var nnnt = circles.FirstOrDefault(c => c.CirclesTitles.Any(ct => ct.Text == "noraneko-no-tama"));
@@ -628,10 +628,10 @@ public class DatabaseTests
         loliTag!.Circles.Add(fatalpulse!);
         alTag!.Circles.Add(fatalpulse!);
         gfTag!.Circles.Add(fatalpulse!);
-        
+
         db.SaveChanges();
     }
-    
+
     #endregion
 
     #endregion
@@ -646,7 +646,8 @@ public class DatabaseTests
 
         var authors = AuthorsContext.GetAuthorsWithProps(db);
 
-        SerializeEntity(authors);
+        var json = SerializeEntity(authors);
+        var deserialized = DeserializeEntity<IEnumerable<Author>>(json);
     }
 
     [Test]
@@ -663,7 +664,8 @@ public class DatabaseTests
                                       .ThenInclude(cr => cr.Related)
                                       .ToList();
 
-        SerializeEntity(characters);
+        var json = SerializeEntity(characters);
+        var deserialized = DeserializeEntity<IEnumerable<Character>>(json);
     }
 
     [Test]
@@ -678,7 +680,8 @@ public class DatabaseTests
                                 .Include(c => c.Tags)
                                 .ToList();
 
-        SerializeEntity(circles);
+        var json = SerializeEntity(circles);
+        var deserialized = DeserializeEntity<IEnumerable<Circle>>(json);
     }
 
     [Test]
@@ -697,7 +700,8 @@ public class DatabaseTests
                             .Include(m => m.Tags)
                             .ToList();
 
-        SerializeEntity(manga);
+        var json = SerializeEntity(manga);
+        var deserialized = DeserializeEntity<IEnumerable<Manga>>(json);
     }
 
     [Test]
@@ -711,16 +715,28 @@ public class DatabaseTests
                           .Include(t => t.Creations)
                           .ToList();
 
-        SerializeEntity(tags);
+        var json = SerializeEntity(tags);
+        var deserialized = DeserializeEntity<IEnumerable<Tag>>(json);
     }
 
     #endregion
 
-    private static void SerializeEntity<T>(IEnumerable<T> entity) where T : class
+    private static string SerializeEntity<T>(IEnumerable<T> entity) where T : class
     {
         var options = Essential.JsonSerializerOptions;
         var json = JsonSerializer.Serialize(entity, options);
 
-        File.WriteAllText($"../{typeof(T)}.json", json);
+        var jsonPath = $"../{typeof(T)}.json";
+        File.WriteAllText(jsonPath, json);
+
+        return json;
+    }
+
+    private static T DeserializeEntity<T>(string json) where T : class
+    {
+        var options = Essential.JsonSerializerOptions;
+        var entity = JsonSerializer.Deserialize<T>(json, options);
+
+        return entity;
     }
 }

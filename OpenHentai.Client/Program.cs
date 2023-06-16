@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Json;
+using System.Text.Json;
 using OpenHentai.Creatures;
 
 #pragma warning disable CA1303
@@ -53,10 +54,10 @@ public static class Program
 
         author.Age = 2022;
 
-        var newAuthor = new Author() { Age = 2018 };
+        var newAuthor = new Author("en-US::Maria magdalena") { Age = 2018 };
 
         using var response = await httpClient.PutAsJsonAsync(uri, newAuthor).ConfigureAwait(false);
-        
+
         var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
         #endregion
