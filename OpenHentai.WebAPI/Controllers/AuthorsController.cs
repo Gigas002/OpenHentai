@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using OpenHentai.Creatures;
 using OpenHentai.Contexts;
 using SystemTextJsonPatch;
+using OpenHentai.Relative;
+using Microsoft.EntityFrameworkCore;
+using OpenHentai.Circles;
+using OpenHentai.Creations;
 
 namespace OpenHentai.WebAPI.Controllers;
 
@@ -73,7 +77,55 @@ public class AuthorController : ControllerBase
         else
             return Ok(author);
     }
-    
+
+    [HttpGet("/names")]
+    [Produces(MediaTypeNames.Application.Json)]
+    public ActionResult<IEnumerable<AuthorsNames>> GetAuthorsNames()
+    {
+        Console.WriteLine($"Enter into GET: /authors/names");
+
+        var names = _context.AuthorsNames.Include(an => an.Entity).ToList();
+
+        return names;
+    }
+
+    [HttpGet("{id}/names")]
+    [Produces(MediaTypeNames.Application.Json)]
+    public ActionResult<IEnumerable<AuthorsNames>> GetAuthorNames(ulong id)
+    {
+        Console.WriteLine($"Enter into GET: /authors/{id}/names");
+
+        var author = _context.Authors.Include(a => a.AuthorsNames)
+                             .FirstOrDefault(a => a.Id == id);
+
+        return author.AuthorsNames;
+    }
+
+    [HttpGet("{id}/circles")]
+    [Produces(MediaTypeNames.Application.Json)]
+    public ActionResult<IEnumerable<Circle>> GetAuthorCircles(ulong id)
+    {
+        Console.WriteLine($"Enter into GET: /authors/{id}/circles");
+
+        var author = _context.Authors.Include(a => a.Circles)
+                             .FirstOrDefault(a => a.Id == id);
+
+        return author.Circles;
+    }
+
+    [HttpGet("{id}/creations")]
+    [Produces(MediaTypeNames.Application.Json)]
+    public ActionResult<IEnumerable<AuthorsCreations>> GetAuthorCreations(ulong id)
+    {
+        Console.WriteLine($"Enter into GET: /authors/{id}/creations");
+
+        var author = _context.Authors.Include(a => a.AuthorsCreations)
+                             .ThenInclude(ac => ac.Related)
+                             .FirstOrDefault(a => a.Id == id);
+
+        return author.AuthorsCreations;
+    }
+
     #endregion
 
     #region POST
