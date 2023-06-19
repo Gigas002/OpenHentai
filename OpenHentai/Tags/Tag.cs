@@ -90,14 +90,14 @@ public class Tag : IDatabaseEntity
     /// Category of this tag
     /// e.g. `parody`
     /// </summary>
-    [Required]
+//     [Required]
     public TagCategory Category { get; set; } = TagCategory.Unknown;
 
     /// <summary>
     /// Tag's value
     /// e.g. Mitsudomoe
     /// </summary>
-    public string Value { get; set; } = null!;
+    public string? Value { get; set; }
 
     /// <summary>
     /// Tag description
@@ -120,6 +120,8 @@ public class Tag : IDatabaseEntity
     #region Constructors
 
     public Tag() { }
+
+    public Tag(ulong id) => Id = id;
 
     public Tag(TagCategory category, string value) => (Category, Value) = (category, value);
 

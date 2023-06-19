@@ -19,5 +19,7 @@ public interface ICreatureController
 
     public Task<ActionResult> PostCreatureNamesAsync(ulong id, IEnumerable<CreaturesNames> names);
 
+    public Task<ActionResult> PostCreatureTagsAsync(ulong id, IEnumerable<ulong> tagIds);
+
     #endregion
 }

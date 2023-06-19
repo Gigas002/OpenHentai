@@ -176,7 +176,7 @@ Path: `/id/names`
 
 Info: Creates and pushes new `CreaturesNames` object into corresponding table. `Clear`s previous property value
 
-- [ ] API
+- [x] API
 - [ ] Docs
 
 **PostTags**
@@ -185,7 +185,7 @@ Path: `/id/tags`
 
 Info: Creates a new link between **existing** `Author` and `Tag` objects by known `id`s in a `creatures_tags` table. `Clear`s previous property value
 
-- [ ] API
+- [x] API
 - [ ] Docs
 
 **PostCreaturesRelations**

@@ -289,6 +289,27 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok();
     }
 
+    [HttpPost("{id}/tags")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PostCreatureTagsAsync(ulong id, IEnumerable<ulong> tagIds)
+    {
+        Console.WriteLine($"Enter into POST: /authors/{id}/tags");
+
+        var author = await Context.Authors.Include(a => a.Tags)
+                           .FirstOrDefaultAsync(a => a.Id == id);
+
+        author.Tags.Clear();
+
+        foreach (var tagId in tagIds)
+        {
+            author.Tags.Add(new Tag(tagId));
+        }
+
+        await Context.SaveChangesAsync();
+
+        return Ok();
+    }
+
     #endregion
 
     #region PUT
