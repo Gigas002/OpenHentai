@@ -7,6 +7,7 @@ using OpenHentai.Relative;
 using Microsoft.EntityFrameworkCore;
 using OpenHentai.Circles;
 using OpenHentai.Creations;
+using OpenHentai.Tags;
 
 namespace OpenHentai.WebAPI.Controllers;
 
@@ -126,6 +127,31 @@ public class AuthorController : DatabaseController, ICreatureController
                                    .FirstOrDefault(a => a.Id == id);
 
         return Ok(author.CreaturesNames);
+    }
+
+    [HttpGet("/{id}/tags")]
+    [Produces(MediaTypeNames.Application.Json)]
+    public ActionResult<IEnumerable<Tag>> GetCreatureTags(ulong id)
+    {
+        Console.WriteLine($"Enter into GET: /authors/{id}/tags");
+
+        var author = Context.Authors.Include(a => a.Tags)
+                                    .FirstOrDefault(a => a.Id == id);
+
+        return Ok(author.Tags);
+    }
+
+    [HttpGet("/{id}/relations")]
+    [Produces(MediaTypeNames.Application.Json)]
+    public ActionResult<IEnumerable<CreaturesRelations>> GetCreatureRelations(ulong id)
+    {
+        Console.WriteLine($"Enter into GET: /authors/{id}/relations");
+
+        var author = Context.Authors.Include(a => a.CreaturesRelations)
+                                    .ThenInclude(cr => cr.Related)
+                                    .FirstOrDefault(a => a.Id == id);
+
+        return Ok(author.CreaturesRelations);
     }
 
     #endregion
