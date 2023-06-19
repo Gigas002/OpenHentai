@@ -233,10 +233,34 @@ public class AuthorController : DatabaseController, ICreatureController
                                   .FirstOrDefaultAsync(a => a.Id == id);
 
         author.Circles.Clear();
-        
+
         foreach (var circleId in circleIds)
         {
             author.Circles.Add(new Circle(circleId));
+        }
+
+        await Context.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    [HttpPost("{id}/creations")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PostAuthorCreationsAsync(ulong id,
+        Dictionary<ulong, AuthorRole> authorCreations)
+    {
+        Console.WriteLine($"Enter into POST: /authors/{id}/creations");
+
+        var author = await Context.Authors.Include(a => a.AuthorsCreations)
+                                          .FirstOrDefaultAsync(a => a.Id == id);
+
+        author.AuthorsCreations.Clear();
+
+        foreach (var authorCreation in authorCreations)
+        {
+            var creation = new Creation(authorCreation.Key);
+            var relation = new AuthorsCreations(author, creation, authorCreation.Value);
+            author.AuthorsCreations.Add(relation);
         }
 
         await Context.SaveChangesAsync();
@@ -293,46 +317,17 @@ public class AuthorController : DatabaseController, ICreatureController
     }
 
     /// <remarks>
+    ///
     /// Sample request:
     ///
     ///     PUT /authors/{id}/creations
-    ///     [{
-    ///         "author_id": 1,
-    ///         "creation_id": 3,
-    ///         "relation": 2
-    ///     }]
-    ///
-    /// </remarks>
-    [HttpPut("{id}/creations")]
-    [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PutAuthorCreationsAsync(ulong id, IEnumerable<AuthorsCreations> creations)
-    {
-        Console.WriteLine($"Enter into PUT: /authors/{id}/creations");
-
-        var author = await Context.Authors.FindAsync(id);
-
-        foreach (var creation in creations)
-        {
-            author.AuthorsCreations.Add(creation);
-        }
-
-        await Context.SaveChangesAsync();
-
-        return Ok();
-    }
-
-    /// <remarks>
-    ///
-    /// Sample request:
-    ///
-    ///     PUT /authors/{id}/creations_test
     ///     {
     ///         "4": 3,
     ///         "1": 2
     ///     }
     ///
     /// </remarks>
-    [HttpPut("{id}/creations_test")]
+    [HttpPut("{id}/creations")]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutAuthorCreationsAsync(ulong id,
         Dictionary<ulong, AuthorRole> authorCreations)

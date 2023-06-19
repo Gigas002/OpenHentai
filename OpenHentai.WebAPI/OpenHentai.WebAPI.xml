@@ -4,11 +4,6 @@
         <name>OpenHentai.WebAPI</name>
     </assembly>
     <members>
-        <member name="T:OpenHentai.WebAPI.Controllers.AuthorController">
-            <summary>
-            123
-            </summary>
-        </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.#ctor(OpenHentai.Contexts.DatabaseContext)">
             <inheritdoc/>
         </member>
@@ -55,25 +50,12 @@
             
              </remarks>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutAuthorCreationsAsync(System.UInt64,System.Collections.Generic.IEnumerable{OpenHentai.Relative.AuthorsCreations})">
-             <remarks>
-             Sample request:
-            
-                 PATCH /authors/{id}
-                 [{
-                     "author_id": 1,
-                     "creation_id": 3,
-                     "relation": 2
-                 }]
-            
-             </remarks>
-        </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutAuthorCreationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Roles.AuthorRole})">
              <remarks>
             
              Sample request:
             
-                 PUT /authors/{id}/creations_test
+                 PUT /authors/{id}/creations
                  {
                      "4": 3,
                      "1": 2
