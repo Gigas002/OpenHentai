@@ -7,11 +7,11 @@ public interface ICreatureController
 
     #region GET
 
-    public abstract Task<ActionResult<IEnumerable<CreaturesNames>>> GetCreatureNamesAsync(ulong id);
+    public Task<ActionResult<IEnumerable<CreaturesNames>>> GetCreatureNamesAsync(ulong id);
 
-    public abstract Task<ActionResult<IEnumerable<Tag>>> GetCreatureTagsAsync(ulong id);
+    public Task<ActionResult<IEnumerable<Tag>>> GetCreatureTagsAsync(ulong id);
 
-    public abstract Task<ActionResult<IEnumerable<CreaturesRelations>>> GetCreatureRelationsAsync(ulong id);
+    public Task<ActionResult<IEnumerable<CreaturesRelations>>> GetCreatureRelationsAsync(ulong id);
 
     #endregion
 

@@ -167,7 +167,7 @@ Path: `/id/creations`
 
 Info: Creates a new link between **existing** `Author` and `Creation` objects by known `id`s in a `authors_creations` table. `Clear`s previous property value
 
-- [ ] API
+- [x] API
 - [ ] Docs
 
 **PostCreaturesNames**
