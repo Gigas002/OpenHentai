@@ -6,13 +6,11 @@
     <members>
         <member name="T:OpenHentai.WebAPI.Controllers.AuthorController">
             <summary>
-            
+            123
             </summary>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.#ctor(OpenHentai.Contexts.DatabaseContext)">
-            <summary>
-            Database context
-            </summary>
+            <inheritdoc/>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetAuthorAsync(System.UInt64)">
             <summary>
@@ -60,6 +58,11 @@
             <returns>Manga</returns>
             <response code="200">Returns requested manga</response>
             <response code="400">Manga is null</response>
+        </member>
+        <member name="M:DatabaseController.#ctor(OpenHentai.Contexts.DatabaseContext)">
+            <summary>
+            Initialize database context
+            </summary>
         </member>
     </members>
 </doc>

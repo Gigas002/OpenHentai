@@ -11,31 +11,21 @@ using OpenHentai.Creations;
 namespace OpenHentai.WebAPI.Controllers;
 
 // TODO: https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-5/#support-for-generic-attributes
+// TODO: use async overloads where possible
 
 /// <summary>
-/// 
+/// 123
 /// </summary>
 // [AutoValidateAntiforgeryToken]
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
 [Route("/authors")]
-public class AuthorController : ControllerBase
+public class AuthorController : DatabaseController, ICreatureController
 {
-    #region Properties
-
-    private readonly DatabaseContext _context;
-
-    #endregion
-
     #region Constructors
 
-    /// <summary>
-    /// Database context
-    /// </summary>
-    public AuthorController(DatabaseContext context)
-    {
-        _context = context;
-    }
+    /// <inheritdoc/>
+    public AuthorController(DatabaseContext context) : base(context) { }
 
     #endregion
 
@@ -49,7 +39,7 @@ public class AuthorController : ControllerBase
     {
         Console.WriteLine($"Enter into GET: /authors");
 
-        var authors = _context.Authors;
+        var authors = Context.Authors;
 
         return Ok(authors);
     }
@@ -70,7 +60,7 @@ public class AuthorController : ControllerBase
     {
         Console.WriteLine($"Enter into GET: /authors/{id}");
 
-        var author = await AuthorsContext.GetAuthorWithPropsAsync(_context, id).ConfigureAwait(false);
+        var author = await AuthorsContext.GetAuthorWithPropsAsync(Context, id).ConfigureAwait(false);
 
         if (author is null)
             return BadRequest(new ProblemDetails { Detail = $"Author with id={id} doesn't exist" });
@@ -78,24 +68,24 @@ public class AuthorController : ControllerBase
             return Ok(author);
     }
 
-    [HttpGet("/names")]
+    [HttpGet("/authors_names")]
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<IEnumerable<AuthorsNames>> GetAuthorsNames()
     {
         Console.WriteLine($"Enter into GET: /authors/names");
 
-        var names = _context.AuthorsNames.Include(an => an.Entity).ToList();
+        var names = Context.AuthorsNames.Include(an => an.Entity).ToList();
 
         return names;
     }
 
-    [HttpGet("{id}/names")]
+    [HttpGet("{id}/author_names")]
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<IEnumerable<AuthorsNames>> GetAuthorNames(ulong id)
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/names");
 
-        var author = _context.Authors.Include(a => a.AuthorsNames)
+        var author = Context.Authors.Include(a => a.AuthorsNames)
                              .FirstOrDefault(a => a.Id == id);
 
         return author.AuthorsNames;
@@ -107,7 +97,7 @@ public class AuthorController : ControllerBase
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/circles");
 
-        var author = _context.Authors.Include(a => a.Circles)
+        var author = Context.Authors.Include(a => a.Circles)
                              .FirstOrDefault(a => a.Id == id);
 
         return author.Circles;
@@ -119,11 +109,23 @@ public class AuthorController : ControllerBase
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/creations");
 
-        var author = _context.Authors.Include(a => a.AuthorsCreations)
+        var author = Context.Authors.Include(a => a.AuthorsCreations)
                              .ThenInclude(ac => ac.Related)
                              .FirstOrDefault(a => a.Id == id);
 
         return author.AuthorsCreations;
+    }
+
+    [HttpGet("/{id}/names")]
+    [Produces(MediaTypeNames.Application.Json)]
+    public ActionResult<IEnumerable<CreaturesNames>> GetCreatureNames(ulong id)
+    {
+        Console.WriteLine($"Enter into GET: /authors/{id}/names");
+
+        var author = Context.Authors.Include(a => a.CreaturesNames)
+                                   .FirstOrDefault(a => a.Id == id);
+
+        return Ok(author.CreaturesNames);
     }
 
     #endregion
@@ -158,7 +160,7 @@ public class AuthorController : ControllerBase
 
         if (author == null) return BadRequest();
 
-        await AuthorsContext.AddAuthorAsync(_context, author).ConfigureAwait(false);
+        await AuthorsContext.AddAuthorAsync(Context, author).ConfigureAwait(false);
 
         return Ok(author);
     }
@@ -180,7 +182,7 @@ public class AuthorController : ControllerBase
     // {
     //     Console.WriteLine($"Enter into DELETE: /authors/{id}");
     //
-    //     var author = await AuthorsContext.DeleteAuthorAsync(_context, id).ConfigureAwait(false);
+    //     var author = await AuthorsContext.DeleteAuthorAsync(Context, id).ConfigureAwait(false);
     //
     //     return Ok(author);
     // }
@@ -217,7 +219,7 @@ public class AuthorController : ControllerBase
     // {
     //     Console.WriteLine($"Enter into PUT: /authors/{id}");
     //
-    //     await AuthorsContext.UpdateAuthorAsync(_context, id, author).ConfigureAwait(false);
+    //     await AuthorsContext.UpdateAuthorAsync(Context, id, author).ConfigureAwait(false);
     //
     //     return Ok(author);
     // }
@@ -262,14 +264,14 @@ public class AuthorController : ControllerBase
     // {
     //     Console.WriteLine($"Enter into PATCH: /authors/{id}");
     //
-    //     var authorToUpdate = await AuthorsContext.GetAuthorAsync(_context, id);
+    //     var authorToUpdate = await AuthorsContext.GetAuthorAsync(Context, id);
     //     // var update = new Author();
     //
     //     if (patch is null) return BadRequest();
     //
     //     patch.ApplyTo(authorToUpdate);
     //
-    //     await AuthorsContext.UpdateAuthorAsync(_context, id, authorToUpdate).ConfigureAwait(false);
+    //     await AuthorsContext.UpdateAuthorAsync(Context, id, authorToUpdate).ConfigureAwait(false);
     //
     //     return Ok(authorToUpdate);
     // }
