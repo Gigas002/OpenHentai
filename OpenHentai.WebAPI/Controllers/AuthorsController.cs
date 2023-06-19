@@ -14,11 +14,7 @@ using OpenHentai.Roles;
 namespace OpenHentai.WebAPI.Controllers;
 
 // TODO: https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-5/#support-for-generic-attributes
-// TODO: use async overloads where possible
 
-/// <summary>
-/// 123
-/// </summary>
 // [AutoValidateAntiforgeryToken]
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
@@ -157,37 +153,6 @@ public class AuthorController : DatabaseController, ICreatureController
     }
 
     #endregion
-
-    /*
-        Regarding strategy for updating database entries.
-
-        POST methods are related to creating new entries or overriding current values,
-        wiping previous ones completely
-        PUT methods are used only to update values, without overriding them
-        PATCH method is used only to override basic (non-relative) properties
-
-        using ids vs objects (on example showing addition of Circle to Circles)
-        
-        objects
-
-        client:
-        1. ask server for a Circle object by search or id (req to serv = 1, req to db = 1)
-        2. send request to change author, adding circle (req to serv = 2, req to db = 2)
-
-        server:
-        1. obtain request from client to update author, using Circle object
-        2. Author.Circles.Add(circle) but in fact only Circle.Id is used
-
-        ids (priority)
-
-        client:
-        1. ask server for a Circle object by search (in case no id beforehand)
-        2. send request to change author, adding circle
-
-        server:
-        1. create new Circle using id only
-        2. add this circle object to Author.Circles collection
-    */
 
     #region POST
 
@@ -330,7 +295,7 @@ public class AuthorController : DatabaseController, ICreatureController
     /// <remarks>
     /// Sample request:
     ///
-    ///     PATCH /authors/{id}
+    ///     PUT /authors/{id}/creations
     ///     [{
     ///         "author_id": 1,
     ///         "creation_id": 3,
