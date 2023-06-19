@@ -67,7 +67,7 @@ public class AuthorController : DatabaseController, ICreatureController
             return Ok(author);
     }
 
-    [HttpGet("/authors_names")]
+    [HttpGet("authors_names")]
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<IEnumerable<AuthorsNames>> GetAuthorsNames()
     {
@@ -115,7 +115,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return author.AuthorsCreations;
     }
 
-    [HttpGet("/{id}/names")]
+    [HttpGet("{id}/names")]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreaturesNames>>> GetCreatureNamesAsync(ulong id)
     {
@@ -127,7 +127,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok(author.CreaturesNames);
     }
 
-    [HttpGet("/{id}/tags")]
+    [HttpGet("{id}/tags")]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Tag>>> GetCreatureTagsAsync(ulong id)
     {
@@ -139,7 +139,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok(author.Tags);
     }
 
-    [HttpGet("/{id}/relations")]
+    [HttpGet("{id}/relations")]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreaturesRelations>>> GetCreatureRelationsAsync(ulong id)
     {
@@ -261,6 +261,27 @@ public class AuthorController : DatabaseController, ICreatureController
             var creation = new Creation(authorCreation.Key);
             var relation = new AuthorsCreations(author, creation, authorCreation.Value);
             author.AuthorsCreations.Add(relation);
+        }
+
+        await Context.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    [HttpPost("{id}/names")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PostCreatureNamesAsync(ulong id, IEnumerable<CreaturesNames> names)
+    {
+        Console.WriteLine($"Enter into POST: /authors/{id}/names");
+
+        var author = await Context.Authors.Include(a => a.CreaturesNames)
+                           .FirstOrDefaultAsync(a => a.Id == id);
+
+        author.CreaturesNames.Clear();
+
+        foreach (var name in names)
+        {
+            author.CreaturesNames.Add(name);
         }
 
         await Context.SaveChangesAsync();

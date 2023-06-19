@@ -17,7 +17,7 @@ public interface ICreatureController
 
     #region POST
 
-    
+    public Task<ActionResult> PostCreatureNamesAsync(ulong id, IEnumerable<CreaturesNames> names);
 
     #endregion
 }

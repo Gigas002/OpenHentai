@@ -25,6 +25,7 @@ public class Creature : IDatabaseEntity
     /// Alternative names can be any
     /// </summary>
     [JsonIgnore]
+    // TODO: rename
     public HashSet<CreaturesNames> CreaturesNames { get; init; } = new();
 
     /// <summary>
@@ -63,6 +64,7 @@ public class Creature : IDatabaseEntity
     /// Collection of related and alternative creatures,
     /// Creature-Relation pair, e.g. "Admiral, alternative"
     /// </summary>
+    // TODO: rename
     public HashSet<CreaturesRelations> CreaturesRelations { get; init; } = new();
     
     #endregion
