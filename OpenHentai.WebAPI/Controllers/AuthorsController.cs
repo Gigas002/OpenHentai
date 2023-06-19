@@ -73,7 +73,7 @@ public class AuthorController : DatabaseController, ICreatureController
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<IEnumerable<AuthorsNames>> GetAuthorsNames()
     {
-        Console.WriteLine($"Enter into GET: /authors/names");
+        Console.WriteLine($"Enter into GET: /authors/authors_names");
 
         var names = Context.AuthorsNames.Include(an => an.Entity).ToList();
 
@@ -82,74 +82,74 @@ public class AuthorController : DatabaseController, ICreatureController
 
     [HttpGet("{id}/author_names")]
     [Produces(MediaTypeNames.Application.Json)]
-    public ActionResult<IEnumerable<AuthorsNames>> GetAuthorNames(ulong id)
+    public async Task<ActionResult<IEnumerable<AuthorsNames>>> GetAuthorNamesAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /authors/{id}/names");
+        Console.WriteLine($"Enter into GET: /authors/{id}/author_names");
 
-        var author = Context.Authors.Include(a => a.AuthorsNames)
-                             .FirstOrDefault(a => a.Id == id);
+        var author = await Context.Authors.Include(a => a.AuthorsNames)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
 
         return author.AuthorsNames;
     }
 
     [HttpGet("{id}/circles")]
     [Produces(MediaTypeNames.Application.Json)]
-    public ActionResult<IEnumerable<Circle>> GetAuthorCircles(ulong id)
+    public async Task<ActionResult<IEnumerable<Circle>>> GetAuthorCirclesAsync(ulong id)
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/circles");
 
-        var author = Context.Authors.Include(a => a.Circles)
-                             .FirstOrDefault(a => a.Id == id);
+        var author = await Context.Authors.Include(a => a.Circles)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
 
         return author.Circles;
     }
 
     [HttpGet("{id}/creations")]
     [Produces(MediaTypeNames.Application.Json)]
-    public ActionResult<IEnumerable<AuthorsCreations>> GetAuthorCreations(ulong id)
+    public async Task<ActionResult<IEnumerable<AuthorsCreations>>> GetAuthorCreationsAsync(ulong id)
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/creations");
 
-        var author = Context.Authors.Include(a => a.AuthorsCreations)
+        var author = await Context.Authors.Include(a => a.AuthorsCreations)
                              .ThenInclude(ac => ac.Related)
-                             .FirstOrDefault(a => a.Id == id);
+                             .FirstOrDefaultAsync(a => a.Id == id);
 
         return author.AuthorsCreations;
     }
 
     [HttpGet("/{id}/names")]
     [Produces(MediaTypeNames.Application.Json)]
-    public ActionResult<IEnumerable<CreaturesNames>> GetCreatureNames(ulong id)
+    public async Task<ActionResult<IEnumerable<CreaturesNames>>> GetCreatureNamesAsync(ulong id)
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/names");
 
-        var author = Context.Authors.Include(a => a.CreaturesNames)
-                                   .FirstOrDefault(a => a.Id == id);
+        var author = await Context.Authors.Include(a => a.CreaturesNames)
+                                   .FirstOrDefaultAsync(a => a.Id == id);
 
         return Ok(author.CreaturesNames);
     }
 
     [HttpGet("/{id}/tags")]
     [Produces(MediaTypeNames.Application.Json)]
-    public ActionResult<IEnumerable<Tag>> GetCreatureTags(ulong id)
+    public async Task<ActionResult<IEnumerable<Tag>>> GetCreatureTagsAsync(ulong id)
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/tags");
 
-        var author = Context.Authors.Include(a => a.Tags)
-                                    .FirstOrDefault(a => a.Id == id);
+        var author = await Context.Authors.Include(a => a.Tags)
+                                    .FirstOrDefaultAsync(a => a.Id == id);
 
         return Ok(author.Tags);
     }
 
     [HttpGet("/{id}/relations")]
     [Produces(MediaTypeNames.Application.Json)]
-    public ActionResult<IEnumerable<CreaturesRelations>> GetCreatureRelations(ulong id)
+    public async Task<ActionResult<IEnumerable<CreaturesRelations>>> GetCreatureRelationsAsync(ulong id)
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/relations");
 
-        var author = Context.Authors.Include(a => a.CreaturesRelations)
+        var author = await Context.Authors.Include(a => a.CreaturesRelations)
                                     .ThenInclude(cr => cr.Related)
-                                    .FirstOrDefault(a => a.Id == id);
+                                    .FirstOrDefaultAsync(a => a.Id == id);
 
         return Ok(author.CreaturesRelations);
     }

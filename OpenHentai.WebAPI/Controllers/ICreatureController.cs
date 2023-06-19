@@ -4,9 +4,9 @@ using OpenHentai.Tags;
 
 public interface ICreatureController
 {
-    public abstract ActionResult<IEnumerable<CreaturesNames>> GetCreatureNames(ulong id);
+    public abstract Task<ActionResult<IEnumerable<CreaturesNames>>> GetCreatureNamesAsync(ulong id);
 
-    public abstract ActionResult<IEnumerable<Tag>> GetCreatureTags(ulong id);
+    public abstract Task<ActionResult<IEnumerable<Tag>>> GetCreatureTagsAsync(ulong id);
 
-    public abstract ActionResult<IEnumerable<CreaturesRelations>> GetCreatureRelations(ulong id);
+    public abstract Task<ActionResult<IEnumerable<CreaturesRelations>>> GetCreatureRelationsAsync(ulong id);
 }
