@@ -39,6 +39,17 @@ public class AuthorController : ControllerBase
 
     #region GET
 
+    [HttpGet]
+    [Produces(MediaTypeNames.Application.Json)]
+    public ActionResult<IEnumerable<Author>> GetAuthors()
+    {
+        Console.WriteLine($"Enter into GET: /authors");
+
+        var authors = _context.Authors;
+
+        return Ok(authors);
+    }
+
     // GET: authors/5
     /// <summary>
     /// Get author from database by id

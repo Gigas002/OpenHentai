@@ -29,6 +29,7 @@ public class Creation : IDatabaseEntity
     /// Alternative titles can be any
     /// e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
     /// </summary>
+    [JsonIgnore]
     public HashSet<CreationsTitles> CreationsTitles { get; init; } = new();
 
     /// <summary>

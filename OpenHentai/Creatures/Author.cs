@@ -22,6 +22,7 @@ public class Author : Creature
     /// Main name must be romanization of native name (e.g. Hepburn romanization for ja-JP)
     /// Alternative names can be any
     /// </summary>
+    [JsonIgnore]
     public HashSet<AuthorsNames> AuthorsNames { get; init; } = new();
 
     /// <summary>

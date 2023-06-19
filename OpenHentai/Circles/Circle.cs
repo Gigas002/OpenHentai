@@ -26,6 +26,7 @@ public class Circle : IDatabaseEntity
     /// Alternative titles can be any
     /// e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
     /// </summary>
+    [JsonIgnore]
     public HashSet<CirclesTitles> CirclesTitles { get; init; } = new();
 
     /// <summary>
