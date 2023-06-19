@@ -9,6 +9,7 @@ using OpenHentai.Circles;
 using OpenHentai.Creations;
 using OpenHentai.Tags;
 using SystemTextJsonPatch.Operations;
+using OpenHentai.Roles;
 
 namespace OpenHentai.WebAPI.Controllers;
 
@@ -157,6 +158,37 @@ public class AuthorController : DatabaseController, ICreatureController
 
     #endregion
 
+    /*
+        Regarding strategy for updating database entries.
+
+        POST methods are related to creating new entries or overriding current values,
+        wiping previous ones completely
+        PUT methods are used only to update values, without overriding them
+        PATCH method is used only to override basic (non-relative) properties
+
+        using ids vs objects (on example showing addition of Circle to Circles)
+        
+        objects
+
+        client:
+        1. ask server for a Circle object by search or id (req to serv = 1, req to db = 1)
+        2. send request to change author, adding circle (req to serv = 2, req to db = 2)
+
+        server:
+        1. obtain request from client to update author, using Circle object
+        2. Author.Circles.Add(circle) but in fact only Circle.Id is used
+
+        ids (priority)
+
+        client:
+        1. ask server for a Circle object by search (in case no id beforehand)
+        2. send request to change author, adding circle
+
+        server:
+        1. create new Circle using id only
+        2. add this circle object to Author.Circles collection
+    */
+
     #region POST
 
     // POST: authors/
@@ -205,17 +237,41 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     }]
     ///
     /// </remarks>
-    [HttpPost("{id}/authors_names")]
+    [HttpPost("{id}/author_names")]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostAuthorNamesAsync(ulong id, IEnumerable<AuthorsNames> names)
     {
-        Console.WriteLine($"Enter into POST: /authors/{id}/authors_names");
+        Console.WriteLine($"Enter into POST: /authors/{id}/author_names");
 
-        var author = await Context.Authors.FindAsync(id);
-        
+        var author = await Context.Authors.Include(a => a.AuthorsNames)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
+
+        author.AuthorsNames.Clear();
+
         foreach (var name in names)
         {
             author.AuthorsNames.Add(name);
+        }
+
+        await Context.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    [HttpPost("{id}/circles")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PostAuthorsCirclesAsync(ulong id, IEnumerable<ulong> circleIds)
+    {
+        Console.WriteLine($"Enter into POST: /authors/{id}/circles");
+
+        var author = await Context.Authors.Include(a => a.Circles)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
+
+        author.Circles.Clear();
+        
+        foreach (var circleId in circleIds)
+        {
+            author.Circles.Add(new Circle(circleId));
         }
 
         await Context.SaveChangesAsync();
@@ -228,26 +284,103 @@ public class AuthorController : DatabaseController, ICreatureController
     #region PUT
 
     // update author entry with EXISTING (posted) names, found by ids
-    [HttpPut("{id}/authors_names")]
+    // since authors_names has author_id defined as ulong - it overrides it's value,
+    // removing the name from previously specified entry
+    [HttpPut("{id}/author_names")]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutAuthorNamesAsync(ulong id, IEnumerable<ulong> nameIds)
     {
-        Console.WriteLine($"Enter into PUT: /authors/{id}/authors_names");
+        Console.WriteLine($"Enter into PUT: /authors/{id}/author_names");
 
         var author = await Context.Authors.FindAsync(id);
 
-        var names = new List<AuthorsNames>();
-
         foreach (var nameId in nameIds)
         {
+            // search through db instead of creating new object is required here
             var name = await Context.AuthorsNames.FindAsync(nameId);
 
-            names.Add(name);
-        }
-        
-        foreach (var name in names)
-        {
             author.AuthorsNames.Add(name);
+        }
+
+        await Context.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    [HttpPut("{id}/circles")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PutAuthorCirclesAsync(ulong id, IEnumerable<ulong> circleIds)
+    {
+        Console.WriteLine($"Enter into PUT: /authors/{id}/circles");
+
+        var author = await Context.Authors.FindAsync(id);
+
+        foreach (var circleId in circleIds)
+        {
+            var circle = new Circle(circleId);
+
+            author.Circles.Add(circle);
+        }
+
+        await Context.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     PATCH /authors/{id}
+    ///     [{
+    ///         "author_id": 1,
+    ///         "creation_id": 3,
+    ///         "relation": 2
+    ///     }]
+    ///
+    /// </remarks>
+    [HttpPut("{id}/creations")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PutAuthorCreationsAsync(ulong id, IEnumerable<AuthorsCreations> creations)
+    {
+        Console.WriteLine($"Enter into PUT: /authors/{id}/creations");
+
+        var author = await Context.Authors.FindAsync(id);
+
+        foreach (var creation in creations)
+        {
+            author.AuthorsCreations.Add(creation);
+        }
+
+        await Context.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    /// <remarks>
+    ///
+    /// Sample request:
+    ///
+    ///     PUT /authors/{id}/creations_test
+    ///     {
+    ///         "4": 3,
+    ///         "1": 2
+    ///     }
+    ///
+    /// </remarks>
+    [HttpPut("{id}/creations_test")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PutAuthorCreationsAsync(ulong id,
+        Dictionary<ulong, AuthorRole> authorCreations)
+    {
+        Console.WriteLine($"Enter into PUT: /authors/{id}/creations_test");
+
+        var author = await Context.Authors.FindAsync(id);
+
+        foreach (var authorCreation in authorCreations)
+        {
+            var creation = new Creation(authorCreation.Key);
+            var relation = new AuthorsCreations(author, creation, authorCreation.Value);
+            author.AuthorsCreations.Add(relation);
         }
 
         await Context.SaveChangesAsync();
@@ -266,6 +399,38 @@ public class AuthorController : DatabaseController, ICreatureController
         Console.WriteLine($"Enter into DELETE: /authors/{id}");
 
         var author = await AuthorsContext.DeleteAuthorAsync(Context, id).ConfigureAwait(false);
+
+        return Ok(author);
+    }
+
+    [HttpDelete("{id}/author_names")]
+    public async Task<ActionResult> DeleteAuthorNamesAsync(ulong id, IEnumerable<ulong> nameIds)
+    {
+        Console.WriteLine($"Enter into DELETE: /authors/{id}/author_names");
+
+        var author = await Context.Authors.Include(a => a.AuthorsNames)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
+
+        foreach (var nameId in nameIds)
+            author.AuthorsNames.RemoveWhere(an => an.Id == nameId);
+
+        await Context.SaveChangesAsync();
+
+        return Ok(author);
+    }
+
+    [HttpDelete("{id}/circles")]
+    public async Task<ActionResult> DeleteAuthorCirclesAsync(ulong id, IEnumerable<ulong> circleIds)
+    {
+        Console.WriteLine($"Enter into DELETE: /authors/{id}");
+
+        var author = await Context.Authors.Include(a => a.Circles)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
+
+        foreach (var circleId in circleIds)
+            author.Circles.RemoveWhere(c => c.Id == circleId);
+
+        await Context.SaveChangesAsync();
 
         return Ok(author);
     }
@@ -315,58 +480,6 @@ public class AuthorController : DatabaseController, ICreatureController
     }
 
     #endregion
-
-    // #region PATCH
-    //
-    // // PATCH: patch/1
-    // /// <summary>
-    // /// Patch user
-    // /// </summary>
-    // /// <param name="id">Id of user to patch</param>
-    // /// <param name="patch">Patch to apply</param>
-    // /// <returns>A newly created User</returns>
-    // /// <remarks>
-    // /// Sample request:
-    // ///
-    // ///     PATCH /patch/1
-    // ///     [
-    // ///         {
-    // ///             "op": "replace",
-    // ///             "path": "/name",
-    // ///             "value": "Greck"
-    // ///         },
-    // ///         {
-    // ///             "op": "replace",
-    // ///             "path": "/age",
-    // ///             "value": 51
-    // ///         }
-    // ///     ]
-    // ///
-    // /// </remarks>
-    // /// <response code="201">Returns the newly created user</response>
-    // /// <response code="400">Patch is null</response>
-    // [HttpPatch("authors/{id}")]
-    // [ProducesResponseType(StatusCodes.Status201Created)]
-    // [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    // [Consumes("application/json-patch+json")]
-    // [Produces(MediaTypeNames.Application.Json)]
-    // public async Task<ActionResult<Author>> PatchAuthorAsync(ulong id, JsonPatchDocument<Author> patch)
-    // {
-    //     Console.WriteLine($"Enter into PATCH: /authors/{id}");
-    //
-    //     var authorToUpdate = await AuthorsContext.GetAuthorAsync(Context, id);
-    //     // var update = new Author();
-    //
-    //     if (patch is null) return BadRequest();
-    //
-    //     patch.ApplyTo(authorToUpdate);
-    //
-    //     await AuthorsContext.UpdateAuthorAsync(Context, id, authorToUpdate).ConfigureAwait(false);
-    //
-    //     return Ok(authorToUpdate);
-    // }
-    //
-    // #endregion
 
     #endregion
 }

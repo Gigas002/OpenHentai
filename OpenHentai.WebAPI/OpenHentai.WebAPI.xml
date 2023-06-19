@@ -55,6 +55,32 @@
             
              </remarks>
         </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutAuthorCreationsAsync(System.UInt64,System.Collections.Generic.IEnumerable{OpenHentai.Relative.AuthorsCreations})">
+             <remarks>
+             Sample request:
+            
+                 PATCH /authors/{id}
+                 [{
+                     "author_id": 1,
+                     "creation_id": 3,
+                     "relation": 2
+                 }]
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutAuthorCreationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Roles.AuthorRole})">
+             <remarks>
+            
+             Sample request:
+            
+                 PUT /authors/{id}/creations_test
+                 {
+                     "4": 3,
+                     "1": 2
+                 }
+            
+             </remarks>
+        </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PatchAuthorAsync(System.UInt64,System.Collections.Generic.IEnumerable{SystemTextJsonPatch.Operations.Operation{OpenHentai.Creatures.Author}})">
              <remarks>
              Sample request:
