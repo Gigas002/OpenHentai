@@ -38,6 +38,45 @@
              <response code="200">Returns the created author</response>
              <response code="400">Author is null</response>
         </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostAuthorNamesAsync(System.UInt64,System.Collections.Generic.IEnumerable{OpenHentai.Relative.AuthorsNames})">
+             <summary>
+             Updates Author with NEW names, POSTed at their own table
+             </summary>
+             <remarks>
+            
+             Example request:
+            
+                 POST /authors/{id}/names
+                 [{
+                     "author_id": 9,
+                     "name": "Test Minato",
+                     "language": null
+                 }]
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PatchAuthorAsync(System.UInt64,System.Collections.Generic.IEnumerable{SystemTextJsonPatch.Operations.Operation{OpenHentai.Creatures.Author}})">
+             <remarks>
+             Sample request:
+            
+                 PATCH /authors/{id}
+                 [{
+                     "path": "/age",
+                     "op": "replace",
+                     "value": 30
+                 },
+                 {
+                     "path": "/authorsNames",
+                     "op": "add",
+                     "value": [{
+                       "author_id": 8,
+                       "name": "Test Bubato",
+                       "language": null
+                     }]
+                 }]
+            
+             </remarks>
+        </member>
         <member name="T:OpenHentai.WebAPI.Controllers.MangaController">
             <summary>
             

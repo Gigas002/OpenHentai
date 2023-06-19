@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using OpenHentai.Circles;
 using OpenHentai.Creations;
 using OpenHentai.Tags;
+using SystemTextJsonPatch.Operations;
 
 namespace OpenHentai.WebAPI.Controllers;
 
@@ -189,67 +190,132 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok(author);
     }
 
+    /// <summary>
+    /// Updates Author with NEW names, POSTed at their own table
+    /// </summary>
+    /// <remarks>
+    ///
+    /// Example request:
+    ///
+    ///     POST /authors/{id}/names
+    ///     [{
+    ///         "author_id": 9,
+    ///         "name": "Test Minato",
+    ///         "language": null
+    ///     }]
+    ///
+    /// </remarks>
+    [HttpPost("{id}/authors_names")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PostAuthorNamesAsync(ulong id, IEnumerable<AuthorsNames> names)
+    {
+        Console.WriteLine($"Enter into POST: /authors/{id}/authors_names");
+
+        var author = await Context.Authors.FindAsync(id);
+        
+        foreach (var name in names)
+        {
+            author.AuthorsNames.Add(name);
+        }
+
+        await Context.SaveChangesAsync();
+
+        return Ok();
+    }
+
     #endregion
 
-    // #region DELETE
-    //
-    // // DELETE: authors/1
-    // /// <summary>
-    // /// Delete author
-    // /// </summary>
-    // /// <param name="id">Id of author to delete</param>
-    // /// <returns>Deleted author</returns>
-    // /// <response code="200">Returns the removed author</response>
-    // [HttpDelete("{id}")]
-    // [Produces(MediaTypeNames.Application.Json)]
-    // public async Task<ActionResult> DeleteAuthorAsync(ulong id)
-    // {
-    //     Console.WriteLine($"Enter into DELETE: /authors/{id}");
-    //
-    //     var author = await AuthorsContext.DeleteAuthorAsync(Context, id).ConfigureAwait(false);
-    //
-    //     return Ok(author);
-    // }
-    //
-    // #endregion
-    //
-    // #region PUT
-    //
-    // // PUT: authors/1
-    // /// <summary>
-    // /// Update author
-    // /// </summary>
-    // /// <param name="id">Id of author to update</param>
-    // /// <param name="author">Updated for author</param>
-    // /// <returns>A created author</returns>
-    // /// <remarks>
-    // /// Sample request:
-    // ///
-    // ///     PUT /authors/1
-    // ///     {
-    // ///         "name": "Petka",
-    // ///         "age": 88
-    // ///     }
-    // ///
-    // /// </remarks>
-    // /// <response code="200">Returns the created author</response>
-    // /// <response code="400">New author is null</response>
-    // [HttpPut("{id}")]
-    // [ProducesResponseType(StatusCodes.Status200OK)]
-    // [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    // [Consumes(MediaTypeNames.Application.Json)]
-    // [Produces(MediaTypeNames.Application.Json)]
-    // public async Task<ActionResult<Author>> PutUserAsync(ulong id, Author author)
-    // {
-    //     Console.WriteLine($"Enter into PUT: /authors/{id}");
-    //
-    //     await AuthorsContext.UpdateAuthorAsync(Context, id, author).ConfigureAwait(false);
-    //
-    //     return Ok(author);
-    // }
-    //
-    // #endregion
-    //
+    #region PUT
+
+    // update author entry with EXISTING (posted) names, found by ids
+    [HttpPut("{id}/authors_names")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PutAuthorNamesAsync(ulong id, IEnumerable<ulong> nameIds)
+    {
+        Console.WriteLine($"Enter into PUT: /authors/{id}/authors_names");
+
+        var author = await Context.Authors.FindAsync(id);
+
+        var names = new List<AuthorsNames>();
+
+        foreach (var nameId in nameIds)
+        {
+            var name = await Context.AuthorsNames.FindAsync(nameId);
+
+            names.Add(name);
+        }
+        
+        foreach (var name in names)
+        {
+            author.AuthorsNames.Add(name);
+        }
+
+        await Context.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    #endregion
+
+    #region DELETE
+
+    [HttpDelete("{id}")]
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> DeleteAuthorAsync(ulong id)
+    {
+        Console.WriteLine($"Enter into DELETE: /authors/{id}");
+
+        var author = await AuthorsContext.DeleteAuthorAsync(Context, id).ConfigureAwait(false);
+
+        return Ok(author);
+    }
+
+    #endregion
+
+    #region PATCH
+
+    // TODO: requires more testing and improvements
+
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     PATCH /authors/{id}
+    ///     [{
+    ///         "path": "/age",
+    ///         "op": "replace",
+    ///         "value": 30
+    ///     },
+    ///     {
+    ///         "path": "/authorsNames",
+    ///         "op": "add",
+    ///         "value": [{
+    ///           "author_id": 8,
+    ///           "name": "Test Bubato",
+    ///           "language": null
+    ///         }]
+    ///     }]
+    ///
+    /// </remarks>
+    [HttpPatch("{id}")]
+    [Consumes("application/json-patch+json")]
+    public async Task<ActionResult<Author>> PatchAuthorAsync(ulong id,
+        IEnumerable<Operation<Author>> operations)
+    {
+        Console.WriteLine($"Enter into PATCH: /authors/{id}");
+
+        var patch = new JsonPatchDocument<Author>(operations.ToList(), new());
+
+        var user = await Context.Authors.FindAsync(id);
+
+        patch.ApplyTo(user);
+
+        await Context.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    #endregion
+
     // #region PATCH
     //
     // // PATCH: patch/1
