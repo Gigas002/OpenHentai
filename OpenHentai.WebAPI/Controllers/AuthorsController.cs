@@ -61,7 +61,7 @@ public class AuthorController : DatabaseController, ICreatureController
     {
         Console.WriteLine($"Enter into GET: /authors/{id}");
 
-        var author = await AuthorsContext.GetAuthorWithPropsAsync(Context, id).ConfigureAwait(false);
+        var author = await AuthorsContext.GetAuthorAsync(Context, id).ConfigureAwait(false);
 
         if (author is null)
             return BadRequest(new ProblemDetails { Detail = $"Author with id={id} doesn't exist" });
@@ -165,13 +165,11 @@ public class AuthorController : DatabaseController, ICreatureController
     /// <param name="author">Author to add</param>
     /// <returns>Created author</returns>
     /// <remarks>
-    /// Sample request:
     ///
-    ///     POST /authors/
-    ///     {
-    ///        "Name": "Mikhail",
-    ///        "Age": 69
-    ///     }
+    /// Minimal request:
+    ///
+    ///     POST /authors
+    ///     { }
     ///
     /// </remarks>
     /// <response code="200">Returns the created author</response>
@@ -180,9 +178,9 @@ public class AuthorController : DatabaseController, ICreatureController
     [ProducesResponseType(StatusCodes.Status200OK)]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<Author>> PostUserAsync(Author author)
+    public async Task<ActionResult<Author>> PostAuthorAsync(Author author)
     {
-        Console.WriteLine("Enter into POST: /authors/");
+        Console.WriteLine("Enter into POST: /authors");
 
         if (author == null) return BadRequest();
 
