@@ -586,9 +586,20 @@ public class AuthorController : DatabaseController, ICreatureController
     }
 
     [HttpDelete("{id}/relations")]
-    public Task<ActionResult> DeleteRelationsAsync(ulong id, IEnumerable<ulong> relatedIds)
+    public async Task<ActionResult> DeleteRelationsAsync(ulong id, IEnumerable<ulong> relatedIds)
     {
-        throw new NotImplementedException();
+        Console.WriteLine($"Enter into DELETE: /authors/{id}/relations");
+
+        var author = await Context.Authors.Include(a => a.Relations)
+                                  .ThenInclude(cr => cr.Related)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
+
+        foreach (var relatedId in relatedIds)
+            author.Relations.RemoveWhere(cr => cr.Related.Id == relatedId);
+
+        await Context.SaveChangesAsync();
+
+        return Ok(author);
     }
 
     #endregion
