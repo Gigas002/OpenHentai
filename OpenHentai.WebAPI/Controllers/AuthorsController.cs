@@ -195,7 +195,7 @@ public class AuthorController : DatabaseController, ICreatureController
     ///
     /// Example request:
     ///
-    ///     POST /authors/{id}/names
+    ///     POST /authors/{id}/author_names
     ///     [{
     ///         "author_id": 9,
     ///         "name": "Test Minato",
@@ -237,7 +237,9 @@ public class AuthorController : DatabaseController, ICreatureController
 
         foreach (var circleId in circleIds)
         {
-            author.Circles.Add(new Circle(circleId));
+            var circle = await Context.Circles.FindAsync(circleId);
+
+            author.Circles.Add(circle);
         }
 
         await Context.SaveChangesAsync();
@@ -258,7 +260,8 @@ public class AuthorController : DatabaseController, ICreatureController
 
         foreach (var creationRole in creationRoles)
         {
-            var creation = new Creation(creationRole.Key);
+            var creation = await Context.Creations.FindAsync(creationRole.Key);
+
             author.AddCreation(creation, creationRole.Value);
         }
 
@@ -267,6 +270,18 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok();
     }
 
+    /// <remarks>
+    ///
+    /// Example request:
+    ///
+    ///     POST /authors/{id}/names
+    ///     [{
+    ///         "creature_id": 9,
+    ///         "name": "Test Minato",
+    ///         "language": null
+    ///     }]
+    ///
+    /// </remarks>
     [HttpPost("{id}/names")]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostNamesAsync(ulong id, IEnumerable<CreaturesNames> names)
@@ -301,7 +316,9 @@ public class AuthorController : DatabaseController, ICreatureController
 
         foreach (var tagId in tagIds)
         {
-            author.Tags.Add(new Tag(tagId));
+            var tag = await Context.Tags.FindAsync(tagId);
+
+            author.Tags.Add(tag);
         }
 
         await Context.SaveChangesAsync();
@@ -323,7 +340,8 @@ public class AuthorController : DatabaseController, ICreatureController
 
         foreach (var relation in relations)
         {
-            var related = new Creature(relation.Key);
+            var related = await Context.Creatures.FindAsync(relation.Key);
+
             author.AddRelation(related, relation.Value);
         }
 
@@ -370,7 +388,7 @@ public class AuthorController : DatabaseController, ICreatureController
 
         foreach (var circleId in circleIds)
         {
-            var circle = new Circle(circleId);
+            var circle = await Context.Circles.FindAsync(circleId);
 
             author.Circles.Add(circle);
         }
@@ -401,7 +419,8 @@ public class AuthorController : DatabaseController, ICreatureController
 
         foreach (var creationRole in creationRoles)
         {
-            var creation = new Creation(creationRole.Key);
+            var creation = await Context.Creations.FindAsync(creationRole.Key);
+
             author.AddCreation(creation, creationRole.Value);
         }
 
@@ -435,6 +454,19 @@ public class AuthorController : DatabaseController, ICreatureController
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutTagsAsync(ulong id, IEnumerable<ulong> tagIds)
     {
+        Console.WriteLine($"Enter into PUT: /authors/{id}/tags");
+
+        var author = await Context.Authors.FindAsync(id);
+
+        foreach (var tagId in tagIds)
+        {
+            var tag = await Context.Tags.FindAsync(tagId);
+
+            author.Tags.Add(tag);
+        }
+
+        await Context.SaveChangesAsync();
+
         return Ok();
     }
 

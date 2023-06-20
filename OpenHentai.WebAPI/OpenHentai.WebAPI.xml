@@ -41,9 +41,23 @@
             
              Example request:
             
-                 POST /authors/{id}/names
+                 POST /authors/{id}/author_names
                  [{
                      "author_id": 9,
+                     "name": "Test Minato",
+                     "language": null
+                 }]
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostNamesAsync(System.UInt64,System.Collections.Generic.IEnumerable{OpenHentai.Relative.CreaturesNames})">
+             <remarks>
+            
+             Example request:
+            
+                 POST /authors/{id}/names
+                 [{
+                     "creature_id": 9,
                      "name": "Test Minato",
                      "language": null
                  }]

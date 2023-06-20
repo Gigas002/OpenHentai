@@ -245,7 +245,7 @@ Path: `/id/tags`
 
 Info: Same as corresponding `POST` method, but doesn't override existing value, expanding it instead
 
-- [ ] API
+- [x] API
 - [ ] Docs
 
 **PutCreaturesRelations**
