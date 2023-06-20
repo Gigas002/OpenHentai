@@ -4,11 +4,15 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using OpenHentai.Circles;
 using OpenHentai.Contexts;
 using OpenHentai.Creatures;
 using OpenHentai.JsonConverters;
+using OpenHentai.Relative;
+using OpenHentai.Roles;
 using OpenHentai.Tags;
 using SystemTextJsonPatch;
+using SystemTextJsonPatch.Operations;
 
 #pragma warning disable CA1303
 
@@ -49,23 +53,23 @@ public static class Program
 
         #region POST
 
-        
+
 
         #endregion
-        
+
         #region PATCH
 
-        // Console.WriteLine("PATCH");
-        //
-        // uri = new Uri($"{serverAddress}/authors/{authorId}");
-        //
-        // stopwatch.Restart();
-        //
-        // var authorP = PatchAsync(httpClient, uri).ConfigureAwait(false);
-        //
-        // stopwatch.Stop();
-        //
-        // Console.WriteLine($"Elapsed time: {stopwatch.ElapsedMilliseconds}");
+        Console.WriteLine("PATCH");
+        
+        uri = new Uri($"{serverAddress}/authors/{authorId}");
+        
+        stopwatch.Restart();
+        
+        await PatchAsync(httpClient, uri).ConfigureAwait(false);
+        
+        stopwatch.Stop();
+        
+        Console.WriteLine($"Elapsed time: {stopwatch.ElapsedMilliseconds}");
 
         #endregion
 
@@ -155,27 +159,35 @@ public static class Program
         return null;
     }
 
-    public static async Task<Author> PatchAsync(HttpClient httpClient, Uri uri)
+    public static async Task PatchAsync(HttpClient httpClient, Uri uri)
     {
+        ulong authorId = 1;
+
         if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
 
-        var patch = new JsonPatchDocument<Author>();
-        patch.Replace((a) => a.Age, 366);
+        var authorNames = new List<AuthorsNames>();
+        authorNames.Add(new(new(authorId), "petrenko", "ru-RU"));
+        authorNames.Add(new(new(authorId), "ivan", "ru-RU"));
 
-        var patchJson = JsonSerializer.Serialize(patch, options: new());
+        var circles = new List<Circle>();
+        circles.Add(new Circle(2));
+
+        var creations = new List<AuthorsCreations>();
+        // TODO: should not fail if Creations is GET from db, not created new
+        creations.Add(new(new(authorId), new(3), AuthorRole.SecondaryArtist));
+
+        var operations = new List<Operation<Author>>
+        {
+            new Operation<Author>("replace", "/age", null, 444),
+            new Operation<Author>("add", "/authornames", null, authorNames),
+            new Operation<Author>("add", "/circles", null, circles),
+            new Operation<Author>("add", "/creations", null, creations),
+        };
+
+        var patchJson = JsonSerializer.Serialize(operations, options: Essential.JsonSerializerOptions);
         using var content = new StringContent(patchJson, Encoding.UTF8, "application/json-patch+json");
 
-        try
-        {
-            using var response = await httpClient.PatchAsync(uri, content).ConfigureAwait(false);
-        }
-        catch (Exception ex)
-        {
-
-        }
-
-        return null;
-        // return await response.Content.ReadFromJsonAsync<Author>().ConfigureAwait(false);
+        using var response = await httpClient.PatchAsync(uri, content).ConfigureAwait(false);
     }
 }
 

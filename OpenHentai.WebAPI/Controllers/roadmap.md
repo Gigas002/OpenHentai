@@ -2,44 +2,6 @@
 
 File for tracking the progress on controllers API implementation
 
-## Philosophy
-
-Regarding strategy for updating database entries
-
-`POST` methods are used **only to create new** entries in database/table
-
-`PUT` methods are used **only to update** values, without overriding them
-
-`PATCH` method is used **only to override basic** (*non-relative*) properties
-
-Regarding usage of `object`s vs `id`s in queries (*example showing addition of `Circle` to `Author.Circles`):        
-
-**objects**
-
-client:
-
-1. ask server for a `Circle` object from search or id (serv_req_count = 1, db_req_count = 1)
-2. send `PUT` request to change `Author`, adding `Circle` (serv_req_count = 2, db_req_count = 2)
-
-server:
-
-`Author.Circles.Add(circle)` but in fact only `Circle.Id` is needed
-
-**ids**
-
-client:
-
-1. ask server for a `Circle` object by search in case no id beforehand (serv_req_count = 1/0, db_req_count = 1/0)
-2. send request to change `Author`, adding `Circle`, sending only `id` (serv_req_count = 2/1, db_req_count = 2/1)
-
-server:
-
-~~1. create new `Circle` using `id`~~
-1. initialize `Circle` from given `id` 
-2. add this circle object to `Author.Circles` collection
-
-These two are pretty much the same, but the second one doesn't send the whole `Circle` object, making query lighter. Generally, we don't need to send `object`s in cases, where we don't need them. When updating exsiting entries, sending only `id`s is enough
-
 **Included response data**
 
 TODO: decide, what should be `Include()` by default
@@ -153,47 +115,11 @@ Info: Creates and pushes new `AuthorsNames` object into corresponding table. `Cl
 - [x] API
 - [ ] Docs
 
-**PostCircles**
-
-Path: `/id/circles`
-
-Info: Creates a new link between **existing** `Author` and `Circle` objects by known `id`s in a `authors_circles` table. `Clear`s previous property value
-
-- [x] API
-- [ ] Docs
-
-**PostCreations**
-
-Path: `/id/creations`
-
-Info: Creates a new link between **existing** `Author` and `Creation` objects by known `id`s in a `authors_creations` table. `Clear`s previous property value
-
-- [x] API
-- [ ] Docs
-
 **PostNames**
 
 Path: `/id/names`
 
 Info: Creates and pushes new `CreaturesNames` object into corresponding table. `Clear`s previous property value
-
-- [x] API
-- [ ] Docs
-
-**PostTags**
-
-Path: `/id/tags`
-
-Info: Creates a new link between **existing** `Author` and `Tag` objects by known `id`s in a `creatures_tags` table. `Clear`s previous property value
-
-- [x] API
-- [ ] Docs
-
-**PostRelations**
-
-Path: `/id/relations`
-
-Info: Creates a new link between two **existing** `Creature` objects by known `id`s in a `creatures_relations` table. `Clear`s previous property value (from perspective of `origin`)
 
 - [x] API
 - [ ] Docs

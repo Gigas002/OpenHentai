@@ -520,8 +520,6 @@ public class AuthorController : DatabaseController, ICreatureController
 
     #region PATCH
 
-    // TODO: requires more testing and improvements
-
     /// <remarks>
     /// Sample request:
     ///
