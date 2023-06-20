@@ -34,7 +34,8 @@ client:
 
 server:
 
-1. create new `Circle` using `id`
+~~1. create new `Circle` using `id`~~
+1. initialize `Circle` from given `id` 
 2. add this circle object to `Author.Circles` collection
 
 These two are pretty much the same, but the second one doesn't send the whole `Circle` object, making query lighter. Generally, we don't need to send `object`s in cases, where we don't need them. When updating exsiting entries, sending only `id`s is enough
@@ -87,7 +88,7 @@ Info: Get author names
 - [x] API
 - [ ] Docs
 
-**GetAuthorCircles**
+**GetCircles**
 
 Path: `/id/circles`
 
@@ -96,7 +97,7 @@ Info: Get author circles
 - [x] API
 - [ ] Docs
 
-**GetAuthorCreations**
+**GetCreations**
 
 Path: `/id/creations`
 
@@ -105,7 +106,7 @@ Info: Get author creations
 - [x] API
 - [ ] Docs
 
-**GetCreatureNames**
+**GetNames**
 
 Path: `/id/names`
 
@@ -114,7 +115,7 @@ Info: Get author's real names. Inherited from `ICreatureController`
 - [x] API
 - [ ] Docs
 
-**GetCreatureTags**
+**GetTags**
 
 Path: `/id/tags`
 
@@ -123,7 +124,7 @@ Info: Get author's tags. Inherited from `ICreatureController`
 - [x] API
 - [ ] Docs
 
-**GetCreatureRelations**
+**GetRelations**
 
 Path: `/id/relations`
 
@@ -152,7 +153,7 @@ Info: Creates and pushes new `AuthorsNames` object into corresponding table. `Cl
 - [x] API
 - [ ] Docs
 
-**PostAuthorsCircles**
+**PostCircles**
 
 Path: `/id/circles`
 
@@ -161,7 +162,7 @@ Info: Creates a new link between **existing** `Author` and `Circle` objects by k
 - [x] API
 - [ ] Docs
 
-**PostAuthorsCreations**
+**PostCreations**
 
 Path: `/id/creations`
 
@@ -170,7 +171,7 @@ Info: Creates a new link between **existing** `Author` and `Creation` objects by
 - [x] API
 - [ ] Docs
 
-**PostCreaturesNames**
+**PostNames**
 
 Path: `/id/names`
 
@@ -188,7 +189,7 @@ Info: Creates a new link between **existing** `Author` and `Tag` objects by know
 - [x] API
 - [ ] Docs
 
-**PostCreaturesRelations**
+**PostRelations**
 
 Path: `/id/relations`
 
@@ -210,7 +211,7 @@ Info: Creates a new link between **existing** `Author` and `Name` objects by kno
 - [x] API
 - [ ] Docs
 
-**PutAuthorCircles**
+**PutCircles**
 
 Path: `/id/circles`
 
@@ -219,7 +220,7 @@ Info: Same as corresponding `POST` method, but doesn't override existing value, 
 - [x] API
 - [ ] Docs
 
-**PutAuthorCreations**
+**PutCreations**
 
 Path: `/id/creations`
 
@@ -228,7 +229,7 @@ Info: Same as corresponding `POST` method, but doesn't override existing value, 
 - [x] API
 - [ ] Docs
 
-**PutCreatureNames**
+**PutNames**
 
 Path: `/id/names`
 
@@ -248,7 +249,7 @@ Info: Same as corresponding `POST` method, but doesn't override existing value, 
 - [x] API
 - [ ] Docs
 
-**PutCreaturesRelations**
+**PutRelations**
 
 Path: `/id/relations`
 
@@ -277,7 +278,7 @@ Info: Deletes list of specified `author_name`s. Since `author_names` table is de
 - [x] API
 - [ ] Docs
 
-**DeleteAuthorCircles**
+**DeleteCircles**
 
 Path: `/id/circles`
 
@@ -286,16 +287,16 @@ Info: Deletes the link between `Author` and `Circle` objects
 - [x] API
 - [ ] Docs
 
-**DeleteAuthorsCreations**
+**DeleteCreations**
 
 Path: `/id/creations`
 
 Info: Deletes the link between `Author` and `Creation` objects
 
-- [ ] API
+- [x] API
 - [ ] Docs
 
-**DeleteCreaturesNames**
+**DeleteNames**
 
 Path: `/id/names`
 
@@ -313,7 +314,7 @@ Info: Deletes the link between `Author` and `Tag` objects
 - [ ] API
 - [ ] Docs
 
-**DeleteCreaturesRelations**
+**DeleteRelations**
 
 Path: `/id/relations`
 

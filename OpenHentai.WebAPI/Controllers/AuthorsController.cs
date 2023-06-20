@@ -531,6 +531,23 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok(author);
     }
 
+    [HttpDelete("{id}/creations")]
+    public async Task<ActionResult> DeleteCreationsAsync(ulong id, IEnumerable<ulong> creationIds)
+    {
+        Console.WriteLine($"Enter into DELETE: /authors/{id}/creations");
+
+        var author = await Context.Authors.Include(a => a.Creations)
+                                  .ThenInclude(ac => ac.Related)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
+
+        foreach (var creationId in creationIds)
+            author.Creations.RemoveWhere(c => c.Related.Id == creationId);
+
+        await Context.SaveChangesAsync();
+
+        return Ok(author);
+    }
+
     #endregion
 
     #region PATCH
