@@ -11,6 +11,7 @@ using OpenHentai.Tags;
 using SystemTextJsonPatch.Operations;
 using OpenHentai.Roles;
 using OpenHentai.Relations;
+using OpenHentai.Descriptors;
 
 namespace OpenHentai.WebAPI.Controllers;
 
@@ -197,15 +198,14 @@ public class AuthorController : DatabaseController, ICreatureController
     ///
     ///     POST /authors/{id}/author_names
     ///     [{
-    ///         "author_id": 9,
-    ///         "name": "Test Minato",
+    ///         "text": "taras panis",
     ///         "language": null
     ///     }]
     ///
     /// </remarks>
     [HttpPost("{id}/author_names")]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PostAuthorNamesAsync(ulong id, IEnumerable<AuthorsNames> names)
+    public async Task<ActionResult> PostAuthorNamesAsync(ulong id, IEnumerable<LanguageSpecificTextInfo> names)
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/author_names");
 
@@ -214,10 +214,7 @@ public class AuthorController : DatabaseController, ICreatureController
 
         author.AuthorNames.Clear();
 
-        foreach (var name in names)
-        {
-            author.AuthorNames.Add(name);
-        }
+        author.AddAuthorNames(names);
 
         await Context.SaveChangesAsync();
 
@@ -276,15 +273,14 @@ public class AuthorController : DatabaseController, ICreatureController
     ///
     ///     POST /authors/{id}/names
     ///     [{
-    ///         "creature_id": 9,
-    ///         "name": "Test Minato",
+    ///         "text": "Test Minato",
     ///         "language": null
     ///     }]
     ///
     /// </remarks>
     [HttpPost("{id}/names")]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PostNamesAsync(ulong id, IEnumerable<CreaturesNames> names)
+    public async Task<ActionResult> PostNamesAsync(ulong id, IEnumerable<LanguageSpecificTextInfo> names)
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/names");
 
@@ -293,10 +289,7 @@ public class AuthorController : DatabaseController, ICreatureController
 
         author.Names.Clear();
 
-        foreach (var name in names)
-        {
-            author.Names.Add(name);
-        }
+        author.AddNames(names);
 
         await Context.SaveChangesAsync();
 

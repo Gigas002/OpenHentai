@@ -33,7 +33,7 @@
              <response code="200">Returns the created author</response>
              <response code="400">Author is null</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostAuthorNamesAsync(System.UInt64,System.Collections.Generic.IEnumerable{OpenHentai.Relative.AuthorsNames})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostAuthorNamesAsync(System.UInt64,System.Collections.Generic.IEnumerable{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
              <summary>
              Updates Author with NEW names, POSTed at their own table
              </summary>
@@ -43,22 +43,20 @@
             
                  POST /authors/{id}/author_names
                  [{
-                     "author_id": 9,
-                     "name": "Test Minato",
+                     "text": "taras panis",
                      "language": null
                  }]
             
              </remarks>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostNamesAsync(System.UInt64,System.Collections.Generic.IEnumerable{OpenHentai.Relative.CreaturesNames})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostNamesAsync(System.UInt64,System.Collections.Generic.IEnumerable{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
              <remarks>
             
              Example request:
             
                  POST /authors/{id}/names
                  [{
-                     "creature_id": 9,
-                     "name": "Test Minato",
+                     "text": "Test Minato",
                      "language": null
                  }]
             

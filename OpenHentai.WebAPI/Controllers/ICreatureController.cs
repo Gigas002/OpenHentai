@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using OpenHentai.Descriptors;
 using OpenHentai.Relative;
 using OpenHentai.Tags;
 
@@ -16,7 +17,7 @@ public interface ICreatureController
 
     #region POST
 
-    public Task<ActionResult> PostNamesAsync(ulong id, IEnumerable<CreaturesNames> names);
+    public Task<ActionResult> PostNamesAsync(ulong id, IEnumerable<LanguageSpecificTextInfo> names);
 
     public Task<ActionResult> PostTagsAsync(ulong id, IEnumerable<ulong> tagIds);
 

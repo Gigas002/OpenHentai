@@ -62,7 +62,7 @@ public class Author : Creature
         AuthorNames.Select(an => an.GetLanguageSpecificTextInfo());
 
     public void AddAuthorNames(IEnumerable<LanguageSpecificTextInfo> names) =>
-        names.ToList().ForEach(AddName);
+        names.ToList().ForEach(AddAuthorName);
     
     public void AddAuthorName(LanguageSpecificTextInfo name) => AuthorNames.Add(new(this, name));
 
