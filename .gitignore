@@ -431,8 +431,5 @@ TestResults/
 # ignore snyk report
 *.sarif
 
-# ignore vscode
-.vscode/
-
 *-shm
 *-wal
