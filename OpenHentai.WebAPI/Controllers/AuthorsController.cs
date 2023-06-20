@@ -189,6 +189,13 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok(author);
     }
 
+    // TODO: should work the same as PUT method and have one more overload
+    // to just POST the names
+    // Probably the PATCH method can be used to simplify this parts of code
+    // current problem:
+    // POST method adds new entry to names table, while put dont
+    // plus, POST clears up previous entries, replacing them with new
+
     /// <summary>
     /// Updates Author with NEW names, POSTed at their own table
     /// </summary>
@@ -555,18 +562,27 @@ public class AuthorController : DatabaseController, ICreatureController
                                   .FirstOrDefaultAsync(a => a.Id == id);
 
         foreach (var nameId in nameIds)
-            author.Names.RemoveWhere(an => an.Id == nameId);
+            author.Names.RemoveWhere(cn => cn.Id == nameId);
 
         await Context.SaveChangesAsync();
 
         return Ok(author);
-
     }
 
     [HttpDelete("{id}/tags")]
-    public Task<ActionResult> DeleteTagsAsync(ulong id, IEnumerable<ulong> tagIds)
+    public async Task<ActionResult> DeleteTagsAsync(ulong id, IEnumerable<ulong> tagIds)
     {
-        throw new NotImplementedException();
+        Console.WriteLine($"Enter into DELETE: /authors/{id}/tags");
+
+        var author = await Context.Authors.Include(a => a.Tags)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
+
+        foreach (var tagId in tagIds)
+            author.Tags.RemoveWhere(t => t.Id == tagId);
+
+        await Context.SaveChangesAsync();
+
+        return Ok(author);
     }
 
     [HttpDelete("{id}/relations")]
