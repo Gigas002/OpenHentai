@@ -321,8 +321,7 @@ public class AuthorController : DatabaseController, ICreatureController
 
     [HttpPost("{id}/relations")]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PostRelationsAsync(ulong id,
-        Dictionary<ulong, CreatureRelations> relations)
+    public async Task<ActionResult> PostRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations)
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/relations");
 
