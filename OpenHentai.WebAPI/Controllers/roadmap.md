@@ -6,7 +6,7 @@ File for tracking the progress on controllers API implementation
 
 Regarding strategy for updating database entries
 
-`POST` methods are related to creating **new** entries or **overriding** current values, wiping previous ones completely
+`POST` methods are used **only to create new** entries in database/table
 
 `PUT` methods are used **only to update** values, without overriding them
 
@@ -302,7 +302,7 @@ Path: `/id/names`
 
 Info: Deletes list of specified `name`s. Since `creatures_names` table is dependent on `creatures`, removing values from `Author.CreaturesNames` collection **will** also **purge** them from `creatures_names` table
 
-- [ ] API
+- [x] API
 - [ ] Docs
 
 **DeleteTags**
@@ -311,7 +311,7 @@ Path: `/id/tags`
 
 Info: Deletes the link between `Author` and `Tag` objects
 
-- [ ] API
+- [x] API
 - [ ] Docs
 
 **DeleteRelations**
@@ -320,7 +320,7 @@ Path: `/id/relations`
 
 Info: Deletes the link between two `Creature` objects
 
-- [ ] API
+- [x] API
 - [ ] Docs
 
 #### PATCH
@@ -331,7 +331,7 @@ Path: `/id`
 
 Info: Updates existing `Author` entry with data, specified in `json-patch` format. Theoretically can update **any** property of `Author`, but needs more testing, as `Client` (will merge into tests later) app grows
 
-- [ ] API
+- [x] API
 - [ ] Docs
 
 ### Circle

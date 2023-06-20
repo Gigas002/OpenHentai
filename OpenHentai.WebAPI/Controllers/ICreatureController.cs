@@ -20,8 +20,6 @@ public interface ICreatureController
 
     public Task<ActionResult> PostNamesAsync(ulong id, IEnumerable<LanguageSpecificTextInfo> names);
 
-    public Task<ActionResult> PostTagsAsync(ulong id, IEnumerable<ulong> tagIds);
-
     public Task<ActionResult> PostRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations);
 
     #endregion

@@ -86,7 +86,7 @@
                      "value": 30
                  },
                  {
-                     "path": "/authorsNames",
+                     "path": "/authornames",
                      "op": "add",
                      "value": [{
                        "author_id": 8,

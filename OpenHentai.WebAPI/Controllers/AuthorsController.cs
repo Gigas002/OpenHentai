@@ -6,7 +6,6 @@ using SystemTextJsonPatch;
 using OpenHentai.Relative;
 using Microsoft.EntityFrameworkCore;
 using OpenHentai.Circles;
-using OpenHentai.Creations;
 using OpenHentai.Tags;
 using SystemTextJsonPatch.Operations;
 using OpenHentai.Roles;
@@ -189,13 +188,6 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok(author);
     }
 
-    // TODO: should work the same as PUT method and have one more overload
-    // to just POST the names
-    // Probably the PATCH method can be used to simplify this parts of code
-    // current problem:
-    // POST method adds new entry to names table, while put dont
-    // plus, POST clears up previous entries, replacing them with new
-
     /// <summary>
     /// Updates Author with NEW names, POSTed at their own table
     /// </summary>
@@ -216,58 +208,9 @@ public class AuthorController : DatabaseController, ICreatureController
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/author_names");
 
-        var author = await Context.Authors.Include(a => a.AuthorNames)
-                                  .FirstOrDefaultAsync(a => a.Id == id);
-
-        author.AuthorNames.Clear();
+        var author = await Context.Authors.FindAsync(id);
 
         author.AddAuthorNames(names);
-
-        await Context.SaveChangesAsync();
-
-        return Ok();
-    }
-
-    [HttpPost("{id}/circles")]
-    [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PostCirclesAsync(ulong id, IEnumerable<ulong> circleIds)
-    {
-        Console.WriteLine($"Enter into POST: /authors/{id}/circles");
-
-        var author = await Context.Authors.Include(a => a.Circles)
-                                  .FirstOrDefaultAsync(a => a.Id == id);
-
-        author.Circles.Clear();
-
-        foreach (var circleId in circleIds)
-        {
-            var circle = await Context.Circles.FindAsync(circleId);
-
-            author.Circles.Add(circle);
-        }
-
-        await Context.SaveChangesAsync();
-
-        return Ok();
-    }
-
-    [HttpPost("{id}/creations")]
-    [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PostCreationsAsync(ulong id, Dictionary<ulong, AuthorRole> creationRoles)
-    {
-        Console.WriteLine($"Enter into POST: /authors/{id}/creations");
-
-        var author = await Context.Authors.Include(a => a.Creations)
-                                          .FirstOrDefaultAsync(a => a.Id == id);
-
-        author.Creations.Clear();
-
-        foreach (var creationRole in creationRoles)
-        {
-            var creation = await Context.Creations.FindAsync(creationRole.Key);
-
-            author.AddCreation(creation, creationRole.Value);
-        }
 
         await Context.SaveChangesAsync();
 
@@ -291,35 +234,9 @@ public class AuthorController : DatabaseController, ICreatureController
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/names");
 
-        var author = await Context.Authors.Include(a => a.Names)
-                           .FirstOrDefaultAsync(a => a.Id == id);
-
-        author.Names.Clear();
+        var author = await Context.Authors.FindAsync(id);
 
         author.AddNames(names);
-
-        await Context.SaveChangesAsync();
-
-        return Ok();
-    }
-
-    [HttpPost("{id}/tags")]
-    [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PostTagsAsync(ulong id, IEnumerable<ulong> tagIds)
-    {
-        Console.WriteLine($"Enter into POST: /authors/{id}/tags");
-
-        var author = await Context.Authors.Include(a => a.Tags)
-                           .FirstOrDefaultAsync(a => a.Id == id);
-
-        author.Tags.Clear();
-
-        foreach (var tagId in tagIds)
-        {
-            var tag = await Context.Tags.FindAsync(tagId);
-
-            author.Tags.Add(tag);
-        }
 
         await Context.SaveChangesAsync();
 
@@ -332,10 +249,7 @@ public class AuthorController : DatabaseController, ICreatureController
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/relations");
 
-        var author = await Context.Authors.Include(a => a.Relations)
-                                          .FirstOrDefaultAsync(a => a.Id == id);
-
-        author.Relations.Clear();
+        var author = await Context.Authors.FindAsync(id);
 
         foreach (var relation in relations)
         {
@@ -618,7 +532,7 @@ public class AuthorController : DatabaseController, ICreatureController
     ///         "value": 30
     ///     },
     ///     {
-    ///         "path": "/authorsNames",
+    ///         "path": "/authornames",
     ///         "op": "add",
     ///         "value": [{
     ///           "author_id": 8,
@@ -630,12 +544,11 @@ public class AuthorController : DatabaseController, ICreatureController
     /// </remarks>
     [HttpPatch("{id}")]
     [Consumes("application/json-patch+json")]
-    public async Task<ActionResult<Author>> PatchAuthorAsync(ulong id,
-        IEnumerable<Operation<Author>> operations)
+    public async Task<ActionResult<Author>> PatchAuthorAsync(ulong id, IEnumerable<Operation<Author>> operations)
     {
         Console.WriteLine($"Enter into PATCH: /authors/{id}");
 
-        var patch = new JsonPatchDocument<Author>(operations.ToList(), new());
+        var patch = new JsonPatchDocument<Author>(operations.ToList(), Essential.JsonSerializerOptions);
 
         var user = await Context.Authors.FindAsync(id);
 
