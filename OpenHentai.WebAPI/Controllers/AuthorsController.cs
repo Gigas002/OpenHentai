@@ -11,6 +11,7 @@ using SystemTextJsonPatch.Operations;
 using OpenHentai.Roles;
 using OpenHentai.Relations;
 using OpenHentai.Descriptors;
+using OpenHentai.WebAPI.Constants;
 
 namespace OpenHentai.WebAPI.Controllers;
 
@@ -19,7 +20,7 @@ namespace OpenHentai.WebAPI.Controllers;
 // [AutoValidateAntiforgeryToken]
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
-[Route("/authors")]
+[Route(AuthorsRoutes.Base)]
 public class AuthorController : DatabaseController, ICreatureController
 {
     #region Constructors
