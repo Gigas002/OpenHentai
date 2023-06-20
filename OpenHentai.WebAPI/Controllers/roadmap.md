@@ -254,18 +254,7 @@ Path: `/id/relations`
 
 Info: Same as corresponding `POST` method, but doesn't override existing value, expanding it instead
 
-- [ ] API
-- [ ] Docs
-
-#### PATCH
-
-**PatchAuthor**
-
-Path: `/id`
-
-Info: Updates existing `Author` entry with data, specified in `json-patch` format. Theoretically can update **any** property of `Author`, but needs more testing, as `Client` (will merge into tests later) app grows
-
-- [ ] API
+- [x] API
 - [ ] Docs
 
 #### DELETE
@@ -333,6 +322,17 @@ Info: Deletes the link between two `Creature` objects
 - [ ] API
 - [ ] Docs
 
+#### PATCH
+
+**PatchAuthor**
+
+Path: `/id`
+
+Info: Updates existing `Author` entry with data, specified in `json-patch` format. Theoretically can update **any** property of `Author`, but needs more testing, as `Client` (will merge into tests later) app grows
+
+- [ ] API
+- [ ] Docs
+
 ### Circle
 
 #### GET
@@ -341,9 +341,9 @@ Info: Deletes the link between two `Creature` objects
 
 #### PUT
 
-#### PATCH
-
 #### DELETE
+
+#### PATCH
 
 ### Character
 
@@ -353,9 +353,9 @@ Info: Deletes the link between two `Creature` objects
 
 #### PUT
 
-#### PATCH
-
 #### DELETE
+
+#### PATCH
 
 ### Manga
 
@@ -365,9 +365,9 @@ Info: Deletes the link between two `Creature` objects
 
 #### PUT
 
-#### PATCH
-
 #### DELETE
+
+#### PATCH
 
 ### Tag
 
@@ -377,6 +377,6 @@ Info: Deletes the link between two `Creature` objects
 
 #### PUT
 
-#### PATCH
-
 #### DELETE
+
+#### PATCH

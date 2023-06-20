@@ -470,6 +470,27 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok();
     }
 
+    [HttpPut("{id}/relations")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PutRelationsAsync(ulong id,
+        Dictionary<ulong, CreatureRelations> relations)
+    {
+        Console.WriteLine($"Enter into PUT: /authors/{id}/relations");
+
+        var author = await Context.Authors.FindAsync(id);
+
+        foreach (var relation in relations)
+        {
+            var related = await Context.Creatures.FindAsync(relation.Key);
+
+            author.AddRelation(related, relation.Value);
+        }
+
+        await Context.SaveChangesAsync();
+
+        return Ok();
+    }
+
     #endregion
 
     #region DELETE
