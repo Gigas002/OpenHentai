@@ -50,7 +50,7 @@
             
              </remarks>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutAuthorCreationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Roles.AuthorRole})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutCreationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Roles.AuthorRole})">
              <remarks>
             
              Sample request:

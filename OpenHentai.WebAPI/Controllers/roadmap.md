@@ -194,7 +194,7 @@ Path: `/id/relations`
 
 Info: Creates a new link between two **existing** `Creature` objects by known `id`s in a `creatures_relations` table. `Clear`s previous property value (from perspective of `origin`)
 
-- [ ] API
+- [x] API
 - [ ] Docs
 
 #### PUT
@@ -228,7 +228,7 @@ Info: Same as corresponding `POST` method, but doesn't override existing value, 
 - [x] API
 - [ ] Docs
 
-**PutCreaturesNames**
+**PutCreatureNames**
 
 Path: `/id/names`
 
@@ -236,7 +236,7 @@ Info: Creates a new link between **existing** `Creature` and `Name` objects by k
 
 **Important**: since one name can have only **one** creature, it **overrides** previously selected `Creature`!
 
-- [ ] API
+- [x] API
 - [ ] Docs
 
 **PutTags**

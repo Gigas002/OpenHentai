@@ -10,6 +10,7 @@ using OpenHentai.Creations;
 using OpenHentai.Tags;
 using SystemTextJsonPatch.Operations;
 using OpenHentai.Roles;
+using OpenHentai.Relations;
 
 namespace OpenHentai.WebAPI.Controllers;
 
@@ -84,15 +85,15 @@ public class AuthorController : DatabaseController, ICreatureController
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/author_names");
 
-        var author = await Context.Authors.Include(a => a.AuthorsNames)
+        var author = await Context.Authors.Include(a => a.AuthorNames)
                                   .FirstOrDefaultAsync(a => a.Id == id);
 
-        return author.AuthorsNames;
+        return author.AuthorNames;
     }
 
     [HttpGet("{id}/circles")]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<IEnumerable<Circle>>> GetAuthorCirclesAsync(ulong id)
+    public async Task<ActionResult<IEnumerable<Circle>>> GetCirclesAsync(ulong id)
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/circles");
 
@@ -104,32 +105,32 @@ public class AuthorController : DatabaseController, ICreatureController
 
     [HttpGet("{id}/creations")]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<IEnumerable<AuthorsCreations>>> GetAuthorCreationsAsync(ulong id)
+    public async Task<ActionResult<IEnumerable<AuthorsCreations>>> GetCreationsAsync(ulong id)
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/creations");
 
-        var author = await Context.Authors.Include(a => a.AuthorsCreations)
+        var author = await Context.Authors.Include(a => a.Creations)
                              .ThenInclude(ac => ac.Related)
                              .FirstOrDefaultAsync(a => a.Id == id);
 
-        return author.AuthorsCreations;
+        return author.Creations;
     }
 
     [HttpGet("{id}/names")]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<IEnumerable<CreaturesNames>>> GetCreatureNamesAsync(ulong id)
+    public async Task<ActionResult<IEnumerable<CreaturesNames>>> GetNamesAsync(ulong id)
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/names");
 
-        var author = await Context.Authors.Include(a => a.CreaturesNames)
+        var author = await Context.Authors.Include(a => a.Names)
                                    .FirstOrDefaultAsync(a => a.Id == id);
 
-        return Ok(author.CreaturesNames);
+        return Ok(author.Names);
     }
 
     [HttpGet("{id}/tags")]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<IEnumerable<Tag>>> GetCreatureTagsAsync(ulong id)
+    public async Task<ActionResult<IEnumerable<Tag>>> GetTagsAsync(ulong id)
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/tags");
 
@@ -141,15 +142,15 @@ public class AuthorController : DatabaseController, ICreatureController
 
     [HttpGet("{id}/relations")]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<IEnumerable<CreaturesRelations>>> GetCreatureRelationsAsync(ulong id)
+    public async Task<ActionResult<IEnumerable<CreaturesRelations>>> GetRelationsAsync(ulong id)
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/relations");
 
-        var author = await Context.Authors.Include(a => a.CreaturesRelations)
+        var author = await Context.Authors.Include(a => a.Relations)
                                     .ThenInclude(cr => cr.Related)
                                     .FirstOrDefaultAsync(a => a.Id == id);
 
-        return Ok(author.CreaturesRelations);
+        return Ok(author.Relations);
     }
 
     #endregion
@@ -208,14 +209,14 @@ public class AuthorController : DatabaseController, ICreatureController
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/author_names");
 
-        var author = await Context.Authors.Include(a => a.AuthorsNames)
+        var author = await Context.Authors.Include(a => a.AuthorNames)
                                   .FirstOrDefaultAsync(a => a.Id == id);
 
-        author.AuthorsNames.Clear();
+        author.AuthorNames.Clear();
 
         foreach (var name in names)
         {
-            author.AuthorsNames.Add(name);
+            author.AuthorNames.Add(name);
         }
 
         await Context.SaveChangesAsync();
@@ -225,7 +226,7 @@ public class AuthorController : DatabaseController, ICreatureController
 
     [HttpPost("{id}/circles")]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PostAuthorsCirclesAsync(ulong id, IEnumerable<ulong> circleIds)
+    public async Task<ActionResult> PostCirclesAsync(ulong id, IEnumerable<ulong> circleIds)
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/circles");
 
@@ -246,21 +247,19 @@ public class AuthorController : DatabaseController, ICreatureController
 
     [HttpPost("{id}/creations")]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PostAuthorCreationsAsync(ulong id,
-        Dictionary<ulong, AuthorRole> authorCreations)
+    public async Task<ActionResult> PostCreationsAsync(ulong id, Dictionary<ulong, AuthorRole> creationRoles)
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/creations");
 
-        var author = await Context.Authors.Include(a => a.AuthorsCreations)
+        var author = await Context.Authors.Include(a => a.Creations)
                                           .FirstOrDefaultAsync(a => a.Id == id);
 
-        author.AuthorsCreations.Clear();
+        author.Creations.Clear();
 
-        foreach (var authorCreation in authorCreations)
+        foreach (var creationRole in creationRoles)
         {
-            var creation = new Creation(authorCreation.Key);
-            var relation = new AuthorsCreations(author, creation, authorCreation.Value);
-            author.AuthorsCreations.Add(relation);
+            var creation = new Creation(creationRole.Key);
+            author.AddCreation(creation, creationRole.Value);
         }
 
         await Context.SaveChangesAsync();
@@ -270,18 +269,18 @@ public class AuthorController : DatabaseController, ICreatureController
 
     [HttpPost("{id}/names")]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PostCreatureNamesAsync(ulong id, IEnumerable<CreaturesNames> names)
+    public async Task<ActionResult> PostNamesAsync(ulong id, IEnumerable<CreaturesNames> names)
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/names");
 
-        var author = await Context.Authors.Include(a => a.CreaturesNames)
+        var author = await Context.Authors.Include(a => a.Names)
                            .FirstOrDefaultAsync(a => a.Id == id);
 
-        author.CreaturesNames.Clear();
+        author.Names.Clear();
 
         foreach (var name in names)
         {
-            author.CreaturesNames.Add(name);
+            author.Names.Add(name);
         }
 
         await Context.SaveChangesAsync();
@@ -291,7 +290,7 @@ public class AuthorController : DatabaseController, ICreatureController
 
     [HttpPost("{id}/tags")]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PostCreatureTagsAsync(ulong id, IEnumerable<ulong> tagIds)
+    public async Task<ActionResult> PostTagsAsync(ulong id, IEnumerable<ulong> tagIds)
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/tags");
 
@@ -303,6 +302,29 @@ public class AuthorController : DatabaseController, ICreatureController
         foreach (var tagId in tagIds)
         {
             author.Tags.Add(new Tag(tagId));
+        }
+
+        await Context.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    [HttpPost("{id}/relations")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PostRelationsAsync(ulong id,
+        Dictionary<ulong, CreatureRelations> relations)
+    {
+        Console.WriteLine($"Enter into POST: /authors/{id}/relations");
+
+        var author = await Context.Authors.Include(a => a.Relations)
+                                          .FirstOrDefaultAsync(a => a.Id == id);
+
+        author.Relations.Clear();
+
+        foreach (var relation in relations)
+        {
+            var related = new Creature(relation.Key);
+            author.AddRelation(related, relation.Value);
         }
 
         await Context.SaveChangesAsync();
@@ -330,7 +352,7 @@ public class AuthorController : DatabaseController, ICreatureController
             // search through db instead of creating new object is required here
             var name = await Context.AuthorsNames.FindAsync(nameId);
 
-            author.AuthorsNames.Add(name);
+            author.AuthorNames.Add(name);
         }
 
         await Context.SaveChangesAsync();
@@ -340,7 +362,7 @@ public class AuthorController : DatabaseController, ICreatureController
 
     [HttpPut("{id}/circles")]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PutAuthorCirclesAsync(ulong id, IEnumerable<ulong> circleIds)
+    public async Task<ActionResult> PutCirclesAsync(ulong id, IEnumerable<ulong> circleIds)
     {
         Console.WriteLine($"Enter into PUT: /authors/{id}/circles");
 
@@ -371,22 +393,48 @@ public class AuthorController : DatabaseController, ICreatureController
     /// </remarks>
     [HttpPut("{id}/creations")]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PutAuthorCreationsAsync(ulong id,
-        Dictionary<ulong, AuthorRole> authorCreations)
+    public async Task<ActionResult> PutCreationsAsync(ulong id, Dictionary<ulong, AuthorRole> creationRoles)
     {
-        Console.WriteLine($"Enter into PUT: /authors/{id}/creations_test");
+        Console.WriteLine($"Enter into PUT: /authors/{id}/creations");
 
         var author = await Context.Authors.FindAsync(id);
 
-        foreach (var authorCreation in authorCreations)
+        foreach (var creationRole in creationRoles)
         {
-            var creation = new Creation(authorCreation.Key);
-            var relation = new AuthorsCreations(author, creation, authorCreation.Value);
-            author.AuthorsCreations.Add(relation);
+            var creation = new Creation(creationRole.Key);
+            author.AddCreation(creation, creationRole.Value);
         }
 
         await Context.SaveChangesAsync();
 
+        return Ok();
+    }
+
+    [HttpPut("{id}/names")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PutNamesAsync(ulong id, IEnumerable<ulong> nameIds)
+    {
+        Console.WriteLine($"Enter into PUT: /authors/{id}/names");
+
+        var author = await Context.Authors.FindAsync(id);
+
+        foreach (var nameId in nameIds)
+        {
+            // search through db instead of creating new object is required here
+            var name = await Context.CreaturesNames.FindAsync(nameId);
+
+            author.Names.Add(name);
+        }
+
+        await Context.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    [HttpPut("{id}/tags")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PutTagsAsync(ulong id, IEnumerable<ulong> tagIds)
+    {
         return Ok();
     }
 
@@ -410,11 +458,11 @@ public class AuthorController : DatabaseController, ICreatureController
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/author_names");
 
-        var author = await Context.Authors.Include(a => a.AuthorsNames)
+        var author = await Context.Authors.Include(a => a.AuthorNames)
                                   .FirstOrDefaultAsync(a => a.Id == id);
 
         foreach (var nameId in nameIds)
-            author.AuthorsNames.RemoveWhere(an => an.Id == nameId);
+            author.AuthorNames.RemoveWhere(an => an.Id == nameId);
 
         await Context.SaveChangesAsync();
 
@@ -422,7 +470,7 @@ public class AuthorController : DatabaseController, ICreatureController
     }
 
     [HttpDelete("{id}/circles")]
-    public async Task<ActionResult> DeleteAuthorCirclesAsync(ulong id, IEnumerable<ulong> circleIds)
+    public async Task<ActionResult> DeleteCirclesAsync(ulong id, IEnumerable<ulong> circleIds)
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}");
 

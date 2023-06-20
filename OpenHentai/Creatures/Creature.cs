@@ -25,8 +25,7 @@ public class Creature : IDatabaseEntity
     /// Alternative names can be any
     /// </summary>
     [JsonIgnore]
-    // TODO: rename
-    public HashSet<CreaturesNames> CreaturesNames { get; init; } = new();
+    public HashSet<CreaturesNames> Names { get; init; } = new();
 
     /// <summary>
     /// Description, e.g. this person is a dick
@@ -64,8 +63,7 @@ public class Creature : IDatabaseEntity
     /// Collection of related and alternative creatures,
     /// Creature-Relation pair, e.g. "Admiral, alternative"
     /// </summary>
-    // TODO: rename
-    public HashSet<CreaturesRelations> CreaturesRelations { get; init; } = new();
+    public HashSet<CreaturesRelations> Relations { get; init; } = new();
     
     #endregion
 
@@ -84,18 +82,18 @@ public class Creature : IDatabaseEntity
     #region Methods
 
     public IEnumerable<LanguageSpecificTextInfo> GetNames() =>
-        CreaturesNames.Select(n => n.GetLanguageSpecificTextInfo());
+        Names.Select(n => n.GetLanguageSpecificTextInfo());
 
     public void AddNames(IEnumerable<LanguageSpecificTextInfo> names) =>
         names.ToList().ForEach(AddName);
     
-    public void AddName(LanguageSpecificTextInfo name) => CreaturesNames.Add(new(this, name));
+    public void AddName(LanguageSpecificTextInfo name) => Names.Add(new(this, name));
 
     public void AddName(string formattedName) =>
         AddName(new LanguageSpecificTextInfo(formattedName));
     
     public Dictionary<Creature, CreatureRelations> GetRelations() =>
-        CreaturesRelations.ToDictionary(cr => cr.Related, cr => cr.Relation);
+        Relations.ToDictionary(cr => cr.Related, cr => cr.Relation);
 
     public void AddRelations(Dictionary<Creature, CreatureRelations> relations) =>
         relations.ToList().ForEach(AddRelation);
@@ -104,7 +102,7 @@ public class Creature : IDatabaseEntity
         AddRelation(relation.Key, relation.Value);
 
     public void AddRelation(Creature relatedCreature, CreatureRelations relation) =>
-        CreaturesRelations.Add(new(this, relatedCreature, relation));
+        Relations.Add(new(this, relatedCreature, relation));
     
     #endregion
 }

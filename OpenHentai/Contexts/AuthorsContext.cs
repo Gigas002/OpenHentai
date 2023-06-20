@@ -8,13 +8,13 @@ public static class AuthorsContext
     public static DbSet<Author> GetAuthors(DatabaseContext context) => context.Authors;
 
     public static IEnumerable<Author> GetAuthorsWithProps(DatabaseContext context) => 
-        context.Authors.Include(a => a.AuthorsNames)
+        context.Authors.Include(a => a.AuthorNames)
             .Include(a => a.Circles)
-            .Include(a => a.AuthorsCreations)
+            .Include(a => a.Creations)
             .ThenInclude(ac => ac.Related)
-            .Include(a => a.CreaturesNames)
+            .Include(a => a.Names)
             .Include(a => a.Tags)
-            .Include(a => a.CreaturesRelations)
+            .Include(a => a.Relations)
             .ThenInclude(cr => cr.Related);
 
     public static ValueTask<Author?> GetAuthorAsync(DatabaseContext context, ulong id) =>
@@ -23,13 +23,13 @@ public static class AuthorsContext
     public static Task<Author?> GetAuthorWithPropsAsync(DatabaseContext context, ulong id)
     {
         var authors = context.Authors
-            .Include(a => a.AuthorsNames)
+            .Include(a => a.Names)
             .Include(a => a.Circles)
-            .Include(a => a.AuthorsCreations)
+            .Include(a => a.Creations)
             .ThenInclude(ac => ac.Related)
-            .Include(a => a.CreaturesNames)
+            .Include(a => a.Names)
             .Include(a => a.Tags)
-            .Include(a => a.CreaturesRelations)
+            .Include(a => a.Relations)
             .ThenInclude(cr => cr.Related);
 
         return authors.FirstOrDefaultAsync(a => a.Id == id);

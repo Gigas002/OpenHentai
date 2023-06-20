@@ -27,7 +27,7 @@ public class Circle : IDatabaseEntity
     /// e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
     /// </summary>
     [JsonIgnore]
-    public HashSet<CirclesTitles> CirclesTitles { get; init; } = new();
+    public HashSet<CirclesTitles> Titles { get; init; } = new();
 
     /// <summary>
     /// Related authors
@@ -74,7 +74,7 @@ public class Circle : IDatabaseEntity
     /// Convert relational database's object into collection of formatted objects
     /// </summary>    
     public IEnumerable<LanguageSpecificTextInfo> GetTitles() =>
-        CirclesTitles.Select(t => t.GetLanguageSpecificTextInfo());
+        Titles.Select(t => t.GetLanguageSpecificTextInfo());
 
     /// <summary>
     /// Add titles to the relational database
@@ -87,7 +87,7 @@ public class Circle : IDatabaseEntity
     /// Add title to the relational database
     /// </summary>
     /// <param name="title">Title</param>
-    public void AddTitle(LanguageSpecificTextInfo title) => CirclesTitles.Add(new(this, title));
+    public void AddTitle(LanguageSpecificTextInfo title) => Titles.Add(new(this, title));
 
     public void AddTitle(string formattedTitle) =>
         AddTitle(new LanguageSpecificTextInfo(formattedTitle));

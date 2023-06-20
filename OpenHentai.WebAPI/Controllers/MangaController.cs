@@ -55,12 +55,12 @@ public class MangaController : ControllerBase
     {
         Console.WriteLine($"Enter into GET: /manga/{id}");
 
-        var manga = _context.Manga.Include(m => m.CreationsRelations)
-            .Include(m => m.CreationsTitles)
-            .Include(m => m.AuthorsCreations)
+        var manga = _context.Manga.Include(m => m.Relations)
+            .Include(m => m.Titles)
+            .Include(m => m.Authors)
             .ThenInclude(ac => ac.Origin)
             .Include(m => m.Circles)
-            .Include(m => m.CreationsCharacters)
+            .Include(m => m.Characters)
             .ThenInclude(cc => cc.Related)
             .Include(m => m.Tags);
 

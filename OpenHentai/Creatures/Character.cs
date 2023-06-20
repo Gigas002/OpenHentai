@@ -18,7 +18,7 @@ public class Character : Creature
     /// <summary>
     /// Collection of creations, that has this character
     /// </summary>
-    public HashSet<CreationsCharacters> CreationsCharacters { get; init; } = new();
+    public HashSet<CreationsCharacters> Creations { get; init; } = new();
 
     #endregion
 
@@ -37,7 +37,7 @@ public class Character : Creature
     #region Methods
 
     public Dictionary<Creation, CharacterRole> GetCreations() =>
-        CreationsCharacters.ToDictionary(cc => cc.Origin, cc => cc.Relation);
+        Creations.ToDictionary(cc => cc.Origin, cc => cc.Relation);
 
     public void AddCreations(Dictionary<Creation, CharacterRole> creations) =>
         creations.ToList().ForEach(AddCreation);
@@ -46,7 +46,7 @@ public class Character : Creature
         AddCreation(creation.Key, creation.Value);
 
     public void AddCreation(Creation creation, CharacterRole role) =>
-        CreationsCharacters.Add(new(creation, this, role));
+        Creations.Add(new(creation, this, role));
 
     #endregion
 }

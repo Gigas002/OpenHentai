@@ -209,11 +209,11 @@ public class DatabaseContext : DbContext
 
         modelBuilder.Entity<CreaturesRelations>()
                     .HasOne(cr => cr.Origin)
-                    .WithMany(c => c.CreaturesRelations);
+                    .WithMany(c => c.Relations);
 
         modelBuilder.Entity<CreationsRelations>()
                     .HasOne(cr => cr.Origin)
-                    .WithMany(c => c.CreationsRelations);
+                    .WithMany(c => c.Relations);
 
         #endregion
     }

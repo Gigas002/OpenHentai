@@ -23,7 +23,7 @@ public class Author : Creature
     /// Alternative names can be any
     /// </summary>
     [JsonIgnore]
-    public HashSet<AuthorsNames> AuthorsNames { get; init; } = new();
+    public HashSet<AuthorsNames> AuthorNames { get; init; } = new();
 
     /// <summary>
     /// Author's circles
@@ -40,7 +40,7 @@ public class Author : Creature
     /// <summary>
     /// Collection of author works
     /// </summary>
-    public HashSet<AuthorsCreations> AuthorsCreations { get; init; } = new();
+    public HashSet<AuthorsCreations> Creations { get; init; } = new();
     
     #endregion
 
@@ -59,18 +59,18 @@ public class Author : Creature
     #region Methods
 
     public IEnumerable<LanguageSpecificTextInfo> GetAuthorNames() =>
-        AuthorsNames.Select(an => an.GetLanguageSpecificTextInfo());
+        AuthorNames.Select(an => an.GetLanguageSpecificTextInfo());
 
     public void AddAuthorNames(IEnumerable<LanguageSpecificTextInfo> names) =>
         names.ToList().ForEach(AddName);
     
-    public void AddAuthorName(LanguageSpecificTextInfo name) => AuthorsNames.Add(new(this, name));
+    public void AddAuthorName(LanguageSpecificTextInfo name) => AuthorNames.Add(new(this, name));
 
     public void AddAuthorName(string formattedAuthorName) =>
         AddAuthorName(new LanguageSpecificTextInfo(formattedAuthorName));
 
     public Dictionary<Creation, AuthorRole> GetCreations() =>
-        AuthorsCreations.ToDictionary(ac => ac.Related, ac => ac.Relation);
+        Creations.ToDictionary(ac => ac.Related, ac => ac.Relation);
 
     public void AddCreations(Dictionary<Creation, AuthorRole> creations) =>
         creations.ToList().ForEach(AddCreation);
@@ -79,7 +79,7 @@ public class Author : Creature
         AddCreation(creation.Key, creation.Value);
 
     public void AddCreation(Creation creation, AuthorRole role) =>
-        AuthorsCreations.Add(new(this, creation, role));
+        Creations.Add(new(this, creation, role));
 
     #endregion
 }

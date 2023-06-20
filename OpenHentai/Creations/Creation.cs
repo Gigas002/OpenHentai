@@ -30,12 +30,12 @@ public class Creation : IDatabaseEntity
     /// e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
     /// </summary>
     [JsonIgnore]
-    public HashSet<CreationsTitles> CreationsTitles { get; init; } = new();
+    public HashSet<CreationsTitles> Titles { get; init; } = new();
 
     /// <summary>
     /// Authors and their roles
     /// </summary>
-    public HashSet<AuthorsCreations> AuthorsCreations { get; init; } = new();
+    public HashSet<AuthorsCreations> Authors { get; init; } = new();
 
     /// <summary>
     /// Circles
@@ -69,7 +69,7 @@ public class Creation : IDatabaseEntity
     /// Collection of related creations
     /// Creation-Relation pair
     /// </summary>
-    public HashSet<CreationsRelations> CreationsRelations { get; init; } = new();
+    public HashSet<CreationsRelations> Relations { get; init; } = new();
 
     // /// <summary>
     // /// Featured at events, e.g. C99, C100, etc
@@ -79,7 +79,7 @@ public class Creation : IDatabaseEntity
     /// <summary>
     /// Collection of characters
     /// </summary>
-    public HashSet<CreationsCharacters> CreationsCharacters { get; init; } = new();
+    public HashSet<CreationsCharacters> Characters { get; init; } = new();
 
     /// <summary>
     /// Collection of related media, including preview image
@@ -141,7 +141,7 @@ public class Creation : IDatabaseEntity
     /// Convert relational database's object into collection of formatted objects
     /// </summary>
     public IEnumerable<LanguageSpecificTextInfo> GetTitles() =>
-        CreationsTitles.Select(t => t.GetLanguageSpecificTextInfo());
+        Titles.Select(t => t.GetLanguageSpecificTextInfo());
 
     /// <summary>
     /// Add titles to the relational database
@@ -154,14 +154,14 @@ public class Creation : IDatabaseEntity
     /// Add title to the relational database
     /// </summary>
     /// <param name="title">Title</param>
-    public void AddTitle(LanguageSpecificTextInfo title) => CreationsTitles.Add(new(this, title));
+    public void AddTitle(LanguageSpecificTextInfo title) => Titles.Add(new(this, title));
 
     public void AddTitle(string formattedTitle) =>
         AddTitle(new LanguageSpecificTextInfo(formattedTitle));
 
     /// <inheritdoc cref="GetTitles" />
     public Dictionary<Author, AuthorRole> GetAuthors() =>
-        AuthorsCreations.ToDictionary(ac => ac.Origin, ac => ac.Relation);
+        Authors.ToDictionary(ac => ac.Origin, ac => ac.Relation);
 
     public void AddAuthors(Dictionary<Author, AuthorRole> authors) =>
         authors.ToList().ForEach(AddAuthor);
@@ -170,11 +170,11 @@ public class Creation : IDatabaseEntity
         AddAuthor(author.Key, author.Value);
 
     public void AddAuthor(Author author, AuthorRole role) =>
-        AuthorsCreations.Add(new(author, this, role));
+        Authors.Add(new(author, this, role));
 
     /// <inheritdoc cref="GetTitles" />
     public Dictionary<Creation, CreationRelations> GetRelations() =>
-        CreationsRelations.ToDictionary(cr => cr.Related, cr => cr.Relation);
+        Relations.ToDictionary(cr => cr.Related, cr => cr.Relation);
 
     public void AddRelations(Dictionary<Creation, CreationRelations> relations) =>
         relations.ToList().ForEach(AddRelation);
@@ -183,11 +183,11 @@ public class Creation : IDatabaseEntity
         AddRelation(relation.Key, relation.Value);
 
     public void AddRelation(Creation relatedCreation, CreationRelations relation) =>
-        CreationsRelations.Add(new(this, relatedCreation, relation));
+        Relations.Add(new(this, relatedCreation, relation));
 
     /// <inheritdoc cref="GetTitles" />
     public Dictionary<Character, CharacterRole> GetCharacters() =>
-        CreationsCharacters.ToDictionary(cc => cc.Related, cc => cc.Relation);
+        Characters.ToDictionary(cc => cc.Related, cc => cc.Relation);
 
     public void AddCharacters(Dictionary<Character, CharacterRole> characters) =>
         characters.ToList().ForEach(AddCharacter);
@@ -196,7 +196,7 @@ public class Creation : IDatabaseEntity
         AddCharacter(character.Key, character.Value);
 
     public void AddCharacter(Character character, CharacterRole role) =>
-        CreationsCharacters.Add(new(this, character, role));
+        Characters.Add(new(this, character, role));
 
     #endregion
 }
