@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.OpenApi.Models;
 using OpenHentai.Contexts;
@@ -39,6 +40,7 @@ public static class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(options =>
         {
+            options.MapType<CultureInfo>(() => new OpenApiSchema() { Type = "string" });
             options.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "My API - V1",
