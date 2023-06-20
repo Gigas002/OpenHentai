@@ -38,7 +38,11 @@ public interface ICreatureController
 
     #region DELETE
 
+    public Task<ActionResult> DeleteNamesAsync(ulong id, IEnumerable<ulong> nameIds);
 
+    public Task<ActionResult> DeleteTagsAsync(ulong id, IEnumerable<ulong> tagIds);
+
+    public Task<ActionResult> DeleteRelationsAsync(ulong id, IEnumerable<ulong> relatedIds);
 
     #endregion
 }

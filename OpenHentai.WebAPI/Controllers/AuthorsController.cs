@@ -464,8 +464,7 @@ public class AuthorController : DatabaseController, ICreatureController
 
     [HttpPut("{id}/relations")]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PutRelationsAsync(ulong id,
-        Dictionary<ulong, CreatureRelations> relations)
+    public async Task<ActionResult> PutRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations)
     {
         Console.WriteLine($"Enter into PUT: /authors/{id}/relations");
 
@@ -545,6 +544,35 @@ public class AuthorController : DatabaseController, ICreatureController
         await Context.SaveChangesAsync();
 
         return Ok(author);
+    }
+
+    [HttpDelete("{id}/names")]
+    public async Task<ActionResult> DeleteNamesAsync(ulong id, IEnumerable<ulong> nameIds)
+    {
+        Console.WriteLine($"Enter into DELETE: /authors/{id}/names");
+
+        var author = await Context.Authors.Include(a => a.Names)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
+
+        foreach (var nameId in nameIds)
+            author.Names.RemoveWhere(an => an.Id == nameId);
+
+        await Context.SaveChangesAsync();
+
+        return Ok(author);
+
+    }
+
+    [HttpDelete("{id}/tags")]
+    public Task<ActionResult> DeleteTagsAsync(ulong id, IEnumerable<ulong> tagIds)
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpDelete("{id}/relations")]
+    public Task<ActionResult> DeleteRelationsAsync(ulong id, IEnumerable<ulong> relatedIds)
+    {
+        throw new NotImplementedException();
     }
 
     #endregion
