@@ -4,6 +4,11 @@
         <name>OpenHentai.WebAPI</name>
     </assembly>
     <members>
+        <member name="T:OpenHentai.WebAPI.Controllers.AuthorController">
+            <summary>
+            Controller, that works with Author table and it's dependent ones
+            </summary>
+        </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.#ctor(OpenHentai.Contexts.AuthorsContextHelper)">
             <inheritdoc/>
         </member>

@@ -18,6 +18,9 @@ namespace OpenHentai.WebAPI.Controllers;
 
 #pragma warning disable CA1303
 
+/// <summary>
+/// Controller, that works with Author table and it's dependent ones
+/// </summary>
 // [AutoValidateAntiforgeryToken]
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
@@ -658,8 +661,6 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
         if (author is null) return BadRequest();
 
         patch.ApplyTo(author);
-
-        // TODO: dirty
 
         await ContextHelper.Context.SaveChangesAsync().ConfigureAwait(false);
 
