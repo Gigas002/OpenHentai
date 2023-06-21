@@ -81,7 +81,6 @@
                  { }
             
              </remarks>
-             <response code="200">Complete</response>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostAuthorNamesAsync(System.UInt64,System.Collections.Generic.HashSet{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
              <summary>
@@ -101,6 +100,7 @@
             
              </remarks>
              <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostNamesAsync(System.UInt64,System.Collections.Generic.HashSet{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
              <summary>

@@ -180,9 +180,6 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
 
     #endregion
 
-    // TODO: correct response codes for POST
-    // TODO: see PostRelationsAsync for return 400
-
     #region POST
 
     /// <summary>
@@ -197,9 +194,8 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     ///     { }
     ///
     /// </remarks>
-    /// <response code="200">Complete</response>
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    // [ProducesResponseType(StatusCodes.Status200OK)]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<Author>> PostAuthorAsync(Author author)
@@ -208,7 +204,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
 
         await ContextHelper.AddAuthorAsync(author).ConfigureAwait(false);
 
-        return Ok();
+        return CreatedAtAction(nameof(GetAuthorAsync), new { id = author.Id }, author);
     }
 
     /// <summary>
@@ -228,17 +224,19 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     ///
     /// </remarks>
     /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpPost(AuthorsRoutes.AuthorNames)]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostAuthorNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names)
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/author_names");
 
-        await ContextHelper.AddAuthorNamesAsync(id, names);
+        var isSuccess = await ContextHelper.AddAuthorNamesAsync(id, names);
 
-        return Ok();
+        return isSuccess ? Ok() : BadRequest();
     }
 
     /// <summary>
