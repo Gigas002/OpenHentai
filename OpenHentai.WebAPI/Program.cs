@@ -25,6 +25,7 @@ public static class Program
         builder.Services.AddAntiforgery();
 
         builder.Services.AddDbContext<DatabaseContext>();
+        builder.Services.AddScoped<AuthorsContext>();
 
         // for controllers-based approach
         builder.Services.AddControllers(options =>

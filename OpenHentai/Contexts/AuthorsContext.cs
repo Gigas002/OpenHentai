@@ -1,62 +1,366 @@
 using Microsoft.EntityFrameworkCore;
+using OpenHentai.Circles;
 using OpenHentai.Creatures;
+using OpenHentai.Descriptors;
+using OpenHentai.Relations;
+using OpenHentai.Relative;
+using OpenHentai.Roles;
+using OpenHentai.Tags;
 
 namespace OpenHentai.Contexts;
 
-public static class AuthorsContext
+// TODO: consider adding DatabaseContext as property
+// init it through ctor and use instead of args
+// then replace AuthorsController DatabaseContext to AuthorsContext
+
+public class AuthorsContext : IDisposable, IAsyncDisposable
 {
-    public static DbSet<Author> GetAuthors(DatabaseContext context) => context.Authors;
+    #region Properties
 
-    public static IEnumerable<Author> GetAuthorsWithProps(DatabaseContext context) => 
-        context.Authors.Include(a => a.AuthorNames)
-            .Include(a => a.Circles)
-            .Include(a => a.Creations)
-            .ThenInclude(ac => ac.Related)
-            .Include(a => a.Names)
-            .Include(a => a.Tags)
-            .Include(a => a.Relations)
-            .ThenInclude(cr => cr.Related);
+    protected bool IsDisposed { get; set; }
 
-    public static ValueTask<Author?> GetAuthorAsync(DatabaseContext context, ulong id) =>
-        context.Authors.FindAsync(id);
+    public DatabaseContext Context { get; init; }
 
-    public static Task<Author?> GetAuthorWithPropsAsync(DatabaseContext context, ulong id)
+    #endregion
+
+    #region Constructors
+
+    public AuthorsContext(DatabaseContext context) => Context = context;
+
+    ~AuthorsContext() => Dispose(false);
+
+    #endregion
+
+    #region Methods
+
+    #region Get
+
+    public IEnumerable<Author> GetAuthors() => Context.Authors;
+
+    public ValueTask<Author?> GetAuthorAsync(ulong id) => Context.Authors.FindAsync(id);
+
+    public IEnumerable<AuthorsNames> GetAuthorsNames() => Context.AuthorsNames.Include(an => an.Entity);
+
+    public async Task<IEnumerable<AuthorsNames>?> GetAuthorNamesAsync(ulong id)
     {
-        var authors = context.Authors
-            .Include(a => a.Names)
-            .Include(a => a.Circles)
-            .Include(a => a.Creations)
-            .ThenInclude(ac => ac.Related)
-            .Include(a => a.Names)
-            .Include(a => a.Tags)
-            .Include(a => a.Relations)
-            .ThenInclude(cr => cr.Related);
+        var author = await Context.Authors.Include(a => a.AuthorNames)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
 
-        return authors.FirstOrDefaultAsync(a => a.Id == id);
+        return author?.AuthorNames;
     }
 
-    public static async Task AddAuthorAsync(DatabaseContext context, Author author, bool saveChanges = true)
+    public async Task<IEnumerable<Circle>?> GetCirclesAsync(ulong id)
     {
-        await context.Authors.AddAsync(author);
+        var author = await Context.Authors.Include(a => a.Circles)
+                          .FirstOrDefaultAsync(a => a.Id == id);
 
-        if (saveChanges) await context.SaveChangesAsync();
+        return author?.Circles;
     }
 
-    public static async Task DeleteAuthorAsync(DatabaseContext context, Author author, bool saveChanges = true)
+    public async Task<IEnumerable<AuthorsCreations>?> GetCreationsAsync(ulong id)
     {
-        context.Authors.Remove(author);
+        var author = await Context.Authors.Include(a => a.Creations)
+                     .ThenInclude(ac => ac.Related)
+                     .FirstOrDefaultAsync(a => a.Id == id);
 
-        if (saveChanges) await context.SaveChangesAsync();
+        return author?.Creations;
     }
 
-    public static async Task<Author> DeleteAuthorAsync(DatabaseContext context, ulong id, bool saveChanges = true)
+    public async Task<IEnumerable<CreaturesNames>?> GetNamesAsync(ulong id)
     {
-        var author = await context.Authors.FindAsync(id);
+        var author = await Context.Authors.Include(a => a.Names)
+                                   .FirstOrDefaultAsync(a => a.Id == id);
 
-        await DeleteAuthorAsync(context, author, saveChanges);
-
-        return author;
+        return author?.Names;
     }
+
+    public async Task<IEnumerable<Tag>?> GetTagsAsync(ulong id)
+    {
+        var author = await Context.Authors.Include(a => a.Tags)
+                                    .FirstOrDefaultAsync(a => a.Id == id);
+
+        return author?.Tags;
+    }
+
+    public async Task<IEnumerable<CreaturesRelations>?> GetRelationsAsync(ulong id)
+    {
+        var author = await Context.Authors.Include(a => a.Relations)
+                                    .ThenInclude(cr => cr.Related)
+                                    .FirstOrDefaultAsync(a => a.Id == id);
+
+        return author?.Relations;
+    }
+
+    #endregion
+
+    #region Add
+
+    public async Task AddAuthorAsync(Author author)
+    {
+        await Context.Authors.AddAsync(author);
+
+        await Context.SaveChangesAsync();
+    }
+
+    public async Task<bool> AddAuthorNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names)
+    {
+        var author = await GetAuthorAsync(id);
+
+        if (author == null) return false;
+
+        author.AddAuthorNames(names);
+
+        await Context.SaveChangesAsync();
+
+        return true;
+    }
+
+    [Obsolete]
+    public async Task<bool> AddAuthorNamesAsync(ulong id, HashSet<ulong> nameIds)
+    {
+        if (nameIds is null || nameIds.Count <= 0) return false;
+
+        var author = await GetAuthorAsync(id);
+
+        if (author is null) return false;
+
+        foreach (var nameId in nameIds)
+        {
+            var name = await Context.AuthorsNames.FindAsync(nameId);
+
+            if (name is null) return false;
+
+            author.AuthorNames.Add(name);
+        }
+
+        await Context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task AddNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names)
+    {
+        var author = await GetAuthorAsync(id);
+
+        author.AddNames(names);
+
+        await Context.SaveChangesAsync();
+    }
+
+    public async Task<bool> AddRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations)
+    {
+        if (relations is null || relations.Count <= 0) return false;
+
+        var author = await GetAuthorAsync(id);
+
+        if (author is null) return false;
+
+        foreach (var relation in relations)
+        {
+            var related = await Context.Creatures.FindAsync(relation.Key);
+
+            if (related is null) return false;
+
+            author.AddRelation(related, relation.Value);
+        }
+
+        await Context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> AddCirclesAsync(ulong id, HashSet<ulong> circleIds)
+    {
+        if (circleIds is null || circleIds.Count <= 0) return false;
+
+        var author = await GetAuthorAsync(id);
+
+        if (author is null) return false;
+
+        foreach (var circleId in circleIds)
+        {
+            var circle = await Context.Circles.FindAsync(circleId);
+
+            if (circle is null) return false;
+
+            author.Circles.Add(circle);
+        }
+
+        await Context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> AddCreationsAsync(ulong id, Dictionary<ulong, AuthorRole> creationRoles)
+    {
+        if (creationRoles is null || creationRoles.Count <= 0) return false;
+
+        var author = await GetAuthorAsync(id);
+
+        if (author is null) return false;
+
+        foreach (var creationRole in creationRoles)
+        {
+            var creation = await Context.Creations.FindAsync(creationRole.Key);
+
+            if (creation is null) return false;
+
+            author.AddCreation(creation, creationRole.Value);
+        }
+
+        await Context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> AddTagsAsync(ulong id, HashSet<ulong> tagIds)
+    {
+        if (tagIds is null || tagIds.Count <= 0) return false;
+
+        var author = await GetAuthorAsync(id);
+
+        if (author is null) return false;
+
+        foreach (var tagId in tagIds)
+        {
+            var tag = await Context.Tags.FindAsync(tagId);
+
+            if (tag is null) return false;
+
+            author.Tags.Add(tag);
+        }
+
+        await Context.SaveChangesAsync();
+
+        return true;
+    }
+
+    #endregion
+
+    #region Remove
+
+    // TODO: test remove methods
+
+    public async Task<bool> RemoveAuthorAsync(ulong id)
+    {
+        var author = await GetAuthorAsync(id);
+
+        if (author is null) return false;
+
+        Context.Authors.Remove(author);
+
+        await Context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> RemoveAuthorNamesAsync(ulong id, HashSet<ulong> nameIds)
+    {
+        if (nameIds is null || nameIds.Count <= 0) return false;
+
+        var author = await Context.Authors.Include(a => a.AuthorNames)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
+
+        if (author is null) return false;
+
+        foreach (var nameId in nameIds)
+            author.AuthorNames.RemoveWhere(an => an.Id == nameId);
+
+        await Context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> RemoveCirclesAsync(ulong id, HashSet<ulong> circleIds)
+    {
+        if (circleIds is null || circleIds.Count <= 0) return false;
+
+        var author = await Context.Authors.Include(a => a.Circles)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
+
+        if (author is null) return false;
+
+        foreach (var circleId in circleIds)
+            author.Circles.RemoveWhere(c => c.Id == circleId);
+
+        await Context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> RemoveCreationsAsync(ulong id, HashSet<ulong> creationIds)
+    {
+        if (creationIds is null || creationIds.Count <= 0) return false;
+
+        var author = await Context.Authors.Include(a => a.Creations)
+                                  .ThenInclude(ac => ac.Related)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
+
+        if (author is null) return false;
+
+        foreach (var creationId in creationIds)
+            author.Creations.RemoveWhere(c => c.Related.Id == creationId);
+
+        await Context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> RemoveNamesAsync(ulong id, HashSet<ulong> nameIds)
+    {
+        if (nameIds is null || nameIds.Count <= 0) return false;
+
+        var author = await Context.Authors.Include(a => a.Names)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
+
+        if (author is null) return false;
+
+        foreach (var nameId in nameIds)
+            author.Names.RemoveWhere(cn => cn.Id == nameId);
+
+        await Context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> RemoveTagsAsync(ulong id, HashSet<ulong> tagIds)
+    {
+        if (tagIds is null || tagIds.Count <= 0) return false;
+
+        var author = await Context.Authors.Include(a => a.Tags)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
+
+        if (author is null) return false;
+
+        foreach (var tagId in tagIds)
+            author.Tags.RemoveWhere(t => t.Id == tagId);
+
+        await Context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> RemoveRelationsAsync(ulong id, HashSet<ulong> relatedIds)
+    {
+        if (relatedIds is null || relatedIds.Count <= 0) return false;
+
+        var author = await Context.Authors.Include(a => a.Relations)
+                                  .ThenInclude(cr => cr.Related)
+                                  .FirstOrDefaultAsync(a => a.Id == id);
+
+        if (author is null) return false;
+
+        foreach (var relatedId in relatedIds)
+            author.Relations.RemoveWhere(cr => cr.Related.Id == relatedId);
+
+        await Context.SaveChangesAsync();
+
+        return true;
+    }
+
+    #endregion
+
+    #region Experimental
 
     public static async Task UpdateAuthorAsync(DatabaseContext context, ulong id, Author newAuthor)
     {
@@ -64,7 +368,50 @@ public static class AuthorsContext
 
         context.Attach(newAuthor);
         context.Authors.Update(newAuthor);
-        
+
         await context.SaveChangesAsync();
     }
+
+    #endregion
+
+    #region Dispose
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (IsDisposed) return;
+
+        if (disposing)
+        { }
+
+        Context.Dispose();
+
+        IsDisposed = true;
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsyncCore().ConfigureAwait(false);
+
+        Dispose(false);
+        GC.SuppressFinalize(this);
+    }
+
+#pragma warning disable CS1998
+    protected virtual async ValueTask DisposeAsyncCore()
+    {
+        if (IsDisposed) return;
+
+        IsDisposed = true;
+    }
+#pragma warning restore CS1998
+
+    #endregion
+
+    #endregion
 }

@@ -3,13 +3,14 @@ using OpenHentai.Contexts;
 
 namespace OpenHentai.WebAPI.Controllers;
 
-public abstract class DatabaseController : ControllerBase, IDisposable, IAsyncDisposable
+public abstract class DatabaseController<T> : ControllerBase, IDisposable, IAsyncDisposable
+    where T : IDisposable, IAsyncDisposable
 {
     #region Properties/fields
 
     protected bool IsDisposed { get; set; }
 
-    public DatabaseContext Context { get; init; }
+    public T Context { get; init; }
 
     #endregion
 
@@ -18,10 +19,13 @@ public abstract class DatabaseController : ControllerBase, IDisposable, IAsyncDi
     /// <summary>
     /// Initialize database context
     /// </summary>
-    protected DatabaseController(DatabaseContext context)
-    {
-        Context = context;
-    }
+    protected DatabaseController(T context) => Context = context;
+
+    ~DatabaseController() => Dispose(false);
+
+    #endregion
+
+    #region Methods
 
     [ApiExplorerSettings(IgnoreApi = true)]
     public void Dispose()
@@ -59,8 +63,6 @@ public abstract class DatabaseController : ControllerBase, IDisposable, IAsyncDi
         IsDisposed = true;
     }
 #pragma warning restore CS1998
-
-    ~DatabaseController() => Dispose(false);
 
     #endregion
 }

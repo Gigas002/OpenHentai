@@ -644,7 +644,14 @@ public class DatabaseTests
     {
         using var db = new DatabaseContext();
 
-        var authors = AuthorsContext.GetAuthorsWithProps(db);
+        var authors = db.Authors.Include(a => a.AuthorNames)
+            .Include(a => a.Circles)
+            .Include(a => a.Creations)
+            .ThenInclude(ac => ac.Related)
+            .Include(a => a.Names)
+            .Include(a => a.Tags)
+            .Include(a => a.Relations)
+            .ThenInclude(cr => cr.Related);
 
         var json = SerializeEntity(authors);
         var deserialized = DeserializeEntity<IEnumerable<Author>>(json);
