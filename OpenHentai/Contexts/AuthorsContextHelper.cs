@@ -9,7 +9,7 @@ using OpenHentai.Tags;
 
 namespace OpenHentai.Contexts;
 
-public class AuthorsContextHelper : DatabaseContextHelper
+public class AuthorsContextHelper : DatabaseContextHelper, ICreatureContextHelper
 {
     #region Constructors
 
