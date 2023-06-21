@@ -17,6 +17,9 @@ namespace OpenHentai.WebAPI.Controllers;
 
 // TODO: https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-5/#support-for-generic-attributes
 
+#pragma warning disable CA2007
+#pragma warning disable CA1303
+
 // [AutoValidateAntiforgeryToken]
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
@@ -77,7 +80,7 @@ public class AuthorController : DatabaseController, ICreatureController
 
         var names = Context.AuthorsNames.Include(an => an.Entity).ToHashSet();
 
-        return names;
+        return Ok(names);
     }
 
     /// <summary>
@@ -94,7 +97,7 @@ public class AuthorController : DatabaseController, ICreatureController
         var author = await Context.Authors.Include(a => a.AuthorNames)
                                   .FirstOrDefaultAsync(a => a.Id == id);
 
-        return author.AuthorNames;
+        return author is null ? NotFound() : Ok(author.AuthorNames);
     }
 
     /// <summary>
@@ -111,7 +114,7 @@ public class AuthorController : DatabaseController, ICreatureController
         var author = await Context.Authors.Include(a => a.Circles)
                                   .FirstOrDefaultAsync(a => a.Id == id);
 
-        return author.Circles;
+        return author is null ? NotFound() : Ok(author.Circles);
     }
 
     /// <summary>
@@ -129,7 +132,7 @@ public class AuthorController : DatabaseController, ICreatureController
                              .ThenInclude(ac => ac.Related)
                              .FirstOrDefaultAsync(a => a.Id == id);
 
-        return author.Creations;
+        return author is null ? NotFound() : Ok(author.Creations);
     }
 
     /// <summary>
@@ -146,7 +149,7 @@ public class AuthorController : DatabaseController, ICreatureController
         var author = await Context.Authors.Include(a => a.Names)
                                    .FirstOrDefaultAsync(a => a.Id == id);
 
-        return Ok(author.Names);
+        return author is null ? NotFound() : Ok(author.Names);
     }
 
     /// <summary>
@@ -163,7 +166,7 @@ public class AuthorController : DatabaseController, ICreatureController
         var author = await Context.Authors.Include(a => a.Tags)
                                     .FirstOrDefaultAsync(a => a.Id == id);
 
-        return Ok(author.Tags);
+        return author is null ? NotFound() : Ok(author.Tags);
     }
 
     /// <summary>
@@ -181,7 +184,7 @@ public class AuthorController : DatabaseController, ICreatureController
                                     .ThenInclude(cr => cr.Related)
                                     .FirstOrDefaultAsync(a => a.Id == id);
 
-        return Ok(author.Relations);
+        return author is null ? NotFound() : Ok(author.Relations);
     }
 
     #endregion
@@ -202,13 +205,16 @@ public class AuthorController : DatabaseController, ICreatureController
     /// </remarks>
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<Author>> PostAuthorAsync(Author author)
     {
         Console.WriteLine("Enter into POST: /authors");
 
         await AuthorsContext.AddAuthorAsync(Context, author).ConfigureAwait(false);
 
-        return Ok();
+        // TODO: return value
+
+        return CreatedAtAction(nameof(GetAuthorAsync), author);
     }
 
     /// <summary>
@@ -227,13 +233,20 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     }]
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpPost(AuthorsRoutes.AuthorNames)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PostAuthorNamesAsync(ulong id, IEnumerable<LanguageSpecificTextInfo> names)
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PostAuthorNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names)
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/author_names");
 
         var author = await Context.Authors.FindAsync(id);
+
+        if (author is null) return BadRequest();
 
         author.AddAuthorNames(names);
 
@@ -258,13 +271,20 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     }]
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpPost(AuthorsRoutes.Names)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PostNamesAsync(ulong id, IEnumerable<LanguageSpecificTextInfo> names)
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PostNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names)
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/names");
 
         var author = await Context.Authors.FindAsync(id);
+
+        if (author is null) return BadRequest();
 
         author.AddNames(names);
 
@@ -289,17 +309,28 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     }
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpPost(AuthorsRoutes.Relations)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations)
     {
+        if (relations is null || relations.Count <= 0) return BadRequest();
+
         Console.WriteLine($"Enter into POST: /authors/{id}/relations");
 
         var author = await Context.Authors.FindAsync(id);
 
+        if (author is null) return BadRequest();
+
         foreach (var relation in relations)
         {
             var related = await Context.Creatures.FindAsync(relation.Key);
+
+            if (related is null) return BadRequest();
 
             author.AddRelation(related, relation.Value);
         }
@@ -328,18 +359,29 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     ]
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpPut(AuthorsRoutes.AuthorNames)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PutAuthorNamesAsync(ulong id, IEnumerable<ulong> nameIds)
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PutAuthorNamesAsync(ulong id, HashSet<ulong> nameIds)
     {
+        if (nameIds is null || nameIds.Count <= 0) return BadRequest();
+
         Console.WriteLine($"Enter into PUT: /authors/{id}/author_names");
 
         var author = await Context.Authors.FindAsync(id);
+
+        if (author is null) return BadRequest();
 
         foreach (var nameId in nameIds)
         {
             // search through db instead of creating new object is required here
             var name = await Context.AuthorsNames.FindAsync(nameId);
+
+            if (name is null) return BadRequest();
 
             author.AuthorNames.Add(name);
         }
@@ -364,17 +406,28 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     ]
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpPut(AuthorsRoutes.Circles)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PutCirclesAsync(ulong id, IEnumerable<ulong> circleIds)
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PutCirclesAsync(ulong id, HashSet<ulong> circleIds)
     {
+        if (circleIds is null || circleIds.Count <= 0) return BadRequest();
+
         Console.WriteLine($"Enter into PUT: /authors/{id}/circles");
 
         var author = await Context.Authors.FindAsync(id);
 
+        if (author is null) return BadRequest();
+
         foreach (var circleId in circleIds)
         {
             var circle = await Context.Circles.FindAsync(circleId);
+
+            if (circle is null) return BadRequest();
 
             author.Circles.Add(circle);
         }
@@ -400,17 +453,28 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     }
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpPut(AuthorsRoutes.Creations)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutCreationsAsync(ulong id, Dictionary<ulong, AuthorRole> creationRoles)
     {
+        if (creationRoles is null || creationRoles.Count <= 0) return BadRequest();
+
         Console.WriteLine($"Enter into PUT: /authors/{id}/creations");
 
         var author = await Context.Authors.FindAsync(id);
 
+        if (author is null) return BadRequest();
+
         foreach (var creationRole in creationRoles)
         {
             var creation = await Context.Creations.FindAsync(creationRole.Key);
+
+            if (creation is null) return BadRequest();
 
             author.AddCreation(creation, creationRole.Value);
         }
@@ -435,18 +499,29 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     ]
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpPut(AuthorsRoutes.Names)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PutNamesAsync(ulong id, IEnumerable<ulong> nameIds)
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PutNamesAsync(ulong id, HashSet<ulong> nameIds)
     {
+        if (nameIds is null || nameIds.Count <= 0) return BadRequest();
+
         Console.WriteLine($"Enter into PUT: /authors/{id}/names");
 
         var author = await Context.Authors.FindAsync(id);
+
+        if (author is null) return BadRequest();
 
         foreach (var nameId in nameIds)
         {
             // search through db instead of creating new object is required here
             var name = await Context.CreaturesNames.FindAsync(nameId);
+
+            if (name is null) return BadRequest();
 
             author.Names.Add(name);
         }
@@ -471,17 +546,28 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     ]
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpPut(AuthorsRoutes.Tags)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PutTagsAsync(ulong id, IEnumerable<ulong> tagIds)
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> PutTagsAsync(ulong id, HashSet<ulong> tagIds)
     {
+        if (tagIds is null || tagIds.Count <= 0) return BadRequest();
+
         Console.WriteLine($"Enter into PUT: /authors/{id}/tags");
 
         var author = await Context.Authors.FindAsync(id);
 
+        if (author is null) return BadRequest();
+
         foreach (var tagId in tagIds)
         {
             var tag = await Context.Tags.FindAsync(tagId);
+
+            if (tag is null) return BadRequest();
 
             author.Tags.Add(tag);
         }
@@ -507,17 +593,28 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     }
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpPut(AuthorsRoutes.Relations)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations)
     {
+        if (relations is null || relations.Count <= 0) return BadRequest();
+
         Console.WriteLine($"Enter into PUT: /authors/{id}/relations");
 
         var author = await Context.Authors.FindAsync(id);
 
+        if (author is null) return BadRequest();
+
         foreach (var relation in relations)
         {
             var related = await Context.Creatures.FindAsync(relation.Key);
+
+            if (related is null) return BadRequest();
 
             author.AddRelation(related, relation.Value);
         }
@@ -536,11 +633,12 @@ public class AuthorController : DatabaseController, ICreatureController
     /// </summary>
     /// <param name="id">Id of Author to delete</param>
     [HttpDelete(AuthorsRoutes.Id)]
+    [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteAuthorAsync(ulong id)
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}");
 
-        var author = await AuthorsContext.DeleteAuthorAsync(Context, id).ConfigureAwait(false);
+        await AuthorsContext.DeleteAuthorAsync(Context, id).ConfigureAwait(false);
 
         return Ok();
     }
@@ -560,14 +658,23 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     ]
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpDelete(AuthorsRoutes.AuthorNames)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> DeleteAuthorNamesAsync(ulong id, IEnumerable<ulong> nameIds)
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> DeleteAuthorNamesAsync(ulong id, HashSet<ulong> nameIds)
     {
+        if (nameIds is null || nameIds.Count <= 0) return BadRequest();
+
         Console.WriteLine($"Enter into DELETE: /authors/{id}/author_names");
 
         var author = await Context.Authors.Include(a => a.AuthorNames)
                                   .FirstOrDefaultAsync(a => a.Id == id);
+
+        if (author is null) return BadRequest();
 
         foreach (var nameId in nameIds)
             author.AuthorNames.RemoveWhere(an => an.Id == nameId);
@@ -592,14 +699,23 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     ]
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpDelete(AuthorsRoutes.Circles)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> DeleteCirclesAsync(ulong id, IEnumerable<ulong> circleIds)
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> DeleteCirclesAsync(ulong id, HashSet<ulong> circleIds)
     {
+        if (circleIds is null || circleIds.Count <= 0) return BadRequest();
+
         Console.WriteLine($"Enter into DELETE: /authors/{id}");
 
         var author = await Context.Authors.Include(a => a.Circles)
                                   .FirstOrDefaultAsync(a => a.Id == id);
+
+        if (author is null) return BadRequest();
 
         foreach (var circleId in circleIds)
             author.Circles.RemoveWhere(c => c.Id == circleId);
@@ -624,15 +740,24 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     ]
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpDelete(AuthorsRoutes.Creations)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> DeleteCreationsAsync(ulong id, IEnumerable<ulong> creationIds)
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> DeleteCreationsAsync(ulong id, HashSet<ulong> creationIds)
     {
+        if (creationIds is null || creationIds.Count <= 0) return BadRequest();
+
         Console.WriteLine($"Enter into DELETE: /authors/{id}/creations");
 
         var author = await Context.Authors.Include(a => a.Creations)
                                   .ThenInclude(ac => ac.Related)
                                   .FirstOrDefaultAsync(a => a.Id == id);
+
+        if (author is null) return BadRequest();
 
         foreach (var creationId in creationIds)
             author.Creations.RemoveWhere(c => c.Related.Id == creationId);
@@ -657,14 +782,23 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     ]
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpDelete(AuthorsRoutes.Names)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> DeleteNamesAsync(ulong id, IEnumerable<ulong> nameIds)
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> DeleteNamesAsync(ulong id, HashSet<ulong> nameIds)
     {
+        if (nameIds is null || nameIds.Count <= 0) return BadRequest();
+
         Console.WriteLine($"Enter into DELETE: /authors/{id}/names");
 
         var author = await Context.Authors.Include(a => a.Names)
                                   .FirstOrDefaultAsync(a => a.Id == id);
+
+        if (author is null) return BadRequest();
 
         foreach (var nameId in nameIds)
             author.Names.RemoveWhere(cn => cn.Id == nameId);
@@ -689,14 +823,23 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     ]
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpDelete(AuthorsRoutes.Tags)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> DeleteTagsAsync(ulong id, IEnumerable<ulong> tagIds)
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> DeleteTagsAsync(ulong id, HashSet<ulong> tagIds)
     {
+        if (tagIds is null || tagIds.Count <= 0) return BadRequest();
+
         Console.WriteLine($"Enter into DELETE: /authors/{id}/tags");
 
         var author = await Context.Authors.Include(a => a.Tags)
                                   .FirstOrDefaultAsync(a => a.Id == id);
+
+        if (author is null) return BadRequest();
 
         foreach (var tagId in tagIds)
             author.Tags.RemoveWhere(t => t.Id == tagId);
@@ -721,15 +864,24 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     ]
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpDelete(AuthorsRoutes.Relations)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> DeleteRelationsAsync(ulong id, IEnumerable<ulong> relatedIds)
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult> DeleteRelationsAsync(ulong id, HashSet<ulong> relatedIds)
     {
+        if (relatedIds is null || relatedIds.Count <= 0) return BadRequest();
+
         Console.WriteLine($"Enter into DELETE: /authors/{id}/relations");
 
         var author = await Context.Authors.Include(a => a.Relations)
                                   .ThenInclude(cr => cr.Related)
                                   .FirstOrDefaultAsync(a => a.Id == id);
+
+        if (author is null) return BadRequest();
 
         foreach (var relatedId in relatedIds)
             author.Relations.RemoveWhere(cr => cr.Related.Id == relatedId);
@@ -769,19 +921,26 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     }]
     ///
     /// </remarks>
+    /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpPatch(AuthorsRoutes.Id)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypes.JsonPatch)]
+    [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PatchAuthorAsync(ulong id, IEnumerable<Operation<Author>> operations)
     {
         Console.WriteLine($"Enter into PATCH: /authors/{id}");
 
         var patch = new JsonPatchDocument<Author>(operations.ToList(), Essential.JsonSerializerOptions);
 
-        var user = await Context.Authors.FindAsync(id);
+        var author = await Context.Authors.FindAsync(id).ConfigureAwait(false);
 
-        patch.ApplyTo(user);
+        if (author is null) return BadRequest();
 
-        await Context.SaveChangesAsync();
+        patch.ApplyTo(author);
+
+        await Context.SaveChangesAsync().ConfigureAwait(false);
 
         return Ok();
     }

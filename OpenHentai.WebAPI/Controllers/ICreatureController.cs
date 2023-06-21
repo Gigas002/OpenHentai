@@ -4,6 +4,8 @@ using OpenHentai.Relations;
 using OpenHentai.Relative;
 using OpenHentai.Tags;
 
+namespace OpenHentai.WebAPI.Controllers;
+
 public interface ICreatureController
 {
     #region GET
@@ -18,7 +20,7 @@ public interface ICreatureController
 
     #region POST
 
-    public Task<ActionResult> PostNamesAsync(ulong id, IEnumerable<LanguageSpecificTextInfo> names);
+    public Task<ActionResult> PostNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names);
 
     public Task<ActionResult> PostRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations);
 
@@ -26,9 +28,9 @@ public interface ICreatureController
 
     #region PUT
 
-    public Task<ActionResult> PutNamesAsync(ulong id, IEnumerable<ulong> nameIds);
+    public Task<ActionResult> PutNamesAsync(ulong id, HashSet<ulong> nameIds);
     
-    public Task<ActionResult> PutTagsAsync(ulong id, IEnumerable<ulong> tagIds);
+    public Task<ActionResult> PutTagsAsync(ulong id, HashSet<ulong> tagIds);
     
     public Task<ActionResult> PutRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations);
 
@@ -36,11 +38,11 @@ public interface ICreatureController
 
     #region DELETE
 
-    public Task<ActionResult> DeleteNamesAsync(ulong id, IEnumerable<ulong> nameIds);
+    public Task<ActionResult> DeleteNamesAsync(ulong id, HashSet<ulong> nameIds);
 
-    public Task<ActionResult> DeleteTagsAsync(ulong id, IEnumerable<ulong> tagIds);
+    public Task<ActionResult> DeleteTagsAsync(ulong id, HashSet<ulong> tagIds);
 
-    public Task<ActionResult> DeleteRelationsAsync(ulong id, IEnumerable<ulong> relatedIds);
+    public Task<ActionResult> DeleteRelationsAsync(ulong id, HashSet<ulong> relatedIds);
 
     #endregion
 }
