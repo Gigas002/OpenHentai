@@ -27,13 +27,9 @@ public interface ICreatureController
     #endregion
 
     #region PUT
-
-    public Task<ActionResult> PutNamesAsync(ulong id, HashSet<ulong> nameIds);
     
     public Task<ActionResult> PutTagsAsync(ulong id, HashSet<ulong> tagIds);
     
-    public Task<ActionResult> PutRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations);
-
     #endregion
 
     #region DELETE

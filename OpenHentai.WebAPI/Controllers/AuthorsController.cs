@@ -309,38 +309,6 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     #region PUT
 
     /// <summary>
-    /// Updates Author's AuthorsNames with existing names, overriding previous Author
-    /// </summary>
-    /// <param name="id">Author's id</param>
-    /// <param name="nameIds">Collection of AuthorsNames ids to bind with this Author</param>
-    /// <remarks>
-    ///
-    /// Example request:
-    ///
-    ///     PUT /authors/{id}/author_names
-    ///     [
-    ///         1, 2
-    ///     ]
-    ///
-    /// </remarks>
-    /// <response code="200">Complete</response>
-    /// <response code="400">Entity with requested id doesn't exist</response>
-    [HttpPut(AuthorsRoutes.AuthorNames)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [Produces(MediaTypeNames.Application.Json)]
-    [Obsolete]
-    public async Task<ActionResult> PutAuthorNamesAsync(ulong id, HashSet<ulong> nameIds)
-    {
-        Console.WriteLine($"Enter into PUT: /authors/{id}/author_names");
-
-        var isSuccess = await Context.AddAuthorNamesAsync(id, nameIds);
-
-        return isSuccess ? Ok() : BadRequest();
-    }
-
-    /// <summary>
     /// Bind Author to collection of Circle
     /// </summary>
     /// <param name="id">Author's id</param>
@@ -404,54 +372,6 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     }
 
     /// <summary>
-    /// Updates Author's CreaturesNames with existing names, overriding previous Creature
-    /// </summary>
-    /// <param name="id">Author's id</param>
-    /// <param name="nameIds">Collection of CreaturesNames ids to bind with this Creature</param>
-    /// <remarks>
-    ///
-    /// Example request:
-    ///
-    ///     PUT /authors/{id}/names
-    ///     [
-    ///         1, 2
-    ///     ]
-    ///
-    /// </remarks>
-    /// <response code="200">Complete</response>
-    /// <response code="400">Entity with requested id doesn't exist</response>
-    [HttpPut(AuthorsRoutes.Names)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [Produces(MediaTypeNames.Application.Json)]
-    [Obsolete]
-    public async Task<ActionResult> PutNamesAsync(ulong id, HashSet<ulong> nameIds)
-    {
-        // if (nameIds is null || nameIds.Count <= 0) return BadRequest();
-
-        // Console.WriteLine($"Enter into PUT: /authors/{id}/names");
-
-        // var author = await Context.Authors.FindAsync(id);
-
-        // if (author is null) return BadRequest();
-
-        // foreach (var nameId in nameIds)
-        // {
-        //     // search through db instead of creating new object is required here
-        //     var name = await Context.CreaturesNames.FindAsync(nameId);
-
-        //     if (name is null) return BadRequest();
-
-        //     author.Names.Add(name);
-        // }
-
-        // await Context.SaveChangesAsync();
-
-        return Ok();
-    }
-
-    /// <summary>
     /// Bind Author to tags
     /// </summary>
     /// <param name="id">Author's id</param>
@@ -480,54 +400,6 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
         var isSuccess = await Context.AddTagsAsync(id, tagIds);
 
         return isSuccess ? Ok() : BadRequest();
-    }
-
-    /// <summary>
-    /// Bind Author to another Creature
-    /// </summary>
-    /// <param name="id">Author's id</param>
-    /// <param name="relations">Dictionary of Creature ids and CreatureRelations to bind with this Author</param>
-    /// <remarks>
-    ///
-    /// Sample request:
-    ///
-    ///     PUT /authors/{id}/relations
-    ///     {
-    ///         "1": 3,
-    ///         "4": 2
-    ///     }
-    ///
-    /// </remarks>
-    /// <response code="200">Complete</response>
-    /// <response code="400">Entity with requested id doesn't exist</response>
-    [HttpPut(AuthorsRoutes.Relations)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [Produces(MediaTypeNames.Application.Json)]
-    [Obsolete]
-    public async Task<ActionResult> PutRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations)
-    {
-        // if (relations is null || relations.Count <= 0) return BadRequest();
-
-        // Console.WriteLine($"Enter into PUT: /authors/{id}/relations");
-
-        // var author = await Context.Authors.FindAsync(id);
-
-        // if (author is null) return BadRequest();
-
-        // foreach (var relation in relations)
-        // {
-        //     var related = await Context.Creatures.FindAsync(relation.Key);
-
-        //     if (related is null) return BadRequest();
-
-        //     author.AddRelation(related, relation.Value);
-        // }
-
-        // await Context.SaveChangesAsync();
-
-        return Ok();
     }
 
     #endregion

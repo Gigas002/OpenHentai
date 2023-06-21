@@ -141,25 +141,6 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutAuthorNamesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
-             <summary>
-             Updates Author's AuthorsNames with existing names, overriding previous Author
-             </summary>
-             <param name="id">Author's id</param>
-             <param name="nameIds">Collection of AuthorsNames ids to bind with this Author</param>
-             <remarks>
-            
-             Example request:
-            
-                 PUT /authors/{id}/author_names
-                 [
-                     1, 2
-                 ]
-            
-             </remarks>
-             <response code="200">Complete</response>
-             <response code="400">Entity with requested id doesn't exist</response>
-        </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutCirclesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
              <summary>
              Bind Author to collection of Circle
@@ -199,25 +180,6 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutNamesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
-             <summary>
-             Updates Author's CreaturesNames with existing names, overriding previous Creature
-             </summary>
-             <param name="id">Author's id</param>
-             <param name="nameIds">Collection of CreaturesNames ids to bind with this Creature</param>
-             <remarks>
-            
-             Example request:
-            
-                 PUT /authors/{id}/names
-                 [
-                     1, 2
-                 ]
-            
-             </remarks>
-             <response code="200">Complete</response>
-             <response code="400">Entity with requested id doesn't exist</response>
-        </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutTagsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
              <summary>
              Bind Author to tags
@@ -232,26 +194,6 @@
                  [
                      1, 2
                  ]
-            
-             </remarks>
-             <response code="200">Complete</response>
-             <response code="400">Entity with requested id doesn't exist</response>
-        </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutRelationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Relations.CreatureRelations})">
-             <summary>
-             Bind Author to another Creature
-             </summary>
-             <param name="id">Author's id</param>
-             <param name="relations">Dictionary of Creature ids and CreatureRelations to bind with this Author</param>
-             <remarks>
-            
-             Sample request:
-            
-                 PUT /authors/{id}/relations
-                 {
-                     "1": 3,
-                     "4": 2
-                 }
             
              </remarks>
              <response code="200">Complete</response>
