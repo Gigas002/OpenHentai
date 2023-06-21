@@ -26,6 +26,7 @@ public static class Program
 
         builder.Services.AddDbContext<DatabaseContext>();
         builder.Services.AddScoped<AuthorsContextHelper>();
+        builder.Services.AddScoped<CharactersContextHelper>();
 
         // for controllers-based approach
         builder.Services.AddControllers(options =>

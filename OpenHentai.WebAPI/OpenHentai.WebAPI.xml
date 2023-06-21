@@ -357,6 +357,262 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
+        <member name="T:OpenHentai.WebAPI.Controllers.CharacterController">
+            <summary>
+            Controller, that works with Characters table and it's dependent ones
+            </summary>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.#ctor(OpenHentai.Contexts.CharactersContextHelper)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.GetCharacters">
+            <summary>
+            Get all characters
+            </summary>
+            <returns>Collection of Characters</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.GetCharacterAsync(System.UInt64)">
+            <summary>
+            Get character from database by id
+            </summary>
+            <param name="id">Character's id</param>
+            <returns>Character</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.GetCreationsAsync(System.UInt64)">
+            <summary>
+            Get current character's creations
+            </summary>
+            <param name="id">Character's id</param>
+            <returns>Collection of CharactersCreations</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.GetNamesAsync(System.UInt64)">
+            <summary>
+            Get current character's names
+            </summary>
+            <param name="id">Character's id</param>
+            <returns>Collection of CreaturesNames</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.GetTagsAsync(System.UInt64)">
+            <summary>
+            Get current character's tags
+            </summary>
+            <param name="id">Character's id</param>
+            <returns>Collection of Tag</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.GetRelationsAsync(System.UInt64)">
+            <summary>
+            Get current character's relations
+            </summary>
+            <param name="id">Character's id</param>
+            <returns>Collection of CreaturesRelations</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.PostCharacterAsync(OpenHentai.Creatures.Character)">
+             <summary>
+             Add character to database
+             </summary>
+             <param name="character">Character to add</param>
+             <remarks>
+            
+             Minimal request:
+            
+                 POST /characters
+                 { }
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.PostNamesAsync(System.UInt64,System.Collections.Generic.HashSet{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
+             <summary>
+             Updates Character with new names, pushed at their own table
+             </summary>
+             <param name="id">Character's id</param>
+             <param name="names">Collection of new names to push</param>
+             <remarks>
+            
+             Example request:
+            
+                 POST /characters/{id}/names
+                 [{
+                     "text": "Test Minato",
+                     "language": null
+                 }]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.PostRelationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Relations.CreatureRelations})">
+             <summary>
+             Updates Character with new relations to other creatures
+             </summary>
+             <param name="id">Character's id</param>
+             <param name="relations">Dictionary of related creature id and relation type</param>
+             <remarks>
+            
+             Example request:
+            
+                 POST /characters/{id}/relations
+                 {
+                     "1": 1,
+                     "2": 0
+                 }
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.PutCreationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Roles.CharacterRole})">
+             <summary>
+             Bind Character to creations
+             </summary>
+             <param name="id">Character's id</param>
+             <param name="creationRoles">Dictionary of creation ids and CharacterRole to bind with this Character</param>
+             <remarks>
+            
+             Sample request:
+            
+                 PUT /characters/{id}/creations
+                 {
+                     "1": 3,
+                     "4": 2
+                 }
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.PutTagsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Bind Character to tags
+             </summary>
+             <param name="id">Character's id</param>
+             <param name="tagIds">Collection of tag ids to bind with this Character</param>
+             <remarks>
+            
+             Example request:
+            
+                 PUT /characters/{id}/tags
+                 [
+                     1, 2
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.DeleteCharacterAsync(System.UInt64)">
+            <summary>
+            Delete Character from database
+            </summary>
+            <param name="id">Id of Character to delete</param>
+            <response code="200">Complete</response>
+            <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.DeleteCreationsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete binding between Character and specified Creations
+             </summary>
+             <param name="id">Character's id</param>
+             <param name="creationIds">Collection of Creation ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /characters/{id}/creations
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.DeleteNamesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete collection of names, bound to Character
+             </summary>
+             <param name="id">Character's id</param>
+             <param name="nameIds">Collection of CreturesNames ids to delete</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /characters/{id}/names
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.DeleteTagsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete binding between Character and specified Tags
+             </summary>
+             <param name="id">Character's id</param>
+             <param name="tagIds">Collection of Tag ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /characters/{id}/tags
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.DeleteRelationsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete binding between Character and specified Creatures
+             </summary>
+             <param name="id">Character's id</param>
+             <param name="relatedIds">Collection of Creature ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /characters/{id}/relations
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.PatchCharacterAsync(System.UInt64,System.Collections.Generic.IEnumerable{SystemTextJsonPatch.Operations.Operation{OpenHentai.Creatures.Character}})">
+             <summary>
+             Update Character, using json-patch format
+             </summary>
+             <param name="id">Character's id</param>
+             <param name="operations">Collection of json-patch operations</param>
+             <remarks>
+            
+             Example request:
+            
+                 PATCH /characters/{id}
+                 [{
+                     "path": "/age",
+                     "op": "replace",
+                     "value": 30
+                 },
+                 {
+                     "path": "/names",
+                     "op": "add",
+                     "value": [{
+                       "character_id": 8,
+                       "name": "Test Bubato",
+                       "language": null
+                     }]
+                 }]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
         <member name="M:OpenHentai.WebAPI.Controllers.DatabaseController`1.#ctor(`0)">
             <summary>
             Initialize database context
