@@ -53,7 +53,7 @@ public class AuthorController : DatabaseController, ICreatureController
     /// <returns>Author</returns>
     /// <response code="200">Returns requested author</response>
     /// <response code="400">Author is null</response>
-    [HttpGet("{id}")]
+    [HttpGet(AuthorsRoutes.Id)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Produces(MediaTypeNames.Application.Json)]
@@ -69,7 +69,7 @@ public class AuthorController : DatabaseController, ICreatureController
             return Ok(author);
     }
 
-    [HttpGet("authors_names")]
+    [HttpGet(AuthorsRoutes.AuthorsNames)]
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<IEnumerable<AuthorsNames>> GetAuthorsNames()
     {
@@ -80,7 +80,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return names;
     }
 
-    [HttpGet("{id}/author_names")]
+    [HttpGet(AuthorsRoutes.AuthorNames)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<AuthorsNames>>> GetAuthorNamesAsync(ulong id)
     {
@@ -92,7 +92,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return author.AuthorNames;
     }
 
-    [HttpGet("{id}/circles")]
+    [HttpGet(AuthorsRoutes.Circles)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Circle>>> GetCirclesAsync(ulong id)
     {
@@ -104,7 +104,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return author.Circles;
     }
 
-    [HttpGet("{id}/creations")]
+    [HttpGet(AuthorsRoutes.Creations)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<AuthorsCreations>>> GetCreationsAsync(ulong id)
     {
@@ -117,7 +117,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return author.Creations;
     }
 
-    [HttpGet("{id}/names")]
+    [HttpGet(AuthorsRoutes.Names)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreaturesNames>>> GetNamesAsync(ulong id)
     {
@@ -129,7 +129,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok(author.Names);
     }
 
-    [HttpGet("{id}/tags")]
+    [HttpGet(AuthorsRoutes.Tags)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Tag>>> GetTagsAsync(ulong id)
     {
@@ -141,7 +141,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok(author.Tags);
     }
 
-    [HttpGet("{id}/relations")]
+    [HttpGet(AuthorsRoutes.Relations)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreaturesRelations>>> GetRelationsAsync(ulong id)
     {
@@ -203,7 +203,7 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     }]
     ///
     /// </remarks>
-    [HttpPost("{id}/author_names")]
+    [HttpPost(AuthorsRoutes.AuthorNames)]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostAuthorNamesAsync(ulong id, IEnumerable<LanguageSpecificTextInfo> names)
     {
@@ -229,7 +229,7 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     }]
     ///
     /// </remarks>
-    [HttpPost("{id}/names")]
+    [HttpPost(AuthorsRoutes.Names)]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostNamesAsync(ulong id, IEnumerable<LanguageSpecificTextInfo> names)
     {
@@ -244,7 +244,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok();
     }
 
-    [HttpPost("{id}/relations")]
+    [HttpPost(AuthorsRoutes.Relations)]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations)
     {
@@ -271,7 +271,7 @@ public class AuthorController : DatabaseController, ICreatureController
     // update author entry with EXISTING (posted) names, found by ids
     // since authors_names has author_id defined as ulong - it overrides it's value,
     // removing the name from previously specified entry
-    [HttpPut("{id}/author_names")]
+    [HttpPut(AuthorsRoutes.AuthorNames)]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutAuthorNamesAsync(ulong id, IEnumerable<ulong> nameIds)
     {
@@ -292,7 +292,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok();
     }
 
-    [HttpPut("{id}/circles")]
+    [HttpPut(AuthorsRoutes.Circles)]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutCirclesAsync(ulong id, IEnumerable<ulong> circleIds)
     {
@@ -323,7 +323,7 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     }
     ///
     /// </remarks>
-    [HttpPut("{id}/creations")]
+    [HttpPut(AuthorsRoutes.Creations)]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutCreationsAsync(ulong id, Dictionary<ulong, AuthorRole> creationRoles)
     {
@@ -343,7 +343,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok();
     }
 
-    [HttpPut("{id}/names")]
+    [HttpPut(AuthorsRoutes.Names)]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutNamesAsync(ulong id, IEnumerable<ulong> nameIds)
     {
@@ -364,7 +364,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok();
     }
 
-    [HttpPut("{id}/tags")]
+    [HttpPut(AuthorsRoutes.Tags)]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutTagsAsync(ulong id, IEnumerable<ulong> tagIds)
     {
@@ -384,7 +384,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok();
     }
 
-    [HttpPut("{id}/relations")]
+    [HttpPut(AuthorsRoutes.Relations)]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations)
     {
@@ -408,7 +408,7 @@ public class AuthorController : DatabaseController, ICreatureController
 
     #region DELETE
 
-    [HttpDelete("{id}")]
+    [HttpDelete(AuthorsRoutes.Id)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteAuthorAsync(ulong id)
     {
@@ -419,7 +419,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok(author);
     }
 
-    [HttpDelete("{id}/author_names")]
+    [HttpDelete(AuthorsRoutes.AuthorNames)]
     public async Task<ActionResult> DeleteAuthorNamesAsync(ulong id, IEnumerable<ulong> nameIds)
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/author_names");
@@ -435,7 +435,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok(author);
     }
 
-    [HttpDelete("{id}/circles")]
+    [HttpDelete(AuthorsRoutes.Circles)]
     public async Task<ActionResult> DeleteCirclesAsync(ulong id, IEnumerable<ulong> circleIds)
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}");
@@ -451,7 +451,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok(author);
     }
 
-    [HttpDelete("{id}/creations")]
+    [HttpDelete(AuthorsRoutes.Creations)]
     public async Task<ActionResult> DeleteCreationsAsync(ulong id, IEnumerable<ulong> creationIds)
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/creations");
@@ -468,7 +468,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok(author);
     }
 
-    [HttpDelete("{id}/names")]
+    [HttpDelete(AuthorsRoutes.Names)]
     public async Task<ActionResult> DeleteNamesAsync(ulong id, IEnumerable<ulong> nameIds)
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/names");
@@ -484,7 +484,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok(author);
     }
 
-    [HttpDelete("{id}/tags")]
+    [HttpDelete(AuthorsRoutes.Tags)]
     public async Task<ActionResult> DeleteTagsAsync(ulong id, IEnumerable<ulong> tagIds)
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/tags");
@@ -500,7 +500,7 @@ public class AuthorController : DatabaseController, ICreatureController
         return Ok(author);
     }
 
-    [HttpDelete("{id}/relations")]
+    [HttpDelete(AuthorsRoutes.Relations)]
     public async Task<ActionResult> DeleteRelationsAsync(ulong id, IEnumerable<ulong> relatedIds)
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/relations");
@@ -541,8 +541,8 @@ public class AuthorController : DatabaseController, ICreatureController
     ///     }]
     ///
     /// </remarks>
-    [HttpPatch("{id}")]
-    [Consumes("application/json-patch+json")]
+    [HttpPatch(AuthorsRoutes.Id)]
+    [Consumes(MediaTypes.JsonPatch)]
     public async Task<ActionResult<Author>> PatchAuthorAsync(ulong id, IEnumerable<Operation<Author>> operations)
     {
         Console.WriteLine($"Enter into PATCH: /authors/{id}");
