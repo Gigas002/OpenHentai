@@ -81,11 +81,15 @@ public class AuthorsContextHelper : DatabaseContextHelper
 
     #region Add
 
-    public async Task AddAuthorAsync(Author author)
+    public async Task<bool> AddAuthorAsync(Author author)
     {
+        if (author is null) return false;
+
         await Context.Authors.AddAsync(author);
 
         await Context.SaveChangesAsync();
+
+        return true;
     }
 
     public async Task<bool> AddAuthorNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names)

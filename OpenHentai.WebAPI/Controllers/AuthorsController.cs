@@ -16,7 +16,6 @@ namespace OpenHentai.WebAPI.Controllers;
 
 // TODO: https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-5/#support-for-generic-attributes
 
-// #pragma warning disable CA2007
 #pragma warning disable CA1303
 
 // [AutoValidateAntiforgeryToken]
@@ -62,7 +61,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into GET: /authors/{id}");
 
-        var author = await ContextHelper.GetAuthorAsync(id);
+        var author = await ContextHelper.GetAuthorAsync(id).ConfigureAwait(false);
 
         return author is null ? NotFound() : Ok(author);
     }
@@ -93,7 +92,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/author_names");
 
-        var names = await ContextHelper.GetAuthorNamesAsync(id);
+        var names = await ContextHelper.GetAuthorNamesAsync(id).ConfigureAwait(false);
 
         return names is null ? NotFound() : Ok(names);
     }
@@ -109,7 +108,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/circles");
 
-        var circles = await ContextHelper.GetCirclesAsync(id);
+        var circles = await ContextHelper.GetCirclesAsync(id).ConfigureAwait(false);
 
         return circles is null ? NotFound() : Ok(circles);
     }
@@ -125,7 +124,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/creations");
 
-        var creations = await ContextHelper.GetCreationsAsync(id);
+        var creations = await ContextHelper.GetCreationsAsync(id).ConfigureAwait(false);
 
         return creations is null ? NotFound() : Ok(creations);
     }
@@ -141,7 +140,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/names");
 
-        var names = await ContextHelper.GetNamesAsync(id);
+        var names = await ContextHelper.GetNamesAsync(id).ConfigureAwait(false);
 
         return names is null ? NotFound() : Ok(names);
     }
@@ -157,7 +156,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/tags");
 
-        var tags = await ContextHelper.GetTagsAsync(id);
+        var tags = await ContextHelper.GetTagsAsync(id).ConfigureAwait(false);
 
         return tags is null ? NotFound() : Ok(tags);
     }
@@ -173,7 +172,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/relations");
 
-        var relations = await ContextHelper.GetRelationsAsync(id);
+        var relations = await ContextHelper.GetRelationsAsync(id).ConfigureAwait(false);
 
         return relations is null ? NotFound() : Ok(relations);
     }
@@ -195,16 +194,17 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     ///
     /// </remarks>
     [HttpPost]
-    // [ProducesResponseType(StatusCodes.Status200OK)]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<Author>> PostAuthorAsync(Author author)
     {
+        if (author is null) throw new ArgumentNullException(nameof(author));
+
         Console.WriteLine("Enter into POST: /authors");
 
-        await ContextHelper.AddAuthorAsync(author).ConfigureAwait(false);
+        var isSuccess = await ContextHelper.AddAuthorAsync(author).ConfigureAwait(false);
 
-        return CreatedAtAction(nameof(GetAuthorAsync), new { id = author.Id }, author);
+        return isSuccess ? CreatedAtAction(nameof(GetAuthorAsync), new { id = author.Id }, author) : BadRequest();
     }
 
     /// <summary>
@@ -234,7 +234,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/author_names");
 
-        var isSuccess = await ContextHelper.AddAuthorNamesAsync(id, names);
+        var isSuccess = await ContextHelper.AddAuthorNamesAsync(id, names).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -266,7 +266,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/names");
 
-        var isSuccess = await ContextHelper.AddNamesAsync(id, names);
+        var isSuccess = await ContextHelper.AddNamesAsync(id, names).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -298,7 +298,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/relations");
 
-        var isSuccess = await ContextHelper.AddRelationsAsync(id, relations);
+        var isSuccess = await ContextHelper.AddRelationsAsync(id, relations).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -333,7 +333,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into PUT: /authors/{id}/circles");
 
-        var isSuccess = await ContextHelper.AddCirclesAsync(id, circleIds);
+        var isSuccess = await ContextHelper.AddCirclesAsync(id, circleIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -365,7 +365,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into PUT: /authors/{id}/creations");
 
-        var isSuccess = await ContextHelper.AddCreationsAsync(id, creationRoles);
+        var isSuccess = await ContextHelper.AddCreationsAsync(id, creationRoles).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -396,7 +396,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into PUT: /authors/{id}/tags");
 
-        var isSuccess = await ContextHelper.AddTagsAsync(id, tagIds);
+        var isSuccess = await ContextHelper.AddTagsAsync(id, tagIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -419,7 +419,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}");
 
-        var isSuccess = await ContextHelper.RemoveAuthorAsync(id);
+        var isSuccess = await ContextHelper.RemoveAuthorAsync(id).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -450,7 +450,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/author_names");
 
-        var isSuccess = await ContextHelper.RemoveAuthorNamesAsync(id, nameIds);
+        var isSuccess = await ContextHelper.RemoveAuthorNamesAsync(id, nameIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -481,7 +481,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}");
 
-        var isSuccess = await ContextHelper.RemoveCirclesAsync(id, circleIds);
+        var isSuccess = await ContextHelper.RemoveCirclesAsync(id, circleIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -512,7 +512,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/creations");
 
-        var isSuccess = await ContextHelper.RemoveCreationsAsync(id, creationIds);
+        var isSuccess = await ContextHelper.RemoveCreationsAsync(id, creationIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -543,7 +543,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/names");
 
-        var isSuccess = await ContextHelper.RemoveNamesAsync(id, nameIds);
+        var isSuccess = await ContextHelper.RemoveNamesAsync(id, nameIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -574,7 +574,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/tags");
 
-        var isSuccess = await ContextHelper.RemoveTagsAsync(id, tagIds);
+        var isSuccess = await ContextHelper.RemoveTagsAsync(id, tagIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -605,7 +605,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/relations");
 
-        var isSuccess = await ContextHelper.RemoveRelationsAsync(id, relatedIds);
+        var isSuccess = await ContextHelper.RemoveRelationsAsync(id, relatedIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -653,7 +653,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
 
         var patch = new JsonPatchDocument<Author>(operations.ToList(), Essential.JsonSerializerOptions);
 
-        var author = await ContextHelper.GetAuthorAsync(id);
+        var author = await ContextHelper.GetAuthorAsync(id).ConfigureAwait(false);
 
         if (author is null) return BadRequest();
 
