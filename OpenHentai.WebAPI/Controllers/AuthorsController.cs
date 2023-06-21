@@ -4,7 +4,6 @@ using OpenHentai.Creatures;
 using OpenHentai.Contexts;
 using SystemTextJsonPatch;
 using OpenHentai.Relative;
-using Microsoft.EntityFrameworkCore;
 using OpenHentai.Circles;
 using OpenHentai.Tags;
 using SystemTextJsonPatch.Operations;
@@ -24,12 +23,12 @@ namespace OpenHentai.WebAPI.Controllers;
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
 [Route(AuthorsRoutes.Base)]
-public class AuthorController : DatabaseController<AuthorsContext>, ICreatureController
+public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreatureController
 {
     #region Constructors
 
     /// <inheritdoc/>
-    public AuthorController(AuthorsContext context) : base(context) { }
+    public AuthorController(AuthorsContextHelper contextHelper) : base(contextHelper) { }
 
     #endregion
 
@@ -47,7 +46,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into GET: /authors");
 
-        var authors = Context.GetAuthors();
+        var authors = ContextHelper.GetAuthors();
 
         return authors is null ? NotFound() : Ok(authors);
     }
@@ -63,7 +62,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into GET: /authors/{id}");
 
-        var author = await Context.GetAuthorAsync(id);
+        var author = await ContextHelper.GetAuthorAsync(id);
 
         return author is null ? NotFound() : Ok(author);
     }
@@ -78,7 +77,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into GET: /authors/authors_names");
 
-        var names = Context.GetAuthorsNames();
+        var names = ContextHelper.GetAuthorsNames();
 
         return names is null ? NotFound() : Ok(names);
     }
@@ -94,7 +93,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/author_names");
 
-        var names = await Context.GetAuthorNamesAsync(id);
+        var names = await ContextHelper.GetAuthorNamesAsync(id);
 
         return names is null ? NotFound() : Ok(names);
     }
@@ -110,7 +109,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/circles");
 
-        var circles = await Context.GetCirclesAsync(id);
+        var circles = await ContextHelper.GetCirclesAsync(id);
 
         return circles is null ? NotFound() : Ok(circles);
     }
@@ -126,7 +125,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/creations");
 
-        var creations = await Context.GetCreationsAsync(id);
+        var creations = await ContextHelper.GetCreationsAsync(id);
 
         return creations is null ? NotFound() : Ok(creations);
     }
@@ -142,7 +141,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/names");
 
-        var names = await Context.GetNamesAsync(id);
+        var names = await ContextHelper.GetNamesAsync(id);
 
         return names is null ? NotFound() : Ok(names);
     }
@@ -158,7 +157,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/tags");
 
-        var tags = await Context.GetTagsAsync(id);
+        var tags = await ContextHelper.GetTagsAsync(id);
 
         return tags is null ? NotFound() : Ok(tags);
     }
@@ -174,7 +173,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into GET: /authors/{id}/relations");
 
-        var relations = await Context.GetRelationsAsync(id);
+        var relations = await ContextHelper.GetRelationsAsync(id);
 
         return relations is null ? NotFound() : Ok(relations);
     }
@@ -207,7 +206,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine("Enter into POST: /authors");
 
-        await Context.AddAuthorAsync(author).ConfigureAwait(false);
+        await ContextHelper.AddAuthorAsync(author).ConfigureAwait(false);
 
         return Ok();
     }
@@ -237,7 +236,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/author_names");
 
-        await Context.AddAuthorNamesAsync(id, names);
+        await ContextHelper.AddAuthorNamesAsync(id, names);
 
         return Ok();
     }
@@ -259,17 +258,19 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     ///
     /// </remarks>
     /// <response code="200">Complete</response>
+    /// <response code="400">Entity with requested id doesn't exist</response>
     [HttpPost(AuthorsRoutes.Names)]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names)
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/names");
 
-        await Context.AddNamesAsync(id, names);
+        var isSuccess = await ContextHelper.AddNamesAsync(id, names);
 
-        return Ok();
+        return isSuccess ? Ok() : BadRequest();
     }
 
     /// <summary>
@@ -299,7 +300,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into POST: /authors/{id}/relations");
 
-        var isSuccess = await Context.AddRelationsAsync(id, relations);
+        var isSuccess = await ContextHelper.AddRelationsAsync(id, relations);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -334,7 +335,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into PUT: /authors/{id}/circles");
 
-        var isSuccess = await Context.AddCirclesAsync(id, circleIds);
+        var isSuccess = await ContextHelper.AddCirclesAsync(id, circleIds);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -366,7 +367,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into PUT: /authors/{id}/creations");
 
-        var isSuccess = await Context.AddCreationsAsync(id, creationRoles);
+        var isSuccess = await ContextHelper.AddCreationsAsync(id, creationRoles);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -397,7 +398,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into PUT: /authors/{id}/tags");
 
-        var isSuccess = await Context.AddTagsAsync(id, tagIds);
+        var isSuccess = await ContextHelper.AddTagsAsync(id, tagIds);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -420,7 +421,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}");
 
-        var isSuccess = await Context.RemoveAuthorAsync(id);
+        var isSuccess = await ContextHelper.RemoveAuthorAsync(id);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -451,7 +452,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/author_names");
 
-        var isSuccess = await Context.RemoveAuthorNamesAsync(id, nameIds);
+        var isSuccess = await ContextHelper.RemoveAuthorNamesAsync(id, nameIds);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -482,7 +483,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}");
 
-        var isSuccess = await Context.RemoveCirclesAsync(id, circleIds);
+        var isSuccess = await ContextHelper.RemoveCirclesAsync(id, circleIds);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -513,7 +514,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/creations");
 
-        var isSuccess = await Context.RemoveCreationsAsync(id, creationIds);
+        var isSuccess = await ContextHelper.RemoveCreationsAsync(id, creationIds);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -544,7 +545,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/names");
 
-        var isSuccess = await Context.RemoveNamesAsync(id, nameIds);
+        var isSuccess = await ContextHelper.RemoveNamesAsync(id, nameIds);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -575,7 +576,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/tags");
 
-        var isSuccess = await Context.RemoveTagsAsync(id, tagIds);
+        var isSuccess = await ContextHelper.RemoveTagsAsync(id, tagIds);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -606,7 +607,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}/relations");
 
-        var isSuccess = await Context.RemoveRelationsAsync(id, relatedIds);
+        var isSuccess = await ContextHelper.RemoveRelationsAsync(id, relatedIds);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -654,7 +655,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
 
         var patch = new JsonPatchDocument<Author>(operations.ToList(), Essential.JsonSerializerOptions);
 
-        var author = await Context.GetAuthorAsync(id);
+        var author = await ContextHelper.GetAuthorAsync(id);
 
         if (author is null) return BadRequest();
 
@@ -662,7 +663,7 @@ public class AuthorController : DatabaseController<AuthorsContext>, ICreatureCon
 
         // TODO: dirty
 
-        await Context.Context.SaveChangesAsync().ConfigureAwait(false);
+        await ContextHelper.Context.SaveChangesAsync().ConfigureAwait(false);
 
         return Ok();
     }

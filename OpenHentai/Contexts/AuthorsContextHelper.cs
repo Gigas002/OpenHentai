@@ -9,25 +9,11 @@ using OpenHentai.Tags;
 
 namespace OpenHentai.Contexts;
 
-// TODO: consider adding DatabaseContext as property
-// init it through ctor and use instead of args
-// then replace AuthorsController DatabaseContext to AuthorsContext
-
-public class AuthorsContext : IDisposable, IAsyncDisposable
+public class AuthorsContextHelper : DatabaseContextHelper
 {
-    #region Properties
-
-    protected bool IsDisposed { get; set; }
-
-    public DatabaseContext Context { get; init; }
-
-    #endregion
-
     #region Constructors
 
-    public AuthorsContext(DatabaseContext context) => Context = context;
-
-    ~AuthorsContext() => Dispose(false);
+    public AuthorsContextHelper(DatabaseContext context) : base(context) { }
 
     #endregion
 
@@ -115,36 +101,17 @@ public class AuthorsContext : IDisposable, IAsyncDisposable
         return true;
     }
 
-    [Obsolete]
-    public async Task<bool> AddAuthorNamesAsync(ulong id, HashSet<ulong> nameIds)
+    public async Task<bool> AddNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names)
     {
-        if (nameIds is null || nameIds.Count <= 0) return false;
-
         var author = await GetAuthorAsync(id);
 
         if (author is null) return false;
 
-        foreach (var nameId in nameIds)
-        {
-            var name = await Context.AuthorsNames.FindAsync(nameId);
-
-            if (name is null) return false;
-
-            author.AuthorNames.Add(name);
-        }
+        author.AddNames(names);
 
         await Context.SaveChangesAsync();
 
         return true;
-    }
-
-    public async Task AddNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names)
-    {
-        var author = await GetAuthorAsync(id);
-
-        author.AddNames(names);
-
-        await Context.SaveChangesAsync();
     }
 
     public async Task<bool> AddRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations)
@@ -238,8 +205,6 @@ public class AuthorsContext : IDisposable, IAsyncDisposable
     #endregion
 
     #region Remove
-
-    // TODO: test remove methods
 
     public async Task<bool> RemoveAuthorAsync(ulong id)
     {
@@ -371,45 +336,6 @@ public class AuthorsContext : IDisposable, IAsyncDisposable
 
         await context.SaveChangesAsync();
     }
-
-    #endregion
-
-    #region Dispose
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (IsDisposed) return;
-
-        if (disposing)
-        { }
-
-        Context.Dispose();
-
-        IsDisposed = true;
-    }
-
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsyncCore().ConfigureAwait(false);
-
-        Dispose(false);
-        GC.SuppressFinalize(this);
-    }
-
-#pragma warning disable CS1998
-    protected virtual async ValueTask DisposeAsyncCore()
-    {
-        if (IsDisposed) return;
-
-        IsDisposed = true;
-    }
-#pragma warning restore CS1998
 
     #endregion
 

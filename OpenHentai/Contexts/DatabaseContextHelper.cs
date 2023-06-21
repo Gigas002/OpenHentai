@@ -1,33 +1,27 @@
-using Microsoft.AspNetCore.Mvc;
-using OpenHentai.Contexts;
+namespace OpenHentai.Contexts;
 
-namespace OpenHentai.WebAPI.Controllers;
-
-public abstract class DatabaseController<T> : ControllerBase, IDisposable, IAsyncDisposable
-    where T : DatabaseContextHelper, IDisposable, IAsyncDisposable
+public abstract class DatabaseContextHelper : IDisposable, IAsyncDisposable
 {
-    #region Properties/fields
+    #region Properties
 
     protected bool IsDisposed { get; set; }
 
-    public T ContextHelper { get; init; }
+    public DatabaseContext Context { get; init; }
 
     #endregion
 
     #region Constructors
 
-    /// <summary>
-    /// Initialize database context
-    /// </summary>
-    protected DatabaseController(T contextHelper) => ContextHelper = contextHelper;
+    protected DatabaseContextHelper(DatabaseContext context) => Context = context;
 
-    ~DatabaseController() => Dispose(false);
+    ~DatabaseContextHelper() => Dispose(false);
 
     #endregion
 
     #region Methods
 
-    [ApiExplorerSettings(IgnoreApi = true)]
+    #region Dispose
+
     public void Dispose()
     {
         Dispose(true);
@@ -41,12 +35,11 @@ public abstract class DatabaseController<T> : ControllerBase, IDisposable, IAsyn
         if (disposing)
         { }
 
-        ContextHelper.Dispose();
+        Context.Dispose();
 
         IsDisposed = true;
     }
 
-    [ApiExplorerSettings(IgnoreApi = true)]
     public async ValueTask DisposeAsync()
     {
         await DisposeAsyncCore().ConfigureAwait(false);
@@ -59,10 +52,12 @@ public abstract class DatabaseController<T> : ControllerBase, IDisposable, IAsyn
     protected virtual async ValueTask DisposeAsyncCore()
     {
         if (IsDisposed) return;
-        
+
         IsDisposed = true;
     }
 #pragma warning restore CS1998
+
+    #endregion
 
     #endregion
 }

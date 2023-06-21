@@ -4,7 +4,7 @@
         <name>OpenHentai.WebAPI</name>
     </assembly>
     <members>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.#ctor(OpenHentai.Contexts.AuthorsContext)">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.#ctor(OpenHentai.Contexts.AuthorsContextHelper)">
             <inheritdoc/>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetAuthors">
@@ -120,6 +120,7 @@
             
              </remarks>
              <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostRelationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Relations.CreatureRelations})">
              <summary>
