@@ -7,21 +7,72 @@
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.#ctor(OpenHentai.Contexts.DatabaseContext)">
             <inheritdoc/>
         </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetAuthors">
+            <summary>
+            Get all authors
+            </summary>
+            <returns>Collection of Authors</returns>
+        </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetAuthorAsync(System.UInt64)">
             <summary>
             Get author from database by id
             </summary>
             <param name="id">Author's id</param>
             <returns>Author</returns>
-            <response code="200">Returns requested author</response>
-            <response code="400">Author is null</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetAuthorsNames">
+            <summary>
+            Get collection of all authors's names
+            </summary>
+            <returns>Collection of AuthorsNames</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetAuthorNamesAsync(System.UInt64)">
+            <summary>
+            Get current author's AuthorsNames
+            </summary>
+            <param name="id">Author's id</param>
+            <returns>Collection of AuthorsNames</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetCirclesAsync(System.UInt64)">
+            <summary>
+            Get current author's circles
+            </summary>
+            <param name="id">Author's id</param>
+            <returns>Collection of Circle</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetCreationsAsync(System.UInt64)">
+            <summary>
+            Get current author's creations
+            </summary>
+            <param name="id">Author's id</param>
+            <returns>Collection of AuthorsCreations</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetNamesAsync(System.UInt64)">
+            <summary>
+            Get current author's names
+            </summary>
+            <param name="id">Author's id</param>
+            <returns>Collection of CreaturesNames</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetTagsAsync(System.UInt64)">
+            <summary>
+            Get current author's tags
+            </summary>
+            <param name="id">Author's id</param>
+            <returns>Collection of Tag</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetRelationsAsync(System.UInt64)">
+            <summary>
+            Get current author's relations
+            </summary>
+            <param name="id">Author's id</param>
+            <returns>Collection of CreaturesRelations</returns>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostAuthorAsync(OpenHentai.Creatures.Author)">
              <summary>
              Add author to database
              </summary>
              <param name="author">Author to add</param>
-             <returns>Created author</returns>
              <remarks>
             
              Minimal request:
@@ -30,13 +81,13 @@
                  { }
             
              </remarks>
-             <response code="200">Returns the created author</response>
-             <response code="400">Author is null</response>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostAuthorNamesAsync(System.UInt64,System.Collections.Generic.IEnumerable{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
              <summary>
-             Updates Author with NEW names, POSTed at their own table
+             Updates Author with new AuthorsNames, pushed at their own table
              </summary>
+             <param name="id">Author's id</param>
+             <param name="names">Collection of new names to push</param>
              <remarks>
             
              Example request:
@@ -50,6 +101,11 @@
              </remarks>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostNamesAsync(System.UInt64,System.Collections.Generic.IEnumerable{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
+             <summary>
+             Updates Author with new names, pushed at their own table
+             </summary>
+             <param name="id">Author's id</param>
+             <param name="names">Collection of new names to push</param>
              <remarks>
             
              Example request:
@@ -62,22 +118,245 @@
             
              </remarks>
         </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostRelationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Relations.CreatureRelations})">
+             <summary>
+             Updates Author with new relations to other creatures
+             </summary>
+             <param name="id">Author's id</param>
+             <param name="relations">Dictionary of related creature id and relation type</param>
+             <remarks>
+            
+             Example request:
+            
+                 POST /authors/{id}/relations
+                 {
+                     "1": 1,
+                     "2": 0
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutAuthorNamesAsync(System.UInt64,System.Collections.Generic.IEnumerable{System.UInt64})">
+             <summary>
+             Updates Author's AuthorsNames with existing names, overriding previous Author
+             </summary>
+             <param name="id">Author's id</param>
+             <param name="nameIds">Collection of AuthorsNames ids to bind with this Author</param>
+             <remarks>
+            
+             Example request:
+            
+                 PUT /authors/{id}/author_names
+                 [
+                     1, 2
+                 ]
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutCirclesAsync(System.UInt64,System.Collections.Generic.IEnumerable{System.UInt64})">
+             <summary>
+             Bind Author to collection of Circle
+             </summary>
+             <param name="id">Author's id</param>
+             <param name="circleIds">Collection of Circle ids to bind with this Author</param>
+             <remarks>
+            
+             Example request:
+            
+                 PUT /authors/{id}/circles
+                 [
+                     1, 2
+                 ]
+            
+             </remarks>
+        </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutCreationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Roles.AuthorRole})">
+             <summary>
+             Bind Author to creations
+             </summary>
+             <param name="id">Author's id</param>
+             <param name="creationRoles">Dictionary of creation ids and AuthorRole to bind with this Author</param>
              <remarks>
             
              Sample request:
             
                  PUT /authors/{id}/creations
                  {
-                     "4": 3,
-                     "1": 2
+                     "1": 3,
+                     "4": 2
                  }
             
              </remarks>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PatchAuthorAsync(System.UInt64,System.Collections.Generic.IEnumerable{SystemTextJsonPatch.Operations.Operation{OpenHentai.Creatures.Author}})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutNamesAsync(System.UInt64,System.Collections.Generic.IEnumerable{System.UInt64})">
+             <summary>
+             Updates Author's CreaturesNames with existing names, overriding previous Creature
+             </summary>
+             <param name="id">Author's id</param>
+             <param name="nameIds">Collection of CreaturesNames ids to bind with this Creature</param>
              <remarks>
+            
+             Example request:
+            
+                 PUT /authors/{id}/names
+                 [
+                     1, 2
+                 ]
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutTagsAsync(System.UInt64,System.Collections.Generic.IEnumerable{System.UInt64})">
+             <summary>
+             Bind Author to tags
+             </summary>
+             <param name="id">Author's id</param>
+             <param name="tagIds">Collection of tag ids to bind with this Author</param>
+             <remarks>
+            
+             Example request:
+            
+                 PUT /authors/{id}/tags
+                 [
+                     1, 2
+                 ]
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutRelationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Relations.CreatureRelations})">
+             <summary>
+             Bind Author to another Creature
+             </summary>
+             <param name="id">Author's id</param>
+             <param name="relations">Dictionary of Creature ids and CreatureRelations to bind with this Author</param>
+             <remarks>
+            
              Sample request:
+            
+                 PUT /authors/{id}/relations
+                 {
+                     "1": 3,
+                     "4": 2
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.DeleteAuthorAsync(System.UInt64)">
+            <summary>
+            Delete Author from database
+            </summary>
+            <param name="id">Id of Author to delete</param>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.DeleteAuthorNamesAsync(System.UInt64,System.Collections.Generic.IEnumerable{System.UInt64})">
+             <summary>
+             Delete collection of AuthorsNames, bound to Author
+             </summary>
+             <param name="id">Author's id</param>
+             <param name="nameIds">Collection of names ids to delete</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /authors/{id}/author_names
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.DeleteCirclesAsync(System.UInt64,System.Collections.Generic.IEnumerable{System.UInt64})">
+             <summary>
+             Delete binding between Author and specified Circles
+             </summary>
+             <param name="id">Author's id</param>
+             <param name="circleIds">Collection of Circle ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /authors/{id}/circles
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.DeleteCreationsAsync(System.UInt64,System.Collections.Generic.IEnumerable{System.UInt64})">
+             <summary>
+             Delete binding between Author and specified Creations
+             </summary>
+             <param name="id">Author's id</param>
+             <param name="creationIds">Collection of Creation ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /authors/{id}/creations
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.DeleteNamesAsync(System.UInt64,System.Collections.Generic.IEnumerable{System.UInt64})">
+             <summary>
+             Delete collection of names, bound to Author
+             </summary>
+             <param name="id">Author's id</param>
+             <param name="nameIds">Collection of CreturesNames ids to delete</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /authors/{id}/names
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.DeleteTagsAsync(System.UInt64,System.Collections.Generic.IEnumerable{System.UInt64})">
+             <summary>
+             Delete binding between Author and specified Tags
+             </summary>
+             <param name="id">Author's id</param>
+             <param name="tagIds">Collection of Tag ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /authors/{id}/tags
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.DeleteRelationsAsync(System.UInt64,System.Collections.Generic.IEnumerable{System.UInt64})">
+             <summary>
+             Delete binding between Author and specified Creatures
+             </summary>
+             <param name="id">Author's id</param>
+             <param name="relatedIds">Collection of Creature ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /authors/{id}/relations
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PatchAuthorAsync(System.UInt64,System.Collections.Generic.IEnumerable{SystemTextJsonPatch.Operations.Operation{OpenHentai.Creatures.Author}})">
+             <summary>
+             Update Author, using json-patch format
+             </summary>
+             <param name="id">Author's id</param>
+             <param name="operations">Collection of json-patch operations</param>
+             <remarks>
+            
+             Example request:
             
                  PATCH /authors/{id}
                  [{
