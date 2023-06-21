@@ -26,34 +26,34 @@ public class CharactersContextHelper : DatabaseContextHelper
 
     public async Task<IEnumerable<CreationsCharacters>?> GetCreationsAsync(ulong id)
     {
-        var character = await Context.Characters.Include(a => a.Creations)
+        var character = await Context.Characters.Include(c => c.Creations)
                                      .ThenInclude(cc => cc.Origin)
-                                     .FirstOrDefaultAsync(a => a.Id == id);
+                                     .FirstOrDefaultAsync(c => c.Id == id);
 
         return character?.Creations;
     }
 
     public async Task<IEnumerable<CreaturesNames>?> GetNamesAsync(ulong id)
     {
-        var character = await Context.Characters.Include(a => a.Names)
-                                   .FirstOrDefaultAsync(a => a.Id == id);
+        var character = await Context.Characters.Include(c => c.Names)
+                                   .FirstOrDefaultAsync(c => c.Id == id);
 
         return character?.Names;
     }
 
     public async Task<IEnumerable<Tag>?> GetTagsAsync(ulong id)
     {
-        var character = await Context.Characters.Include(a => a.Tags)
-                                    .FirstOrDefaultAsync(a => a.Id == id);
+        var character = await Context.Characters.Include(c => c.Tags)
+                                    .FirstOrDefaultAsync(c => c.Id == id);
 
         return character?.Tags;
     }
 
     public async Task<IEnumerable<CreaturesRelations>?> GetRelationsAsync(ulong id)
     {
-        var character = await Context.Characters.Include(a => a.Relations)
+        var character = await Context.Characters.Include(c => c.Relations)
                                     .ThenInclude(cr => cr.Related)
-                                    .FirstOrDefaultAsync(a => a.Id == id);
+                                    .FirstOrDefaultAsync(c => c.Id == id);
 
         return character?.Relations;
     }
@@ -173,9 +173,9 @@ public class CharactersContextHelper : DatabaseContextHelper
     {
         if (creationIds is null || creationIds.Count <= 0) return false;
 
-        var character = await Context.Characters.Include(a => a.Creations)
-                                  .ThenInclude(ac => ac.Origin)
-                                  .FirstOrDefaultAsync(a => a.Id == id);
+        var character = await Context.Characters.Include(c => c.Creations)
+                                  .ThenInclude(cc => cc.Origin)
+                                  .FirstOrDefaultAsync(c => c.Id == id);
 
         if (character is null) return false;
 
@@ -191,8 +191,8 @@ public class CharactersContextHelper : DatabaseContextHelper
     {
         if (nameIds is null || nameIds.Count <= 0) return false;
 
-        var character = await Context.Characters.Include(a => a.Names)
-                                  .FirstOrDefaultAsync(a => a.Id == id);
+        var character = await Context.Characters.Include(c => c.Names)
+                                  .FirstOrDefaultAsync(c => c.Id == id);
 
         if (character is null) return false;
 
@@ -208,8 +208,8 @@ public class CharactersContextHelper : DatabaseContextHelper
     {
         if (tagIds is null || tagIds.Count <= 0) return false;
 
-        var character = await Context.Characters.Include(a => a.Tags)
-                                  .FirstOrDefaultAsync(a => a.Id == id);
+        var character = await Context.Characters.Include(c => c.Tags)
+                                  .FirstOrDefaultAsync(c => c.Id == id);
 
         if (character is null) return false;
 
@@ -225,9 +225,9 @@ public class CharactersContextHelper : DatabaseContextHelper
     {
         if (relatedIds is null || relatedIds.Count <= 0) return false;
 
-        var character = await Context.Characters.Include(a => a.Relations)
+        var character = await Context.Characters.Include(c => c.Relations)
                                   .ThenInclude(cr => cr.Related)
-                                  .FirstOrDefaultAsync(a => a.Id == id);
+                                  .FirstOrDefaultAsync(c => c.Id == id);
 
         if (character is null) return false;
 

@@ -613,6 +613,9 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.#ctor(OpenHentai.Contexts.CirclesContextHelper)">
+            <inheritdoc/>
+        </member>
         <member name="M:OpenHentai.WebAPI.Controllers.DatabaseController`1.#ctor(`0)">
             <summary>
             Initialize database context
