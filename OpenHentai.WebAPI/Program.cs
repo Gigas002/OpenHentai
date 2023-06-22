@@ -25,10 +25,9 @@ public static class Program
         builder.Services.AddAntiforgery();
 
         builder.Services.AddDbContext<DatabaseContext>();
-        builder.Services.AddScoped<AuthorsContextHelper>();
-        builder.Services.AddScoped<CharactersContextHelper>();
-        builder.Services.AddScoped<CirclesContextHelper>();
-        builder.Services.AddScoped<MangaContextHelper>();
+
+        // configure controllers's context helpers
+        builder.Services.ConfigureContextHelpers();
 
         // for controllers-based approach
         builder.Services.AddControllers(options =>

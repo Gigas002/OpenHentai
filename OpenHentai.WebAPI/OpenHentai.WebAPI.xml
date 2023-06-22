@@ -1225,5 +1225,213 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
+        <member name="T:OpenHentai.WebAPI.Controllers.TagsController">
+            <summary>
+            Controller, that works with Tag table and it's dependent ones
+            </summary>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.#ctor(OpenHentai.Contexts.TagsContextHelper)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.GetTags">
+            <summary>
+            Get all tags
+            </summary>
+            <returns>Collection of Tags</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.GetTagAsync(System.UInt64)">
+            <summary>
+            Get tag from database by id
+            </summary>
+            <param name="id">Tag's id</param>
+            <returns>Tag</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.GetCreaturesAsync(System.UInt64)">
+            <summary>
+            Get current tag's creatures
+            </summary>
+            <param name="id">Tag's id</param>
+            <returns>Collection of Creature</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.GetCreationsAsync(System.UInt64)">
+            <summary>
+            Get current tag's creations
+            </summary>
+            <param name="id">Tag's id</param>
+            <returns>Collection of Creation</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.GetCirclesAsync(System.UInt64)">
+            <summary>
+            Get current tag's circles
+            </summary>
+            <param name="id">Tag's id</param>
+            <returns>Collection of Circle</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.PostTagAsync(OpenHentai.Tags.Tag)">
+             <summary>
+             Add tag to database
+             </summary>
+             <param name="tag">Tag to add</param>
+             <remarks>
+            
+             Minimal request:
+            
+                 POST /tags
+                 { }
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.PutCreaturesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Bind Tag to collection of Creature
+             </summary>
+             <param name="id">Tag's id</param>
+             <param name="creatureIds">Collection of creature ids to bind with this Tag</param>
+             <remarks>
+            
+             Example request:
+            
+                 PUT /tags/{id}/creatures
+                 [
+                     1, 2
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.PutCreationsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Bind Tag to creations
+             </summary>
+             <param name="id">Tag's id</param>
+             <param name="creationIds">Collection of creation ids to bind with this Tag</param>
+             <remarks>
+            
+             Sample request:
+            
+                 PUT /tags/{id}/creations
+                 [
+                     1, 2
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.PutCirclesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Bind Tag to collection of Circle
+             </summary>
+             <param name="id">Tag's id</param>
+             <param name="circleIds">Collection of Circle ids to bind with this Tag</param>
+             <remarks>
+            
+             Example request:
+            
+                 PUT /tags/{id}/circles
+                 [
+                     1, 2
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.DeleteTagAsync(System.UInt64)">
+            <summary>
+            Delete Tag from database
+            </summary>
+            <param name="id">Id of Tag to delete</param>
+            <response code="200">Complete</response>
+            <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.DeleteCreaturesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete binding between Tag and specified Creatures
+             </summary>
+             <param name="id">Tag's id</param>
+             <param name="creatureIds">Collection of Creature ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /tags/{id}/creatures
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.DeleteCreationsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete binding between Tag and specified Creations
+             </summary>
+             <param name="id">Tag's id</param>
+             <param name="creationIds">Collection of Creation ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /tags/{id}/creations
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.DeleteCirclesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete binding between Tag and specified Circles
+             </summary>
+             <param name="id">Tag's id</param>
+             <param name="circleIds">Collection of Circle ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /tags/{id}/circles
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.PatchTagAsync(System.UInt64,System.Collections.Generic.IEnumerable{SystemTextJsonPatch.Operations.Operation{OpenHentai.Tags.Tag}})">
+             <summary>
+             Update Tag, using json-patch format
+             </summary>
+             <param name="id">Tag's id</param>
+             <param name="operations">Collection of json-patch operations</param>
+             <remarks>
+            
+             Example request:
+            
+                 PATCH /tags/{id}
+                 [{
+                     "path": "/age",
+                     "op": "replace",
+                     "value": 30
+                 },
+                 {
+                     "path": "/tagnames",
+                     "op": "add",
+                     "value": [{
+                       "tag_id": 8,
+                       "name": "Test Bubato",
+                       "language": null
+                     }]
+                 }]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
     </members>
 </doc>
