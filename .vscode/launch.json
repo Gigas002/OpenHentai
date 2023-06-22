@@ -9,7 +9,7 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/OpenHentai.Client/bin/Debug/net7.0/OpenHentai.Client.dll",
+      "program": "${workspaceFolder}/OpenHentai.WebAPI/bin/Debug/net7.0/OpenHentai.WebAPI.dll",
       "args": [],
       "cwd": "${workspaceFolder}",
       // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console

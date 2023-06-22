@@ -46,6 +46,7 @@ public class Creature : IDatabaseEntity
     /// <summary>
     /// Collection of related pictures
     /// </summary>
+    [Column(TypeName = DataTypes.Jsonb)]
     public HashSet<MediaInfo> Media { get; init; } = new();
 
     /// <summary>

@@ -20,6 +20,52 @@ public abstract class DatabaseContextHelper : IDisposable, IAsyncDisposable
 
     #region Methods
 
+    public ValueTask<T?> GetEntryAsync<T>(ulong id) where T : class, IDatabaseEntity
+    {
+        return Context.FindAsync<T>(id);
+    }
+
+    public async ValueTask<bool> AddEntryAsync<T>(T entry) where T : class, IDatabaseEntity
+    {
+        if (entry is null) return false;
+
+        await Context.AddAsync(entry);
+
+        await Context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public void RemoveEntry<T>(T entry) where T : class, IDatabaseEntity =>
+        Context.Remove(entry);
+
+    public async Task<bool> RemoveEntryAsync<T>(ulong id) where T : class, IDatabaseEntity
+    {
+        var entry = await GetEntryAsync<T>(id);
+
+        if (entry is null) return false;
+
+        RemoveEntry(entry);
+
+        await Context.SaveChangesAsync();
+
+        return true;
+    }
+
+    #region Experimental
+
+    public async Task UpdateEntryAsync<T>(ulong id, T entry) where T : class, IDatabaseEntity
+    {
+        entry.Id = id;
+
+        Context.Attach(entry);
+        Context.Update(entry);
+
+        await Context.SaveChangesAsync();
+    }
+
+    #endregion
+
     #region Dispose
 
     public void Dispose()

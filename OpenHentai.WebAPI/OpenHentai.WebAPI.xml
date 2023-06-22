@@ -880,13 +880,17 @@
         </member>
         <member name="T:OpenHentai.WebAPI.Controllers.MangaController">
             <summary>
-            
+            Controller, that works with Manga table and it's dependent ones
             </summary>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.#ctor(OpenHentai.Contexts.DatabaseContext)">
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.#ctor(OpenHentai.Contexts.MangaContextHelper)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.GetManga">
             <summary>
-            Database context
+            Get all manga
             </summary>
+            <returns>Collection of Manga</returns>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.MangaController.GetMangaAsync(System.UInt64)">
             <summary>
@@ -894,8 +898,332 @@
             </summary>
             <param name="id">Manga's id</param>
             <returns>Manga</returns>
-            <response code="200">Returns requested manga</response>
-            <response code="400">Manga is null</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.GetTitlesAsync(System.UInt64)">
+            <summary>
+            Get current manga's titles
+            </summary>
+            <param name="id">Manga's id</param>
+            <returns>Collection of titles</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.GetAuthorsAsync(System.UInt64)">
+            <summary>
+            Get current manga's authors
+            </summary>
+            <param name="id">Manga's id</param>
+            <returns>Collection of AuthorsCreations</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.GetCirclesAsync(System.UInt64)">
+            <summary>
+            Get current manga's circles
+            </summary>
+            <param name="id">Manga's id</param>
+            <returns>Collection of Circle</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.GetRelationsAsync(System.UInt64)">
+            <summary>
+            Get current manga's relations
+            </summary>
+            <param name="id">Manga's id</param>
+            <returns>Collection of CreaturesRelations</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.GetCharactersAsync(System.UInt64)">
+            <summary>
+            Get current manga's characters
+            </summary>
+            <param name="id">Manga's id</param>
+            <returns>Collection of CreationsCharacters</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.GetTagsAsync(System.UInt64)">
+            <summary>
+            Get current manga's tags
+            </summary>
+            <param name="id">Manga's id</param>
+            <returns>Collection of Tag</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.PostMangaAsync(OpenHentai.Creations.Manga)">
+             <summary>
+             Add manga to database
+             </summary>
+             <param name="manga">Manga to add</param>
+             <remarks>
+            
+             Minimal request:
+            
+                 POST /manga
+                 { }
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.PostTitlesAsync(System.UInt64,System.Collections.Generic.HashSet{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
+             <summary>
+             Updates Manga with new titles, pushed at their own table
+             </summary>
+             <param name="id">Manga's id</param>
+             <param name="titles">Collection of new titles to push</param>
+             <remarks>
+            
+             Example request:
+            
+                 POST /manga/{id}/titles
+                 [{
+                     "text": "taras panis",
+                     "language": null
+                 }]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.PostRelationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Relations.CreationRelations})">
+             <summary>
+             Updates Manga with new relations to other creations
+             </summary>
+             <param name="id">Manga's id</param>
+             <param name="relations">Dictionary of related creation id and relation type</param>
+             <remarks>
+            
+             Example request:
+            
+                 POST /manga/{id}/relations
+                 {
+                     "1": 1,
+                     "2": 0
+                 }
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.PutAuthorsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Roles.AuthorRole})">
+             <summary>
+             Bind Manga to authors
+             </summary>
+             <param name="id">Manga's id</param>
+             <param name="authorRoles">Dictionary of author ids and AuthorRole to bind with this Manga</param>
+             <remarks>
+            
+             Sample request:
+            
+                 PUT /manga/{id}/authors
+                 {
+                     "1": 3,
+                     "4": 2
+                 }
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.PutCirclesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Bind Manga to collection of Circle
+             </summary>
+             <param name="id">Manga's id</param>
+             <param name="circleIds">Collection of Circle ids to bind with this Manga</param>
+             <remarks>
+            
+             Example request:
+            
+                 PUT /manga/{id}/circles
+                 [
+                     1, 2
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.PutCharactersAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Roles.CharacterRole})">
+             <summary>
+             Bind Manga to characters
+             </summary>
+             <param name="id">Manga's id</param>
+             <param name="characterRoles">Dictionary of character ids and CharacterRole to bind with this Manga</param>
+             <remarks>
+            
+             Sample request:
+            
+                 PUT /manga/{id}/characters
+                 {
+                     "1": 3,
+                     "4": 2
+                 }
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.PutTagsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Bind Manga to tags
+             </summary>
+             <param name="id">Manga's id</param>
+             <param name="tagIds">Collection of tag ids to bind with this Manga</param>
+             <remarks>
+            
+             Example request:
+            
+                 PUT /manga/{id}/tags
+                 [
+                     1, 2
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.DeleteMangaAsync(System.UInt64)">
+            <summary>
+            Delete Manga from database
+            </summary>
+            <param name="id">Id of Manga to delete</param>
+            <response code="200">Complete</response>
+            <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.DeleteTitlesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete collection of titles, bound to Manga
+             </summary>
+             <param name="id">Manga's id</param>
+             <param name="titleIds">Collection of title ids to delete</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /manga/{id}/titles
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.DeleteAuthorsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete binding between Manga and specified Authors
+             </summary>
+             <param name="id">Manga's id</param>
+             <param name="authorIds">Collection of Author ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /manga/{id}/authors
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.DeleteCirclesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete binding between Manga and specified Circles
+             </summary>
+             <param name="id">Manga's id</param>
+             <param name="circleIds">Collection of Circle ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /manga/{id}/circles
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.DeleteRelationsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete binding between Manga and specified Creatures
+             </summary>
+             <param name="id">Manga's id</param>
+             <param name="relatedIds">Collection of Creature ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /manga/{id}/relations
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.DeleteCharactersAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete binding between Manga and specified Characters
+             </summary>
+             <param name="id">Manga's id</param>
+             <param name="characterIds">Collection of Character ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /manga/{id}/characters
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.DeleteTagsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete binding between Manga and specified Tags
+             </summary>
+             <param name="id">Manga's id</param>
+             <param name="tagIds">Collection of Tag ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /manga/{id}/tags
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.PatchMangaAsync(System.UInt64,System.Collections.Generic.IEnumerable{SystemTextJsonPatch.Operations.Operation{OpenHentai.Creations.Manga}})">
+             <summary>
+             Update Manga, using json-patch format
+             </summary>
+             <param name="id">Manga's id</param>
+             <param name="operations">Collection of json-patch operations</param>
+             <remarks>
+            
+             Example request:
+            
+                 PATCH /manga/{id}
+                 [{
+                     "path": "/age",
+                     "op": "replace",
+                     "value": 30
+                 },
+                 {
+                     "path": "/manganames",
+                     "op": "add",
+                     "value": [{
+                       "manga_id": 8,
+                       "name": "Test Bubato",
+                       "language": null
+                     }]
+                 }]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
         </member>
     </members>
 </doc>

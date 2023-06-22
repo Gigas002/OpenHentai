@@ -84,6 +84,7 @@ public class Creation : IDatabaseEntity
     /// <summary>
     /// Collection of related media, including preview image
     /// </summary>
+    [Column(TypeName = DataTypes.Jsonb)]
     public HashSet<MediaInfo> Media { get; init; } = new();
 
     /// <summary>
