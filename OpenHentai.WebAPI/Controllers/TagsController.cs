@@ -362,18 +362,9 @@ public class TagsController : DatabaseController<TagsContextHelper>
     ///
     ///     PATCH /tags/{id}
     ///     [{
-    ///         "path": "/age",
+    ///         "path": "/value",
     ///         "op": "replace",
-    ///         "value": 30
-    ///     },
-    ///     {
-    ///         "path": "/tagnames",
-    ///         "op": "add",
-    ///         "value": [{
-    ///           "tag_id": 8,
-    ///           "name": "Test Bubato",
-    ///           "language": null
-    ///         }]
+    ///         "value": "karasique"
     ///     }]
     ///
     /// </remarks>

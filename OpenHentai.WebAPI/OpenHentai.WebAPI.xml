@@ -54,7 +54,7 @@
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.GetNamesAsync(System.UInt64)">
             <summary>
-            Get current author's names
+            Get current author's real names
             </summary>
             <param name="id">Author's id</param>
             <returns>Collection of CreaturesNames</returns>
@@ -855,12 +855,7 @@
             
                  PATCH /circles/{id}
                  [{
-                     "path": "/age",
-                     "op": "replace",
-                     "value": 30
-                 },
-                 {
-                     "path": "/circlenames",
+                     "path": "/titles",
                      "op": "add",
                      "value": [{
                        "circle_id": 8,
@@ -1207,18 +1202,9 @@
             
                  PATCH /manga/{id}
                  [{
-                     "path": "/age",
+                     "path": "/length",
                      "op": "replace",
                      "value": 30
-                 },
-                 {
-                     "path": "/manganames",
-                     "op": "add",
-                     "value": [{
-                       "manga_id": 8,
-                       "name": "Test Bubato",
-                       "language": null
-                     }]
                  }]
             
              </remarks>
@@ -1415,18 +1401,9 @@
             
                  PATCH /tags/{id}
                  [{
-                     "path": "/age",
+                     "path": "/value",
                      "op": "replace",
-                     "value": 30
-                 },
-                 {
-                     "path": "/tagnames",
-                     "op": "add",
-                     "value": [{
-                       "tag_id": 8,
-                       "name": "Test Bubato",
-                       "language": null
-                     }]
+                     "value": "karasique"
                  }]
             
              </remarks>

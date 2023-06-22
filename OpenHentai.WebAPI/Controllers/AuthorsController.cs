@@ -130,7 +130,7 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     }
 
     /// <summary>
-    /// Get current author's names
+    /// Get current author's real names
     /// </summary>
     /// <param name="id">Author's id</param>
     /// <returns>Collection of CreaturesNames</returns>

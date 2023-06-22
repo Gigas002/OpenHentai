@@ -604,18 +604,9 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     ///
     ///     PATCH /manga/{id}
     ///     [{
-    ///         "path": "/age",
+    ///         "path": "/length",
     ///         "op": "replace",
     ///         "value": 30
-    ///     },
-    ///     {
-    ///         "path": "/manganames",
-    ///         "op": "add",
-    ///         "value": [{
-    ///           "manga_id": 8,
-    ///           "name": "Test Bubato",
-    ///           "language": null
-    ///         }]
     ///     }]
     ///
     /// </remarks>

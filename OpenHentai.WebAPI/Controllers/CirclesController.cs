@@ -460,12 +460,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     ///
     ///     PATCH /circles/{id}
     ///     [{
-    ///         "path": "/age",
-    ///         "op": "replace",
-    ///         "value": 30
-    ///     },
-    ///     {
-    ///         "path": "/circlenames",
+    ///         "path": "/titles",
     ///         "op": "add",
     ///         "value": [{
     ///           "circle_id": 8,
