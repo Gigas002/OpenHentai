@@ -64,7 +64,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     {
         Console.WriteLine($"Enter into GET: /characters/{id}");
 
-        var character = await ContextHelper.GetCharacterAsync(id).ConfigureAwait(false);
+        var character = await ContextHelper.GetEntryAsync<Character>(id).ConfigureAwait(false);
 
         return character is null ? NotFound() : Ok(character);
     }
@@ -158,7 +158,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
 
         Console.WriteLine("Enter into POST: /characters");
 
-        var isSuccess = await ContextHelper.AddCharacterAsync(character).ConfigureAwait(false);
+        var isSuccess = await ContextHelper.AddEntryAsync(character).ConfigureAwait(false);
 
         return isSuccess ? CreatedAtAction(nameof(GetCharacterAsync), new { id = character.Id }, character) : BadRequest();
     }
@@ -312,7 +312,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     {
         Console.WriteLine($"Enter into DELETE: /characters/{id}");
 
-        var isSuccess = await ContextHelper.RemoveCharacterAsync(id).ConfigureAwait(false);
+        var isSuccess = await ContextHelper.RemoveEntryAsync<Character>(id).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -484,7 +484,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
 
         var patch = new JsonPatchDocument<Character>(operations.ToList(), Essential.JsonSerializerOptions);
 
-        var character = await ContextHelper.GetCharacterAsync(id).ConfigureAwait(false);
+        var character = await ContextHelper.GetEntryAsync<Character>(id).ConfigureAwait(false);
 
         if (character is null) return BadRequest();
 

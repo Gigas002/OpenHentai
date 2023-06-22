@@ -1,15 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using OpenHentai.Circles;
+using OpenHentai.Creations;
 using OpenHentai.Creatures;
 using OpenHentai.Descriptors;
-using OpenHentai.Relations;
 using OpenHentai.Relative;
 using OpenHentai.Roles;
-using OpenHentai.Tags;
 
 namespace OpenHentai.Contexts;
 
-public class AuthorsContextHelper : DatabaseContextHelper, ICreatureContextHelper
+public class AuthorsContextHelper : CreatureContextHelper<Author>
 {
     #region Constructors
 
@@ -22,8 +21,6 @@ public class AuthorsContextHelper : DatabaseContextHelper, ICreatureContextHelpe
     #region Get
 
     public IEnumerable<Author> GetAuthors() => Context.Authors;
-
-    public ValueTask<Author?> GetAuthorAsync(ulong id) => Context.Authors.FindAsync(id);
 
     public IEnumerable<AuthorsNames> GetAuthorsNames() => Context.AuthorsNames.Include(an => an.Entity);
 
@@ -52,49 +49,13 @@ public class AuthorsContextHelper : DatabaseContextHelper, ICreatureContextHelpe
         return author?.Creations;
     }
 
-    public async Task<IEnumerable<CreaturesNames>?> GetNamesAsync(ulong id)
-    {
-        var author = await Context.Authors.Include(a => a.Names)
-                                   .FirstOrDefaultAsync(a => a.Id == id);
-
-        return author?.Names;
-    }
-
-    public async Task<IEnumerable<Tag>?> GetTagsAsync(ulong id)
-    {
-        var author = await Context.Authors.Include(a => a.Tags)
-                                    .FirstOrDefaultAsync(a => a.Id == id);
-
-        return author?.Tags;
-    }
-
-    public async Task<IEnumerable<CreaturesRelations>?> GetRelationsAsync(ulong id)
-    {
-        var author = await Context.Authors.Include(a => a.Relations)
-                                    .ThenInclude(cr => cr.Related)
-                                    .FirstOrDefaultAsync(a => a.Id == id);
-
-        return author?.Relations;
-    }
-
     #endregion
 
     #region Add
 
-    public async Task<bool> AddAuthorAsync(Author author)
-    {
-        if (author is null) return false;
-
-        await Context.Authors.AddAsync(author);
-
-        await Context.SaveChangesAsync();
-
-        return true;
-    }
-
     public async Task<bool> AddAuthorNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names)
     {
-        var author = await GetAuthorAsync(id);
+        var author = await GetEntryAsync<Author>(id);
 
         if (author == null) return false;
 
@@ -105,52 +66,17 @@ public class AuthorsContextHelper : DatabaseContextHelper, ICreatureContextHelpe
         return true;
     }
 
-    public async Task<bool> AddNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names)
-    {
-        var author = await GetAuthorAsync(id);
-
-        if (author is null) return false;
-
-        author.AddNames(names);
-
-        await Context.SaveChangesAsync();
-
-        return true;
-    }
-
-    public async Task<bool> AddRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations)
-    {
-        if (relations is null || relations.Count <= 0) return false;
-
-        var author = await GetAuthorAsync(id);
-
-        if (author is null) return false;
-
-        foreach (var relation in relations)
-        {
-            var related = await Context.Creatures.FindAsync(relation.Key);
-
-            if (related is null) return false;
-
-            author.AddRelation(related, relation.Value);
-        }
-
-        await Context.SaveChangesAsync();
-
-        return true;
-    }
-
     public async Task<bool> AddCirclesAsync(ulong id, HashSet<ulong> circleIds)
     {
         if (circleIds is null || circleIds.Count <= 0) return false;
 
-        var author = await GetAuthorAsync(id);
+        var author = await GetEntryAsync<Author>(id);
 
         if (author is null) return false;
 
         foreach (var circleId in circleIds)
         {
-            var circle = await Context.Circles.FindAsync(circleId);
+            var circle = await GetEntryAsync<Circle>(circleId);
 
             if (circle is null) return false;
 
@@ -166,13 +92,13 @@ public class AuthorsContextHelper : DatabaseContextHelper, ICreatureContextHelpe
     {
         if (creationRoles is null || creationRoles.Count <= 0) return false;
 
-        var author = await GetAuthorAsync(id);
+        var author = await GetEntryAsync<Author>(id);
 
         if (author is null) return false;
 
         foreach (var creationRole in creationRoles)
         {
-            var creation = await Context.Creations.FindAsync(creationRole.Key);
+            var creation = await GetEntryAsync<Creation>(creationRole.Key);
 
             if (creation is null) return false;
 
@@ -184,44 +110,9 @@ public class AuthorsContextHelper : DatabaseContextHelper, ICreatureContextHelpe
         return true;
     }
 
-    public async Task<bool> AddTagsAsync(ulong id, HashSet<ulong> tagIds)
-    {
-        if (tagIds is null || tagIds.Count <= 0) return false;
-
-        var author = await GetAuthorAsync(id);
-
-        if (author is null) return false;
-
-        foreach (var tagId in tagIds)
-        {
-            var tag = await Context.Tags.FindAsync(tagId);
-
-            if (tag is null) return false;
-
-            author.Tags.Add(tag);
-        }
-
-        await Context.SaveChangesAsync();
-
-        return true;
-    }
-
     #endregion
 
     #region Remove
-
-    public async Task<bool> RemoveAuthorAsync(ulong id)
-    {
-        var author = await GetAuthorAsync(id);
-
-        if (author is null) return false;
-
-        Context.Authors.Remove(author);
-
-        await Context.SaveChangesAsync();
-
-        return true;
-    }
 
     public async Task<bool> RemoveAuthorNamesAsync(ulong id, HashSet<ulong> nameIds)
     {
@@ -273,72 +164,6 @@ public class AuthorsContextHelper : DatabaseContextHelper, ICreatureContextHelpe
         await Context.SaveChangesAsync();
 
         return true;
-    }
-
-    public async Task<bool> RemoveNamesAsync(ulong id, HashSet<ulong> nameIds)
-    {
-        if (nameIds is null || nameIds.Count <= 0) return false;
-
-        var author = await Context.Authors.Include(a => a.Names)
-                                  .FirstOrDefaultAsync(a => a.Id == id);
-
-        if (author is null) return false;
-
-        foreach (var nameId in nameIds)
-            author.Names.RemoveWhere(cn => cn.Id == nameId);
-
-        await Context.SaveChangesAsync();
-
-        return true;
-    }
-
-    public async Task<bool> RemoveTagsAsync(ulong id, HashSet<ulong> tagIds)
-    {
-        if (tagIds is null || tagIds.Count <= 0) return false;
-
-        var author = await Context.Authors.Include(a => a.Tags)
-                                  .FirstOrDefaultAsync(a => a.Id == id);
-
-        if (author is null) return false;
-
-        foreach (var tagId in tagIds)
-            author.Tags.RemoveWhere(t => t.Id == tagId);
-
-        await Context.SaveChangesAsync();
-
-        return true;
-    }
-
-    public async Task<bool> RemoveRelationsAsync(ulong id, HashSet<ulong> relatedIds)
-    {
-        if (relatedIds is null || relatedIds.Count <= 0) return false;
-
-        var author = await Context.Authors.Include(a => a.Relations)
-                                  .ThenInclude(cr => cr.Related)
-                                  .FirstOrDefaultAsync(a => a.Id == id);
-
-        if (author is null) return false;
-
-        foreach (var relatedId in relatedIds)
-            author.Relations.RemoveWhere(cr => cr.Related.Id == relatedId);
-
-        await Context.SaveChangesAsync();
-
-        return true;
-    }
-
-    #endregion
-
-    #region Experimental
-
-    public static async Task UpdateAuthorAsync(DatabaseContext context, ulong id, Author newAuthor)
-    {
-        newAuthor.Id = id;
-
-        context.Attach(newAuthor);
-        context.Authors.Update(newAuthor);
-
-        await context.SaveChangesAsync();
     }
 
     #endregion

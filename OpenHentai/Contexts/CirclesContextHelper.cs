@@ -22,8 +22,6 @@ public class CirclesContextHelper : DatabaseContextHelper
 
     public IEnumerable<Circle> GetCircles() => Context.Circles;
 
-    public ValueTask<Circle?> GetCircleAsync(ulong id) => Context.Circles.FindAsync(id);
-
     public IEnumerable<CirclesTitles> GetAllTitles() => Context.CirclesTitles.Include(ct => ct.Entity);
 
     public async Task<IEnumerable<CirclesTitles>?> GetTitlesAsync(ulong id)
@@ -62,20 +60,9 @@ public class CirclesContextHelper : DatabaseContextHelper
 
     #region Add
 
-    public async Task<bool> AddCircleAsync(Circle circle)
-    {
-        if (circle is null) return false;
-
-        await Context.Circles.AddAsync(circle);
-
-        await Context.SaveChangesAsync();
-
-        return true;
-    }
-
     public async Task<bool> AddTitlesAsync(ulong id, HashSet<LanguageSpecificTextInfo> titles)
     {
-        var circle = await GetCircleAsync(id);
+        var circle = await GetEntryAsync<Circle>(id);
 
         if (circle == null) return false;
 
@@ -90,13 +77,13 @@ public class CirclesContextHelper : DatabaseContextHelper
     {
         if (authorsIds is null || authorsIds.Count <= 0) return false;
 
-        var circle = await GetCircleAsync(id);
+        var circle = await GetEntryAsync<Circle>(id);
 
         if (circle is null) return false;
 
         foreach (var authorId in authorsIds)
         {
-            var author = await Context.Authors.FindAsync(authorId);
+            var author = await GetEntryAsync<Author>(authorId);
 
             if (author is null) return false;
 
@@ -112,13 +99,13 @@ public class CirclesContextHelper : DatabaseContextHelper
     {
         if (creationsIds is null || creationsIds.Count <= 0) return false;
 
-        var circle = await GetCircleAsync(id);
+        var circle = await GetEntryAsync<Circle>(id);
 
         if (circle is null) return false;
 
         foreach (var creationId in creationsIds)
         {
-            var creation = await Context.Creations.FindAsync(creationId);
+            var creation = await GetEntryAsync<Creation>(creationId);
 
             if (creation is null) return false;
 
@@ -134,13 +121,13 @@ public class CirclesContextHelper : DatabaseContextHelper
     {
         if (tagIds is null || tagIds.Count <= 0) return false;
 
-        var circle = await GetCircleAsync(id);
+        var circle = await GetEntryAsync<Circle>(id);
 
         if (circle is null) return false;
 
         foreach (var tagId in tagIds)
         {
-            var tag = await Context.Tags.FindAsync(tagId);
+            var tag = await GetEntryAsync<Tag>(tagId);
 
             if (tag is null) return false;
 
@@ -155,19 +142,6 @@ public class CirclesContextHelper : DatabaseContextHelper
     #endregion
 
     #region Remove
-
-    public async Task<bool> RemoveCircleAsync(ulong id)
-    {
-        var circle = await GetCircleAsync(id);
-
-        if (circle is null) return false;
-
-        Context.Circles.Remove(circle);
-
-        await Context.SaveChangesAsync();
-
-        return true;
-    }
 
     public async Task<bool> RemoveTitlesAsync(ulong id, HashSet<ulong> titleIds)
     {
@@ -235,20 +209,6 @@ public class CirclesContextHelper : DatabaseContextHelper
         await Context.SaveChangesAsync();
 
         return true;
-    }
-
-    #endregion
-
-    #region Experimental
-
-    public static async Task UpdateCircleAsync(DatabaseContext context, ulong id, Circle newCircle)
-    {
-        newCircle.Id = id;
-
-        context.Attach(newCircle);
-        context.Circles.Update(newCircle);
-
-        await context.SaveChangesAsync();
     }
 
     #endregion

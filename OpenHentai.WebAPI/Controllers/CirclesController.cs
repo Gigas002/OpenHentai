@@ -61,7 +61,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     {
         Console.WriteLine($"Enter into GET: /circles/{id}");
 
-        var circle = await ContextHelper.GetCircleAsync(id).ConfigureAwait(false);
+        var circle = await ContextHelper.GetEntryAsync<Circle>(id).ConfigureAwait(false);
 
         return circle is null ? NotFound() : Ok(circle);
     }
@@ -170,7 +170,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
 
         Console.WriteLine("Enter into POST: /circles");
 
-        var isSuccess = await ContextHelper.AddCircleAsync(circle).ConfigureAwait(false);
+        var isSuccess = await ContextHelper.AddEntryAsync(circle).ConfigureAwait(false);
 
         return isSuccess ? CreatedAtAction(nameof(GetCircleAsync), new { id = circle.Id }, circle) : BadRequest();
     }
@@ -322,7 +322,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     {
         Console.WriteLine($"Enter into DELETE: /circles/{id}");
 
-        var isSuccess = await ContextHelper.RemoveCircleAsync(id).ConfigureAwait(false);
+        var isSuccess = await ContextHelper.RemoveEntryAsync<Circle>(id).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -494,7 +494,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
 
         var patch = new JsonPatchDocument<Circle>(operations.ToList(), Essential.JsonSerializerOptions);
 
-        var circle = await ContextHelper.GetCircleAsync(id).ConfigureAwait(false);
+        var circle = await ContextHelper.GetEntryAsync<Circle>(id).ConfigureAwait(false);
 
         if (circle is null) return BadRequest();
 

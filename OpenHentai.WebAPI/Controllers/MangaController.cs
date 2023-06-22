@@ -1,6 +1,5 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
-using OpenHentai.Creatures;
 using OpenHentai.Contexts;
 using SystemTextJsonPatch;
 using OpenHentai.Relative;

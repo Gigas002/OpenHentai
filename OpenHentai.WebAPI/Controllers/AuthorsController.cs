@@ -64,7 +64,7 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     {
         Console.WriteLine($"Enter into GET: /authors/{id}");
 
-        var author = await ContextHelper.GetAuthorAsync(id).ConfigureAwait(false);
+        var author = await ContextHelper.GetEntryAsync<Author>(id).ConfigureAwait(false);
 
         return author is null ? NotFound() : Ok(author);
     }
@@ -205,7 +205,7 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
 
         Console.WriteLine("Enter into POST: /authors");
 
-        var isSuccess = await ContextHelper.AddAuthorAsync(author).ConfigureAwait(false);
+        var isSuccess = await ContextHelper.AddEntryAsync(author).ConfigureAwait(false);
 
         return isSuccess ? CreatedAtAction(nameof(GetAuthorAsync), new { id = author.Id }, author) : BadRequest();
     }
@@ -422,7 +422,7 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}");
 
-        var isSuccess = await ContextHelper.RemoveAuthorAsync(id).ConfigureAwait(false);
+        var isSuccess = await ContextHelper.RemoveEntryAsync<Author>(id).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -656,7 +656,7 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
 
         var patch = new JsonPatchDocument<Author>(operations.ToList(), Essential.JsonSerializerOptions);
 
-        var author = await ContextHelper.GetAuthorAsync(id).ConfigureAwait(false);
+        var author = await ContextHelper.GetEntryAsync<Author>(id).ConfigureAwait(false);
 
         if (author is null) return BadRequest();
 
