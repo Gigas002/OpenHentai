@@ -39,8 +39,6 @@ public class TagsController : DatabaseController<TagsContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<IEnumerable<Tag>> GetTags()
     {
-        Console.WriteLine($"Enter into GET: /tags");
-
         var tags = ContextHelper.GetTags();
 
         return tags is null ? NotFound() : Ok(tags);
@@ -53,12 +51,7 @@ public class TagsController : DatabaseController<TagsContextHelper>
     /// <returns>Tag</returns>
     [HttpGet(TagsRoutes.Id)]
     [Produces(MediaTypeNames.Application.Json)]
-    public Task<ActionResult<Tag>> GetTagAsync(ulong id)
-    {
-        Console.WriteLine($"Enter into GET: /tags/{id}");
-
-        return GetEntryAsync<Tag>(id);
-    }
+    public Task<ActionResult<Tag>> GetTagAsync(ulong id) => GetEntryAsync<Tag>(id);
 
     /// <summary>
     /// Get current tag's creatures
@@ -69,8 +62,6 @@ public class TagsController : DatabaseController<TagsContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Circle>>> GetCreaturesAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /tags/{id}/creatures");
-
         var creatures = await ContextHelper.GetCreaturesAsync(id).ConfigureAwait(false);
 
         return creatures is null ? NotFound() : Ok(creatures);
@@ -85,8 +76,6 @@ public class TagsController : DatabaseController<TagsContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Creation>>> GetCreationsAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /tags/{id}/creations");
-
         var creations = await ContextHelper.GetCreationsAsync(id).ConfigureAwait(false);
 
         return creations is null ? NotFound() : Ok(creations);
@@ -101,8 +90,6 @@ public class TagsController : DatabaseController<TagsContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Circle>>> GetCirclesAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /tags/{id}/circles");
-
         var circles = await ContextHelper.GetCirclesAsync(id).ConfigureAwait(false);
 
         return circles is null ? NotFound() : Ok(circles);
@@ -129,8 +116,6 @@ public class TagsController : DatabaseController<TagsContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<Tag>> PostTagAsync(Tag tag)
     {
-        Console.WriteLine("Enter into POST: /tags");
-
         var isSuccess = await PostEntryAsync(tag).ConfigureAwait(false);
 
         return isSuccess ? CreatedAtAction(nameof(GetTagAsync), new { id = tag.Id }, tag) : BadRequest();
@@ -164,8 +149,6 @@ public class TagsController : DatabaseController<TagsContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutCreaturesAsync(ulong id, HashSet<ulong> creatureIds)
     {
-        Console.WriteLine($"Enter into PUT: /tags/{id}/creatures");
-
         var isSuccess = await ContextHelper.AddCreaturesAsync(id, creatureIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -195,8 +178,6 @@ public class TagsController : DatabaseController<TagsContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutCreationsAsync(ulong id, HashSet<ulong> creationIds)
     {
-        Console.WriteLine($"Enter into PUT: /tags/{id}/creations");
-
         var isSuccess = await ContextHelper.AddCreationsAsync(id, creationIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -226,8 +207,6 @@ public class TagsController : DatabaseController<TagsContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutCirclesAsync(ulong id, HashSet<ulong> circleIds)
     {
-        Console.WriteLine($"Enter into PUT: /tags/{id}/circles");
-
         var isSuccess = await ContextHelper.AddCirclesAsync(id, circleIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -247,12 +226,7 @@ public class TagsController : DatabaseController<TagsContextHelper>
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Produces(MediaTypeNames.Application.Json)]
-    public Task<ActionResult> DeleteTagAsync(ulong id)
-    {
-        Console.WriteLine($"Enter into DELETE: /tags/{id}");
-
-        return DeleteEntryAsync<Tag>(id);
-    }
+    public Task<ActionResult> DeleteTagAsync(ulong id) => DeleteEntryAsync<Tag>(id);
 
     /// <summary>
     /// Delete binding between Tag and specified Creatures
@@ -278,8 +252,6 @@ public class TagsController : DatabaseController<TagsContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteCreaturesAsync(ulong id, HashSet<ulong> creatureIds)
     {
-        Console.WriteLine($"Enter into DELETE: /tags/{id}/creatures");
-
         var isSuccess = await ContextHelper.RemoveCreaturesAsync(id, creatureIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -309,8 +281,6 @@ public class TagsController : DatabaseController<TagsContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteCreationsAsync(ulong id, HashSet<ulong> creationIds)
     {
-        Console.WriteLine($"Enter into DELETE: /tags/{id}/creations");
-
         var isSuccess = await ContextHelper.RemoveCreationsAsync(id, creationIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -340,8 +310,6 @@ public class TagsController : DatabaseController<TagsContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteCirclesAsync(ulong id, HashSet<ulong> circleIds)
     {
-        Console.WriteLine($"Enter into DELETE: /tags/{id}/circles");
-
         var isSuccess = await ContextHelper.RemoveCirclesAsync(id, circleIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -375,12 +343,8 @@ public class TagsController : DatabaseController<TagsContextHelper>
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypes.JsonPatch)]
     [Produces(MediaTypeNames.Application.Json)]
-    public Task<ActionResult> PatchTagAsync(ulong id, IEnumerable<Operation<Tag>> operations)
-    {
-        Console.WriteLine($"Enter into PATCH: /tags/{id}");
-
-        return PatchEntryAsync(id, operations);
-    }
+    public Task<ActionResult> PatchTagAsync(ulong id, IEnumerable<Operation<Tag>> operations) =>
+        PatchEntryAsync(id, operations);
 
     #endregion
 

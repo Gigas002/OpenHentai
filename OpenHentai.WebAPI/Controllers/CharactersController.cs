@@ -42,8 +42,6 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<IEnumerable<Character>> GetCharacters()
     {
-        Console.WriteLine($"Enter into GET: /characters");
-
         var characters = ContextHelper.GetCharacters();
 
         return characters is null ? NotFound() : Ok(characters);
@@ -56,12 +54,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     /// <returns>Character</returns>
     [HttpGet(CharactersRoutes.Id)]
     [Produces(MediaTypeNames.Application.Json)]
-    public Task<ActionResult<Character>> GetCharacterAsync(ulong id)
-    {
-        Console.WriteLine($"Enter into GET: /characters/{id}");
-
-        return GetEntryAsync<Character>(id);
-    }
+    public Task<ActionResult<Character>> GetCharacterAsync(ulong id) => GetEntryAsync<Character>(id);
 
     /// <summary>
     /// Get current character's creations
@@ -72,8 +65,6 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreationsCharacters>>> GetCreationsAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /characters/{id}/creations");
-
         var creations = await ContextHelper.GetCreationsAsync(id).ConfigureAwait(false);
 
         return creations is null ? NotFound() : Ok(creations);
@@ -88,8 +79,6 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreaturesNames>>> GetNamesAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /characters/{id}/names");
-
         var names = await ContextHelper.GetNamesAsync(id).ConfigureAwait(false);
 
         return names is null ? NotFound() : Ok(names);
@@ -104,8 +93,6 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Tag>>> GetTagsAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /characters/{id}/tags");
-
         var tags = await ContextHelper.GetTagsAsync(id).ConfigureAwait(false);
 
         return tags is null ? NotFound() : Ok(tags);
@@ -120,8 +107,6 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreaturesRelations>>> GetRelationsAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /characters/{id}/relations");
-
         var relations = await ContextHelper.GetRelationsAsync(id).ConfigureAwait(false);
 
         return relations is null ? NotFound() : Ok(relations);
@@ -148,8 +133,6 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<Character>> PostCharacterAsync(Character character)
     {
-        Console.WriteLine("Enter into POST: /characters");
-
         var isSuccess = await PostEntryAsync(character).ConfigureAwait(false);
 
         return isSuccess ? CreatedAtAction(nameof(GetCharacterAsync), new { id = character.Id }, character) : BadRequest();
@@ -180,8 +163,6 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names)
     {
-        Console.WriteLine($"Enter into POST: /characters/{id}/names");
-
         var isSuccess = await ContextHelper.AddNamesAsync(id, names).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -212,8 +193,6 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations)
     {
-        Console.WriteLine($"Enter into POST: /characters/{id}/relations");
-
         var isSuccess = await ContextHelper.AddRelationsAsync(id, relations).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -248,8 +227,6 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutCreationsAsync(ulong id, Dictionary<ulong, CharacterRole> creationRoles)
     {
-        Console.WriteLine($"Enter into PUT: /characters/{id}/creations");
-
         var isSuccess = await ContextHelper.AddCreationsAsync(id, creationRoles).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -279,8 +256,6 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutTagsAsync(ulong id, HashSet<ulong> tagIds)
     {
-        Console.WriteLine($"Enter into PUT: /characters/{id}/tags");
-
         var isSuccess = await ContextHelper.AddTagsAsync(id, tagIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -300,12 +275,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Produces(MediaTypeNames.Application.Json)]
-    public Task<ActionResult> DeleteCharacterAsync(ulong id)
-    {
-        Console.WriteLine($"Enter into DELETE: /characters/{id}");
-
-        return DeleteEntryAsync<Character>(id);
-    }
+    public Task<ActionResult> DeleteCharacterAsync(ulong id) => DeleteEntryAsync<Character>(id);
 
     /// <summary>
     /// Delete binding between Character and specified Creations
@@ -331,8 +301,6 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteCreationsAsync(ulong id, HashSet<ulong> creationIds)
     {
-        Console.WriteLine($"Enter into DELETE: /characters/{id}/creations");
-
         var isSuccess = await ContextHelper.RemoveCreationsAsync(id, creationIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -362,8 +330,6 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteNamesAsync(ulong id, HashSet<ulong> nameIds)
     {
-        Console.WriteLine($"Enter into DELETE: /characters/{id}/names");
-
         var isSuccess = await ContextHelper.RemoveNamesAsync(id, nameIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -393,8 +359,6 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteTagsAsync(ulong id, HashSet<ulong> tagIds)
     {
-        Console.WriteLine($"Enter into DELETE: /characters/{id}/tags");
-
         var isSuccess = await ContextHelper.RemoveTagsAsync(id, tagIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -424,8 +388,6 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteRelationsAsync(ulong id, HashSet<ulong> relatedIds)
     {
-        Console.WriteLine($"Enter into DELETE: /characters/{id}/relations");
-
         var isSuccess = await ContextHelper.RemoveRelationsAsync(id, relatedIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -468,12 +430,8 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypes.JsonPatch)]
     [Produces(MediaTypeNames.Application.Json)]
-    public Task<ActionResult> PatchCharacterAsync(ulong id, IEnumerable<Operation<Character>> operations)
-    {
-        Console.WriteLine($"Enter into PATCH: /characters/{id}");
-
-        return PatchEntryAsync(id, operations);
-    }
+    public Task<ActionResult> PatchCharacterAsync(ulong id, IEnumerable<Operation<Character>> operations) =>
+        PatchEntryAsync(id, operations);
 
     #endregion
 

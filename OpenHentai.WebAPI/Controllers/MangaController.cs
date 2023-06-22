@@ -43,8 +43,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<IEnumerable<Manga>> GetManga()
     {
-        Console.WriteLine($"Enter into GET: /manga");
-
         var manga = ContextHelper.GetManga();
 
         return manga is null ? NotFound() : Ok(manga);
@@ -57,12 +55,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     /// <returns>Manga</returns>
     [HttpGet(MangaRoutes.Id)]
     [Produces(MediaTypeNames.Application.Json)]
-    public Task<ActionResult<Manga>> GetMangaAsync(ulong id)
-    {
-        Console.WriteLine($"Enter into GET: /manga/{id}");
-
-        return GetEntryAsync<Manga>(id);
-    }
+    public Task<ActionResult<Manga>> GetMangaAsync(ulong id) => GetEntryAsync<Manga>(id);
 
     /// <summary>
     /// Get current manga's titles
@@ -73,8 +66,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreationsTitles>>> GetTitlesAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /manga/{id}/titles");
-
         var names = await ContextHelper.GetTitlesAsync(id).ConfigureAwait(false);
 
         return names is null ? NotFound() : Ok(names);
@@ -89,8 +80,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<AuthorsCreations>>> GetAuthorsAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /manga/{id}/authors");
-
         var authors = await ContextHelper.GetAuthorsAsync(id).ConfigureAwait(false);
 
         return authors is null ? NotFound() : Ok(authors);
@@ -105,8 +94,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Circle>>> GetCirclesAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /manga/{id}/circles");
-
         var circles = await ContextHelper.GetCirclesAsync(id).ConfigureAwait(false);
 
         return circles is null ? NotFound() : Ok(circles);
@@ -121,8 +108,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreaturesRelations>>> GetRelationsAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /manga/{id}/relations");
-
         var relations = await ContextHelper.GetRelationsAsync(id).ConfigureAwait(false);
 
         return relations is null ? NotFound() : Ok(relations);
@@ -137,8 +122,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreationsCharacters>>> GetCharactersAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /manga/{id}/characters");
-
         var characters = await ContextHelper.GetCharactersAsync(id).ConfigureAwait(false);
 
         return characters is null ? NotFound() : Ok(characters);
@@ -153,8 +136,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Tag>>> GetTagsAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /manga/{id}/tags");
-
         var tags = await ContextHelper.GetTagsAsync(id).ConfigureAwait(false);
 
         return tags is null ? NotFound() : Ok(tags);
@@ -181,8 +162,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<Manga>> PostMangaAsync(Manga manga)
     {
-        Console.WriteLine("Enter into POST: /manga");
-
         var isSuccess = await PostEntryAsync(manga).ConfigureAwait(false);
 
         return isSuccess ? CreatedAtAction(nameof(GetMangaAsync), new { id = manga.Id }, manga) : BadRequest();
@@ -213,8 +192,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostTitlesAsync(ulong id, HashSet<LanguageSpecificTextInfo> titles)
     {
-        Console.WriteLine($"Enter into POST: /manga/{id}/titles");
-
         var isSuccess = await ContextHelper.AddTitlesAsync(id, titles).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -245,8 +222,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostRelationsAsync(ulong id, Dictionary<ulong, CreationRelations> relations)
     {
-        Console.WriteLine($"Enter into POST: /manga/{id}/relations");
-
         var isSuccess = await ContextHelper.AddRelationsAsync(id, relations).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -281,8 +256,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutAuthorsAsync(ulong id, Dictionary<ulong, AuthorRole> authorRoles)
     {
-        Console.WriteLine($"Enter into PUT: /manga/{id}/authors");
-
         var isSuccess = await ContextHelper.AddAuthorsAsync(id, authorRoles).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -312,8 +285,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutCirclesAsync(ulong id, HashSet<ulong> circleIds)
     {
-        Console.WriteLine($"Enter into PUT: /manga/{id}/circles");
-
         var isSuccess = await ContextHelper.AddCirclesAsync(id, circleIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -344,8 +315,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutCharactersAsync(ulong id, Dictionary<ulong, CharacterRole> characterRoles)
     {
-        Console.WriteLine($"Enter into PUT: /manga/{id}/characters");
-
         var isSuccess = await ContextHelper.AddCharactersAsync(id, characterRoles).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -375,8 +344,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutTagsAsync(ulong id, HashSet<ulong> tagIds)
     {
-        Console.WriteLine($"Enter into PUT: /manga/{id}/tags");
-
         var isSuccess = await ContextHelper.AddTagsAsync(id, tagIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -396,12 +363,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Produces(MediaTypeNames.Application.Json)]
-    public Task<ActionResult> DeleteMangaAsync(ulong id)
-    {
-        Console.WriteLine($"Enter into DELETE: /manga/{id}");
-
-        return DeleteEntryAsync<Manga>(id);
-    }
+    public Task<ActionResult> DeleteMangaAsync(ulong id) => DeleteEntryAsync<Manga>(id);
 
     /// <summary>
     /// Delete collection of titles, bound to Manga
@@ -427,8 +389,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteTitlesAsync(ulong id, HashSet<ulong> titleIds)
     {
-        Console.WriteLine($"Enter into DELETE: /manga/{id}/titles");
-
         var isSuccess = await ContextHelper.RemoveTitlesAsync(id, titleIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -458,8 +418,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteAuthorsAsync(ulong id, HashSet<ulong> authorIds)
     {
-        Console.WriteLine($"Enter into DELETE: /manga/{id}/authors");
-
         var isSuccess = await ContextHelper.RemoveAuthorsAsync(id, authorIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -489,8 +447,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteCirclesAsync(ulong id, HashSet<ulong> circleIds)
     {
-        Console.WriteLine($"Enter into DELETE: /manga/{id}/circles");
-
         var isSuccess = await ContextHelper.RemoveCirclesAsync(id, circleIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -520,8 +476,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteRelationsAsync(ulong id, HashSet<ulong> relatedIds)
     {
-        Console.WriteLine($"Enter into DELETE: /manga/{id}/relations");
-
         var isSuccess = await ContextHelper.RemoveRelationsAsync(id, relatedIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -551,8 +505,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteCharactersAsync(ulong id, HashSet<ulong> characterIds)
     {
-        Console.WriteLine($"Enter into DELETE: /manga/{id}/characters");
-
         var isSuccess = await ContextHelper.RemoveCharactersAsync(id, characterIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -582,8 +534,6 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteTagsAsync(ulong id, HashSet<ulong> tagIds)
     {
-        Console.WriteLine($"Enter into DELETE: /manga/{id}/tags");
-
         var isSuccess = await ContextHelper.RemoveTagsAsync(id, tagIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -617,12 +567,8 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypes.JsonPatch)]
     [Produces(MediaTypeNames.Application.Json)]
-    public Task<ActionResult> PatchMangaAsync(ulong id, IEnumerable<Operation<Manga>> operations)
-    {
-        Console.WriteLine($"Enter into PATCH: /manga/{id}");
-
-        return PatchEntryAsync(id, operations);
-    }
+    public Task<ActionResult> PatchMangaAsync(ulong id, IEnumerable<Operation<Manga>> operations) =>
+        PatchEntryAsync(id, operations);
 
     #endregion
 

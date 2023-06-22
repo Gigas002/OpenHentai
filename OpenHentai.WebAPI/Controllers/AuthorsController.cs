@@ -45,8 +45,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<IEnumerable<Author>> GetAuthors()
     {
-        Console.WriteLine($"Enter into GET: /authors");
-
         var authors = ContextHelper.GetAuthors();
 
         return authors is null ? NotFound() : Ok(authors);
@@ -59,12 +57,7 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     /// <returns>Author</returns>
     [HttpGet(AuthorsRoutes.Id)]
     [Produces(MediaTypeNames.Application.Json)]
-    public Task<ActionResult<Author>> GetAuthorAsync(ulong id)
-    {
-        Console.WriteLine($"Enter into GET: /authors/{id}");
-
-        return GetEntryAsync<Author>(id);
-    }
+    public Task<ActionResult<Author>> GetAuthorAsync(ulong id) => GetEntryAsync<Author>(id);
 
     /// <summary>
     /// Get collection of all authors's names
@@ -74,8 +67,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<IEnumerable<AuthorsNames>> GetAuthorsNames()
     {
-        Console.WriteLine($"Enter into GET: /authors/authors_names");
-
         var names = ContextHelper.GetAuthorsNames();
 
         return names is null ? NotFound() : Ok(names);
@@ -90,8 +81,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<AuthorsNames>>> GetAuthorNamesAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /authors/{id}/author_names");
-
         var names = await ContextHelper.GetAuthorNamesAsync(id).ConfigureAwait(false);
 
         return names is null ? NotFound() : Ok(names);
@@ -106,8 +95,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Circle>>> GetCirclesAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /authors/{id}/circles");
-
         var circles = await ContextHelper.GetCirclesAsync(id).ConfigureAwait(false);
 
         return circles is null ? NotFound() : Ok(circles);
@@ -122,8 +109,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<AuthorsCreations>>> GetCreationsAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /authors/{id}/creations");
-
         var creations = await ContextHelper.GetCreationsAsync(id).ConfigureAwait(false);
 
         return creations is null ? NotFound() : Ok(creations);
@@ -138,8 +123,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreaturesNames>>> GetNamesAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /authors/{id}/names");
-
         var names = await ContextHelper.GetNamesAsync(id).ConfigureAwait(false);
 
         return names is null ? NotFound() : Ok(names);
@@ -154,8 +137,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Tag>>> GetTagsAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /authors/{id}/tags");
-
         var tags = await ContextHelper.GetTagsAsync(id).ConfigureAwait(false);
 
         return tags is null ? NotFound() : Ok(tags);
@@ -170,8 +151,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreaturesRelations>>> GetRelationsAsync(ulong id)
     {
-        Console.WriteLine($"Enter into GET: /authors/{id}/relations");
-
         var relations = await ContextHelper.GetRelationsAsync(id).ConfigureAwait(false);
 
         return relations is null ? NotFound() : Ok(relations);
@@ -198,8 +177,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<Author>> PostAuthorAsync(Author author)
     {
-        Console.WriteLine("Enter into POST: /authors");
-
         var isSuccess = await PostEntryAsync(author).ConfigureAwait(false);
 
         return isSuccess ? CreatedAtAction(nameof(GetAuthorAsync), new { id = author.Id }, author) : BadRequest();
@@ -230,8 +207,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostAuthorNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names)
     {
-        Console.WriteLine($"Enter into POST: /authors/{id}/author_names");
-
         var isSuccess = await ContextHelper.AddAuthorNamesAsync(id, names).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -262,8 +237,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names)
     {
-        Console.WriteLine($"Enter into POST: /authors/{id}/names");
-
         var isSuccess = await ContextHelper.AddNamesAsync(id, names).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -294,8 +267,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations)
     {
-        Console.WriteLine($"Enter into POST: /authors/{id}/relations");
-
         var isSuccess = await ContextHelper.AddRelationsAsync(id, relations).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -329,8 +300,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutCirclesAsync(ulong id, HashSet<ulong> circleIds)
     {
-        Console.WriteLine($"Enter into PUT: /authors/{id}/circles");
-
         var isSuccess = await ContextHelper.AddCirclesAsync(id, circleIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -361,8 +330,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutCreationsAsync(ulong id, Dictionary<ulong, AuthorRole> creationRoles)
     {
-        Console.WriteLine($"Enter into PUT: /authors/{id}/creations");
-
         var isSuccess = await ContextHelper.AddCreationsAsync(id, creationRoles).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -392,8 +359,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutTagsAsync(ulong id, HashSet<ulong> tagIds)
     {
-        Console.WriteLine($"Enter into PUT: /authors/{id}/tags");
-
         var isSuccess = await ContextHelper.AddTagsAsync(id, tagIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -413,12 +378,7 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Produces(MediaTypeNames.Application.Json)]
-    public Task<ActionResult> DeleteAuthorAsync(ulong id)
-    {
-        Console.WriteLine($"Enter into DELETE: /authors/{id}");
-
-        return DeleteEntryAsync<Author>(id);
-    }
+    public Task<ActionResult> DeleteAuthorAsync(ulong id) => DeleteEntryAsync<Author>(id);
 
     /// <summary>
     /// Delete collection of AuthorsNames, bound to Author
@@ -444,8 +404,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteAuthorNamesAsync(ulong id, HashSet<ulong> nameIds)
     {
-        Console.WriteLine($"Enter into DELETE: /authors/{id}/author_names");
-
         var isSuccess = await ContextHelper.RemoveAuthorNamesAsync(id, nameIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -475,8 +433,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteCirclesAsync(ulong id, HashSet<ulong> circleIds)
     {
-        Console.WriteLine($"Enter into DELETE: /authors/{id}/circles");
-
         var isSuccess = await ContextHelper.RemoveCirclesAsync(id, circleIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -506,8 +462,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteCreationsAsync(ulong id, HashSet<ulong> creationIds)
     {
-        Console.WriteLine($"Enter into DELETE: /authors/{id}/creations");
-
         var isSuccess = await ContextHelper.RemoveCreationsAsync(id, creationIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -537,8 +491,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteNamesAsync(ulong id, HashSet<ulong> nameIds)
     {
-        Console.WriteLine($"Enter into DELETE: /authors/{id}/names");
-
         var isSuccess = await ContextHelper.RemoveNamesAsync(id, nameIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -568,8 +520,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteTagsAsync(ulong id, HashSet<ulong> tagIds)
     {
-        Console.WriteLine($"Enter into DELETE: /authors/{id}/tags");
-
         var isSuccess = await ContextHelper.RemoveTagsAsync(id, tagIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -599,8 +549,6 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteRelationsAsync(ulong id, HashSet<ulong> relatedIds)
     {
-        Console.WriteLine($"Enter into DELETE: /authors/{id}/relations");
-
         var isSuccess = await ContextHelper.RemoveRelationsAsync(id, relatedIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
@@ -643,12 +591,8 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypes.JsonPatch)]
     [Produces(MediaTypeNames.Application.Json)]
-    public Task<ActionResult> PatchAuthorAsync(ulong id, IEnumerable<Operation<Author>> operations)
-    {
-        Console.WriteLine($"Enter into PATCH: /authors/{id}");
-
-        return PatchEntryAsync(id, operations);
-    }
+    public Task<ActionResult> PatchAuthorAsync(ulong id, IEnumerable<Operation<Author>> operations) =>
+        PatchEntryAsync(id, operations);
 
     #endregion
 

@@ -1,7 +1,9 @@
 using System.Globalization;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.OpenApi.Models;
 using OpenHentai.Contexts;
+using Serilog;
 
 namespace OpenHentai.WebAPI;
 
@@ -10,6 +12,21 @@ public static class Program
     public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        // create a file logger using Serilog
+        var logger = new LoggerConfiguration()
+            .WriteTo.File("../httplogs.txt")
+            .WriteTo.Console()
+            .CreateLogger();
+
+        // add the file logger to the LoggerFactory
+        builder.Logging.AddSerilog(logger);
+
+        // configure the HttpLoggingOptions
+        builder.Services.AddHttpLogging(logging =>
+        {
+            logging.LoggingFields = HttpLoggingFields.All;
+        });
 
         builder.WebHost.ConfigureKestrel((_, options) =>
         {
@@ -79,6 +96,8 @@ public static class Program
 
         // for controllers-based approach
         app.MapControllers();
+
+        app.UseHttpLogging();
 
         await app.RunAsync().ConfigureAwait(false);
     }
