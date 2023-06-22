@@ -25,12 +25,12 @@ namespace OpenHentai.WebAPI.Controllers;
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
 [Route(CharactersRoutes.Base)]
-public class CharacterController : DatabaseController<CharactersContextHelper>, ICreatureController
+public class CharactersController : DatabaseController<CharactersContextHelper>, ICreatureController
 {
     #region Constructors
 
     /// <inheritdoc/>
-    public CharacterController(CharactersContextHelper contextHelper) : base(contextHelper) { }
+    public CharactersController(CharactersContextHelper contextHelper) : base(contextHelper) { }
 
     #endregion
 

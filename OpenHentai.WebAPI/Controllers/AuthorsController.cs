@@ -25,12 +25,12 @@ namespace OpenHentai.WebAPI.Controllers;
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
 [Route(AuthorsRoutes.Base)]
-public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreatureController
+public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICreatureController
 {
     #region Constructors
 
     /// <inheritdoc/>
-    public AuthorController(AuthorsContextHelper contextHelper) : base(contextHelper) { }
+    public AuthorsController(AuthorsContextHelper contextHelper) : base(contextHelper) { }
 
     #endregion
 
@@ -482,7 +482,7 @@ public class AuthorController : DatabaseController<AuthorsContextHelper>, ICreat
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteCirclesAsync(ulong id, HashSet<ulong> circleIds)
     {
-        Console.WriteLine($"Enter into DELETE: /authors/{id}");
+        Console.WriteLine($"Enter into DELETE: /authors/{id}/circles");
 
         var isSuccess = await ContextHelper.RemoveCirclesAsync(id, circleIds).ConfigureAwait(false);
 

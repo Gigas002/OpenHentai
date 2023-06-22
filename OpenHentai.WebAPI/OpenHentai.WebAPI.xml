@@ -4,76 +4,76 @@
         <name>OpenHentai.WebAPI</name>
     </assembly>
     <members>
-        <member name="T:OpenHentai.WebAPI.Controllers.AuthorController">
+        <member name="T:OpenHentai.WebAPI.Controllers.AuthorsController">
             <summary>
             Controller, that works with Author table and it's dependent ones
             </summary>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.#ctor(OpenHentai.Contexts.AuthorsContextHelper)">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.#ctor(OpenHentai.Contexts.AuthorsContextHelper)">
             <inheritdoc/>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetAuthors">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.GetAuthors">
             <summary>
             Get all authors
             </summary>
             <returns>Collection of Authors</returns>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetAuthorAsync(System.UInt64)">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.GetAuthorAsync(System.UInt64)">
             <summary>
             Get author from database by id
             </summary>
             <param name="id">Author's id</param>
             <returns>Author</returns>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetAuthorsNames">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.GetAuthorsNames">
             <summary>
             Get collection of all authors's names
             </summary>
             <returns>Collection of AuthorsNames</returns>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetAuthorNamesAsync(System.UInt64)">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.GetAuthorNamesAsync(System.UInt64)">
             <summary>
             Get current author's AuthorsNames
             </summary>
             <param name="id">Author's id</param>
             <returns>Collection of AuthorsNames</returns>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetCirclesAsync(System.UInt64)">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.GetCirclesAsync(System.UInt64)">
             <summary>
             Get current author's circles
             </summary>
             <param name="id">Author's id</param>
             <returns>Collection of Circle</returns>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetCreationsAsync(System.UInt64)">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.GetCreationsAsync(System.UInt64)">
             <summary>
             Get current author's creations
             </summary>
             <param name="id">Author's id</param>
             <returns>Collection of AuthorsCreations</returns>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetNamesAsync(System.UInt64)">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.GetNamesAsync(System.UInt64)">
             <summary>
             Get current author's names
             </summary>
             <param name="id">Author's id</param>
             <returns>Collection of CreaturesNames</returns>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetTagsAsync(System.UInt64)">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.GetTagsAsync(System.UInt64)">
             <summary>
             Get current author's tags
             </summary>
             <param name="id">Author's id</param>
             <returns>Collection of Tag</returns>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.GetRelationsAsync(System.UInt64)">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.GetRelationsAsync(System.UInt64)">
             <summary>
             Get current author's relations
             </summary>
             <param name="id">Author's id</param>
             <returns>Collection of CreaturesRelations</returns>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostAuthorAsync(OpenHentai.Creatures.Author)">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.PostAuthorAsync(OpenHentai.Creatures.Author)">
              <summary>
              Add author to database
              </summary>
@@ -87,7 +87,7 @@
             
              </remarks>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostAuthorNamesAsync(System.UInt64,System.Collections.Generic.HashSet{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.PostAuthorNamesAsync(System.UInt64,System.Collections.Generic.HashSet{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
              <summary>
              Updates Author with new AuthorsNames, pushed at their own table
              </summary>
@@ -107,7 +107,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostNamesAsync(System.UInt64,System.Collections.Generic.HashSet{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.PostNamesAsync(System.UInt64,System.Collections.Generic.HashSet{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
              <summary>
              Updates Author with new names, pushed at their own table
              </summary>
@@ -127,7 +127,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PostRelationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Relations.CreatureRelations})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.PostRelationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Relations.CreatureRelations})">
              <summary>
              Updates Author with new relations to other creatures
              </summary>
@@ -147,7 +147,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutCirclesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.PutCirclesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
              <summary>
              Bind Author to collection of Circle
              </summary>
@@ -166,7 +166,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutCreationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Roles.AuthorRole})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.PutCreationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Roles.AuthorRole})">
              <summary>
              Bind Author to creations
              </summary>
@@ -186,7 +186,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PutTagsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.PutTagsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
              <summary>
              Bind Author to tags
              </summary>
@@ -205,7 +205,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.DeleteAuthorAsync(System.UInt64)">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.DeleteAuthorAsync(System.UInt64)">
             <summary>
             Delete Author from database
             </summary>
@@ -213,7 +213,7 @@
             <response code="200">Complete</response>
             <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.DeleteAuthorNamesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.DeleteAuthorNamesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
              <summary>
              Delete collection of AuthorsNames, bound to Author
              </summary>
@@ -232,7 +232,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.DeleteCirclesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.DeleteCirclesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
              <summary>
              Delete binding between Author and specified Circles
              </summary>
@@ -251,7 +251,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.DeleteCreationsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.DeleteCreationsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
              <summary>
              Delete binding between Author and specified Creations
              </summary>
@@ -270,7 +270,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.DeleteNamesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.DeleteNamesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
              <summary>
              Delete collection of names, bound to Author
              </summary>
@@ -289,7 +289,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.DeleteTagsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.DeleteTagsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
              <summary>
              Delete binding between Author and specified Tags
              </summary>
@@ -308,7 +308,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.DeleteRelationsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.DeleteRelationsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
              <summary>
              Delete binding between Author and specified Creatures
              </summary>
@@ -327,7 +327,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorController.PatchAuthorAsync(System.UInt64,System.Collections.Generic.IEnumerable{SystemTextJsonPatch.Operations.Operation{OpenHentai.Creatures.Author}})">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.PatchAuthorAsync(System.UInt64,System.Collections.Generic.IEnumerable{SystemTextJsonPatch.Operations.Operation{OpenHentai.Creatures.Author}})">
              <summary>
              Update Author, using json-patch format
              </summary>
@@ -357,56 +357,56 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="T:OpenHentai.WebAPI.Controllers.CharacterController">
+        <member name="T:OpenHentai.WebAPI.Controllers.CharactersController">
             <summary>
             Controller, that works with Characters table and it's dependent ones
             </summary>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.#ctor(OpenHentai.Contexts.CharactersContextHelper)">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.#ctor(OpenHentai.Contexts.CharactersContextHelper)">
             <inheritdoc/>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.GetCharacters">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.GetCharacters">
             <summary>
             Get all characters
             </summary>
             <returns>Collection of Characters</returns>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.GetCharacterAsync(System.UInt64)">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.GetCharacterAsync(System.UInt64)">
             <summary>
             Get character from database by id
             </summary>
             <param name="id">Character's id</param>
             <returns>Character</returns>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.GetCreationsAsync(System.UInt64)">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.GetCreationsAsync(System.UInt64)">
             <summary>
             Get current character's creations
             </summary>
             <param name="id">Character's id</param>
             <returns>Collection of CharactersCreations</returns>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.GetNamesAsync(System.UInt64)">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.GetNamesAsync(System.UInt64)">
             <summary>
             Get current character's names
             </summary>
             <param name="id">Character's id</param>
             <returns>Collection of CreaturesNames</returns>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.GetTagsAsync(System.UInt64)">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.GetTagsAsync(System.UInt64)">
             <summary>
             Get current character's tags
             </summary>
             <param name="id">Character's id</param>
             <returns>Collection of Tag</returns>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.GetRelationsAsync(System.UInt64)">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.GetRelationsAsync(System.UInt64)">
             <summary>
             Get current character's relations
             </summary>
             <param name="id">Character's id</param>
             <returns>Collection of CreaturesRelations</returns>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.PostCharacterAsync(OpenHentai.Creatures.Character)">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.PostCharacterAsync(OpenHentai.Creatures.Character)">
              <summary>
              Add character to database
              </summary>
@@ -420,7 +420,7 @@
             
              </remarks>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.PostNamesAsync(System.UInt64,System.Collections.Generic.HashSet{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.PostNamesAsync(System.UInt64,System.Collections.Generic.HashSet{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
              <summary>
              Updates Character with new names, pushed at their own table
              </summary>
@@ -440,7 +440,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.PostRelationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Relations.CreatureRelations})">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.PostRelationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Relations.CreatureRelations})">
              <summary>
              Updates Character with new relations to other creatures
              </summary>
@@ -460,7 +460,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.PutCreationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Roles.CharacterRole})">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.PutCreationsAsync(System.UInt64,System.Collections.Generic.Dictionary{System.UInt64,OpenHentai.Roles.CharacterRole})">
              <summary>
              Bind Character to creations
              </summary>
@@ -480,7 +480,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.PutTagsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.PutTagsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
              <summary>
              Bind Character to tags
              </summary>
@@ -499,7 +499,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.DeleteCharacterAsync(System.UInt64)">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.DeleteCharacterAsync(System.UInt64)">
             <summary>
             Delete Character from database
             </summary>
@@ -507,7 +507,7 @@
             <response code="200">Complete</response>
             <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.DeleteCreationsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.DeleteCreationsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
              <summary>
              Delete binding between Character and specified Creations
              </summary>
@@ -526,7 +526,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.DeleteNamesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.DeleteNamesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
              <summary>
              Delete collection of names, bound to Character
              </summary>
@@ -545,7 +545,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.DeleteTagsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.DeleteTagsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
              <summary>
              Delete binding between Character and specified Tags
              </summary>
@@ -564,7 +564,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.DeleteRelationsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.DeleteRelationsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
              <summary>
              Delete binding between Character and specified Creatures
              </summary>
@@ -583,7 +583,7 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharacterController.PatchCharacterAsync(System.UInt64,System.Collections.Generic.IEnumerable{SystemTextJsonPatch.Operations.Operation{OpenHentai.Creatures.Character}})">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.PatchCharacterAsync(System.UInt64,System.Collections.Generic.IEnumerable{SystemTextJsonPatch.Operations.Operation{OpenHentai.Creatures.Character}})">
              <summary>
              Update Character, using json-patch format
              </summary>
@@ -613,8 +613,265 @@
              <response code="200">Complete</response>
              <response code="400">Entity with requested id doesn't exist</response>
         </member>
+        <member name="T:OpenHentai.WebAPI.Controllers.CirclesController">
+            <summary>
+            Controller, that works with Circle table and it's dependent ones
+            </summary>
+        </member>
         <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.#ctor(OpenHentai.Contexts.CirclesContextHelper)">
             <inheritdoc/>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.GetCircles">
+            <summary>
+            Get all circles
+            </summary>
+            <returns>Collection of Circles</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.GetCircleAsync(System.UInt64)">
+            <summary>
+            Get circle from database by id
+            </summary>
+            <param name="id">Circle's id</param>
+            <returns>Circle</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.GetAllTitles">
+            <summary>
+            Get collection of all circles's titles
+            </summary>
+            <returns>Collection of CirclesTitles</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.GetTitlesAsync(System.UInt64)">
+            <summary>
+            Get current circle's titles
+            </summary>
+            <param name="id">Circle's id</param>
+            <returns>Collection of CirclesTitles</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.GetAuthorsAsync(System.UInt64)">
+            <summary>
+            Get current circle's authors
+            </summary>
+            <param name="id">Circle's id</param>
+            <returns>Collection of Authors</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.GetCreationsAsync(System.UInt64)">
+            <summary>
+            Get current circle's creations
+            </summary>
+            <param name="id">Circle's id</param>
+            <returns>Collection of Creations</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.GetTagsAsync(System.UInt64)">
+            <summary>
+            Get current circle's tags
+            </summary>
+            <param name="id">Circle's id</param>
+            <returns>Collection of Tag</returns>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.PostCircleAsync(OpenHentai.Circles.Circle)">
+             <summary>
+             Add circle to database
+             </summary>
+             <param name="circle">Circle to add</param>
+             <remarks>
+            
+             Minimal request:
+            
+                 POST /circles
+                 { }
+            
+             </remarks>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.PostTitlesAsync(System.UInt64,System.Collections.Generic.HashSet{OpenHentai.Descriptors.LanguageSpecificTextInfo})">
+             <summary>
+             Updates Circle with new titles, pushed at their own table
+             </summary>
+             <param name="id">Circle's id</param>
+             <param name="titles">Collection of new titles to push</param>
+             <remarks>
+            
+             Example request:
+            
+                 POST /circles/{id}/titles
+                 [{
+                     "text": "taras panis",
+                     "language": null
+                 }]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.PutAuthorsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Bind Circle to collection of Authors
+             </summary>
+             <param name="id">Circle's id</param>
+             <param name="authorsIds">Collection of Authors ids to bind with this Circle</param>
+             <remarks>
+            
+             Example request:
+            
+                 PUT /circles/{id}/authors
+                 [
+                     1, 2
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.PutCreationsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Bind Circle to creations
+             </summary>
+             <param name="id">Circle's id</param>
+             <param name="creationIds">Collection of creation ids to bind with this Circle</param>
+             <remarks>
+            
+             Sample request:
+            
+                 PUT /circles/{id}/creations
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.PutTagsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Bind Circle to tags
+             </summary>
+             <param name="id">Circle's id</param>
+             <param name="tagIds">Collection of tag ids to bind with this Circle</param>
+             <remarks>
+            
+             Example request:
+            
+                 PUT /circles/{id}/tags
+                 [
+                     1, 2
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.DeleteCircleAsync(System.UInt64)">
+            <summary>
+            Delete Circle from database
+            </summary>
+            <param name="id">Id of Circle to delete</param>
+            <response code="200">Complete</response>
+            <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.DeleteTitlesAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete collection of titles, bound to Circle
+             </summary>
+             <param name="id">Circle's id</param>
+             <param name="titleIds">Collection of titles ids to delete</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /circles/{id}/titles
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.DeleteAuthorsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete binding between Circle and specified Authors
+             </summary>
+             <param name="id">Circle's id</param>
+             <param name="authorIds">Collection of Author ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /circles/{id}/authors
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.DeleteCreationsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete binding between Circle and specified Creations
+             </summary>
+             <param name="id">Circle's id</param>
+             <param name="creationIds">Collection of Creation ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /circles/{id}/creations
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.DeleteTagsAsync(System.UInt64,System.Collections.Generic.HashSet{System.UInt64})">
+             <summary>
+             Delete binding between Circle and specified Tags
+             </summary>
+             <param name="id">Circle's id</param>
+             <param name="tagIds">Collection of Tag ids to delete binding</param>
+             <remarks>
+            
+             Example request:
+            
+                 DELETE /circles/{id}/tags
+                 [
+                     1, 2    
+                 ]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
+        </member>
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.PatchCircleAsync(System.UInt64,System.Collections.Generic.IEnumerable{SystemTextJsonPatch.Operations.Operation{OpenHentai.Circles.Circle}})">
+             <summary>
+             Update Circle, using json-patch format
+             </summary>
+             <param name="id">Circle's id</param>
+             <param name="operations">Collection of json-patch operations</param>
+             <remarks>
+            
+             Example request:
+            
+                 PATCH /circles/{id}
+                 [{
+                     "path": "/age",
+                     "op": "replace",
+                     "value": 30
+                 },
+                 {
+                     "path": "/circlenames",
+                     "op": "add",
+                     "value": [{
+                       "circle_id": 8,
+                       "name": "Test Bubato",
+                       "language": null
+                     }]
+                 }]
+            
+             </remarks>
+             <response code="200">Complete</response>
+             <response code="400">Entity with requested id doesn't exist</response>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.DatabaseController`1.#ctor(`0)">
             <summary>
