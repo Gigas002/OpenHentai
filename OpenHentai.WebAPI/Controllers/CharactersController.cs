@@ -1,20 +1,16 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
+using SystemTextJsonPatch.Operations;
 using OpenHentai.Creatures;
 using OpenHentai.Contexts;
-using SystemTextJsonPatch;
 using OpenHentai.Relative;
-using OpenHentai.Circles;
 using OpenHentai.Tags;
-using SystemTextJsonPatch.Operations;
 using OpenHentai.Roles;
 using OpenHentai.Relations;
 using OpenHentai.Descriptors;
 using OpenHentai.WebAPI.Constants;
 
 namespace OpenHentai.WebAPI.Controllers;
-
-// TODO: https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-5/#support-for-generic-attributes
 
 #pragma warning disable CA1303
 
@@ -25,7 +21,7 @@ namespace OpenHentai.WebAPI.Controllers;
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
 [Route(CharactersRoutes.Base)]
-public class CharactersController : DatabaseController<CharactersContextHelper>, ICreatureController
+public class CharactersController : DatabaseController<CharactersContextHelper>, ICreaturesController
 {
     #region Constructors
 
@@ -60,13 +56,11 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     /// <returns>Character</returns>
     [HttpGet(CharactersRoutes.Id)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<Character>> GetCharacterAsync(ulong id)
+    public Task<ActionResult<Character>> GetCharacterAsync(ulong id)
     {
         Console.WriteLine($"Enter into GET: /characters/{id}");
 
-        var character = await ContextHelper.GetEntryAsync<Character>(id).ConfigureAwait(false);
-
-        return character is null ? NotFound() : Ok(character);
+        return GetEntryAsync<Character>(id);
     }
 
     /// <summary>
@@ -154,11 +148,9 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<Character>> PostCharacterAsync(Character character)
     {
-        if (character is null) throw new ArgumentNullException(nameof(character));
-
         Console.WriteLine("Enter into POST: /characters");
 
-        var isSuccess = await ContextHelper.AddEntryAsync(character).ConfigureAwait(false);
+        var isSuccess = await PostEntryAsync(character).ConfigureAwait(false);
 
         return isSuccess ? CreatedAtAction(nameof(GetCharacterAsync), new { id = character.Id }, character) : BadRequest();
     }
@@ -308,13 +300,11 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> DeleteCharacterAsync(ulong id)
+    public Task<ActionResult> DeleteCharacterAsync(ulong id)
     {
         Console.WriteLine($"Enter into DELETE: /characters/{id}");
 
-        var isSuccess = await ContextHelper.RemoveEntryAsync<Character>(id).ConfigureAwait(false);
-
-        return isSuccess ? Ok() : BadRequest();
+        return DeleteEntryAsync<Character>(id);
     }
 
     /// <summary>
@@ -478,21 +468,11 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypes.JsonPatch)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PatchCharacterAsync(ulong id, IEnumerable<Operation<Character>> operations)
+    public Task<ActionResult> PatchCharacterAsync(ulong id, IEnumerable<Operation<Character>> operations)
     {
         Console.WriteLine($"Enter into PATCH: /characters/{id}");
 
-        var patch = new JsonPatchDocument<Character>(operations.ToList(), Essential.JsonSerializerOptions);
-
-        var character = await ContextHelper.GetEntryAsync<Character>(id).ConfigureAwait(false);
-
-        if (character is null) return BadRequest();
-
-        patch.ApplyTo(character);
-
-        await ContextHelper.Context.SaveChangesAsync().ConfigureAwait(false);
-
-        return Ok();
+        return PatchEntryAsync(id, operations);
     }
 
     #endregion

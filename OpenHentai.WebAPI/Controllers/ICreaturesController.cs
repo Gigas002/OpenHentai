@@ -6,7 +6,7 @@ using OpenHentai.Tags;
 
 namespace OpenHentai.WebAPI.Controllers;
 
-public interface ICreatureController
+public interface ICreaturesController
 {
     #region GET
 

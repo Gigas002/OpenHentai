@@ -1,11 +1,10 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
+using SystemTextJsonPatch.Operations;
 using OpenHentai.Creatures;
 using OpenHentai.Contexts;
-using SystemTextJsonPatch;
 using OpenHentai.Relative;
 using OpenHentai.Tags;
-using SystemTextJsonPatch.Operations;
 using OpenHentai.Descriptors;
 using OpenHentai.WebAPI.Constants;
 using OpenHentai.Circles;
@@ -57,13 +56,11 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     /// <returns>Circle</returns>
     [HttpGet(CirclesRoutes.Id)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<Circle>> GetCircleAsync(ulong id)
+    public Task<ActionResult<Circle>> GetCircleAsync(ulong id)
     {
         Console.WriteLine($"Enter into GET: /circles/{id}");
 
-        var circle = await ContextHelper.GetEntryAsync<Circle>(id).ConfigureAwait(false);
-
-        return circle is null ? NotFound() : Ok(circle);
+        return GetEntryAsync<Circle>(id);
     }
 
     /// <summary>
@@ -166,11 +163,10 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<Circle>> PostCircleAsync(Circle circle)
     {
-        if (circle is null) throw new ArgumentNullException(nameof(circle));
 
         Console.WriteLine("Enter into POST: /circles");
 
-        var isSuccess = await ContextHelper.AddEntryAsync(circle).ConfigureAwait(false);
+        var isSuccess = await PostEntryAsync(circle).ConfigureAwait(false);
 
         return isSuccess ? CreatedAtAction(nameof(GetCircleAsync), new { id = circle.Id }, circle) : BadRequest();
     }
@@ -318,13 +314,11 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> DeleteCircleAsync(ulong id)
+    public Task<ActionResult> DeleteCircleAsync(ulong id)
     {
         Console.WriteLine($"Enter into DELETE: /circles/{id}");
 
-        var isSuccess = await ContextHelper.RemoveEntryAsync<Circle>(id).ConfigureAwait(false);
-
-        return isSuccess ? Ok() : BadRequest();
+        return DeleteEntryAsync<Circle>(id);
     }
 
     /// <summary>
@@ -488,21 +482,11 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypes.JsonPatch)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PatchCircleAsync(ulong id, IEnumerable<Operation<Circle>> operations)
+    public Task<ActionResult> PatchCircleAsync(ulong id, IEnumerable<Operation<Circle>> operations)
     {
         Console.WriteLine($"Enter into PATCH: /circles/{id}");
 
-        var patch = new JsonPatchDocument<Circle>(operations.ToList(), Essential.JsonSerializerOptions);
-
-        var circle = await ContextHelper.GetEntryAsync<Circle>(id).ConfigureAwait(false);
-
-        if (circle is null) return BadRequest();
-
-        patch.ApplyTo(circle);
-
-        await ContextHelper.Context.SaveChangesAsync().ConfigureAwait(false);
-
-        return Ok();
+        return PatchEntryAsync(id, operations);
     }
 
     #endregion

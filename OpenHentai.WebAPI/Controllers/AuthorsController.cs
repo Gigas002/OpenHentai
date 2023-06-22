@@ -1,12 +1,11 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
+using SystemTextJsonPatch.Operations;
 using OpenHentai.Creatures;
 using OpenHentai.Contexts;
-using SystemTextJsonPatch;
 using OpenHentai.Relative;
 using OpenHentai.Circles;
 using OpenHentai.Tags;
-using SystemTextJsonPatch.Operations;
 using OpenHentai.Roles;
 using OpenHentai.Relations;
 using OpenHentai.Descriptors;
@@ -25,7 +24,7 @@ namespace OpenHentai.WebAPI.Controllers;
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
 [Route(AuthorsRoutes.Base)]
-public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICreatureController
+public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICreaturesController
 {
     #region Constructors
 
@@ -60,13 +59,11 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     /// <returns>Author</returns>
     [HttpGet(AuthorsRoutes.Id)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<Author>> GetAuthorAsync(ulong id)
+    public Task<ActionResult<Author>> GetAuthorAsync(ulong id)
     {
         Console.WriteLine($"Enter into GET: /authors/{id}");
 
-        var author = await ContextHelper.GetEntryAsync<Author>(id).ConfigureAwait(false);
-
-        return author is null ? NotFound() : Ok(author);
+        return GetEntryAsync<Author>(id);
     }
 
     /// <summary>
@@ -201,11 +198,9 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<Author>> PostAuthorAsync(Author author)
     {
-        if (author is null) throw new ArgumentNullException(nameof(author));
-
         Console.WriteLine("Enter into POST: /authors");
 
-        var isSuccess = await ContextHelper.AddEntryAsync(author).ConfigureAwait(false);
+        var isSuccess = await PostEntryAsync(author).ConfigureAwait(false);
 
         return isSuccess ? CreatedAtAction(nameof(GetAuthorAsync), new { id = author.Id }, author) : BadRequest();
     }
@@ -418,13 +413,11 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> DeleteAuthorAsync(ulong id)
+    public Task<ActionResult> DeleteAuthorAsync(ulong id)
     {
         Console.WriteLine($"Enter into DELETE: /authors/{id}");
 
-        var isSuccess = await ContextHelper.RemoveEntryAsync<Author>(id).ConfigureAwait(false);
-
-        return isSuccess ? Ok() : BadRequest();
+        return DeleteEntryAsync<Author>(id);
     }
 
     /// <summary>
@@ -650,21 +643,11 @@ public class AuthorsController : DatabaseController<AuthorsContextHelper>, ICrea
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypes.JsonPatch)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PatchAuthorAsync(ulong id, IEnumerable<Operation<Author>> operations)
+    public Task<ActionResult> PatchAuthorAsync(ulong id, IEnumerable<Operation<Author>> operations)
     {
         Console.WriteLine($"Enter into PATCH: /authors/{id}");
 
-        var patch = new JsonPatchDocument<Author>(operations.ToList(), Essential.JsonSerializerOptions);
-
-        var author = await ContextHelper.GetEntryAsync<Author>(id).ConfigureAwait(false);
-
-        if (author is null) return BadRequest();
-
-        patch.ApplyTo(author);
-
-        await ContextHelper.Context.SaveChangesAsync().ConfigureAwait(false);
-
-        return Ok();
+        return PatchEntryAsync(id, operations);
     }
 
     #endregion

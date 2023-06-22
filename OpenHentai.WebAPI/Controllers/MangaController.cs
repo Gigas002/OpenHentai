@@ -1,11 +1,10 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
+using SystemTextJsonPatch.Operations;
 using OpenHentai.Contexts;
-using SystemTextJsonPatch;
 using OpenHentai.Relative;
 using OpenHentai.Circles;
 using OpenHentai.Tags;
-using SystemTextJsonPatch.Operations;
 using OpenHentai.Roles;
 using OpenHentai.Relations;
 using OpenHentai.Descriptors;
@@ -23,7 +22,7 @@ namespace OpenHentai.WebAPI.Controllers;
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
 [Route(MangaRoutes.Base)]
-public class MangaController : DatabaseController<MangaContextHelper>
+public class MangaController : DatabaseController<MangaContextHelper>, ICreationsController
 {
     #region Constructors
 
@@ -58,13 +57,11 @@ public class MangaController : DatabaseController<MangaContextHelper>
     /// <returns>Manga</returns>
     [HttpGet(MangaRoutes.Id)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<Manga>> GetMangaAsync(ulong id)
+    public Task<ActionResult<Manga>> GetMangaAsync(ulong id)
     {
         Console.WriteLine($"Enter into GET: /manga/{id}");
 
-        var manga = await ContextHelper.GetEntryAsync<Manga>(id).ConfigureAwait(false);
-
-        return manga is null ? NotFound() : Ok(manga);
+        return GetEntryAsync<Manga>(id);
     }
 
     /// <summary>
@@ -184,11 +181,9 @@ public class MangaController : DatabaseController<MangaContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<Manga>> PostMangaAsync(Manga manga)
     {
-        if (manga is null) throw new ArgumentNullException(nameof(manga));
-
         Console.WriteLine("Enter into POST: /manga");
 
-        var isSuccess = await ContextHelper.AddEntryAsync(manga).ConfigureAwait(false);
+        var isSuccess = await PostEntryAsync(manga).ConfigureAwait(false);
 
         return isSuccess ? CreatedAtAction(nameof(GetMangaAsync), new { id = manga.Id }, manga) : BadRequest();
     }
@@ -401,13 +396,11 @@ public class MangaController : DatabaseController<MangaContextHelper>
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> DeleteMangaAsync(ulong id)
+    public Task<ActionResult> DeleteMangaAsync(ulong id)
     {
         Console.WriteLine($"Enter into DELETE: /manga/{id}");
 
-        var isSuccess = await ContextHelper.RemoveEntryAsync<Manga>(id).ConfigureAwait(false);
-
-        return isSuccess ? Ok() : BadRequest();
+        return DeleteEntryAsync<Manga>(id);
     }
 
     /// <summary>
@@ -633,21 +626,11 @@ public class MangaController : DatabaseController<MangaContextHelper>
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypes.JsonPatch)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> PatchMangaAsync(ulong id, IEnumerable<Operation<Manga>> operations)
+    public Task<ActionResult> PatchMangaAsync(ulong id, IEnumerable<Operation<Manga>> operations)
     {
         Console.WriteLine($"Enter into PATCH: /manga/{id}");
 
-        var patch = new JsonPatchDocument<Manga>(operations.ToList(), Essential.JsonSerializerOptions);
-
-        var manga = await ContextHelper.GetEntryAsync<Manga>(id).ConfigureAwait(false);
-
-        if (manga is null) return BadRequest();
-
-        patch.ApplyTo(manga);
-
-        await ContextHelper.Context.SaveChangesAsync().ConfigureAwait(false);
-
-        return Ok();
+        return PatchEntryAsync(id, operations);
     }
 
     #endregion
