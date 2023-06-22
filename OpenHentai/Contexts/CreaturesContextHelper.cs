@@ -7,12 +7,12 @@ using OpenHentai.Tags;
 
 namespace OpenHentai.Contexts;
 
-public abstract class CreatureContextHelper<T> : DatabaseContextHelper
+public abstract class CreaturesContextHelper<T> : DatabaseContextHelper
     where T : Creature
 {
     #region Constructors
 
-    protected CreatureContextHelper(DatabaseContext context) : base(context)
+    protected CreaturesContextHelper(DatabaseContext context) : base(context)
     { }
 
     #endregion

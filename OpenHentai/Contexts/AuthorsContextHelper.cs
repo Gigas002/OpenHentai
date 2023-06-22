@@ -8,7 +8,7 @@ using OpenHentai.Roles;
 
 namespace OpenHentai.Contexts;
 
-public class AuthorsContextHelper : CreatureContextHelper<Author>
+public class AuthorsContextHelper : CreaturesContextHelper<Author>
 {
     #region Constructors
 

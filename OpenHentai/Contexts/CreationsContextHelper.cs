@@ -10,12 +10,12 @@ using OpenHentai.Tags;
 
 namespace OpenHentai.Contexts;
 
-public abstract class CreationContextHelper<T> : DatabaseContextHelper
+public abstract class CreationsContextHelper<T> : DatabaseContextHelper
     where T : Creation
 {
     #region Constructors
 
-    protected CreationContextHelper(DatabaseContext context) : base(context)
+    protected CreationsContextHelper(DatabaseContext context) : base(context)
     { }
 
     #endregion

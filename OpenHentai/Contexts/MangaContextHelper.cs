@@ -2,7 +2,7 @@ using OpenHentai.Creations;
 
 namespace OpenHentai.Contexts;
 
-public class MangaContextHelper : CreationContextHelper<Manga>
+public class MangaContextHelper : CreationsContextHelper<Manga>
 {
     #region Constructors
 
