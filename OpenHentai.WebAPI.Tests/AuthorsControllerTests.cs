@@ -298,7 +298,7 @@ public sealed class AuthorsControllerTests : DatabaseControllerTester
         request.Content = new StringContent(content, Encoding.UTF8, MediaTypeNames.Application.Json);
 
         var response = await HttpClient.SendAsync(request).ConfigureAwait(false);
-
+    
         if (!CheckResponse(response)) Assert.Fail();
     }
 
