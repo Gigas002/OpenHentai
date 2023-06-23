@@ -127,8 +127,12 @@ public class TagsContextHelper : DatabaseContextHelper
 
         if (tag is null) return false;
 
+        var removedItems = 0;
+
         foreach (var creatureId in creatureIds)
-            tag.Creatures.RemoveWhere(c => c.Id == creatureId);
+            removedItems = tag.Creatures.RemoveWhere(c => c.Id == creatureId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 
@@ -144,8 +148,12 @@ public class TagsContextHelper : DatabaseContextHelper
 
         if (tag is null) return false;
 
+        var removedItems = 0;
+
         foreach (var creationId in creationIds)
-            tag.Creations.RemoveWhere(c => c.Id == creationId);
+            removedItems = tag.Creations.RemoveWhere(c => c.Id == creationId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 
@@ -161,8 +169,12 @@ public class TagsContextHelper : DatabaseContextHelper
 
         if (tag is null) return false;
 
+        var removedItems = 0;
+
         foreach (var circleId in circleIds)
-            tag.Circles.RemoveWhere(c => c.Id == circleId);
+            removedItems = tag.Circles.RemoveWhere(c => c.Id == circleId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 

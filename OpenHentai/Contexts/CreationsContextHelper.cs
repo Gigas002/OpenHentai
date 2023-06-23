@@ -215,8 +215,12 @@ public abstract class CreationsContextHelper<T> : DatabaseContextHelper
 
         if (creation is null) return false;
 
+        var removedItems = 0;
+
         foreach (var titleId in titleIds)
-            creation.Titles.RemoveWhere(ct => ct.Id == titleId);
+            removedItems = creation.Titles.RemoveWhere(ct => ct.Id == titleId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 
@@ -233,8 +237,12 @@ public abstract class CreationsContextHelper<T> : DatabaseContextHelper
 
         if (creation is null) return false;
 
+        var removedItems = 0;
+
         foreach (var authorId in authorIds)
-            creation.Authors.RemoveWhere(a => a.Origin.Id == authorId);
+            removedItems = creation.Authors.RemoveWhere(a => a.Origin.Id == authorId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 
@@ -250,8 +258,12 @@ public abstract class CreationsContextHelper<T> : DatabaseContextHelper
 
         if (creation is null) return false;
 
+        var removedItems = 0;
+
         foreach (var circleId in circleIds)
-            creation.Circles.RemoveWhere(c => c.Id == circleId);
+            removedItems = creation.Circles.RemoveWhere(c => c.Id == circleId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 
@@ -268,8 +280,12 @@ public abstract class CreationsContextHelper<T> : DatabaseContextHelper
 
         if (creation is null) return false;
 
+        var removedItems = 0;
+
         foreach (var relatedId in relatedIds)
-            creation.Relations.RemoveWhere(cr => cr.Related.Id == relatedId);
+            removedItems = creation.Relations.RemoveWhere(cr => cr.Related.Id == relatedId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 
@@ -286,8 +302,12 @@ public abstract class CreationsContextHelper<T> : DatabaseContextHelper
 
         if (creation is null) return false;
 
+        var removedItems = 0;
+
         foreach (var characterId in characterIds)
-            creation.Characters.RemoveWhere(a => a.Related.Id == characterId);
+            removedItems = creation.Characters.RemoveWhere(a => a.Related.Id == characterId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 
@@ -303,8 +323,12 @@ public abstract class CreationsContextHelper<T> : DatabaseContextHelper
 
         if (creation is null) return false;
 
+        var removedItems = 0;
+
         foreach (var tagId in tagIds)
-            creation.Tags.RemoveWhere(t => t.Id == tagId);
+            removedItems = creation.Tags.RemoveWhere(t => t.Id == tagId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 

@@ -152,8 +152,12 @@ public class CirclesContextHelper : DatabaseContextHelper
 
         if (circle is null) return false;
 
+        var removedItems = 0;
+
         foreach (var titleId in titleIds)
-            circle.Titles.RemoveWhere(ct => ct.Id == titleId);
+            removedItems = circle.Titles.RemoveWhere(ct => ct.Id == titleId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 
@@ -169,8 +173,12 @@ public class CirclesContextHelper : DatabaseContextHelper
 
         if (circle is null) return false;
 
+        var removedItems = 0;
+
         foreach (var authorId in authorIds)
-            circle.Authors.RemoveWhere(a => a.Id == authorId);
+            removedItems = circle.Authors.RemoveWhere(a => a.Id == authorId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 
@@ -186,8 +194,12 @@ public class CirclesContextHelper : DatabaseContextHelper
 
         if (circle is null) return false;
 
+        var removedItems = 0;
+
         foreach (var creationId in creationIds)
-            circle.Creations.RemoveWhere(c => c.Id == creationId);
+            removedItems = circle.Creations.RemoveWhere(c => c.Id == creationId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 
@@ -203,8 +215,12 @@ public class CirclesContextHelper : DatabaseContextHelper
 
         if (circle is null) return false;
 
+        var removedItems = 0;
+
         foreach (var tagId in tagIds)
-            circle.Tags.RemoveWhere(t => t.Id == tagId);
+            removedItems = circle.Tags.RemoveWhere(t => t.Id == tagId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 

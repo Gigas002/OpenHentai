@@ -123,8 +123,12 @@ public class AuthorsContextHelper : CreaturesContextHelper<Author>
 
         if (author is null) return false;
 
+        var removedItems = 0;
+
         foreach (var nameId in nameIds)
-            author.AuthorNames.RemoveWhere(an => an.Id == nameId);
+            removedItems = author.AuthorNames.RemoveWhere(an => an.Id == nameId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 
@@ -140,8 +144,12 @@ public class AuthorsContextHelper : CreaturesContextHelper<Author>
 
         if (author is null) return false;
 
+        var removedItems = 0;
+
         foreach (var circleId in circleIds)
-            author.Circles.RemoveWhere(c => c.Id == circleId);
+            removedItems = author.Circles.RemoveWhere(c => c.Id == circleId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 
@@ -158,8 +166,12 @@ public class AuthorsContextHelper : CreaturesContextHelper<Author>
 
         if (author is null) return false;
 
+        var removedItems = 0;
+
         foreach (var creationId in creationIds)
-            author.Creations.RemoveWhere(c => c.Related.Id == creationId);
+            removedItems = author.Creations.RemoveWhere(c => c.Related.Id == creationId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 

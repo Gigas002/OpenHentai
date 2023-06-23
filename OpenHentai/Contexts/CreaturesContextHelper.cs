@@ -120,8 +120,12 @@ public abstract class CreaturesContextHelper<T> : DatabaseContextHelper
 
         if (creature is null) return false;
 
+        var removedItems = 0;
+
         foreach (var nameId in nameIds)
-            creature.Names.RemoveWhere(cn => cn.Id == nameId);
+            removedItems = creature.Names.RemoveWhere(cn => cn.Id == nameId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 
@@ -137,8 +141,12 @@ public abstract class CreaturesContextHelper<T> : DatabaseContextHelper
 
         if (creature is null) return false;
 
+        var removedItems = 0;
+
         foreach (var tagId in tagIds)
-            creature.Tags.RemoveWhere(t => t.Id == tagId);
+            removedItems = creature.Tags.RemoveWhere(t => t.Id == tagId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 
@@ -155,8 +163,12 @@ public abstract class CreaturesContextHelper<T> : DatabaseContextHelper
 
         if (creature is null) return false;
 
+        var removedItems = 0;
+
         foreach (var relatedId in relatedIds)
-            creature.Relations.RemoveWhere(cr => cr.Related.Id == relatedId);
+            removedItems = creature.Relations.RemoveWhere(cr => cr.Related.Id == relatedId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 

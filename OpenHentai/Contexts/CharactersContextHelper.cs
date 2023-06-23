@@ -69,8 +69,12 @@ public class CharactersContextHelper : CreaturesContextHelper<Character>
 
         if (character is null) return false;
 
+        var removedItems = 0;
+
         foreach (var creationId in creationIds)
-            character.Creations.RemoveWhere(c => c.Related.Id == creationId);
+            removedItems = character.Creations.RemoveWhere(c => c.Related.Id == creationId);
+
+        if (removedItems <= 0) return false;
 
         await Context.SaveChangesAsync();
 
