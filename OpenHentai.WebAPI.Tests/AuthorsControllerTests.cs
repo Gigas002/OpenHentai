@@ -6,6 +6,7 @@ using OpenHentai.Creatures;
 using OpenHentai.Descriptors;
 using OpenHentai.Relations;
 using OpenHentai.Roles;
+using SystemTextJsonPatch.Operations;
 
 namespace OpenHentai.WebAPI.Tests;
 
@@ -245,6 +246,30 @@ public sealed class AuthorsControllerTests : DatabaseControllerTester
         };
 
         using var response = await HttpClient.PutAsJsonAsync(uri, tagIds).ConfigureAwait(false);
+
+        if (!CheckResponse(response)) Assert.Fail();
+    }
+
+    #endregion
+
+    #region PATCH
+
+    [Test]
+    [Order(2)]
+    public async Task PatchAuthorTest()
+    {
+        ulong id = 7;
+        var uri = new Uri($"{ServerAddress}/authors/{id}");
+
+        var operations = new List<Operation<Author>>
+        {
+            new Operation<Author>("replace", "/age", null, 444)
+        };
+
+        var patchJson = JsonSerializer.Serialize(operations, options: Essential.JsonSerializerOptions);
+        using var content = new StringContent(patchJson, Encoding.UTF8, "application/json-patch+json");
+
+        using var response = await HttpClient.PatchAsync(uri, content).ConfigureAwait(false);
 
         if (!CheckResponse(response)) Assert.Fail();
     }
