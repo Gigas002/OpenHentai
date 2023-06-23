@@ -8,31 +8,46 @@ using OpenHentai.Roles;
 using OpenHentai.Statuses;
 using OpenHentai.Contexts;
 
-#pragma warning disable CA1303
+namespace OpenHentai.WebAPI.Tests;
 
-namespace OpenHentai.Tests;
+// TODO: organize integrational tests better, so there would be no
+// code duplication between this and OpenHentai.Tests
 
-public class DatabaseTests
+public static class DatabaseInitializer
 {
-    [SetUp]
-    public void Setup()
-    {
-        using var db = new DatabaseContext();
+    private const string DatabasePath = "../../../../openhentai.db";
 
-        // TODO: don't use this in prod
-        // db.Database.EnsureDeleted();
-        db.Database.EnsureCreated();
+    public static void InitializeTestDatabase()
+    {
+        using (var db = new DatabaseContext(DatabasePath))
+        {
+            // TODO: don't use this in prod
+            db.Database.EnsureDeleted();
+            db.Database.EnsureCreated();
+        }
+
+        PushAuthors();
+        PushCircles();
+        PushManga();
+        PushCharacters();
+        PushTags();
+        PushTagsRelations();
+        PushAuthorsCircles();
+        PushAuthorsCreations();
+        PushCharactersCreations();
+        PushAuthorsTags();
+        PushCharactersTags();
+        PushAuthorsRelations();
+        PushCharactersRelations();
+        PushCreationsCircles();
+        PushCreationsRelations();
+        PushCreationsTags();
+        PushCirclesTags();
     }
 
-    #region Push tests
-
-    #region Push without dependencies
-
-    [Test]
-    [Order(1)]
-    public void PushAuthorsTest()
+    private static void PushAuthors()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         // using templates for unknown values
         var ym = new Author("default::Yukino Minato")
@@ -82,11 +97,9 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    [Test]
-    [Order(1)]
-    public void PushCirclesTest()
+    private static void PushCircles()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         var nnntCircle = new Circle("default::noraneko-no-tama");
         nnntCircle.AddTitle("ja-JP::ノラネコノタマ");
@@ -98,11 +111,9 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    [Test]
-    [Order(1)]
-    public void PushMangaTest()
+    private static void PushManga()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         // descriptions and metadata taken from toranoana/melonbooks/etc
 
@@ -252,11 +263,9 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    [Test]
-    [Order(1)]
-    public void PushCharactersTest()
+    private static void PushCharacters()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         var ymM1M = new Character("default::Unnamed male")
         {
@@ -295,11 +304,9 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    [Test]
-    [Order(1)]
-    public void PushTagsTest()
+    private static void PushTags()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         // init tag for basic categories
 
@@ -324,16 +331,10 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    #endregion
-
-    #region Dependent pushes
-
-    // depends on PushTagsTest(1)
-    [Test]
-    [Order(2)]
-    public void PushTagsRelationsTest()
+    // depends on PushTags
+    private static void PushTagsRelations()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         var tags = db.Tags.ToHashSet();
 
@@ -345,13 +346,11 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    // depends on PushAuthorsTest(1)
-    // depends on PushCirclesTest(1)
-    [Test]
-    [Order(2)]
-    public void PushAuthorsCirclesTest()
+    // depends on PushAuthors
+    // depends on PushCircles
+    private static void PushAuthorsCircles()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -374,13 +373,11 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    // depends on PushAuthorsTest(1)
-    // depends on PushMangaTest(1)
-    [Test]
-    [Order(2)]
-    public void PushAuthorsCreationsTest()
+    // depends on PushAuthors
+    // depends on PushManga
+    private static void PushAuthorsCreations()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -402,13 +399,11 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    // depends on PushCharactersTest(1)
-    // depends on PushMangaTest(1)
-    [Test]
-    [Order(2)]
-    public void PushCharactersCreationsTest()
+    // depends on PushCharacters
+    // depends on PushManga
+    private static void PushCharactersCreations()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         var characters = db.Characters.Include(a => a.Names).ToHashSet();
 
@@ -433,13 +428,11 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    // depends on PushTagsTest(1)
-    // depends on PushAuthorsTest(1)
-    [Test]
-    [Order(2)]
-    public void PushAuthorsTagsTest()
+    // depends on PushTags
+    // depends on PushAuthors
+    private static void PushAuthorsTags()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -459,13 +452,11 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    // depends on PushTagsTest(1)
-    // depends on PushCharactersTest(1)
-    [Test]
-    [Order(2)]
-    public void PushCharactersTagsTest()
+    // depends on PushTags
+    // depends on PushCharacters
+    private static void PushCharactersTags()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         var characters = db.Characters.Include(a => a.Names).ToHashSet();
 
@@ -487,12 +478,10 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    // depends on PushAuthorsTest(1)
-    [Test]
-    [Order(2)]
-    public void PushAuthorsRelationsTest()
+    // depends on PushAuthors
+    private static void PushAuthorsRelations()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -505,12 +494,10 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    // depends on PushCharactersTest(1)
-    [Test]
-    [Order(2)]
-    public void PushCharactersRelationsTest()
+    // depends on PushCharacters
+    private static void PushCharactersRelations()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         var characters = db.Characters.Include(a => a.Names).ToHashSet();
 
@@ -525,13 +512,11 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    // depends on PushMangaTest(1)
-    // depends on PushCirclesTest(1)
-    [Test]
-    [Order(2)]
-    public void PushCreationsCirclesTest()
+    // depends on PushManga
+    // depends on PushCircles
+    private static void PushCreationsCircles()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         var manga = db.Manga.Include(m => m.Titles).ToHashSet();
 
@@ -553,12 +538,10 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    // depends on PushMangaTest(1)
-    [Test]
-    [Order(2)]
-    public void PushCreationsRelationsTest()
+    // depends on PushManga
+    private static void PushCreationsRelations()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         var manga = db.Manga.Include(m => m.Titles).ToHashSet();
 
@@ -575,13 +558,11 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    // depends on PushMangaTest(1)
-    // depends on PushTagsTest(1)
-    [Test]
-    [Order(2)]
-    public void PushCreationsTagsTest()
+    // depends on PushManga
+    // depends on PushTags
+    private static void PushCreationsTags()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         var manga = db.Manga.Include(m => m.Titles).ToHashSet();
 
@@ -605,13 +586,11 @@ public class DatabaseTests
         db.SaveChanges();
     }
 
-    // depends on PushCirclesTest(1)
-    // depends on PushTagsTest(1)
-    [Test]
-    [Order(2)]
-    public void PushCirclesTagsTest()
+    // depends on PushCircles
+    // depends on PushTags
+    private static void PushCirclesTags()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(DatabasePath);
 
         var circles = db.Circles.Include(c => c.Titles).Include(circle => circle.Creations).ToHashSet();
 
@@ -630,120 +609,5 @@ public class DatabaseTests
         gfTag!.Circles.Add(fatalpulse!);
 
         db.SaveChanges();
-    }
-
-    #endregion
-
-    #endregion
-
-    #region Read tests
-
-    [Test]
-    [Order(10)]
-    public void ReadAuthorsTest()
-    {
-        using var db = new DatabaseContext();
-
-        var authors = db.Authors.Include(a => a.AuthorNames)
-            .Include(a => a.Circles)
-            .Include(a => a.Creations)
-            .ThenInclude(ac => ac.Related)
-            .Include(a => a.Names)
-            .Include(a => a.Tags)
-            .Include(a => a.Relations)
-            .ThenInclude(cr => cr.Related);
-
-        var json = SerializeEntity(authors);
-        var deserialized = DeserializeEntity<IEnumerable<Author>>(json);
-    }
-
-    [Test]
-    [Order(10)]
-    public void ReadCharactersTest()
-    {
-        using var db = new DatabaseContext();
-
-        var characters = db.Characters.Include(c => c.Names)
-                                      .Include(c => c.Creations)
-                                      .ThenInclude(cc => cc.Origin)
-                                      .Include(c => c.Tags)
-                                      .Include(c => c.Relations)
-                                      .ThenInclude(cr => cr.Related)
-                                      .ToList();
-
-        var json = SerializeEntity(characters);
-        var deserialized = DeserializeEntity<IEnumerable<Character>>(json);
-    }
-
-    [Test]
-    [Order(10)]
-    public void ReadCirclesTest()
-    {
-        using var db = new DatabaseContext();
-
-        var circles = db.Circles.Include(c => c.Titles)
-                                .Include(c => c.Authors)
-                                .Include(c => c.Creations)
-                                .Include(c => c.Tags)
-                                .ToList();
-
-        var json = SerializeEntity(circles);
-        var deserialized = DeserializeEntity<IEnumerable<Circle>>(json);
-    }
-
-    [Test]
-    [Order(10)]
-    public void ReadMangaTest()
-    {
-        using var db = new DatabaseContext();
-
-        var manga = db.Manga.Include(m => m.Relations)
-                            .Include(m => m.Titles)
-                            .Include(m => m.Authors)
-                            .ThenInclude(ac => ac.Origin)
-                            .Include(m => m.Circles)
-                            .Include(m => m.Characters)
-                            .ThenInclude(cc => cc.Related)
-                            .Include(m => m.Tags)
-                            .ToList();
-
-        var json = SerializeEntity(manga);
-        var deserialized = DeserializeEntity<IEnumerable<Manga>>(json);
-    }
-
-    [Test]
-    [Order(10)]
-    public void ReadTagsTest()
-    {
-        using var db = new DatabaseContext();
-
-        var tags = db.Tags.Include(t => t.Creatures)
-                          .Include(t => t.Circles)
-                          .Include(t => t.Creations)
-                          .ToList();
-
-        var json = SerializeEntity(tags);
-        var deserialized = DeserializeEntity<IEnumerable<Tag>>(json);
-    }
-
-    #endregion
-
-    private static string SerializeEntity<T>(IEnumerable<T> entity) where T : class
-    {
-        var options = Essential.JsonSerializerOptions;
-        var json = JsonSerializer.Serialize(entity, options);
-
-        var jsonPath = $"../{typeof(T)}.json";
-        File.WriteAllText(jsonPath, json);
-
-        return json;
-    }
-
-    private static T DeserializeEntity<T>(string json) where T : class
-    {
-        var options = Essential.JsonSerializerOptions;
-        var entity = JsonSerializer.Deserialize<T>(json, options);
-
-        return entity;
     }
 }
