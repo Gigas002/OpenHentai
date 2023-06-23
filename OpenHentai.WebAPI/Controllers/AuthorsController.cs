@@ -15,8 +15,6 @@ namespace OpenHentai.WebAPI.Controllers;
 
 // TODO: https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-5/#support-for-generic-attributes
 
-#pragma warning disable CA1303
-
 /// <summary>
 /// Controller, that works with Author table and it's dependent ones
 /// </summary>
