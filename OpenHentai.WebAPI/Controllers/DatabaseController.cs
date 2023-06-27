@@ -63,6 +63,7 @@ public abstract class DatabaseController<T> : ControllerBase, IDisposable, IAsyn
 
         patch.ApplyTo(entry);
 
+        // TODO: do not call Context here directly, override SaveChanges in repo
         await Repository.Context.SaveChangesAsync().ConfigureAwait(false);
 
         return Ok();

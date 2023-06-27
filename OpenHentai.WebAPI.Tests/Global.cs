@@ -5,11 +5,18 @@ namespace OpenHentai.WebAPI.Tests;
 
 public static class Global
 {
+    public static bool CheckResponse(IActionResult response)
+    {
+        var statusCode = (response as StatusCodeResult)?.StatusCode;
+
+        return statusCode == 200 || statusCode == 201;
+    }
+
     public static bool CheckResponse<T>(ActionResult<T> response) where T : class
     {
-        var statuscode = GetStatusCode(response);
+        var statusCode = GetStatusCode(response);
 
-        return statuscode == 200 || statuscode == 201;
+        return statusCode == 200 || statusCode == 201;
     }
 
     public static int? GetStatusCode<T>(ActionResult<T?> actionResult)

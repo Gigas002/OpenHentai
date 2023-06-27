@@ -67,7 +67,7 @@ public class AuthorsController : DatabaseController<IAuthorsRepository>, ICreatu
     {
         var names = Repository.GetAuthorsNames();
 
-        return names is null ? NotFound() : Ok(names);
+        return names is null || !names.Any() ? NotFound() : Ok(names);
     }
 
     /// <summary>
@@ -81,7 +81,7 @@ public class AuthorsController : DatabaseController<IAuthorsRepository>, ICreatu
     {
         var names = await Repository.GetAuthorNamesAsync(id).ConfigureAwait(false);
 
-        return names is null ? NotFound() : Ok(names);
+        return names is null || !names.Any() ? NotFound() : Ok(names);
     }
 
     /// <summary>
@@ -109,7 +109,7 @@ public class AuthorsController : DatabaseController<IAuthorsRepository>, ICreatu
     {
         var creations = await Repository.GetCreationsAsync(id).ConfigureAwait(false);
 
-        return creations is null ? NotFound() : Ok(creations);
+        return creations is null || !creations.Any() ? NotFound() : Ok(creations);
     }
 
     /// <summary>
