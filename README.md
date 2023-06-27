@@ -9,4 +9,11 @@ These incliudes:
 
 ## Contributing
 
-Feel free to contribute, though it's at such early state...
+Feel free to contribute. Right now the main tasks are following:
+
+- Complete tagging enum: see `OpenHentai.Tags.TagCategory` and `OpenHentai.Tags.Tag` classes, descriptions
+- Test and polish database-related stuff (`OpenHentai` library)
+- Test and polish API (`OpenHentai.WebAPI` project)
+- Improve tests coverage
+
+After these are complete, new tasks will appear (e.g. searching through db, improving ci/cd and repo stuff, etc). After above tasks are done, we can start working on client app (`WaisetsuToshokan`) little by little and the first `preview` version of libraries can be pushed to nuget
