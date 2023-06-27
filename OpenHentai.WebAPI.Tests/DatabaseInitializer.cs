@@ -6,7 +6,7 @@ using OpenHentai.Descriptors;
 using OpenHentai.Relations;
 using OpenHentai.Roles;
 using OpenHentai.Statuses;
-using OpenHentai.Contexts;
+using OpenHentai.Repositories;
 
 namespace OpenHentai.WebAPI.Tests;
 
@@ -17,9 +17,12 @@ public static class DatabaseInitializer
 {
     private const string DatabasePath = "../../../../openhentai.db";
 
+    private static readonly DbContextOptions<DatabaseContext> _contextOptions = new DbContextOptionsBuilder<DatabaseContext>()
+            .UseSqlite($"Data Source={DatabasePath}").Options;
+
     public static void InitializeTestDatabase()
     {
-        using (var db = new DatabaseContext(DatabasePath))
+        using (var db = new DatabaseContext(_contextOptions))
         {
             // TODO: don't use this in prod
             db.Database.EnsureDeleted();
@@ -47,7 +50,7 @@ public static class DatabaseInitializer
 
     private static void PushAuthors()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         // using templates for unknown values
         var ym = new Author("default::Yukino Minato")
@@ -99,7 +102,7 @@ public static class DatabaseInitializer
 
     private static void PushCircles()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         var nnntCircle = new Circle("default::noraneko-no-tama");
         nnntCircle.AddTitle("ja-JP::ノラネコノタマ");
@@ -113,7 +116,7 @@ public static class DatabaseInitializer
 
     private static void PushManga()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         // descriptions and metadata taken from toranoana/melonbooks/etc
 
@@ -265,7 +268,7 @@ public static class DatabaseInitializer
 
     private static void PushCharacters()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         var ymM1M = new Character("default::Unnamed male")
         {
@@ -306,7 +309,7 @@ public static class DatabaseInitializer
 
     private static void PushTags()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         // init tag for basic categories
 
@@ -334,7 +337,7 @@ public static class DatabaseInitializer
     // depends on PushTags
     private static void PushTagsRelations()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         var tags = db.Tags.ToHashSet();
 
@@ -350,7 +353,7 @@ public static class DatabaseInitializer
     // depends on PushCircles
     private static void PushAuthorsCircles()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -377,7 +380,7 @@ public static class DatabaseInitializer
     // depends on PushManga
     private static void PushAuthorsCreations()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -403,7 +406,7 @@ public static class DatabaseInitializer
     // depends on PushManga
     private static void PushCharactersCreations()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         var characters = db.Characters.Include(a => a.Names).ToHashSet();
 
@@ -432,7 +435,7 @@ public static class DatabaseInitializer
     // depends on PushAuthors
     private static void PushAuthorsTags()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -456,7 +459,7 @@ public static class DatabaseInitializer
     // depends on PushCharacters
     private static void PushCharactersTags()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         var characters = db.Characters.Include(a => a.Names).ToHashSet();
 
@@ -481,7 +484,7 @@ public static class DatabaseInitializer
     // depends on PushAuthors
     private static void PushAuthorsRelations()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -497,7 +500,7 @@ public static class DatabaseInitializer
     // depends on PushCharacters
     private static void PushCharactersRelations()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         var characters = db.Characters.Include(a => a.Names).ToHashSet();
 
@@ -516,7 +519,7 @@ public static class DatabaseInitializer
     // depends on PushCircles
     private static void PushCreationsCircles()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         var manga = db.Manga.Include(m => m.Titles).ToHashSet();
 
@@ -541,7 +544,7 @@ public static class DatabaseInitializer
     // depends on PushManga
     private static void PushCreationsRelations()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         var manga = db.Manga.Include(m => m.Titles).ToHashSet();
 
@@ -562,7 +565,7 @@ public static class DatabaseInitializer
     // depends on PushTags
     private static void PushCreationsTags()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         var manga = db.Manga.Include(m => m.Titles).ToHashSet();
 
@@ -590,7 +593,7 @@ public static class DatabaseInitializer
     // depends on PushTags
     private static void PushCirclesTags()
     {
-        using var db = new DatabaseContext(DatabasePath);
+        using var db = new DatabaseContext(_contextOptions);
 
         var circles = db.Circles.Include(c => c.Titles).Include(circle => circle.Creations).ToHashSet();
 

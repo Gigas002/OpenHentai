@@ -1,15 +1,15 @@
-using OpenHentai.Contexts;
+using OpenHentai.Repositories;
 
 namespace OpenHentai.WebAPI;
 
 public static class ServiceExtensions
 {
-    public static void ConfigureContextHelpers(this IServiceCollection services)
+    public static void ConfigureRepositories(this IServiceCollection services)
     {
-        services.AddScoped<AuthorsContextHelper>();
-        services.AddScoped<CharactersContextHelper>();
-        services.AddScoped<CirclesContextHelper>();
-        services.AddScoped<MangaContextHelper>();
-        services.AddScoped<TagsContextHelper>();
+        services.AddScoped<IAuthorsRepository, AuthorsRepository>();
+        services.AddScoped<ICharactersRepository, CharactersRepository>();
+        services.AddScoped<ICirclesRepository, CirclesRepository>();
+        services.AddScoped<IMangaRepository, MangaRepository>();
+        services.AddScoped<ITagsRepository, TagsRepository>();
     }
 }

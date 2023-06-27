@@ -8,7 +8,7 @@ using OpenHentai.Relative;
 using OpenHentai.ValueConverters;
 using OpenHentai.Constants;
 
-namespace OpenHentai.Contexts;
+namespace OpenHentai;
 
 public class DatabaseContext : DbContext
 {
@@ -16,7 +16,6 @@ public class DatabaseContext : DbContext
 
     // for debug purposes
     internal const string LogPath = "../log.txt";
-    internal const string SqliteDatabasePath = "../openhentai.db";
 
     #endregion
 
@@ -54,16 +53,13 @@ public class DatabaseContext : DbContext
     
     public DbSet<CreationsRelations> CreationsRelations { get; set; } = null!;
 
-    public string DatabasePath { get; init; } = null!;
-
     #endregion
 
-    public DatabaseContext(string databasePath = SqliteDatabasePath) => DatabasePath = databasePath;
+    public DatabaseContext(DbContextOptions options) : base(options) { }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite($"Data Source={DatabasePath}")
-                      .UseSnakeCaseNamingConvention()
+        optionsBuilder.UseSnakeCaseNamingConvention()
                       .LogTo(_logStream.WriteLine);
     }
 

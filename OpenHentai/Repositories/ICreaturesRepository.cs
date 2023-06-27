@@ -5,18 +5,11 @@ using OpenHentai.Relations;
 using OpenHentai.Relative;
 using OpenHentai.Tags;
 
-namespace OpenHentai.Contexts;
+namespace OpenHentai.Repositories;
 
-public abstract class CreaturesContextHelper<T> : DatabaseContextHelper
+public interface ICreaturesRepository<T> : IDatabaseRepository
     where T : Creature
 {
-    #region Constructors
-
-    protected CreaturesContextHelper(DatabaseContext context) : base(context)
-    { }
-
-    #endregion
-
     #region Methods
 
     #region Get

@@ -4,13 +4,13 @@ using OpenHentai.Creatures;
 using OpenHentai.Relative;
 using OpenHentai.Roles;
 
-namespace OpenHentai.Contexts;
+namespace OpenHentai.Repositories;
 
-public class CharactersContextHelper : CreaturesContextHelper<Character>
+public class CharactersRepository : DatabaseRepository, ICharactersRepository
 {
     #region Constructors
 
-    public CharactersContextHelper(DatabaseContext context) : base(context) { }
+    public CharactersRepository(DatabaseContext context) : base(context) { }
 
     #endregion
 

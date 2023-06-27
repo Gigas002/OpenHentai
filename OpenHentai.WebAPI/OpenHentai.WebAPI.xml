@@ -9,7 +9,7 @@
             Controller, that works with Author table and it's dependent ones
             </summary>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.#ctor(OpenHentai.Contexts.AuthorsContextHelper)">
+        <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.#ctor(OpenHentai.Repositories.IAuthorsRepository)">
             <inheritdoc/>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.AuthorsController.GetAuthors">
@@ -362,7 +362,7 @@
             Controller, that works with Characters table and it's dependent ones
             </summary>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.#ctor(OpenHentai.Contexts.CharactersContextHelper)">
+        <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.#ctor(OpenHentai.Repositories.ICharactersRepository)">
             <inheritdoc/>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.CharactersController.GetCharacters">
@@ -618,7 +618,7 @@
             Controller, that works with Circle table and it's dependent ones
             </summary>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.#ctor(OpenHentai.Contexts.CirclesContextHelper)">
+        <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.#ctor(OpenHentai.Repositories.ICirclesRepository)">
             <inheritdoc/>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.CirclesController.GetCircles">
@@ -878,7 +878,7 @@
             Controller, that works with Manga table and it's dependent ones
             </summary>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.#ctor(OpenHentai.Contexts.MangaContextHelper)">
+        <member name="M:OpenHentai.WebAPI.Controllers.MangaController.#ctor(OpenHentai.Repositories.IMangaRepository)">
             <inheritdoc/>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.MangaController.GetManga">
@@ -1216,7 +1216,7 @@
             Controller, that works with Tag table and it's dependent ones
             </summary>
         </member>
-        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.#ctor(OpenHentai.Contexts.TagsContextHelper)">
+        <member name="M:OpenHentai.WebAPI.Controllers.TagsController.#ctor(OpenHentai.Repositories.ITagsRepository)">
             <inheritdoc/>
         </member>
         <member name="M:OpenHentai.WebAPI.Controllers.TagsController.GetTags">

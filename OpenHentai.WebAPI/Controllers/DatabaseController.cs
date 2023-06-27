@@ -1,18 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using SystemTextJsonPatch.Operations;
 using SystemTextJsonPatch;
-using OpenHentai.Contexts;
+using OpenHentai.Repositories;
 
 namespace OpenHentai.WebAPI.Controllers;
 
 public abstract class DatabaseController<T> : ControllerBase, IDisposable, IAsyncDisposable
-    where T : DatabaseContextHelper, IDisposable, IAsyncDisposable
+    where T : IDatabaseRepository, IDisposable, IAsyncDisposable
 {
     #region Properties/fields
 
     protected bool IsDisposed { get; set; }
 
-    public T ContextHelper { get; init; }
+    public T Repository { get; init; }
 
     #endregion
 
@@ -21,7 +21,7 @@ public abstract class DatabaseController<T> : ControllerBase, IDisposable, IAsyn
     /// <summary>
     /// Initialize database context
     /// </summary>
-    protected DatabaseController(T contextHelper) => ContextHelper = contextHelper;
+    protected DatabaseController(T repository) => Repository = repository;
 
     ~DatabaseController() => Dispose(false);
 
@@ -31,7 +31,7 @@ public abstract class DatabaseController<T> : ControllerBase, IDisposable, IAsyn
 
     public async Task<ActionResult<TEntry>> GetEntryAsync<TEntry>(ulong id) where TEntry : class, IDatabaseEntity
     {
-        var entry = await ContextHelper.GetEntryAsync<TEntry>(id).ConfigureAwait(false);
+        var entry = await Repository.GetEntryAsync<TEntry>(id).ConfigureAwait(false);
 
         return entry is null ? NotFound() : Ok(entry);
     }
@@ -40,14 +40,14 @@ public abstract class DatabaseController<T> : ControllerBase, IDisposable, IAsyn
     {
         if (entry is null) throw new ArgumentNullException(nameof(entry));
 
-        var isSuccess = await ContextHelper.AddEntryAsync(entry).ConfigureAwait(false);
+        var isSuccess = await Repository.AddEntryAsync(entry).ConfigureAwait(false);
 
         return isSuccess;
     }
 
     public async Task<ActionResult> DeleteEntryAsync<TEntry>(ulong id) where TEntry : class, IDatabaseEntity
     {
-        var isSuccess = await ContextHelper.RemoveEntryAsync<TEntry>(id).ConfigureAwait(false);
+        var isSuccess = await Repository.RemoveEntryAsync<TEntry>(id).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -57,13 +57,13 @@ public abstract class DatabaseController<T> : ControllerBase, IDisposable, IAsyn
     {
         var patch = new JsonPatchDocument<TEntry>(operations.ToList(), Essential.JsonSerializerOptions);
 
-        var entry = await ContextHelper.GetEntryAsync<TEntry>(id).ConfigureAwait(false);
+        var entry = await Repository.GetEntryAsync<TEntry>(id).ConfigureAwait(false);
 
         if (entry is null) return BadRequest();
 
         patch.ApplyTo(entry);
 
-        await ContextHelper.Context.SaveChangesAsync().ConfigureAwait(false);
+        await Repository.Context.SaveChangesAsync().ConfigureAwait(false);
 
         return Ok();
     }
@@ -84,7 +84,7 @@ public abstract class DatabaseController<T> : ControllerBase, IDisposable, IAsyn
         if (disposing)
         { }
 
-        ContextHelper.Dispose();
+        Repository.Dispose();
 
         IsDisposed = true;
     }

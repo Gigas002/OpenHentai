@@ -2,7 +2,7 @@ using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using SystemTextJsonPatch.Operations;
 using OpenHentai.Creatures;
-using OpenHentai.Contexts;
+using OpenHentai.Repositories;
 using OpenHentai.Relative;
 using OpenHentai.Tags;
 using OpenHentai.Roles;
@@ -12,8 +12,6 @@ using OpenHentai.WebAPI.Constants;
 
 namespace OpenHentai.WebAPI.Controllers;
 
-#pragma warning disable CA1303
-
 /// <summary>
 /// Controller, that works with Characters table and it's dependent ones
 /// </summary>
@@ -21,12 +19,12 @@ namespace OpenHentai.WebAPI.Controllers;
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
 [Route(CharactersRoutes.Base)]
-public class CharactersController : DatabaseController<CharactersContextHelper>, ICreaturesController
+public class CharactersController : DatabaseController<ICharactersRepository>, ICreaturesController
 {
     #region Constructors
 
     /// <inheritdoc/>
-    public CharactersController(CharactersContextHelper contextHelper) : base(contextHelper) { }
+    public CharactersController(ICharactersRepository repository) : base(repository) { }
 
     #endregion
 
@@ -42,7 +40,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<IEnumerable<Character>> GetCharacters()
     {
-        var characters = ContextHelper.GetCharacters();
+        var characters = Repository.GetCharacters();
 
         return characters is null ? NotFound() : Ok(characters);
     }
@@ -65,7 +63,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreationsCharacters>>> GetCreationsAsync(ulong id)
     {
-        var creations = await ContextHelper.GetCreationsAsync(id).ConfigureAwait(false);
+        var creations = await Repository.GetCreationsAsync(id).ConfigureAwait(false);
 
         return creations is null ? NotFound() : Ok(creations);
     }
@@ -79,7 +77,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreaturesNames>>> GetNamesAsync(ulong id)
     {
-        var names = await ContextHelper.GetNamesAsync(id).ConfigureAwait(false);
+        var names = await Repository.GetNamesAsync(id).ConfigureAwait(false);
 
         return names is null ? NotFound() : Ok(names);
     }
@@ -93,7 +91,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Tag>>> GetTagsAsync(ulong id)
     {
-        var tags = await ContextHelper.GetTagsAsync(id).ConfigureAwait(false);
+        var tags = await Repository.GetTagsAsync(id).ConfigureAwait(false);
 
         return tags is null ? NotFound() : Ok(tags);
     }
@@ -107,7 +105,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreaturesRelations>>> GetRelationsAsync(ulong id)
     {
-        var relations = await ContextHelper.GetRelationsAsync(id).ConfigureAwait(false);
+        var relations = await Repository.GetRelationsAsync(id).ConfigureAwait(false);
 
         return relations is null ? NotFound() : Ok(relations);
     }
@@ -163,7 +161,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostNamesAsync(ulong id, HashSet<LanguageSpecificTextInfo> names)
     {
-        var isSuccess = await ContextHelper.AddNamesAsync(id, names).ConfigureAwait(false);
+        var isSuccess = await Repository.AddNamesAsync(id, names).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -193,7 +191,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostRelationsAsync(ulong id, Dictionary<ulong, CreatureRelations> relations)
     {
-        var isSuccess = await ContextHelper.AddRelationsAsync(id, relations).ConfigureAwait(false);
+        var isSuccess = await Repository.AddRelationsAsync(id, relations).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -227,7 +225,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutCreationsAsync(ulong id, Dictionary<ulong, CharacterRole> creationRoles)
     {
-        var isSuccess = await ContextHelper.AddCreationsAsync(id, creationRoles).ConfigureAwait(false);
+        var isSuccess = await Repository.AddCreationsAsync(id, creationRoles).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -256,7 +254,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutTagsAsync(ulong id, HashSet<ulong> tagIds)
     {
-        var isSuccess = await ContextHelper.AddTagsAsync(id, tagIds).ConfigureAwait(false);
+        var isSuccess = await Repository.AddTagsAsync(id, tagIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -301,7 +299,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteCreationsAsync(ulong id, HashSet<ulong> creationIds)
     {
-        var isSuccess = await ContextHelper.RemoveCreationsAsync(id, creationIds).ConfigureAwait(false);
+        var isSuccess = await Repository.RemoveCreationsAsync(id, creationIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -330,7 +328,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteNamesAsync(ulong id, HashSet<ulong> nameIds)
     {
-        var isSuccess = await ContextHelper.RemoveNamesAsync(id, nameIds).ConfigureAwait(false);
+        var isSuccess = await Repository.RemoveNamesAsync(id, nameIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -359,7 +357,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteTagsAsync(ulong id, HashSet<ulong> tagIds)
     {
-        var isSuccess = await ContextHelper.RemoveTagsAsync(id, tagIds).ConfigureAwait(false);
+        var isSuccess = await Repository.RemoveTagsAsync(id, tagIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -388,7 +386,7 @@ public class CharactersController : DatabaseController<CharactersContextHelper>,
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteRelationsAsync(ulong id, HashSet<ulong> relatedIds)
     {
-        var isSuccess = await ContextHelper.RemoveRelationsAsync(id, relatedIds).ConfigureAwait(false);
+        var isSuccess = await Repository.RemoveRelationsAsync(id, relatedIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }

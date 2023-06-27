@@ -1,7 +1,7 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using SystemTextJsonPatch.Operations;
-using OpenHentai.Contexts;
+using OpenHentai.Repositories;
 using OpenHentai.Relative;
 using OpenHentai.Circles;
 using OpenHentai.Tags;
@@ -13,8 +13,6 @@ using OpenHentai.Creations;
 
 namespace OpenHentai.WebAPI.Controllers;
 
-#pragma warning disable CA1303
-
 /// <summary>
 /// Controller, that works with Manga table and it's dependent ones
 /// </summary>
@@ -22,12 +20,12 @@ namespace OpenHentai.WebAPI.Controllers;
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
 [Route(MangaRoutes.Base)]
-public class MangaController : DatabaseController<MangaContextHelper>, ICreationsController
+public class MangaController : DatabaseController<IMangaRepository>, ICreationsController
 {
     #region Constructors
 
     /// <inheritdoc/>
-    public MangaController(MangaContextHelper contextHelper) : base(contextHelper) { }
+    public MangaController(IMangaRepository repository) : base(repository) { }
 
     #endregion
 
@@ -43,7 +41,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<IEnumerable<Manga>> GetManga()
     {
-        var manga = ContextHelper.GetManga();
+        var manga = Repository.GetManga();
 
         return manga is null ? NotFound() : Ok(manga);
     }
@@ -66,7 +64,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreationsTitles>>> GetTitlesAsync(ulong id)
     {
-        var names = await ContextHelper.GetTitlesAsync(id).ConfigureAwait(false);
+        var names = await Repository.GetTitlesAsync(id).ConfigureAwait(false);
 
         return names is null ? NotFound() : Ok(names);
     }
@@ -80,7 +78,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<AuthorsCreations>>> GetAuthorsAsync(ulong id)
     {
-        var authors = await ContextHelper.GetAuthorsAsync(id).ConfigureAwait(false);
+        var authors = await Repository.GetAuthorsAsync(id).ConfigureAwait(false);
 
         return authors is null ? NotFound() : Ok(authors);
     }
@@ -94,7 +92,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Circle>>> GetCirclesAsync(ulong id)
     {
-        var circles = await ContextHelper.GetCirclesAsync(id).ConfigureAwait(false);
+        var circles = await Repository.GetCirclesAsync(id).ConfigureAwait(false);
 
         return circles is null ? NotFound() : Ok(circles);
     }
@@ -108,7 +106,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreaturesRelations>>> GetRelationsAsync(ulong id)
     {
-        var relations = await ContextHelper.GetRelationsAsync(id).ConfigureAwait(false);
+        var relations = await Repository.GetRelationsAsync(id).ConfigureAwait(false);
 
         return relations is null ? NotFound() : Ok(relations);
     }
@@ -122,7 +120,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CreationsCharacters>>> GetCharactersAsync(ulong id)
     {
-        var characters = await ContextHelper.GetCharactersAsync(id).ConfigureAwait(false);
+        var characters = await Repository.GetCharactersAsync(id).ConfigureAwait(false);
 
         return characters is null ? NotFound() : Ok(characters);
     }
@@ -136,7 +134,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Tag>>> GetTagsAsync(ulong id)
     {
-        var tags = await ContextHelper.GetTagsAsync(id).ConfigureAwait(false);
+        var tags = await Repository.GetTagsAsync(id).ConfigureAwait(false);
 
         return tags is null ? NotFound() : Ok(tags);
     }
@@ -192,7 +190,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostTitlesAsync(ulong id, HashSet<LanguageSpecificTextInfo> titles)
     {
-        var isSuccess = await ContextHelper.AddTitlesAsync(id, titles).ConfigureAwait(false);
+        var isSuccess = await Repository.AddTitlesAsync(id, titles).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -222,7 +220,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostRelationsAsync(ulong id, Dictionary<ulong, CreationRelations> relations)
     {
-        var isSuccess = await ContextHelper.AddRelationsAsync(id, relations).ConfigureAwait(false);
+        var isSuccess = await Repository.AddRelationsAsync(id, relations).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -256,7 +254,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutAuthorsAsync(ulong id, Dictionary<ulong, AuthorRole> authorRoles)
     {
-        var isSuccess = await ContextHelper.AddAuthorsAsync(id, authorRoles).ConfigureAwait(false);
+        var isSuccess = await Repository.AddAuthorsAsync(id, authorRoles).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -285,7 +283,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutCirclesAsync(ulong id, HashSet<ulong> circleIds)
     {
-        var isSuccess = await ContextHelper.AddCirclesAsync(id, circleIds).ConfigureAwait(false);
+        var isSuccess = await Repository.AddCirclesAsync(id, circleIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -315,7 +313,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutCharactersAsync(ulong id, Dictionary<ulong, CharacterRole> characterRoles)
     {
-        var isSuccess = await ContextHelper.AddCharactersAsync(id, characterRoles).ConfigureAwait(false);
+        var isSuccess = await Repository.AddCharactersAsync(id, characterRoles).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -344,7 +342,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutTagsAsync(ulong id, HashSet<ulong> tagIds)
     {
-        var isSuccess = await ContextHelper.AddTagsAsync(id, tagIds).ConfigureAwait(false);
+        var isSuccess = await Repository.AddTagsAsync(id, tagIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -389,7 +387,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteTitlesAsync(ulong id, HashSet<ulong> titleIds)
     {
-        var isSuccess = await ContextHelper.RemoveTitlesAsync(id, titleIds).ConfigureAwait(false);
+        var isSuccess = await Repository.RemoveTitlesAsync(id, titleIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -418,7 +416,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteAuthorsAsync(ulong id, HashSet<ulong> authorIds)
     {
-        var isSuccess = await ContextHelper.RemoveAuthorsAsync(id, authorIds).ConfigureAwait(false);
+        var isSuccess = await Repository.RemoveAuthorsAsync(id, authorIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -447,7 +445,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteCirclesAsync(ulong id, HashSet<ulong> circleIds)
     {
-        var isSuccess = await ContextHelper.RemoveCirclesAsync(id, circleIds).ConfigureAwait(false);
+        var isSuccess = await Repository.RemoveCirclesAsync(id, circleIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -476,7 +474,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteRelationsAsync(ulong id, HashSet<ulong> relatedIds)
     {
-        var isSuccess = await ContextHelper.RemoveRelationsAsync(id, relatedIds).ConfigureAwait(false);
+        var isSuccess = await Repository.RemoveRelationsAsync(id, relatedIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -505,7 +503,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteCharactersAsync(ulong id, HashSet<ulong> characterIds)
     {
-        var isSuccess = await ContextHelper.RemoveCharactersAsync(id, characterIds).ConfigureAwait(false);
+        var isSuccess = await Repository.RemoveCharactersAsync(id, characterIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -534,7 +532,7 @@ public class MangaController : DatabaseController<MangaContextHelper>, ICreation
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteTagsAsync(ulong id, HashSet<ulong> tagIds)
     {
-        var isSuccess = await ContextHelper.RemoveTagsAsync(id, tagIds).ConfigureAwait(false);
+        var isSuccess = await Repository.RemoveTagsAsync(id, tagIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }

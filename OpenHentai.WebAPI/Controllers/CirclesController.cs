@@ -2,7 +2,7 @@ using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using SystemTextJsonPatch.Operations;
 using OpenHentai.Creatures;
-using OpenHentai.Contexts;
+using OpenHentai.Repositories;
 using OpenHentai.Relative;
 using OpenHentai.Tags;
 using OpenHentai.Descriptors;
@@ -12,8 +12,6 @@ using OpenHentai.Creations;
 
 namespace OpenHentai.WebAPI.Controllers;
 
-#pragma warning disable CA1303
-
 /// <summary>
 /// Controller, that works with Circle table and it's dependent ones
 /// </summary>
@@ -21,12 +19,12 @@ namespace OpenHentai.WebAPI.Controllers;
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
 [Route(CirclesRoutes.Base)]
-public class CirclesController : DatabaseController<CirclesContextHelper>
+public class CirclesController : DatabaseController<ICirclesRepository>
 {
     #region Constructors
 
     /// <inheritdoc/>
-    public CirclesController(CirclesContextHelper contextHelper) : base(contextHelper) { }
+    public CirclesController(ICirclesRepository repository) : base(repository) { }
 
     #endregion
 
@@ -42,7 +40,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<IEnumerable<Circle>> GetCircles()
     {
-        var circles = ContextHelper.GetCircles();
+        var circles = Repository.GetCircles();
 
         return circles is null ? NotFound() : Ok(circles);
     }
@@ -64,7 +62,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<IEnumerable<CirclesTitles>> GetAllTitles()
     {
-        var titles = ContextHelper.GetAllTitles();
+        var titles = Repository.GetAllTitles();
 
         return titles is null ? NotFound() : Ok(titles);
     }
@@ -78,7 +76,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<CirclesTitles>>> GetTitlesAsync(ulong id)
     {
-        var titles = await ContextHelper.GetTitlesAsync(id).ConfigureAwait(false);
+        var titles = await Repository.GetTitlesAsync(id).ConfigureAwait(false);
 
         return titles is null ? NotFound() : Ok(titles);
     }
@@ -92,7 +90,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Author>>> GetAuthorsAsync(ulong id)
     {
-        var authors = await ContextHelper.GetAuthorsAsync(id).ConfigureAwait(false);
+        var authors = await Repository.GetAuthorsAsync(id).ConfigureAwait(false);
 
         return authors is null ? NotFound() : Ok(authors);
     }
@@ -106,7 +104,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Creation>>> GetCreationsAsync(ulong id)
     {
-        var creations = await ContextHelper.GetCreationsAsync(id).ConfigureAwait(false);
+        var creations = await Repository.GetCreationsAsync(id).ConfigureAwait(false);
 
         return creations is null ? NotFound() : Ok(creations);
     }
@@ -120,7 +118,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<IEnumerable<Tag>>> GetTagsAsync(ulong id)
     {
-        var tags = await ContextHelper.GetTagsAsync(id).ConfigureAwait(false);
+        var tags = await Repository.GetTagsAsync(id).ConfigureAwait(false);
 
         return tags is null ? NotFound() : Ok(tags);
     }
@@ -176,7 +174,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PostTitlesAsync(ulong id, HashSet<LanguageSpecificTextInfo> titles)
     {
-        var isSuccess = await ContextHelper.AddTitlesAsync(id, titles).ConfigureAwait(false);
+        var isSuccess = await Repository.AddTitlesAsync(id, titles).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -209,7 +207,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutAuthorsAsync(ulong id, HashSet<ulong> authorsIds)
     {
-        var isSuccess = await ContextHelper.AddAuthorsAsync(id, authorsIds).ConfigureAwait(false);
+        var isSuccess = await Repository.AddAuthorsAsync(id, authorsIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -238,7 +236,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutCreationsAsync(ulong id, HashSet<ulong> creationIds)
     {
-        var isSuccess = await ContextHelper.AddCreationsAsync(id, creationIds).ConfigureAwait(false);
+        var isSuccess = await Repository.AddCreationsAsync(id, creationIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -267,7 +265,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> PutTagsAsync(ulong id, HashSet<ulong> tagIds)
     {
-        var isSuccess = await ContextHelper.AddTagsAsync(id, tagIds).ConfigureAwait(false);
+        var isSuccess = await Repository.AddTagsAsync(id, tagIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -312,7 +310,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteTitlesAsync(ulong id, HashSet<ulong> titleIds)
     {
-        var isSuccess = await ContextHelper.RemoveTitlesAsync(id, titleIds).ConfigureAwait(false);
+        var isSuccess = await Repository.RemoveTitlesAsync(id, titleIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -341,7 +339,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteAuthorsAsync(ulong id, HashSet<ulong> authorIds)
     {
-        var isSuccess = await ContextHelper.RemoveAuthorsAsync(id, authorIds).ConfigureAwait(false);
+        var isSuccess = await Repository.RemoveAuthorsAsync(id, authorIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -370,7 +368,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteCreationsAsync(ulong id, HashSet<ulong> creationIds)
     {
-        var isSuccess = await ContextHelper.RemoveCreationsAsync(id, creationIds).ConfigureAwait(false);
+        var isSuccess = await Repository.RemoveCreationsAsync(id, creationIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
@@ -399,7 +397,7 @@ public class CirclesController : DatabaseController<CirclesContextHelper>
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteTagsAsync(ulong id, HashSet<ulong> tagIds)
     {
-        var isSuccess = await ContextHelper.RemoveTagsAsync(id, tagIds).ConfigureAwait(false);
+        var isSuccess = await Repository.RemoveTagsAsync(id, tagIds).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }

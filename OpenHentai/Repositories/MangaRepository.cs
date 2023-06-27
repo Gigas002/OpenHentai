@@ -1,12 +1,12 @@
 using OpenHentai.Creations;
 
-namespace OpenHentai.Contexts;
+namespace OpenHentai.Repositories;
 
-public class MangaContextHelper : CreationsContextHelper<Manga>
+public class MangaRepository : DatabaseRepository, IMangaRepository
 {
     #region Constructors
 
-    public MangaContextHelper(DatabaseContext context) : base(context) { }
+    public MangaRepository(DatabaseContext context) : base(context) { }
 
     #endregion
 

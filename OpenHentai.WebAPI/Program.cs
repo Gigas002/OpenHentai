@@ -1,14 +1,16 @@
 using System.Globalization;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using OpenHentai.Contexts;
 using Serilog;
 
 namespace OpenHentai.WebAPI;
 
 public static class Program
 {
+    public const string DatabasePath = "../openhentai.db";
+
     public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
@@ -41,10 +43,13 @@ public static class Program
         
         builder.Services.AddAntiforgery();
 
-        builder.Services.AddDbContext<DatabaseContext>();
+        builder.Services.AddDbContext<DatabaseContext>(options => 
+        {
+            options.UseSqlite($"Data Source={DatabasePath}");
+        });
 
         // configure controllers's context helpers
-        builder.Services.ConfigureContextHelpers();
+        builder.Services.ConfigureRepositories();
 
         // for controllers-based approach
         builder.Services.AddControllers(options =>

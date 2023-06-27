@@ -6,13 +6,13 @@ using OpenHentai.Descriptors;
 using OpenHentai.Relative;
 using OpenHentai.Roles;
 
-namespace OpenHentai.Contexts;
+namespace OpenHentai.Repositories;
 
-public class AuthorsContextHelper : CreaturesContextHelper<Author>
+public class AuthorsRepository : DatabaseRepository, IAuthorsRepository
 {
     #region Constructors
 
-    public AuthorsContextHelper(DatabaseContext context) : base(context) { }
+    public AuthorsRepository(DatabaseContext context) : base(context) { }
 
     #endregion
 

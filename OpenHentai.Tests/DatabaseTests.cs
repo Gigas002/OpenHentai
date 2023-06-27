@@ -6,18 +6,21 @@ using OpenHentai.Descriptors;
 using OpenHentai.Relations;
 using OpenHentai.Roles;
 using OpenHentai.Statuses;
-using OpenHentai.Contexts;
-
-#pragma warning disable CA1303
+using OpenHentai.Repositories;
 
 namespace OpenHentai.Tests;
 
 public class DatabaseTests
 {
+    public const string DatabasePath = "../openhentai.db";
+
+    private readonly DbContextOptions<DatabaseContext> _contextOptions = new DbContextOptionsBuilder<DatabaseContext>()
+            .UseSqlite($"Data Source={DatabasePath}").Options;
+
     [SetUp]
     public void Setup()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         // TODO: don't use this in prod
         // db.Database.EnsureDeleted();
@@ -32,7 +35,7 @@ public class DatabaseTests
     [Order(1)]
     public void PushAuthorsTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         // using templates for unknown values
         var ym = new Author("default::Yukino Minato")
@@ -86,7 +89,7 @@ public class DatabaseTests
     [Order(1)]
     public void PushCirclesTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var nnntCircle = new Circle("default::noraneko-no-tama");
         nnntCircle.AddTitle("ja-JP::ノラネコノタマ");
@@ -102,7 +105,7 @@ public class DatabaseTests
     [Order(1)]
     public void PushMangaTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         // descriptions and metadata taken from toranoana/melonbooks/etc
 
@@ -256,7 +259,7 @@ public class DatabaseTests
     [Order(1)]
     public void PushCharactersTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var ymM1M = new Character("default::Unnamed male")
         {
@@ -299,7 +302,7 @@ public class DatabaseTests
     [Order(1)]
     public void PushTagsTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         // init tag for basic categories
 
@@ -333,7 +336,7 @@ public class DatabaseTests
     [Order(2)]
     public void PushTagsRelationsTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var tags = db.Tags.ToHashSet();
 
@@ -351,7 +354,7 @@ public class DatabaseTests
     [Order(2)]
     public void PushAuthorsCirclesTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -380,7 +383,7 @@ public class DatabaseTests
     [Order(2)]
     public void PushAuthorsCreationsTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -408,7 +411,7 @@ public class DatabaseTests
     [Order(2)]
     public void PushCharactersCreationsTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var characters = db.Characters.Include(a => a.Names).ToHashSet();
 
@@ -439,7 +442,7 @@ public class DatabaseTests
     [Order(2)]
     public void PushAuthorsTagsTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -465,7 +468,7 @@ public class DatabaseTests
     [Order(2)]
     public void PushCharactersTagsTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var characters = db.Characters.Include(a => a.Names).ToHashSet();
 
@@ -492,7 +495,7 @@ public class DatabaseTests
     [Order(2)]
     public void PushAuthorsRelationsTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -510,7 +513,7 @@ public class DatabaseTests
     [Order(2)]
     public void PushCharactersRelationsTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var characters = db.Characters.Include(a => a.Names).ToHashSet();
 
@@ -531,7 +534,7 @@ public class DatabaseTests
     [Order(2)]
     public void PushCreationsCirclesTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var manga = db.Manga.Include(m => m.Titles).ToHashSet();
 
@@ -558,7 +561,7 @@ public class DatabaseTests
     [Order(2)]
     public void PushCreationsRelationsTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var manga = db.Manga.Include(m => m.Titles).ToHashSet();
 
@@ -581,7 +584,7 @@ public class DatabaseTests
     [Order(2)]
     public void PushCreationsTagsTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var manga = db.Manga.Include(m => m.Titles).ToHashSet();
 
@@ -611,7 +614,7 @@ public class DatabaseTests
     [Order(2)]
     public void PushCirclesTagsTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var circles = db.Circles.Include(c => c.Titles).Include(circle => circle.Creations).ToHashSet();
 
@@ -642,7 +645,7 @@ public class DatabaseTests
     [Order(10)]
     public void ReadAuthorsTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var authors = db.Authors.Include(a => a.AuthorNames)
             .Include(a => a.Circles)
@@ -661,7 +664,7 @@ public class DatabaseTests
     [Order(10)]
     public void ReadCharactersTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var characters = db.Characters.Include(c => c.Names)
                                       .Include(c => c.Creations)
@@ -679,7 +682,7 @@ public class DatabaseTests
     [Order(10)]
     public void ReadCirclesTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var circles = db.Circles.Include(c => c.Titles)
                                 .Include(c => c.Authors)
@@ -695,7 +698,7 @@ public class DatabaseTests
     [Order(10)]
     public void ReadMangaTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var manga = db.Manga.Include(m => m.Relations)
                             .Include(m => m.Titles)
@@ -715,7 +718,7 @@ public class DatabaseTests
     [Order(10)]
     public void ReadTagsTest()
     {
-        using var db = new DatabaseContext();
+        using var db = new DatabaseContext(_contextOptions);
 
         var tags = db.Tags.Include(t => t.Creatures)
                           .Include(t => t.Circles)

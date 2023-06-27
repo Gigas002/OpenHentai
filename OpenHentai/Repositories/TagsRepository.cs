@@ -4,13 +4,13 @@ using OpenHentai.Creations;
 using OpenHentai.Creatures;
 using OpenHentai.Tags;
 
-namespace OpenHentai.Contexts;
+namespace OpenHentai.Repositories;
 
-public class TagsContextHelper : DatabaseContextHelper
+public class TagsRepository : DatabaseRepository, ITagsRepository
 {
     #region Constructors
 
-    public TagsContextHelper(DatabaseContext context) : base(context) { }
+    public TagsRepository(DatabaseContext context) : base(context) { }
 
     #endregion
 

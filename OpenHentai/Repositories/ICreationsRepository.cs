@@ -8,18 +8,11 @@ using OpenHentai.Relative;
 using OpenHentai.Roles;
 using OpenHentai.Tags;
 
-namespace OpenHentai.Contexts;
+namespace OpenHentai.Repositories;
 
-public abstract class CreationsContextHelper<T> : DatabaseContextHelper
+public interface ICreationsRepository<T> : IDatabaseRepository
     where T : Creation
 {
-    #region Constructors
-
-    protected CreationsContextHelper(DatabaseContext context) : base(context)
-    { }
-
-    #endregion
-
     #region Methods
 
     #region Get

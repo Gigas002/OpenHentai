@@ -1,6 +1,6 @@
-namespace OpenHentai.Contexts;
+namespace OpenHentai.Repositories;
 
-public abstract class DatabaseContextHelper : IDisposable, IAsyncDisposable
+public abstract class DatabaseRepository : IDatabaseRepository
 {
     #region Properties
 
@@ -12,9 +12,9 @@ public abstract class DatabaseContextHelper : IDisposable, IAsyncDisposable
 
     #region Constructors
 
-    protected DatabaseContextHelper(DatabaseContext context) => Context = context;
+    protected DatabaseRepository(DatabaseContext context) => Context = context;
 
-    ~DatabaseContextHelper() => Dispose(false);
+    ~DatabaseRepository() => Dispose(false);
 
     #endregion
 

@@ -6,13 +6,13 @@ using OpenHentai.Descriptors;
 using OpenHentai.Relative;
 using OpenHentai.Tags;
 
-namespace OpenHentai.Contexts;
+namespace OpenHentai.Repositories;
 
-public class CirclesContextHelper : DatabaseContextHelper
+public class CirclesRepository : DatabaseRepository, ICirclesRepository
 {
     #region Constructors
 
-    public CirclesContextHelper(DatabaseContext context) : base(context) { }
+    public CirclesRepository(DatabaseContext context) : base(context) { }
 
     #endregion
 
