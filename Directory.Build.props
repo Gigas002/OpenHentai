@@ -41,6 +41,8 @@
         <NoWarn>1591</NoWarn>
         <!-- TODO: this is ignored for unknown reasons -->
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+        <IsPackable>true</IsPackable>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)'=='Release'">

@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using OpenHentai.WebAPI;
 
-namespace OpenHentai.WebAPI;
+namespace OpenHentai.Server;
 
 public static class Program
 {
