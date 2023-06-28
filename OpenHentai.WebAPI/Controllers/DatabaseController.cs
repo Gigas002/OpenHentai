@@ -29,14 +29,14 @@ public abstract class DatabaseController<T> : ControllerBase, IDisposable, IAsyn
 
     #region Methods
 
-    public async Task<ActionResult<TEntry>> GetEntryAsync<TEntry>(ulong id) where TEntry : class, IDatabaseEntity
+    protected async Task<ActionResult<TEntry>> GetEntryAsync<TEntry>(ulong id) where TEntry : class, IDatabaseEntity
     {
         var entry = await Repository.GetEntryAsync<TEntry>(id).ConfigureAwait(false);
 
         return entry is null ? NotFound() : Ok(entry);
     }
 
-    public async Task<bool> PostEntryAsync<TEntry>(TEntry entry) where TEntry : class, IDatabaseEntity
+    protected async Task<bool> PostEntryAsync<TEntry>(TEntry entry) where TEntry : class, IDatabaseEntity
     {
         if (entry is null) throw new ArgumentNullException(nameof(entry));
 
@@ -45,14 +45,14 @@ public abstract class DatabaseController<T> : ControllerBase, IDisposable, IAsyn
         return isSuccess;
     }
 
-    public async Task<ActionResult> DeleteEntryAsync<TEntry>(ulong id) where TEntry : class, IDatabaseEntity
+    protected async Task<ActionResult> DeleteEntryAsync<TEntry>(ulong id) where TEntry : class, IDatabaseEntity
     {
         var isSuccess = await Repository.RemoveEntryAsync<TEntry>(id).ConfigureAwait(false);
 
         return isSuccess ? Ok() : BadRequest();
     }
 
-    public async Task<ActionResult> PatchEntryAsync<TEntry>(ulong id,
+    protected async Task<ActionResult> PatchEntryAsync<TEntry>(ulong id,
         IEnumerable<Operation<TEntry>> operations) where TEntry : class, IDatabaseEntity
     {
         var patch = new JsonPatchDocument<TEntry>(operations.ToList(), Essential.JsonSerializerOptions);
