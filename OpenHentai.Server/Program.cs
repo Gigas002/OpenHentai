@@ -107,7 +107,7 @@ public static class Program
 
         // TODO: this should be different
         var initializer = new DatabaseInitializer(_connection);
-        await initializer.InitializeTestDatabaseAsync();
+        await initializer.InitializeTestDatabaseAsync().ConfigureAwait(false);
 
         await app.RunAsync().ConfigureAwait(false);
 

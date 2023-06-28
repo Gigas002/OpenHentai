@@ -13,9 +13,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OpenHentai;
 
-// TODO: This should not be in OpenHentai library
+// TODO: This should be rewritten
 
-[Obsolete("USE ONLY FOR TESTING")]
 public class DatabaseInitializer
 {
     public SqliteConnection SqliteConnection { get; init; }
