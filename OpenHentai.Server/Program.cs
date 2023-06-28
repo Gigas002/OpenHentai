@@ -12,6 +12,10 @@ public static class Program
 {
     private const string DatabasePath = ":memory:";
 
+    private const string HttpLogsPath = "../httplogs.txt";
+
+    private const string DatabaseLogsPath = "../dblogs.txt";
+
     private static readonly SqliteConnection _connection = new($"Data Source={DatabasePath}");
 
     public static async Task Main(string[] args)
@@ -20,12 +24,12 @@ public static class Program
 
         // create a file logger using Serilog
         var httpLogger = new LoggerConfiguration()
-            .WriteTo.File("../httplogs.txt")
-            .WriteTo.Console()
+            .WriteTo.File(HttpLogsPath, formatProvider: CultureInfo.InvariantCulture)
+            .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
             .CreateLogger();
 
         var dbLogger = new LoggerConfiguration()
-            .WriteTo.File("../dblogs.txt")
+            .WriteTo.File(DatabaseLogsPath, formatProvider: CultureInfo.InvariantCulture)
             .CreateLogger();
 
         // add the file logger to the LoggerFactory
