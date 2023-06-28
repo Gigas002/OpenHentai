@@ -6,51 +6,56 @@ using OpenHentai.Descriptors;
 using OpenHentai.Relations;
 using OpenHentai.Roles;
 using OpenHentai.Statuses;
-using OpenHentai.Repositories;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 
-namespace OpenHentai.WebAPI.Tests;
+#pragma warning disable CA2007
 
-// TODO: organize integrational tests better, so there would be no
-// code duplication between this and OpenHentai.Tests
+namespace OpenHentai;
 
-public static class DatabaseInitializer
+// TODO: This should not be in OpenHentai library
+
+[Obsolete("USE ONLY FOR TESTING")]
+public class DatabaseInitializer
 {
-    private const string DatabasePath = "../../../../openhentai.db";
+    public SqliteConnection SqliteConnection { get; init; }
 
-    private static readonly DbContextOptions<DatabaseContext> _contextOptions = new DbContextOptionsBuilder<DatabaseContext>()
-            .UseSqlite($"Data Source={DatabasePath}").Options;
+    public DatabaseInitializer(SqliteConnection sqliteConnection) => SqliteConnection = sqliteConnection;
 
-    public static void InitializeTestDatabase()
+    private DbContextOptions<DatabaseContext> _contextOptions;
+
+    public async Task InitializeTestDatabaseAsync()
     {
-        using (var db = new DatabaseContext(_contextOptions))
+        _contextOptions = new DbContextOptionsBuilder<DatabaseContext>()
+            .UseSqlite(SqliteConnection).Options;
+
+        await using (var db = new DatabaseContext(_contextOptions))
         {
-            // TODO: don't use this in prod
-            db.Database.EnsureDeleted();
-            db.Database.EnsureCreated();
+            await db.Database.EnsureCreatedAsync();
         }
 
-        PushAuthors();
-        PushCircles();
-        PushManga();
-        PushCharacters();
-        PushTags();
-        PushTagsRelations();
-        PushAuthorsCircles();
-        PushAuthorsCreations();
-        PushCharactersCreations();
-        PushAuthorsTags();
-        PushCharactersTags();
-        PushAuthorsRelations();
-        PushCharactersRelations();
-        PushCreationsCircles();
-        PushCreationsRelations();
-        PushCreationsTags();
-        PushCirclesTags();
+        await PushAuthorsAsync();
+        await PushCirclesAsync();
+        await PushMangaAsync();
+        await PushCharactersAsync();
+        await PushTagsAsync();
+        await PushTagsRelationsAsync();
+        await PushAuthorsCirclesAsync();
+        await PushAuthorsCreationsAsync();
+        await PushCharactersCreationsAsync();
+        await PushAuthorsTagsAsync();
+        await PushCharactersTagsAsync();
+        await PushAuthorsRelationsAsync();
+        await PushCharactersRelationsAsync();
+        await PushCreationsCirclesAsync();
+        await PushCreationsRelationsAsync();
+        await PushCreationsTagsAsync();
+        await PushCirclesTagsAsync();
     }
 
-    private static void PushAuthors()
+    private async Task PushAuthorsAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         // using templates for unknown values
         var ym = new Author("default::Yukino Minato")
@@ -95,28 +100,28 @@ public static class DatabaseInitializer
             PaidStatus = PaidStatus.Paid
         });
 
-        db.Authors.AddRange(ym, asanagi);
+        await db.Authors.AddRangeAsync(ym, asanagi);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
-    private static void PushCircles()
+    private async Task PushCirclesAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         var nnntCircle = new Circle("default::noraneko-no-tama");
         nnntCircle.AddTitle("ja-JP::ノラネコノタマ");
 
         var fCircle = new Circle("default::Fatalpulse");
 
-        db.Circles.AddRange(nnntCircle, fCircle);
+        await db.Circles.AddRangeAsync(nnntCircle, fCircle);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
-    private static void PushManga()
+    private async Task PushMangaAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         // descriptions and metadata taken from toranoana/melonbooks/etc
 
@@ -261,14 +266,14 @@ public static class DatabaseInitializer
             続きはお手元にてお楽しみ下さい。
         """));
 
-        db.Manga.AddRange(ymManga1, ymManga2, asanagiManga1, asanagiManga2);
+        await db.AddRangeAsync(ymManga1, ymManga2, asanagiManga1, asanagiManga2);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
-    private static void PushCharacters()
+    private async Task PushCharactersAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         var ymM1M = new Character("default::Unnamed male")
         {
@@ -302,14 +307,14 @@ public static class DatabaseInitializer
         };
         aM2F.Description.Add(new("en-US::Granblue fantasy character"));
 
-        db.Characters.AddRange(ymM1M, ymM2F, aM1F, aM2F);
+        await db.Characters.AddRangeAsync(ymM1M, ymM2F, aM1F, aM2F);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
-    private static void PushTags()
+    private async Task PushTagsAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         // init tag for basic categories
 
@@ -329,15 +334,15 @@ public static class DatabaseInitializer
         var al2Tag = new Tag(TagCategory.Parody, "azurlane");
         al2Tag.Description.Add(new("en-US::Alias for Azur Lane tag"));
 
-        db.Tags.AddRange(loliTag, alTag, gfTag, al2Tag);
+        await db.Tags.AddRangeAsync(loliTag, alTag, gfTag, al2Tag);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
     // depends on PushTags
-    private static void PushTagsRelations()
+    private async Task PushTagsRelationsAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         var tags = db.Tags.ToHashSet();
 
@@ -346,14 +351,14 @@ public static class DatabaseInitializer
 
         al2Tag!.Master = alTag;
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
     // depends on PushAuthors
     // depends on PushCircles
-    private static void PushAuthorsCircles()
+    private async Task PushAuthorsCirclesAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -373,14 +378,14 @@ public static class DatabaseInitializer
         ym!.Circles.Add(nnnt!);
         fatalpulse!.Authors.Add(asanagi!);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
     // depends on PushAuthors
     // depends on PushManga
-    private static void PushAuthorsCreations()
+    private async Task PushAuthorsCreationsAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -399,14 +404,14 @@ public static class DatabaseInitializer
         aM1!.AddAuthor(asanagi!, AuthorRole.MainArtist);
         aM2!.AddAuthor(asanagi!, AuthorRole.MainArtist);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
     // depends on PushCharacters
     // depends on PushManga
-    private static void PushCharactersCreations()
+    private async Task PushCharactersCreationsAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         var characters = db.Characters.Include(a => a.Names).ToHashSet();
 
@@ -428,14 +433,14 @@ public static class DatabaseInitializer
         aM1!.AddCharacter(aM1F!, CharacterRole.Main);
         aM2!.AddCharacter(aM2F!, CharacterRole.Main);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
     // depends on PushTags
     // depends on PushAuthors
-    private static void PushAuthorsTags()
+    private async Task PushAuthorsTagsAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -452,14 +457,14 @@ public static class DatabaseInitializer
         alTag!.Creatures.Add(asanagi!);
         gfTag!.Creatures.Add(asanagi!);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
     // depends on PushTags
     // depends on PushCharacters
-    private static void PushCharactersTags()
+    private async Task PushCharactersTagsAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         var characters = db.Characters.Include(a => a.Names).ToHashSet();
 
@@ -478,13 +483,13 @@ public static class DatabaseInitializer
         alTag!.Creatures.Add(aM1F!);
         gfTag!.Creatures.Add(aM2F!);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
     // depends on PushAuthors
-    private static void PushAuthorsRelations()
+    private async Task PushAuthorsRelationsAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
 
@@ -494,13 +499,13 @@ public static class DatabaseInitializer
         ym!.AddRelation(asanagi!, CreatureRelations.Unknown);
         asanagi!.AddRelation(ym, CreatureRelations.Friend);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
     // depends on PushCharacters
-    private static void PushCharactersRelations()
+    private async Task PushCharactersRelationsAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         var characters = db.Characters.Include(a => a.Names).ToHashSet();
 
@@ -512,14 +517,14 @@ public static class DatabaseInitializer
         ymM1M!.AddRelation(ymM2F!, CreatureRelations.Unknown);
         aM1F!.AddRelation(aM2F!, CreatureRelations.Enemy);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
     // depends on PushManga
     // depends on PushCircles
-    private static void PushCreationsCircles()
+    private async Task PushCreationsCirclesAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         var manga = db.Manga.Include(m => m.Titles).ToHashSet();
 
@@ -538,13 +543,13 @@ public static class DatabaseInitializer
         fatalpulse!.Creations.Add(aM1!);
         fatalpulse.Creations.Add(aM2!);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
     // depends on PushManga
-    private static void PushCreationsRelations()
+    private async Task PushCreationsRelationsAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         var manga = db.Manga.Include(m => m.Titles).ToHashSet();
 
@@ -558,14 +563,14 @@ public static class DatabaseInitializer
         aM1!.AddRelation(aM2!, CreationRelations.Parent);
         aM2!.AddRelation(aM1, CreationRelations.Child);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
     // depends on PushManga
     // depends on PushTags
-    private static void PushCreationsTags()
+    private async Task PushCreationsTagsAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         var manga = db.Manga.Include(m => m.Titles).ToHashSet();
 
@@ -586,14 +591,14 @@ public static class DatabaseInitializer
         alTag!.Creations.Add(aM1!);
         gfTag!.Creations.Add(aM2!);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 
     // depends on PushCircles
     // depends on PushTags
-    private static void PushCirclesTags()
+    private async Task PushCirclesTagsAsync()
     {
-        using var db = new DatabaseContext(_contextOptions);
+        await using var db = new DatabaseContext(_contextOptions);
 
         var circles = db.Circles.Include(c => c.Titles).Include(circle => circle.Creations).ToHashSet();
 
@@ -611,6 +616,6 @@ public static class DatabaseInitializer
         alTag!.Circles.Add(fatalpulse!);
         gfTag!.Circles.Add(fatalpulse!);
 
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 }

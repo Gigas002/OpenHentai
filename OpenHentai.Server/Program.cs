@@ -3,14 +3,16 @@ using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Microsoft.Data.Sqlite;
 using Serilog;
-using OpenHentai.WebAPI;
 
 namespace OpenHentai.Server;
 
 public static class Program
 {
-    public const string DatabasePath = "../openhentai.db";
+    private const string DatabasePath = ":memory:";
+
+    private static readonly SqliteConnection _connection = new($"Data Source={DatabasePath}");
 
     public static async Task Main(string[] args)
     {
@@ -46,7 +48,7 @@ public static class Program
 
         builder.Services.AddDbContext<DatabaseContext>(options => 
         {
-            options.UseSqlite($"Data Source={DatabasePath}");
+            options.UseSqlite(_connection);
         });
 
         // configure controllers's context helpers
@@ -57,10 +59,6 @@ public static class Program
         {
             options.SuppressAsyncSuffixInActionNames = false;
         });
-        // }).AddJsonOptions(options =>
-        // {
-        //     options.JsonSerializerOptions.Converters.Add(new CultureInfoJsonConverter());
-        // });
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
@@ -105,6 +103,14 @@ public static class Program
 
         app.UseHttpLogging();
 
+        await _connection.OpenAsync().ConfigureAwait(false);
+
+        // TODO: this should be different
+        var initializer = new DatabaseInitializer(_connection);
+        await initializer.InitializeTestDatabaseAsync();
+
         await app.RunAsync().ConfigureAwait(false);
+
+        await _connection.CloseAsync().ConfigureAwait(false);
     }
 }

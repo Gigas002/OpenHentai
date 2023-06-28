@@ -14,9 +14,7 @@ public sealed class AuthorsControllerTests : DatabaseControllerTester
 {
     [SetUp]
     public override void Setup()
-    {
-        // DatabaseInitializer.InitializeTestDatabase();
-    }
+    { }
 
     #region GET
 
