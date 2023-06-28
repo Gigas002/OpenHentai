@@ -6,8 +6,6 @@ using OpenHentai.Relative;
 using OpenHentai.Circles;
 using OpenHentai.Tags;
 using OpenHentai.Descriptors;
-using OpenHentai.Relations;
-using OpenHentai.Roles;
 using SystemTextJsonPatch.Operations;
 using OpenHentai.Creations;
 

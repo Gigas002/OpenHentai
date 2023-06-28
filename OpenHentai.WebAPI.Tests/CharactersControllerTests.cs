@@ -3,7 +3,6 @@ using OpenHentai.Repositories;
 using OpenHentai.Creatures;
 using OpenHentai.WebAPI.Controllers;
 using OpenHentai.Relative;
-using OpenHentai.Circles;
 using OpenHentai.Tags;
 using OpenHentai.Descriptors;
 using OpenHentai.Relations;
