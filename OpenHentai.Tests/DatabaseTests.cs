@@ -6,25 +6,33 @@ using OpenHentai.Descriptors;
 using OpenHentai.Relations;
 using OpenHentai.Roles;
 using OpenHentai.Statuses;
-using OpenHentai.Repositories;
+using Microsoft.Data.Sqlite;
 
 namespace OpenHentai.Tests;
 
 public class DatabaseTests
 {
-    public const string DatabasePath = "../openhentai.db";
+    private static readonly SqliteConnection _sqliteConnection = new($"Data Source={DatabasePath}");
 
-    private readonly DbContextOptions<DatabaseContext> _contextOptions = new DbContextOptionsBuilder<DatabaseContext>()
-            .UseSqlite($"Data Source={DatabasePath}").Options;
+    private const string DatabasePath = ":memory:";
 
-    [SetUp]
-    public void Setup()
+    private static readonly DbContextOptions<DatabaseContext> _contextOptions = new DbContextOptionsBuilder<DatabaseContext>()
+            .UseSqlite(_sqliteConnection).Options;
+
+    [OneTimeSetUp]
+    public async Task SetupAsync()
     {
+        await _sqliteConnection.OpenAsync().ConfigureAwait(false);
+
         using var db = new DatabaseContext(_contextOptions);
 
-        // TODO: don't use this in prod
-        // db.Database.EnsureDeleted();
-        db.Database.EnsureCreated();
+        await db.Database.EnsureCreatedAsync().ConfigureAwait(false);
+    }
+
+    [OneTimeTearDown]
+    public async Task CleanUp()
+    {
+        await _sqliteConnection.CloseAsync().ConfigureAwait(false);
     }
 
     #region Push tests
@@ -737,7 +745,7 @@ public class DatabaseTests
         var json = JsonSerializer.Serialize(entity, options);
 
         var jsonPath = $"../{typeof(T)}.json";
-        File.WriteAllText(jsonPath, json);
+        // File.WriteAllText(jsonPath, json);
 
         return json;
     }

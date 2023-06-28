@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 #pragma warning disable CA2007
 
-namespace OpenHentai;
+namespace OpenHentai.Server;
 
 // TODO: This should be rewritten
 
