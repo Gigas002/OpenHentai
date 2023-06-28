@@ -19,13 +19,17 @@ public static class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // create a file logger using Serilog
-        var logger = new LoggerConfiguration()
+        var httpLogger = new LoggerConfiguration()
             .WriteTo.File("../httplogs.txt")
             .WriteTo.Console()
             .CreateLogger();
 
+        var dbLogger = new LoggerConfiguration()
+            .WriteTo.File("../dblogs.txt")
+            .CreateLogger();
+
         // add the file logger to the LoggerFactory
-        builder.Logging.AddSerilog(logger);
+        builder.Logging.AddSerilog(httpLogger);
 
         // configure the HttpLoggingOptions
         builder.Services.AddHttpLogging(logging =>
@@ -48,7 +52,8 @@ public static class Program
 
         builder.Services.AddDbContext<DatabaseContext>(options => 
         {
-            options.UseSqlite(_connection);
+            options.UseSqlite(_connection)
+                .LogTo(dbLogger.Information);
         });
 
         // configure controllers's context helpers

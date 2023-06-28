@@ -12,16 +12,7 @@ namespace OpenHentai;
 
 public class DatabaseContext : DbContext
 {
-    #region Constants
-
-    // for debug purposes
-    // internal const string LogPath = "../log.txt";
-
-    #endregion
-
     #region Properties
-
-    // private readonly StreamWriter _logStream = new(LogPath, true);
 
     public DbSet<Tag> Tags { get; set; } = null!;
     
@@ -60,7 +51,6 @@ public class DatabaseContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSnakeCaseNamingConvention();
-                    //   .LogTo(_logStream.WriteLine);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -212,19 +202,5 @@ public class DatabaseContext : DbContext
                     .WithMany(c => c.Relations);
 
         #endregion
-    }
-
-    public override void Dispose()
-    {
-        base.Dispose();
-        // _logStream.Dispose();
-        GC.SuppressFinalize(this);
-    }
-
-    public override async ValueTask DisposeAsync()
-    {
-        await base.DisposeAsync().ConfigureAwait(false);
-        // await _logStream.DisposeAsync().ConfigureAwait(false);
-        GC.SuppressFinalize(this);
     }
 }
