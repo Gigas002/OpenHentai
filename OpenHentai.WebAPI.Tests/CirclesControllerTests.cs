@@ -7,6 +7,8 @@ using OpenHentai.Tags;
 using OpenHentai.Descriptors;
 using OpenHentai.Creations;
 
+#pragma warning disable CA2007
+
 namespace OpenHentai.WebAPI.Tests;
 
 public sealed class CirclesControllerTests
@@ -43,7 +45,7 @@ public sealed class CirclesControllerTests
         repositoryMock.Setup(r => r.GetEntryAsync<Circle>(Id))
             .ReturnsAsync(new Circle(Id));
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetCircleAsync(Id).ConfigureAwait(false);
@@ -77,7 +79,7 @@ public sealed class CirclesControllerTests
         repositoryMock.Setup(r => r.GetTitlesAsync(Id))
             .ReturnsAsync(new List<CirclesTitles>() { new CirclesTitles() });
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetTitlesAsync(Id).ConfigureAwait(false);
@@ -94,7 +96,7 @@ public sealed class CirclesControllerTests
         repositoryMock.Setup(r => r.GetAuthorsAsync(Id))
             .ReturnsAsync(new List<Author>() { new Author(Id) });
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetAuthorsAsync(Id).ConfigureAwait(false);
@@ -111,7 +113,7 @@ public sealed class CirclesControllerTests
         repositoryMock.Setup(r => r.GetCreationsAsync(Id))
             .ReturnsAsync(new List<Creation>() { new Creation(Id) });
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetCreationsAsync(Id).ConfigureAwait(false);
@@ -128,7 +130,7 @@ public sealed class CirclesControllerTests
         repositoryMock.Setup(r => r.GetTagsAsync(Id))
             .ReturnsAsync(new List<Tag>() { new Tag() });
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetTagsAsync(Id).ConfigureAwait(false);
@@ -150,7 +152,7 @@ public sealed class CirclesControllerTests
         repositoryMock.Setup(r => r.AddEntryAsync(circleMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.PostCircleAsync(circleMock.Object).ConfigureAwait(false);
@@ -168,7 +170,7 @@ public sealed class CirclesControllerTests
         repositoryMock.Setup(r => r.AddTitlesAsync(Id, circleNamesMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.PostTitlesAsync(Id, circleNamesMock.Object).ConfigureAwait(false);
@@ -190,7 +192,7 @@ public sealed class CirclesControllerTests
         repositoryMock.Setup(r => r.AddAuthorsAsync(Id, authorsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.PutAuthorsAsync(Id, authorsMock.Object).ConfigureAwait(false);
@@ -208,7 +210,7 @@ public sealed class CirclesControllerTests
         repositoryMock.Setup(r => r.AddCreationsAsync(Id, creationsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.PutCreationsAsync(Id, creationsMock.Object).ConfigureAwait(false);
@@ -226,7 +228,7 @@ public sealed class CirclesControllerTests
         repositoryMock.Setup(r => r.AddTagsAsync(Id, tagsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.PutTagsAsync(Id, tagsMock.Object).ConfigureAwait(false);
@@ -247,7 +249,7 @@ public sealed class CirclesControllerTests
         repositoryMock.Setup(r => r.RemoveEntryAsync<Circle>(Id))
             .ReturnsAsync(true);
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteCircleAsync(Id).ConfigureAwait(false);
@@ -265,7 +267,7 @@ public sealed class CirclesControllerTests
         repositoryMock.Setup(r => r.RemoveTitlesAsync(Id, titlesMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteTitlesAsync(Id, titlesMock.Object).ConfigureAwait(false);
@@ -283,7 +285,7 @@ public sealed class CirclesControllerTests
         repositoryMock.Setup(r => r.RemoveAuthorsAsync(Id, authorsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteAuthorsAsync(Id, authorsMock.Object).ConfigureAwait(false);
@@ -301,7 +303,7 @@ public sealed class CirclesControllerTests
         repositoryMock.Setup(r => r.RemoveCreationsAsync(Id, creationsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteCreationsAsync(Id, creationsMock.Object).ConfigureAwait(false);
@@ -319,7 +321,7 @@ public sealed class CirclesControllerTests
         repositoryMock.Setup(r => r.RemoveTagsAsync(Id, tagsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteTagsAsync(Id, tagsMock.Object).ConfigureAwait(false);
@@ -343,7 +345,7 @@ public sealed class CirclesControllerTests
             .ReturnsAsync(circle);
         repositoryMock.Setup(r => r.SaveChangesAsync());
 
-        using var controller = new CirclesController(repositoryMock.Object);
+        await using var controller = new CirclesController(repositoryMock.Object);
 
         // Act
         var response = await controller.PatchCircleAsync(Id, operationsMock.Object).ConfigureAwait(false);

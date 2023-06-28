@@ -7,6 +7,8 @@ using OpenHentai.Descriptors;
 using OpenHentai.Relations;
 using OpenHentai.Roles;
 
+#pragma warning disable CA2007
+
 namespace OpenHentai.WebAPI.Tests;
 
 public sealed class CharactersControllerTests
@@ -43,7 +45,7 @@ public sealed class CharactersControllerTests
         repositoryMock.Setup(r => r.GetEntryAsync<Character>(Id))
             .ReturnsAsync(new Character(Id));
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetCharacterAsync(Id).ConfigureAwait(false);
@@ -60,7 +62,7 @@ public sealed class CharactersControllerTests
         repositoryMock.Setup(r => r.GetCreationsAsync(Id))
             .ReturnsAsync(new List<CreationsCharacters>() { new CreationsCharacters() });
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetCreationsAsync(Id).ConfigureAwait(false);
@@ -77,7 +79,7 @@ public sealed class CharactersControllerTests
         repositoryMock.Setup(r => r.GetNamesAsync(Id))
             .ReturnsAsync(new List<CreaturesNames>() { new CreaturesNames() });
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetNamesAsync(Id).ConfigureAwait(false);
@@ -94,7 +96,7 @@ public sealed class CharactersControllerTests
         repositoryMock.Setup(r => r.GetTagsAsync(Id))
             .ReturnsAsync(new List<Tag>() { new Tag() });
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetTagsAsync(Id).ConfigureAwait(false);
@@ -111,7 +113,7 @@ public sealed class CharactersControllerTests
         repositoryMock.Setup(r => r.GetRelationsAsync(Id))
             .ReturnsAsync(new List<CreaturesRelations>() { new CreaturesRelations() });
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetRelationsAsync(Id).ConfigureAwait(false);
@@ -133,7 +135,7 @@ public sealed class CharactersControllerTests
         repositoryMock.Setup(r => r.AddEntryAsync(characterMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.PostCharacterAsync(characterMock.Object).ConfigureAwait(false);
@@ -151,7 +153,7 @@ public sealed class CharactersControllerTests
         repositoryMock.Setup(r => r.AddNamesAsync(Id, namesMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.PostNamesAsync(Id, namesMock.Object).ConfigureAwait(false);
@@ -169,7 +171,7 @@ public sealed class CharactersControllerTests
         repositoryMock.Setup(r => r.AddRelationsAsync(Id, relationsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.PostRelationsAsync(Id, relationsMock.Object).ConfigureAwait(false);
@@ -191,7 +193,7 @@ public sealed class CharactersControllerTests
         repositoryMock.Setup(r => r.AddCreationsAsync(Id, creationsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.PutCreationsAsync(Id, creationsMock.Object).ConfigureAwait(false);
@@ -209,7 +211,7 @@ public sealed class CharactersControllerTests
         repositoryMock.Setup(r => r.AddTagsAsync(Id, tagsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.PutTagsAsync(Id, tagsMock.Object).ConfigureAwait(false);
@@ -230,7 +232,7 @@ public sealed class CharactersControllerTests
         repositoryMock.Setup(r => r.RemoveEntryAsync<Character>(Id))
             .ReturnsAsync(true);
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteCharacterAsync(Id).ConfigureAwait(false);
@@ -248,7 +250,7 @@ public sealed class CharactersControllerTests
         repositoryMock.Setup(r => r.RemoveCreationsAsync(Id, creationsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteCreationsAsync(Id, creationsMock.Object).ConfigureAwait(false);
@@ -266,7 +268,7 @@ public sealed class CharactersControllerTests
         repositoryMock.Setup(r => r.RemoveNamesAsync(Id, namesMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteNamesAsync(Id, namesMock.Object).ConfigureAwait(false);
@@ -284,7 +286,7 @@ public sealed class CharactersControllerTests
         repositoryMock.Setup(r => r.RemoveTagsAsync(Id, tagsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteTagsAsync(Id, tagsMock.Object).ConfigureAwait(false);
@@ -302,7 +304,7 @@ public sealed class CharactersControllerTests
         repositoryMock.Setup(r => r.RemoveRelationsAsync(Id, relatedMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteRelationsAsync(Id, relatedMock.Object).ConfigureAwait(false);
@@ -326,7 +328,7 @@ public sealed class CharactersControllerTests
             .ReturnsAsync(character);
         repositoryMock.Setup(r => r.SaveChangesAsync());
 
-        using var controller = new CharactersController(repositoryMock.Object);
+        await using var controller = new CharactersController(repositoryMock.Object);
 
         // Act
         var response = await controller.PatchCharacterAsync(Id, operationsMock.Object).ConfigureAwait(false);

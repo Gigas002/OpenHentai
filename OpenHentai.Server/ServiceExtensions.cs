@@ -1,6 +1,6 @@
 using OpenHentai.Repositories;
 
-namespace OpenHentai.WebAPI;
+namespace OpenHentai.Server;
 
 public static class ServiceExtensions
 {

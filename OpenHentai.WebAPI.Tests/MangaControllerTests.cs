@@ -8,6 +8,8 @@ using OpenHentai.Relations;
 using OpenHentai.Roles;
 using OpenHentai.Creations;
 
+#pragma warning disable CA2007
+
 namespace OpenHentai.WebAPI.Tests;
 
 public sealed class MangaControllerTests
@@ -44,7 +46,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.GetEntryAsync<Manga>(Id))
             .ReturnsAsync(new Manga(Id));
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetMangaAsync(Id).ConfigureAwait(false);
@@ -61,7 +63,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.GetTitlesAsync(Id))
             .ReturnsAsync(new List<CreationsTitles>() { new CreationsTitles() });
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetTitlesAsync(Id).ConfigureAwait(false);
@@ -78,7 +80,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.GetAuthorsAsync(Id))
             .ReturnsAsync(new List<AuthorsCreations>() { new AuthorsCreations() });
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetAuthorsAsync(Id).ConfigureAwait(false);
@@ -95,7 +97,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.GetCirclesAsync(Id))
             .ReturnsAsync(new List<Circle>() { new Circle(Id) });
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetCirclesAsync(Id).ConfigureAwait(false);
@@ -112,7 +114,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.GetRelationsAsync(Id))
             .ReturnsAsync(new List<CreationsRelations>() { new CreationsRelations() });
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetRelationsAsync(Id).ConfigureAwait(false);
@@ -129,7 +131,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.GetCharactersAsync(Id))
             .ReturnsAsync(new List<CreationsCharacters>() { new CreationsCharacters() });
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetCharactersAsync(Id).ConfigureAwait(false);
@@ -146,7 +148,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.GetTagsAsync(Id))
             .ReturnsAsync(new List<Tag>() { new Tag() });
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.GetTagsAsync(Id).ConfigureAwait(false);
@@ -168,7 +170,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.AddEntryAsync(mangaMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.PostMangaAsync(mangaMock.Object).ConfigureAwait(false);
@@ -186,7 +188,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.AddTitlesAsync(Id, titlesMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.PostTitlesAsync(Id, titlesMock.Object).ConfigureAwait(false);
@@ -204,7 +206,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.AddRelationsAsync(Id, relationsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.PostRelationsAsync(Id, relationsMock.Object).ConfigureAwait(false);
@@ -226,7 +228,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.AddAuthorsAsync(Id, authorsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.PutAuthorsAsync(Id, authorsMock.Object).ConfigureAwait(false);
@@ -244,7 +246,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.AddCirclesAsync(Id, circlesMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.PutCirclesAsync(Id, circlesMock.Object).ConfigureAwait(false);
@@ -262,7 +264,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.AddCharactersAsync(Id, charactersMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.PutCharactersAsync(Id, charactersMock.Object).ConfigureAwait(false);
@@ -280,7 +282,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.AddTagsAsync(Id, tagsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.PutTagsAsync(Id, tagsMock.Object).ConfigureAwait(false);
@@ -301,7 +303,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.RemoveEntryAsync<Manga>(Id))
             .ReturnsAsync(true);
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteMangaAsync(Id).ConfigureAwait(false);
@@ -319,7 +321,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.RemoveTitlesAsync(Id, namesMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteTitlesAsync(Id, namesMock.Object).ConfigureAwait(false);
@@ -337,7 +339,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.RemoveAuthorsAsync(Id, authorsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteAuthorsAsync(Id, authorsMock.Object).ConfigureAwait(false);
@@ -355,7 +357,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.RemoveCirclesAsync(Id, circlesMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteCirclesAsync(Id, circlesMock.Object).ConfigureAwait(false);
@@ -373,7 +375,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.RemoveRelationsAsync(Id, relatedMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteRelationsAsync(Id, relatedMock.Object).ConfigureAwait(false);
@@ -391,7 +393,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.RemoveCharactersAsync(Id, charactersMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteCharactersAsync(Id, charactersMock.Object).ConfigureAwait(false);
@@ -409,7 +411,7 @@ public sealed class MangaControllerTests
         repositoryMock.Setup(r => r.RemoveTagsAsync(Id, tagsMock.Object))
             .ReturnsAsync(true);
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.DeleteTagsAsync(Id, tagsMock.Object).ConfigureAwait(false);
@@ -433,7 +435,7 @@ public sealed class MangaControllerTests
             .ReturnsAsync(manga);
         repositoryMock.Setup(r => r.SaveChangesAsync());
 
-        using var controller = new MangaController(repositoryMock.Object);
+        await using var controller = new MangaController(repositoryMock.Object);
 
         // Act
         var response = await controller.PatchMangaAsync(Id, operationsMock.Object).ConfigureAwait(false);
