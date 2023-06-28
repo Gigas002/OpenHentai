@@ -1,4 +1,3 @@
-using Moq;
 using OpenHentai.Repositories;
 using OpenHentai.Creatures;
 using OpenHentai.WebAPI.Controllers;
@@ -6,7 +5,6 @@ using OpenHentai.Relative;
 using OpenHentai.Circles;
 using OpenHentai.Tags;
 using OpenHentai.Descriptors;
-using SystemTextJsonPatch.Operations;
 using OpenHentai.Creations;
 
 namespace OpenHentai.WebAPI.Tests;
@@ -34,7 +32,7 @@ public sealed class CirclesControllerTests
         var response = controller.GetCircles();
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -51,7 +49,7 @@ public sealed class CirclesControllerTests
         var response = await controller.GetCircleAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -68,7 +66,7 @@ public sealed class CirclesControllerTests
         var response = controller.GetAllTitles();
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -85,7 +83,7 @@ public sealed class CirclesControllerTests
         var response = await controller.GetTitlesAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -102,7 +100,7 @@ public sealed class CirclesControllerTests
         var response = await controller.GetAuthorsAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -119,7 +117,7 @@ public sealed class CirclesControllerTests
         var response = await controller.GetCreationsAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -136,7 +134,7 @@ public sealed class CirclesControllerTests
         var response = await controller.GetTagsAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -158,7 +156,7 @@ public sealed class CirclesControllerTests
         var response = await controller.PostCircleAsync(circleMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -176,7 +174,7 @@ public sealed class CirclesControllerTests
         var response = await controller.PostTitlesAsync(Id, circleNamesMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -198,7 +196,7 @@ public sealed class CirclesControllerTests
         var response = await controller.PutAuthorsAsync(Id, authorsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -216,7 +214,7 @@ public sealed class CirclesControllerTests
         var response = await controller.PutCreationsAsync(Id, creationsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -234,7 +232,7 @@ public sealed class CirclesControllerTests
         var response = await controller.PutTagsAsync(Id, tagsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -255,7 +253,7 @@ public sealed class CirclesControllerTests
         var response = await controller.DeleteCircleAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -273,7 +271,7 @@ public sealed class CirclesControllerTests
         var response = await controller.DeleteTitlesAsync(Id, titlesMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -291,7 +289,7 @@ public sealed class CirclesControllerTests
         var response = await controller.DeleteAuthorsAsync(Id, authorsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -309,7 +307,7 @@ public sealed class CirclesControllerTests
         var response = await controller.DeleteCreationsAsync(Id, creationsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -327,7 +325,7 @@ public sealed class CirclesControllerTests
         var response = await controller.DeleteTagsAsync(Id, tagsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -351,7 +349,7 @@ public sealed class CirclesControllerTests
         var response = await controller.PatchCircleAsync(Id, operationsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion

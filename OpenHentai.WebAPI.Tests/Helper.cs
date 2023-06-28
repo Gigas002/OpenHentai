@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace OpenHentai.WebAPI.Tests;
 
-public static class Global
+public static class Helper
 {
     public static bool CheckResponse(IActionResult response)
     {

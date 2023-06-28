@@ -1,4 +1,3 @@
-using Moq;
 using OpenHentai.Repositories;
 using OpenHentai.WebAPI.Controllers;
 using OpenHentai.Relative;
@@ -7,7 +6,6 @@ using OpenHentai.Tags;
 using OpenHentai.Descriptors;
 using OpenHentai.Relations;
 using OpenHentai.Roles;
-using SystemTextJsonPatch.Operations;
 using OpenHentai.Creations;
 
 namespace OpenHentai.WebAPI.Tests;
@@ -35,7 +33,7 @@ public sealed class MangaControllerTests
         var response = controller.GetManga();
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -52,7 +50,7 @@ public sealed class MangaControllerTests
         var response = await controller.GetMangaAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -69,7 +67,7 @@ public sealed class MangaControllerTests
         var response = await controller.GetTitlesAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -86,7 +84,7 @@ public sealed class MangaControllerTests
         var response = await controller.GetAuthorsAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -103,7 +101,7 @@ public sealed class MangaControllerTests
         var response = await controller.GetCirclesAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -120,7 +118,7 @@ public sealed class MangaControllerTests
         var response = await controller.GetRelationsAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -137,7 +135,7 @@ public sealed class MangaControllerTests
         var response = await controller.GetCharactersAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -154,7 +152,7 @@ public sealed class MangaControllerTests
         var response = await controller.GetTagsAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -176,7 +174,7 @@ public sealed class MangaControllerTests
         var response = await controller.PostMangaAsync(mangaMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -194,7 +192,7 @@ public sealed class MangaControllerTests
         var response = await controller.PostTitlesAsync(Id, titlesMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -212,7 +210,7 @@ public sealed class MangaControllerTests
         var response = await controller.PostRelationsAsync(Id, relationsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -234,7 +232,7 @@ public sealed class MangaControllerTests
         var response = await controller.PutAuthorsAsync(Id, authorsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -252,7 +250,7 @@ public sealed class MangaControllerTests
         var response = await controller.PutCirclesAsync(Id, circlesMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -270,7 +268,7 @@ public sealed class MangaControllerTests
         var response = await controller.PutCharactersAsync(Id, charactersMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -288,7 +286,7 @@ public sealed class MangaControllerTests
         var response = await controller.PutTagsAsync(Id, tagsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -309,7 +307,7 @@ public sealed class MangaControllerTests
         var response = await controller.DeleteMangaAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -327,7 +325,7 @@ public sealed class MangaControllerTests
         var response = await controller.DeleteTitlesAsync(Id, namesMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -345,7 +343,7 @@ public sealed class MangaControllerTests
         var response = await controller.DeleteAuthorsAsync(Id, authorsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -363,7 +361,7 @@ public sealed class MangaControllerTests
         var response = await controller.DeleteCirclesAsync(Id, circlesMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -381,7 +379,7 @@ public sealed class MangaControllerTests
         var response = await controller.DeleteRelationsAsync(Id, relatedMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -399,7 +397,7 @@ public sealed class MangaControllerTests
         var response = await controller.DeleteCharactersAsync(Id, charactersMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -417,7 +415,7 @@ public sealed class MangaControllerTests
         var response = await controller.DeleteTagsAsync(Id, tagsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -441,7 +439,7 @@ public sealed class MangaControllerTests
         var response = await controller.PatchMangaAsync(Id, operationsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion

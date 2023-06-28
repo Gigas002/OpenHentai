@@ -1,4 +1,3 @@
-using Moq;
 using OpenHentai.Repositories;
 using OpenHentai.Creatures;
 using OpenHentai.WebAPI.Controllers;
@@ -8,7 +7,6 @@ using OpenHentai.Tags;
 using OpenHentai.Descriptors;
 using OpenHentai.Relations;
 using OpenHentai.Roles;
-using SystemTextJsonPatch.Operations;
 
 namespace OpenHentai.WebAPI.Tests;
 
@@ -35,7 +33,7 @@ public sealed class AuthorsControllerTests
         var response = controller.GetAuthors();
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -52,7 +50,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.GetAuthorAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -69,7 +67,7 @@ public sealed class AuthorsControllerTests
         var response = controller.GetAuthorsNames();
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -86,7 +84,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.GetAuthorNamesAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -103,7 +101,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.GetCirclesAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -120,7 +118,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.GetCreationsAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -137,7 +135,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.GetNamesAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -154,7 +152,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.GetTagsAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -171,7 +169,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.GetRelationsAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -193,7 +191,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.PostAuthorAsync(authorMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -211,7 +209,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.PostAuthorNamesAsync(Id, authorNamesMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -229,7 +227,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.PostNamesAsync(Id, namesMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -247,7 +245,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.PostRelationsAsync(Id, relationsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -269,7 +267,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.PutCirclesAsync(Id, circlesMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -287,7 +285,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.PutCreationsAsync(Id, creationsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -305,7 +303,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.PutTagsAsync(Id, tagsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -326,7 +324,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.DeleteAuthorAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -344,7 +342,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.DeleteAuthorNamesAsync(Id, namesMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -362,7 +360,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.DeleteCirclesAsync(Id, circlesMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -380,7 +378,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.DeleteCreationsAsync(Id, creationsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -398,7 +396,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.DeleteNamesAsync(Id, namesMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -416,7 +414,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.DeleteTagsAsync(Id, tagsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -434,7 +432,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.DeleteRelationsAsync(Id, relatedMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -458,7 +456,7 @@ public sealed class AuthorsControllerTests
         var response = await controller.PatchAuthorAsync(Id, operationsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion

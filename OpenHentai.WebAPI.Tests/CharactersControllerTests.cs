@@ -1,4 +1,3 @@
-using Moq;
 using OpenHentai.Repositories;
 using OpenHentai.Creatures;
 using OpenHentai.WebAPI.Controllers;
@@ -7,7 +6,6 @@ using OpenHentai.Tags;
 using OpenHentai.Descriptors;
 using OpenHentai.Relations;
 using OpenHentai.Roles;
-using SystemTextJsonPatch.Operations;
 
 namespace OpenHentai.WebAPI.Tests;
 
@@ -34,7 +32,7 @@ public sealed class CharactersControllerTests
         var response = controller.GetCharacters();
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -51,7 +49,7 @@ public sealed class CharactersControllerTests
         var response = await controller.GetCharacterAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -68,7 +66,7 @@ public sealed class CharactersControllerTests
         var response = await controller.GetCreationsAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -85,7 +83,7 @@ public sealed class CharactersControllerTests
         var response = await controller.GetNamesAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -102,7 +100,7 @@ public sealed class CharactersControllerTests
         var response = await controller.GetTagsAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -119,7 +117,7 @@ public sealed class CharactersControllerTests
         var response = await controller.GetRelationsAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -141,7 +139,7 @@ public sealed class CharactersControllerTests
         var response = await controller.PostCharacterAsync(characterMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -159,7 +157,7 @@ public sealed class CharactersControllerTests
         var response = await controller.PostNamesAsync(Id, namesMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -177,7 +175,7 @@ public sealed class CharactersControllerTests
         var response = await controller.PostRelationsAsync(Id, relationsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -199,7 +197,7 @@ public sealed class CharactersControllerTests
         var response = await controller.PutCreationsAsync(Id, creationsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -217,7 +215,7 @@ public sealed class CharactersControllerTests
         var response = await controller.PutTagsAsync(Id, tagsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -238,7 +236,7 @@ public sealed class CharactersControllerTests
         var response = await controller.DeleteCharacterAsync(Id).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -256,7 +254,7 @@ public sealed class CharactersControllerTests
         var response = await controller.DeleteCreationsAsync(Id, creationsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -274,7 +272,7 @@ public sealed class CharactersControllerTests
         var response = await controller.DeleteNamesAsync(Id, namesMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -292,7 +290,7 @@ public sealed class CharactersControllerTests
         var response = await controller.DeleteTagsAsync(Id, tagsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     [Test]
@@ -310,7 +308,7 @@ public sealed class CharactersControllerTests
         var response = await controller.DeleteRelationsAsync(Id, relatedMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
@@ -334,7 +332,7 @@ public sealed class CharactersControllerTests
         var response = await controller.PatchCharacterAsync(Id, operationsMock.Object).ConfigureAwait(false);
 
         // Assert
-        if (!Global.CheckResponse(response)) Assert.Fail();
+        if (!Helper.CheckResponse(response)) Assert.Fail();
     }
 
     #endregion
