@@ -68,7 +68,7 @@ public class CirclesRepository : DatabaseRepository, ICirclesRepository
 
         circle.AddTitles(titles);
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -90,7 +90,7 @@ public class CirclesRepository : DatabaseRepository, ICirclesRepository
             circle.Authors.Add(author);
         }
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -112,7 +112,7 @@ public class CirclesRepository : DatabaseRepository, ICirclesRepository
             circle.Creations.Add(creation);
         }
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -134,7 +134,7 @@ public class CirclesRepository : DatabaseRepository, ICirclesRepository
             circle.Tags.Add(tag);
         }
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -159,7 +159,7 @@ public class CirclesRepository : DatabaseRepository, ICirclesRepository
 
         if (removedItems <= 0) return false;
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -180,7 +180,7 @@ public class CirclesRepository : DatabaseRepository, ICirclesRepository
 
         if (removedItems <= 0) return false;
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -201,7 +201,7 @@ public class CirclesRepository : DatabaseRepository, ICirclesRepository
 
         if (removedItems <= 0) return false;
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -222,7 +222,7 @@ public class CirclesRepository : DatabaseRepository, ICirclesRepository
 
         if (removedItems <= 0) return false;
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }

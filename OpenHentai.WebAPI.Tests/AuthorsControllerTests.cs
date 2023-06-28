@@ -446,19 +446,16 @@ public sealed class AuthorsControllerTests
     {
         // Arrange
         var author = new Author(Id);
-        var operations = new List<Operation<Author>>()
-        {
-            new Operation<Author>("replace", "/age", null, 30)
-        };
-        // var patch = new Mock<IEnumerable<Operation<Author>>>();
+        var operationsMock = new Mock<List<Operation<Author>>>();
         var repositoryMock = new Mock<IAuthorsRepository>();
         repositoryMock.Setup(r => r.GetEntryAsync<Author>(Id))
             .ReturnsAsync(author);
+        repositoryMock.Setup(r => r.SaveChangesAsync());
 
         using var controller = new AuthorsController(repositoryMock.Object);
 
         // Act
-        var response = await controller.PatchAuthorAsync(Id, operations).ConfigureAwait(false);
+        var response = await controller.PatchAuthorAsync(Id, operationsMock.Object).ConfigureAwait(false);
 
         // Assert
         if (!Global.CheckResponse(response)) Assert.Fail();

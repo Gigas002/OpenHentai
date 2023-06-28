@@ -31,7 +31,7 @@ public abstract class DatabaseRepository : IDatabaseRepository
 
         await Context.AddAsync(entry);
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -47,10 +47,12 @@ public abstract class DatabaseRepository : IDatabaseRepository
 
         RemoveEntry(entry);
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
+
+    public Task SaveChangesAsync() => Context.SaveChangesAsync();
 
     #region Experimental
 
@@ -61,7 +63,7 @@ public abstract class DatabaseRepository : IDatabaseRepository
         Context.Attach(entry);
         Context.Update(entry);
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
     }
 
     #endregion

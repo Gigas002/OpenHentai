@@ -65,7 +65,7 @@ public class TagsRepository : DatabaseRepository, ITagsRepository
             tag.Creatures.Add(creature);
         }
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -87,7 +87,7 @@ public class TagsRepository : DatabaseRepository, ITagsRepository
             tag.Creations.Add(creation);
         }
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -109,7 +109,7 @@ public class TagsRepository : DatabaseRepository, ITagsRepository
             tag.Circles.Add(circle);
         }
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -134,7 +134,7 @@ public class TagsRepository : DatabaseRepository, ITagsRepository
 
         if (removedItems <= 0) return false;
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -155,7 +155,7 @@ public class TagsRepository : DatabaseRepository, ITagsRepository
 
         if (removedItems <= 0) return false;
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -176,7 +176,7 @@ public class TagsRepository : DatabaseRepository, ITagsRepository
 
         if (removedItems <= 0) return false;
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }

@@ -50,7 +50,7 @@ public class CharactersRepository : DatabaseRepository, ICharactersRepository
             character.AddCreation(creation, creationRole.Value);
         }
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -76,7 +76,7 @@ public class CharactersRepository : DatabaseRepository, ICharactersRepository
 
         if (removedItems <= 0) return false;
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }

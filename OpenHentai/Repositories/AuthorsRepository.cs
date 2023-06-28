@@ -61,7 +61,7 @@ public class AuthorsRepository : DatabaseRepository, IAuthorsRepository
 
         author.AddAuthorNames(names);
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -83,7 +83,7 @@ public class AuthorsRepository : DatabaseRepository, IAuthorsRepository
             author.Circles.Add(circle);
         }
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -105,7 +105,7 @@ public class AuthorsRepository : DatabaseRepository, IAuthorsRepository
             author.AddCreation(creation, creationRole.Value);
         }
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -130,7 +130,7 @@ public class AuthorsRepository : DatabaseRepository, IAuthorsRepository
 
         if (removedItems <= 0) return false;
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -151,7 +151,7 @@ public class AuthorsRepository : DatabaseRepository, IAuthorsRepository
 
         if (removedItems <= 0) return false;
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }
@@ -173,7 +173,7 @@ public class AuthorsRepository : DatabaseRepository, IAuthorsRepository
 
         if (removedItems <= 0) return false;
 
-        await Context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return true;
     }

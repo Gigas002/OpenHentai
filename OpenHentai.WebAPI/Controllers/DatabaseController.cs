@@ -61,10 +61,16 @@ public abstract class DatabaseController<T> : ControllerBase, IDisposable, IAsyn
 
         if (entry is null) return BadRequest();
 
-        patch.ApplyTo(entry);
+        try
+        {
+            patch.ApplyTo(entry);
 
-        // TODO: do not call Context here directly, override SaveChanges in repo
-        await Repository.Context.SaveChangesAsync().ConfigureAwait(false);
+            await Repository.SaveChangesAsync().ConfigureAwait(false);
+        }
+        catch
+        {
+            return BadRequest();
+        }
 
         return Ok();
     }
@@ -103,7 +109,7 @@ public abstract class DatabaseController<T> : ControllerBase, IDisposable, IAsyn
     protected virtual async ValueTask DisposeAsyncCore()
     {
         if (IsDisposed) return;
-        
+
         IsDisposed = true;
     }
 #pragma warning restore CS1998
