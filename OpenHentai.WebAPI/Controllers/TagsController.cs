@@ -6,6 +6,7 @@ using OpenHentai.Circles;
 using OpenHentai.Tags;
 using OpenHentai.WebAPI.Constants;
 using OpenHentai.Creations;
+using OpenHentai.Creatures;
 
 namespace OpenHentai.WebAPI.Controllers;
 
@@ -58,7 +59,7 @@ public class TagsController : DatabaseController<ITagsRepository>
     /// <returns>Collection of Creature</returns>
     [HttpGet(TagsRoutes.Creatures)]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<IEnumerable<Circle>>> GetCreaturesAsync(ulong id)
+    public async Task<ActionResult<IEnumerable<Creature>>> GetCreaturesAsync(ulong id)
     {
         var creatures = await Repository.GetCreaturesAsync(id).ConfigureAwait(false);
 
