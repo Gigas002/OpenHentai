@@ -8,7 +8,7 @@ namespace OpenHentai;
 public static class Essential
 {
     // TODO: net8+ PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
-    public static JsonSerializerOptions JsonSerializerOptions => new JsonSerializerOptions
+    public static JsonSerializerOptions JsonSerializerOptions => new()
     {
         // allows writing of cyrillic and other symbols as-is
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
@@ -17,5 +17,5 @@ public static class Essential
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
     };
 
-    public static T GetEntityById<T>(ulong id) where T : IDatabaseEntity, new() => new T() { Id = id };
+    public static T GetEntityById<T>(ulong id) where T : IDatabaseEntity, new() => new() { Id = id };
 }
