@@ -5,7 +5,7 @@ using OpenHentai.Descriptors;
 using OpenHentai.Relative;
 using OpenHentai.Roles;
 
-namespace OpenHentai.Tests;
+namespace OpenHentai.Tests.Creatures;
 
 public class AuthorTests
 {

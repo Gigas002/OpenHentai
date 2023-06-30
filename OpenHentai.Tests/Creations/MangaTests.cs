@@ -1,7 +1,7 @@
 using OpenHentai.Creations;
 using OpenHentai.Descriptors;
 
-namespace OpenHentai.Tests;
+namespace OpenHentai.Tests.Creations;
 
 public class MangaTests
 {

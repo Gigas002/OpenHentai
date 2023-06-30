@@ -8,7 +8,7 @@ using OpenHentai.Roles;
 using OpenHentai.Statuses;
 using OpenHentai.Tags;
 
-namespace OpenHentai.Tests;
+namespace OpenHentai.Tests.Creations;
 
 public class CreationTests
 {

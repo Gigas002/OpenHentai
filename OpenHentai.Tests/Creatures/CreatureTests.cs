@@ -4,7 +4,7 @@ using OpenHentai.Relations;
 using OpenHentai.Relative;
 using OpenHentai.Tags;
 
-namespace OpenHentai.Tests;
+namespace OpenHentai.Tests.Creatures;
 
 public class CreatureTests
 {

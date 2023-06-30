@@ -1,4 +1,4 @@
-namespace OpenHentai.Tests;
+namespace OpenHentai.Tests.Descriptors;
 
 public class CensorshipInfoTests
 {

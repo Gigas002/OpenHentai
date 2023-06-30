@@ -5,7 +5,7 @@ using OpenHentai.Descriptors;
 using OpenHentai.Relative;
 using OpenHentai.Tags;
 
-namespace OpenHentai.Tests;
+namespace OpenHentai.Tests.Circles;
 
 public class CircleTests
 {

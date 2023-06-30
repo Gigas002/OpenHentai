@@ -1,11 +1,10 @@
-using OpenHentai.Circles;
 using OpenHentai.Creations;
 using OpenHentai.Creatures;
 using OpenHentai.Descriptors;
 using OpenHentai.Relative;
 using OpenHentai.Roles;
 
-namespace OpenHentai.Tests;
+namespace OpenHentai.Tests.Creatures;
 
 public class CharacterTests
 {
