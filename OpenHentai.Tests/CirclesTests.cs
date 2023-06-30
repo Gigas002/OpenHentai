@@ -43,13 +43,47 @@ public class CirclesTests
     [Test]
     public void GetTitlesTest()
     {
-        var circle = new Circle("default::title");
+        var titleMock = new Mock<LanguageSpecificTextInfo>("default::title");
+        var circle = new Circle(titleMock.Object);
 
         var titles = circle.GetTitles();
 
-        var title = titles.FirstOrDefault(t => t.Language == "default" && t.Text == "title");
+        var title = titles.FirstOrDefault(t => t.Language == titleMock.Object.Language
+                                            && t.Text == titleMock.Object.Text);
 
         if (title is null)
+            Assert.Fail();
+    }
+
+    [Test]
+    public void AddTitlesTest()
+    {
+        var circle = new Circle();
+
+        var titleMock = new Mock<LanguageSpecificTextInfo>("default::title");
+
+        circle.AddTitles(new List<LanguageSpecificTextInfo> { titleMock.Object});
+
+        var title = circle.GetTitles().FirstOrDefault(t => t.Language == titleMock.Object.Language
+                                            && t.Text == titleMock.Object.Text);
+
+        if (title is null)
+            Assert.Fail();
+    }
+
+    [Test]
+    public void AddTitleTest()
+    {
+        var circle = new Circle();
+
+        var titleMock = new Mock<LanguageSpecificTextInfo>("default::title1");
+
+        circle.AddTitle(titleMock.Object);
+        circle.AddTitle("default::title2");
+
+        var titles = circle.GetTitles();
+
+        if (titles is null || !titles.Any())
             Assert.Fail();
     }
 }

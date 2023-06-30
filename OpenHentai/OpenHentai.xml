@@ -608,10 +608,10 @@
             Symbols to delim language from text
             </summary>
         </member>
-        <member name="F:OpenHentai.Descriptors.LanguageSpecificTextInfo._language">
+        <member name="P:OpenHentai.Descriptors.LanguageSpecificTextInfo.Language">
             <summary>
             Text language
-            <para/> In case it's null - romanized value is passed
+            <para/> In case it's null or default - romanized value is passed
             </summary>
         </member>
         <member name="P:OpenHentai.Descriptors.LanguageSpecificTextInfo.Text">
