@@ -1,4 +1,7 @@
+using Moq;
 using OpenHentai.Circles;
+
+#pragma warning disable CA2007
 
 namespace OpenHentai.Tests.Integration;
 
@@ -8,18 +11,16 @@ public class CirclesTests : DatabaseTestsBase
 
     [Test]
     [Order(1)]
-    public void PushCirclesTest()
+    public async Task PushCirclesTest()
     {
-        using var db = new DatabaseContext(ContextOptions);
+        await using var db = new DatabaseContext(ContextOptions);
 
-        var nnntCircle = new Circle("default::noraneko-no-tama");
-        nnntCircle.AddTitle("ja-JP::ノラネコノタマ");
+        var nnnt = new Mock<Circle>("default::noraneko-no-tama");
+        var fatalpulse = new Mock<Circle>("default::Fatalpulse");
 
-        var fCircle = new Circle("default::Fatalpulse");
+        await db.Circles.AddRangeAsync(nnnt.Object, fatalpulse.Object).ConfigureAwait(false);
 
-        db.Circles.AddRange(nnntCircle, fCircle);
-
-        db.SaveChanges();
+        await db.SaveChangesAsync().ConfigureAwait(false);
     }
 
     #endregion
@@ -27,7 +28,7 @@ public class CirclesTests : DatabaseTestsBase
     #region Read tests
 
     [Test]
-    [Order(10)]
+    [Order(2)]
     public async Task ReadCirclesTest()
     {
         using var db = new DatabaseContext(ContextOptions);

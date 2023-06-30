@@ -1,5 +1,8 @@
+using Moq;
 using OpenHentai.Creatures;
 using OpenHentai.Relations;
+
+#pragma warning disable CA2007
 
 namespace OpenHentai.Tests.Integration;
 
@@ -7,69 +10,40 @@ public class CharactersTests : DatabaseTestsBase
 {
     [Test]
     [Order(1)]
-    public void PushCharactersTest()
+    public async Task PushCharactersTest()
     {
-        using var db = new DatabaseContext(ContextOptions);
+        await using var db = new DatabaseContext(ContextOptions);
 
-        var ymM1M = new Character("default::Unnamed male")
-        {
-            Birthday = new DateTime(1900, 01, 01),
-            Age = 25,
-            Gender = Gender.Male
-        };
-        ymM1M.Description.Add(new("en-US::Protagonist of Monokemono Shoya"));
+        var ymM1M = new Mock<Character>("default::Unnamed male");
+        var ymM2F = new Mock<Character>("default::Akaname");
+        var aM1F = new Mock<Character>("default::Ajax");
+        var aM2F = new Mock<Character>("default::Aliza");
 
-        var ymM2F = new Character("default::Akaname")
-        {
-            Birthday = new DateTime(1900, 01, 01),
-            Age = 10,
-            Gender = Gender.Female
-        };
-        ymM2F.Description.Add(new("en-US::Protagonist of Monokemono Yonya"));
+        await db.Characters.AddRangeAsync(ymM1M.Object, ymM2F.Object, aM1F.Object, aM2F.Object)
+            .ConfigureAwait(false);
 
-        var aM1F = new Character("default::Ajax")
-        {
-            Birthday = new DateTime(1900, 01, 01),
-            Age = 15,
-            Gender = Gender.Female
-        };
-        aM1F.Description.Add(new("en-US::Azur lane character"));
-
-        var aM2F = new Character("default::Aliza")
-        {
-            Birthday = new DateTime(1900, 01, 01),
-            Age = 500,
-            Gender = Gender.Female
-        };
-        aM2F.Description.Add(new("en-US::Granblue fantasy character"));
-
-        db.Characters.AddRange(ymM1M, ymM2F, aM1F, aM2F);
-
-        db.SaveChanges();
+        await db.SaveChangesAsync().ConfigureAwait(false);
     }
 
-    // depends on PushCharactersTest(1)
     [Test]
-    [Order(2)]
+    [Order(1)]
     public void PushCharactersRelationsTest()
     {
         using var db = new DatabaseContext(ContextOptions);
 
-        var characters = db.Characters.Include(a => a.Names).ToHashSet();
+        var ymM1M = new Mock<Character>("default::Unnamed male");
+        var ymM2F = new Mock<Character>("default::Akaname");
+        var aM1F = new Mock<Character>("default::Ajax");
+        var aM2F = new Mock<Character>("default::Aliza");
 
-        var ymM1M = characters.FirstOrDefault(c => c.Names.Any(cn => cn.Text == "Unnamed male"));
-        var ymM2F = characters.FirstOrDefault(c => c.Names.Any(cn => cn.Text == "Akaname"));
-        var aM1F = characters.FirstOrDefault(c => c.Names.Any(cn => cn.Text == "Ajax"));
-        var aM2F = characters.FirstOrDefault(c => c.Names.Any(cn => cn.Text == "Aliza"));
-
-        ymM1M!.AddRelation(ymM2F!, CreatureRelations.Unknown);
-        aM1F!.AddRelation(aM2F!, CreatureRelations.Enemy);
+        ymM1M.Object.AddRelation(ymM2F.Object, CreatureRelations.Unknown);
+        aM1F.Object.AddRelation(aM2F.Object, CreatureRelations.Enemy);
 
         db.SaveChanges();
     }
 
     [Test]
-    [Order(10)]
+    [Order(2)]
     public async Task ReadCharactersTest()
     {
         using var db = new DatabaseContext(ContextOptions);

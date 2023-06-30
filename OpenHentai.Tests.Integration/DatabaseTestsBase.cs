@@ -7,39 +7,9 @@ public abstract class DatabaseTestsBase
 {
     public const string DatabasePath = ":memory:";
 
-    protected static SqliteConnection SqliteConnection { get; } = new($"Data Source={DatabasePath}");
-
-    protected static SqliteConnectionDesiredState ConnectionState { get; set; } = SqliteConnectionDesiredState.OpenNew;
-
-    protected static int CurrentTestOrder { get; set; }
+    protected SqliteConnection SqliteConnection { get; } = new($"Data Source={DatabasePath}");
 
     protected DbContextOptions<DatabaseContext> ContextOptions { get; set; }
-
-    protected static HashSet<TestState> TestStates { get; } = new()
-    {
-        new(TestKind.PushAuthors, false),
-        new(TestKind.PushCircles, false),
-        new(TestKind.PushManga, false),
-        new(TestKind.PushCharacters, false),
-        new(TestKind.PushTags, false),
-        new(TestKind.PushTagsRelations, false),
-        new(TestKind.PushAuthorsRelations, false),
-        new(TestKind.PushCharactersRelations, false),
-        new(TestKind.PushCreationsRelations, false),
-        new(TestKind.PushAuthorsCircles, false),
-        new(TestKind.PushAuthorsCreations, false),
-        new(TestKind.PushCharactersCreations, false),
-        new(TestKind.PushAuthorsTags, false),
-        new(TestKind.PushCharactersTags, false),
-        new(TestKind.PushCreationsCircles, false),
-        new(TestKind.PushCreationsTags, false),
-        new(TestKind.PushCirclesTags, false),
-        new(TestKind.ReadAuthors, false),
-        new(TestKind.ReadCharacters, false),
-        new(TestKind.ReadCircles, false),
-        new(TestKind.ReadManga, false),
-        new(TestKind.ReadTags, false)
-    };
 
     [OneTimeSetUp]
     public async Task SetupAsync()
@@ -47,8 +17,7 @@ public abstract class DatabaseTestsBase
         ContextOptions = new DbContextOptionsBuilder<DatabaseContext>()
             .UseSqlite(SqliteConnection).Options;
 
-        if (ConnectionState == SqliteConnectionDesiredState.OpenNew || ConnectionState == SqliteConnectionDesiredState.Reopen)
-            await SqliteConnection.OpenAsync().ConfigureAwait(false);
+        await SqliteConnection.OpenAsync().ConfigureAwait(false);
 
         using var db = new DatabaseContext(ContextOptions);
 
@@ -57,11 +26,7 @@ public abstract class DatabaseTestsBase
     }
 
     [OneTimeTearDown]
-    public async Task CleanUp()
-    {
-        if (ConnectionState == SqliteConnectionDesiredState.Close)
-            await SqliteConnection.CloseAsync().ConfigureAwait(false);
-    }
+    public Task CleanUp() => SqliteConnection.CloseAsync();
 
     protected static async Task<string> SerializeEntityAsync<T>(IEnumerable<T> entity) where T : class
     {

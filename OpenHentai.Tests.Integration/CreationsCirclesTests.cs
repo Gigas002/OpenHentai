@@ -1,31 +1,28 @@
+using Moq;
+using OpenHentai.Circles;
+using OpenHentai.Creations;
+
 namespace OpenHentai.Tests.Integration;
 
 public class CreationsCirclesTests : DatabaseTestsBase
 {
-    // depends on PushMangaTest(1)
-    // depends on PushCirclesTest(1)
     [Test]
-    [Order(2)]
     public void PushCreationsCirclesTest()
     {
         using var db = new DatabaseContext(ContextOptions);
 
-        var manga = db.Manga.Include(m => m.Titles).ToHashSet();
+        var ymM1 = new Mock<Manga>("default::Monokemono Shoya");
+        var ymM2 = new Mock<Manga>("default::Monokemono");
+        var aM1 = new Mock<Manga>("default::VictimGirls 24");
+        var aM2 = new Mock<Manga>("default::VictimGirls 25");
 
-        var ymM1 = manga.FirstOrDefault(m => m.Titles.Any(ct => ct.Text == "Monokemono Shoya"));
-        var ymM2 = manga.FirstOrDefault(m => m.Titles.Any(ct => ct.Text == "Monokemono"));
-        var aM1 = manga.FirstOrDefault(m => m.Titles.Any(ct => ct.Text == "VictimGirls 24"));
-        var aM2 = manga.FirstOrDefault(m => m.Titles.Any(ct => ct.Text == "VictimGirls 25"));
+        var nnnt = new Mock<Circle>("default::noraneko-no-tama");
+        var fatalpulse = new Mock<Circle>("default::Fatalpulse");
 
-        var circles = db.Circles.Include(c => c.Titles).Include(circle => circle.Creations).ToHashSet();
-
-        var nnnt = circles.FirstOrDefault(c => c.Titles.Any(ct => ct.Text == "noraneko-no-tama"));
-        var fatalpulse = circles.FirstOrDefault(c => c.Titles.Any(ct => ct.Text == "Fatalpulse"));
-
-        ymM1!.Circles.Add(nnnt!);
-        ymM2!.Circles.Add(nnnt!);
-        fatalpulse!.Creations.Add(aM1!);
-        fatalpulse.Creations.Add(aM2!);
+        ymM1.Object.Circles.Add(nnnt.Object);
+        ymM2.Object.Circles.Add(nnnt.Object);
+        fatalpulse.Object.Creations.Add(aM1.Object);
+        fatalpulse.Object.Creations.Add(aM2.Object);
 
         db.SaveChanges();
     }

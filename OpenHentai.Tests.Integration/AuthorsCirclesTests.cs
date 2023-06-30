@@ -1,34 +1,25 @@
+using Moq;
 using NUnit.Framework.Internal;
+using OpenHentai.Circles;
+using OpenHentai.Creatures;
 
 namespace OpenHentai.Tests.Integration;
 
 public class AuthorsCirclesTests : DatabaseTestsBase
 {
-    // depends on PushAuthorsTest(1)
-    // depends on PushCirclesTest(1)
     [Test]
-    [Order(2)]
     public void PushAuthorsCirclesTest()
     {
         using var db = new DatabaseContext(ContextOptions);
 
-        var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
+        var ym = new Mock<Author>("default::Yukino Minato");
+        var asanagi = new Mock<Author>("default::Asanagi");
 
-        var ym = authors.FirstOrDefault(a => a.AuthorNames.Any(an => an.Text == "Yukino Minato"));
-        var asanagi = authors.FirstOrDefault(a => a.AuthorNames.Any(an => an.Text == "Asanagi"));
+        var nnnt = new Mock<Circle>("default::noraneko-no-tama");
+        var fatalpulse = new Mock<Circle>("default::Fatalpulse");
 
-        var circles = db.Circles.Include(c => c.Titles).ToHashSet();
-
-        // or by searching through relative table:
-        // var cts = db.CirclesTitles.ToHashSet();
-        // var nnntCt = cts.FirstOrDefault(ct => ct.Text == "noraneko-no-tama");
-        // var nnnt = circles.FirstOrDefault(c => c.Id == nnntCt.Id);
-
-        var nnnt = circles.FirstOrDefault(c => c.Titles.Any(ct => ct.Text == "noraneko-no-tama"));
-        var fatalpulse = circles.FirstOrDefault(c => c.Titles.Any(ct => ct.Text == "Fatalpulse"));
-
-        ym!.Circles.Add(nnnt!);
-        fatalpulse!.Authors.Add(asanagi!);
+        ym.Object.Circles.Add(nnnt.Object);
+        fatalpulse.Object.Authors.Add(asanagi.Object);
 
         db.SaveChanges();
     }

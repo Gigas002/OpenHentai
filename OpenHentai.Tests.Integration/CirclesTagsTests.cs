@@ -1,30 +1,27 @@
+using Moq;
+using OpenHentai.Circles;
+using OpenHentai.Tags;
+
 namespace OpenHentai.Tests.Integration;
 
 public class CirclesTagsTests : DatabaseTestsBase
 {
-    // depends on PushCirclesTest(1)
-    // depends on PushTagsTest(1)
     [Test]
-    [Order(2)]
     public void PushCirclesTagsTest()
     {
         using var db = new DatabaseContext(ContextOptions);
 
-        var circles = db.Circles.Include(c => c.Titles).Include(circle => circle.Creations).ToHashSet();
+        var nnnt = new Mock<Circle>("default::noraneko-no-tama");
+        var fatalpulse = new Mock<Circle>("default::Fatalpulse");
 
-        var nnnt = circles.FirstOrDefault(c => c.Titles.Any(ct => ct.Text == "noraneko-no-tama"));
-        var fatalpulse = circles.FirstOrDefault(c => c.Titles.Any(ct => ct.Text == "Fatalpulse"));
+        var loliTag = new Mock<Tag>(TagCategory.BodyType, "Loli");
+        var alTag = new Mock<Tag>(TagCategory.Parody, "Azur Lane");
+        var gfTag = new Mock<Tag>(TagCategory.Parody, "Granblue Fantasy");
 
-        var tags = db.Tags.Include(tag => tag.Circles).ToHashSet();
-
-        var loliTag = tags.FirstOrDefault(t => t.Value == "Loli");
-        var alTag = tags.FirstOrDefault(t => t.Value == "Azur Lane");
-        var gfTag = tags.FirstOrDefault(t => t.Value == "Granblue Fantasy");
-
-        nnnt!.Tags.Add(loliTag!);
-        loliTag!.Circles.Add(fatalpulse!);
-        alTag!.Circles.Add(fatalpulse!);
-        gfTag!.Circles.Add(fatalpulse!);
+        nnnt.Object.Tags.Add(loliTag.Object);
+        loliTag.Object.Circles.Add(fatalpulse.Object);
+        alTag.Object.Circles.Add(fatalpulse.Object);
+        gfTag.Object.Circles.Add(fatalpulse.Object);
 
         db.SaveChanges();
     }

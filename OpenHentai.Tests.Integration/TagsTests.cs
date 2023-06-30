@@ -1,4 +1,7 @@
+using Moq;
 using OpenHentai.Tags;
+
+#pragma warning disable CA2007
 
 namespace OpenHentai.Tests.Integration;
 
@@ -6,52 +9,37 @@ public class TagsTests : DatabaseTestsBase
 {
     [Test]
     [Order(1)]
-    public void PushTagsTest()
+    public async Task PushTagsTest()
     {
-        using var db = new DatabaseContext(ContextOptions);
+        await using var db = new DatabaseContext(ContextOptions);
 
-        // init tag for basic categories
+        var loliTag = new Mock<Tag>(TagCategory.BodyType, "Loli");
+        var alTag = new Mock<Tag>(TagCategory.Parody, "Azur Lane");
+        var gfTag = new Mock<Tag>(TagCategory.Parody, "Granblue Fantasy");
+        var al2Tag = new Mock<Tag>(TagCategory.Parody, "azurlane");
 
-        // author (related works), circle, character, manga
-        var loliTag = new Tag(TagCategory.BodyType, "Loli");
-        loliTag.Description.Add(new("en-US::Little girl"));
-        loliTag.Description.Add(new("ru-RU::Маленькая девочка"));
+        await db.Tags.AddRangeAsync(loliTag.Object, alTag.Object, gfTag.Object, al2Tag.Object)
+            .ConfigureAwait(false);
 
-        // character, manga
-        var alTag = new Tag(TagCategory.Parody, "Azur Lane");
-        alTag.Description.Add(new("en-US::Azur Lane parody tag"));
-
-        // character, manga
-        var gfTag = new Tag(TagCategory.Parody, "Granblue Fantasy");
-        gfTag.Description.Add(new("en-US::Granblue Fantasy tag"));
-
-        var al2Tag = new Tag(TagCategory.Parody, "azurlane");
-        al2Tag.Description.Add(new("en-US::Alias for Azur Lane tag"));
-
-        db.Tags.AddRange(loliTag, alTag, gfTag, al2Tag);
-
-        db.SaveChanges();
+        await db.SaveChangesAsync().ConfigureAwait(false);
     }
 
-    // depends on PushTagsTest(1)
     [Test]
-    [Order(2)]
+    [Order(1)]
     public void PushTagsRelationsTest()
     {
         using var db = new DatabaseContext(ContextOptions);
 
-        var tags = db.Tags.ToHashSet();
+        var alTag = new Mock<Tag>(TagCategory.Parody, "Azur Lane");
+        var al2Tag = new Mock<Tag>(TagCategory.Parody, "azurlane");
 
-        var alTag = tags.FirstOrDefault(t => t.Value == "Azur Lane");
-        var al2Tag = tags.FirstOrDefault(t => t.Value == "azurlane");
-
-        al2Tag!.Master = alTag;
+        al2Tag.Object.Master = alTag.Object;
 
         db.SaveChanges();
     }
 
     [Test]
-    [Order(10)]
+    [Order(2)]
     public async Task ReadTagsTest()
     {
         using var db = new DatabaseContext(ContextOptions);

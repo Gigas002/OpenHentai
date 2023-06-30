@@ -1,7 +1,8 @@
+using Moq;
 using OpenHentai.Creatures;
-using OpenHentai.Descriptors;
 using OpenHentai.Relations;
-using OpenHentai.Statuses;
+
+#pragma warning disable CA2007
 
 namespace OpenHentai.Tests.Integration;
 
@@ -11,72 +12,29 @@ public class AuthorsTests : DatabaseTestsBase
 
     [Test]
     [Order(1)]
-    public void PushAuthorsTest()
+    public async Task PushAuthorsTest()
     {
-        using var db = new DatabaseContext(ContextOptions);
+        await using var db = new DatabaseContext(ContextOptions);
 
-        // using templates for unknown values
-        var ym = new Author("default::Yukino Minato")
-        {
-            Birthday = new(1900, 01, 01),
-            Age = 999,
-            Gender = Gender.Female
-        };
-        ym.AddAuthorName("ja-JP::雪野 みなと");
-        ym.AddName("default::Yukinominato");
-        ym.Description.Add(new("en-US::Popular loli doujinshi artist"));
-        ym.Media.Add(new("https://pbs.twimg.com/profile_images/1587354886751993856/vSCQYP59_400x400.jpg", MediaType.Image));
-        ym.ExternalLinks.Add(new("twitter", "https://twitter.com/straycat_2018")
-        {
-            OfficialStatus = OfficialStatus.Official,
-            PaidStatus = PaidStatus.Free
-        });
-        ym.ExternalLinks.Add(new("fanbox", "https://noraneko-no-tama.fanbox.cc/")
-        {
-            OfficialStatus = OfficialStatus.Official,
-            PaidStatus = PaidStatus.Paid
-        });
+        var ym = new Mock<Author>("default::Yukino Minato");
+        var asanagi = new Mock<Author>("default::Asanagi");
 
-        var asanagi = new Author("default::Asanagi")
-        {
-            Birthday = new(1900, 01, 01),
-            Age = 999,
-            Gender = Gender.Male
-        };
-        asanagi.AddAuthorName("ja-JP::朝凪");
-        asanagi.AddName("default::asanagi");
-        asanagi.Description.Add(new("en-US::Popular mindbreak artist"));
-        asanagi.Media.Add(new("https://pbs.twimg.com/profile_images/991625674757570562/MHkJ_qqa_400x400.jpg", MediaType.Image));
-        asanagi.ExternalLinks.Add(new("twitter", "https://twitter.com/Victim_Girls")
-        {
-            OfficialStatus = OfficialStatus.Official,
-            PaidStatus = PaidStatus.Free
-        });
-        asanagi.ExternalLinks.Add(new("fantia", "https://fantia.jp/asanagi")
-        {
-            OfficialStatus = OfficialStatus.Official,
-            PaidStatus = PaidStatus.Paid
-        });
+        await db.Authors.AddRangeAsync(ym.Object, asanagi.Object).ConfigureAwait(false);
 
-        db.Authors.AddRange(ym, asanagi);
-
-        db.SaveChanges();
+        await db.SaveChangesAsync().ConfigureAwait(false);
     }
 
-    // depends on PushAuthorsTest(1)
     [Test]
-    [Order(2)]
+    [Order(1)]
     public void PushAuthorsRelationsTest()
     {
         using var db = new DatabaseContext(ContextOptions);
 
-        var authors = db.Authors.Include(a => a.AuthorNames).ToHashSet();
+        var ym = new Mock<Author>("default::Yukino Minato");
+        var asanagi = new Mock<Author>("default::Asanagi");
 
-        var ym = authors.FirstOrDefault(a => a.AuthorNames.Any(an => an.Text == "Yukino Minato"));
-        var asanagi = authors.FirstOrDefault(a => a.AuthorNames.Any(an => an.Text == "Asanagi"));
-
-        ym!.AddRelation(asanagi!, CreatureRelations.Unknown);
-        asanagi!.AddRelation(ym, CreatureRelations.Friend);
+        ym.Object.AddRelation(asanagi.Object, CreatureRelations.Unknown);
+        asanagi.Object.AddRelation(ym.Object, CreatureRelations.Friend);
 
         db.SaveChanges();
     }
@@ -86,7 +44,7 @@ public class AuthorsTests : DatabaseTestsBase
     #region Read tests
 
     [Test]
-    [Order(10)]
+    [Order(2)]
     public async Task ReadAuthorsTest()
     {
         using var db = new DatabaseContext(ContextOptions);
