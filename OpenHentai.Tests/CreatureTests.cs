@@ -16,7 +16,7 @@ public class CreatureTests
 
         var namedCreature1 = new Creature("default::name 1");
 
-        var nameMock = new Mock<LanguageSpecificTextInfo>("default::v 2");
+        var nameMock = new Mock<LanguageSpecificTextInfo>("default::name 2");
         var namedCreature2 = new Creature(nameMock.Object);
     }
 
@@ -129,12 +129,12 @@ public class CreatureTests
         var creature2 = new Creature(2);
         var creatureRelation = new KeyValuePair<Creature, CreatureRelations>(creature1, CreatureRelations.Alternative);
 
-        var manga = new Creature();
+        var creature = new Creature();
 
-        manga.AddRelation(creatureRelation);
-        manga.AddRelation(creature2, CreatureRelations.Enemy);
+        creature.AddRelation(creatureRelation);
+        creature.AddRelation(creature2, CreatureRelations.Enemy);
 
-        var relations = manga.GetRelations();
+        var relations = creature.GetRelations();
 
         if (relations is null || !relations.Any())
             Assert.Fail();
