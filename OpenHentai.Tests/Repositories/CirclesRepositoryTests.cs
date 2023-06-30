@@ -8,10 +8,7 @@ using OpenHentai.Tags;
 
 namespace OpenHentai.Tests.Repositories;
 
-// TODO: fuck it, I'm giving up on writing tests with Mocks
-// hope someone grabs it, since I'm not capable
-
-public class CirclesRepositoriesTests : RepositoryTestsBase
+public class CirclesRepositoryTests : RepositoryTestsBase
 {
     [Test]
     public void ConstructorTest()

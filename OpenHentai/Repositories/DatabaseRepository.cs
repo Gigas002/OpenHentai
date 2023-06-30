@@ -36,8 +36,12 @@ public abstract class DatabaseRepository : IDatabaseRepository
         return true;
     }
 
-    public void RemoveEntry<T>(T entry) where T : class, IDatabaseEntity =>
+    public Task RemoveEntryAsync<T>(T entry) where T : class, IDatabaseEntity
+    {
         Context.Remove(entry);
+    
+        return SaveChangesAsync();
+    }
 
     public async Task<bool> RemoveEntryAsync<T>(ulong id) where T : class, IDatabaseEntity
     {
@@ -45,9 +49,7 @@ public abstract class DatabaseRepository : IDatabaseRepository
 
         if (entry is null) return false;
 
-        RemoveEntry(entry);
-
-        await SaveChangesAsync();
+        await RemoveEntryAsync(entry);
 
         return true;
     }
