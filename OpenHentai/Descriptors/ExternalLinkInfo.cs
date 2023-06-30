@@ -20,6 +20,7 @@ public class ExternalLinkInfo
     /// </summary>
     public Uri Link { get; set; } = null!;
 
+    // TODO: consider use bool instead
     /// <summary>
     /// Official or not
     /// </summary>

@@ -3,22 +3,22 @@ using OpenHentai.Descriptors;
 
 namespace OpenHentai.Tests.Descriptors;
 
-public class CensorshipInfoTests
+public class ColoredInfoTests
 {
     [Test]
     public void ConstructorTest()
     {
-        var ci1 = new CensorshipInfo();
-        var ci2 = new CensorshipInfo(Censorship.None, true);
+        var ci1 = new ColoredInfo();
+        var ci2 = new ColoredInfo(Color.Colored, true);
     }
 
     [Test]
     public void PropertiesTest()
     {
-        var ci = new CensorshipInfo
+        var ci = new ColoredInfo
         {
             IsOfficial = false,
-            Censorship = Censorship.Mosaic
+            Color = Color.BlackWhite
         };
     }
 }

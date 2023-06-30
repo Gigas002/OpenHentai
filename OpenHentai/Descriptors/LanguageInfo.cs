@@ -33,16 +33,15 @@ public class LanguageInfo
     /// </summary>
     public LanguageInfo() { }
 
+    public LanguageInfo(CultureInfo culture, bool isOfficial = true) => (Language, IsOfficial) = (culture, isOfficial);
+
     /// <summary>
     /// Initialize new language info
     /// </summary>
     /// <param name="culture">Culture, e.g. "en-US"</param>
     /// <param name="isOfficial">Is translation official?</param>
-    public LanguageInfo(string culture, bool isOfficial = true)
-    {
-        Language = new CultureInfo(culture);
-        IsOfficial = isOfficial;
-    }
+    public LanguageInfo(string culture, bool isOfficial = true) : this(new CultureInfo(culture), isOfficial)
+    { }
 
     #endregion
 
