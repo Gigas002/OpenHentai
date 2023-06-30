@@ -21,7 +21,7 @@ public class DatabaseEntityCollectionJsonConverter<T> : JsonConverter<HashSet<T>
 
             var existsInDb = reader.TryGetUInt64(out var id);
 
-            var entry = existsInDb ? Essential.GetEntityById<T>(id) : default(T?);
+            var entry = existsInDb ? Essential.GetEntityById<T>(id) : default;
 
             set.Add(entry!);
         }

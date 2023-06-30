@@ -10,7 +10,7 @@ public class DatabaseEntityJsonConverter<T> : JsonConverter<T> where T : IDataba
     {
         var existsInDb = reader.TryGetUInt64(out var id);
 
-        return existsInDb ? Essential.GetEntityById<T>(id) : default(T?);
+        return existsInDb ? Essential.GetEntityById<T>(id) : default;
     }
 
     /// <inheritdoc />
