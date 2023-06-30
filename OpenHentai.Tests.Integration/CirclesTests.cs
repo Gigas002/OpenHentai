@@ -1,4 +1,3 @@
-using Moq;
 using OpenHentai.Circles;
 
 #pragma warning disable CA2007

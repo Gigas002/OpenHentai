@@ -1,6 +1,4 @@
 using System.Globalization;
-using System.Text.Json.Serialization;
-using OpenHentai.JsonConverters;
 
 namespace OpenHentai.Descriptors;
 
@@ -30,12 +28,24 @@ public class LanguageSpecificTextInfo
     
     #region Properties
 
+    private CultureInfo? _language;
+
     /// <summary>
     /// Text language
-    /// <para/> In case it's null - romanized value is passed
+    /// <para/> In case it's null or default - romanized value is passed
     /// </summary>
-    [JsonConverter(typeof(CultureInfoJsonConverter))]
-    public CultureInfo? Language { get; set; }
+    public string Language
+    {
+        get => _language is null ? DefaultLanguage : _language.ToString();
+
+        set
+        {
+            if (string.IsNullOrWhiteSpace(value) || value.Equals(DefaultLanguage, StringComparison.Ordinal))
+                _language = null;
+            else
+                _language = new CultureInfo(value);
+        }
+    }
     
     /// <summary>
     /// Text on chosen language
@@ -59,8 +69,7 @@ public class LanguageSpecificTextInfo
     {
         var textLanguage = formatedText.Trim().Split(LanguageDelimiter);
         Text = textLanguage[1];
-        Language = textLanguage[0] == DefaultLanguage ?
-            null : new CultureInfo(textLanguage[0]);
+        Language = textLanguage[0];
     }
 
     /// <summary>
@@ -68,7 +77,7 @@ public class LanguageSpecificTextInfo
     /// </summary>
     /// <param name="text">Line</param>
     /// <param name="language">Line's culture/language</param>
-    public LanguageSpecificTextInfo(string text, CultureInfo? language) => (Text, Language) = (text, language);
+    public LanguageSpecificTextInfo(string text, CultureInfo? language) => (Text, _language) = (text, language);
     
     public LanguageSpecificTextInfo(string text, string language) :
         this($"{language}{LanguageDelimiter}{text}") { }

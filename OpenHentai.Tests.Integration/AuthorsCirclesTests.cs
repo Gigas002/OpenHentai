@@ -1,5 +1,3 @@
-using Moq;
-using NUnit.Framework.Internal;
 using OpenHentai.Circles;
 using OpenHentai.Creatures;
 
