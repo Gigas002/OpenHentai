@@ -1,3 +1,5 @@
+namespace OpenHentai.Relative;
+
 public interface IRelativeDatabaseEntity<TOrigin, TRelated, TRelation> where TOrigin : class
                                                                        where TRelated : class
                                                                        where TRelation : Enum
