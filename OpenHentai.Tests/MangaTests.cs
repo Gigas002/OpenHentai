@@ -10,6 +10,8 @@ using OpenHentai.Tags;
 
 namespace OpenHentai.Tests;
 
+// TODO: probably should be divided onto MangaTests and CreationTests
+
 public class MangaTests
 {
     [Test]

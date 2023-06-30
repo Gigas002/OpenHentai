@@ -7,7 +7,7 @@ using OpenHentai.Tags;
 
 namespace OpenHentai.Tests;
 
-public class CirclesTests
+public class CircleTests
 {
     [Test]
     public void ConstructorTest()
