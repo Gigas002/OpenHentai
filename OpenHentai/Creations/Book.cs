@@ -7,7 +7,7 @@ namespace OpenHentai.Creations;
 /// <summary>
 /// Book, e.g. doujinshi, artbook, etc
 /// </summary>
-public class Book : Creation
+public abstract class Book : Creation
 {
     #region Properties
 
@@ -41,13 +41,13 @@ public class Book : Creation
 
     #region Constructors
 
-    public Book() : base() { }
+    protected Book() : base() { }
 
-    public Book(ulong id) : base(id) { }
+    protected Book(ulong id) : base(id) { }
 
-    public Book(LanguageSpecificTextInfo title) : base(title) { }
+    protected Book(LanguageSpecificTextInfo title) : base(title) { }
 
-    public Book(string formattedTitle) : base(formattedTitle) { }
+    protected Book(string formattedTitle) : base(formattedTitle) { }
 
     #endregion
 }
