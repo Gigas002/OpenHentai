@@ -128,12 +128,6 @@ public class Creation : IDatabaseEntity
 
     public Creation(string formattedTitle) : this(new LanguageSpecificTextInfo(formattedTitle)) { }
 
-    public Creation(LanguageSpecificTextInfo title, Author author, AuthorRole authorRole)
-    {
-        AddTitle(title);
-        AddAuthor(author, authorRole);
-    }
-
     #endregion
 
     #region Methods
