@@ -1,0 +1,250 @@
+name: build-test-deploy
+
+on: [push, pull_request]
+
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: false
+
+jobs:
+
+# no point in matrix without deploy tasks
+# see discussion: https://github.com/orgs/community/discussions/42335
+
+#   build-test:
+#     strategy:
+#       matrix:
+#         os: [ubuntu-latest, windows-latest, macos-latest]
+#     uses: ./.github/workflows/build-test.yml
+#     with:
+#       runs-on:  ${{ matrix.os }}
+
+# passing env to jobs
+# see: https://github.com/orgs/community/discussions/26671
+
+# building tasks
+
+  build-windows:
+    uses: ./.github/workflows/build.yml
+    with:
+      runs-on: windows-latest
+      dotnet-version: '7.x'
+
+  build-linux:
+    uses: ./.github/workflows/build.yml
+    with:
+      runs-on: ubuntu-latest
+      dotnet-version: '7.x'
+
+  build-macos:
+    uses: ./.github/workflows/build.yml
+    with:
+      runs-on: macos-latest
+      dotnet-version: '7.x'
+
+# testing tasks
+
+  test-windows:
+    needs: build-windows
+    uses: ./.github/workflows/test.yml
+    with:
+      runs-on: windows-latest
+      projects: '["OpenHentai.Tests/OpenHentai.Tests.csproj", "OpenHentai.Tests.Integration/OpenHentai.Tests.Integration.csproj", "OpenHentai.WebAPI.Tests/OpenHentai.WebAPI.Tests.csproj"]'
+      dotnet-version: '7.x'
+    secrets: inherit
+
+  test-linux:
+    needs: build-linux
+    uses: ./.github/workflows/test.yml
+    with:
+      projects: '["OpenHentai.Tests/OpenHentai.Tests.csproj", "OpenHentai.Tests.Integration/OpenHentai.Tests.Integration.csproj", "OpenHentai.WebAPI.Tests/OpenHentai.WebAPI.Tests.csproj"]'
+      runs-on: ubuntu-latest
+      dotnet-version: '7.x'
+    secrets: inherit
+    
+  test-macos:
+    needs: build-macos
+    uses: ./.github/workflows/test.yml
+    with:
+      projects: '["OpenHentai.Tests/OpenHentai.Tests.csproj", "OpenHentai.Tests.Integration/OpenHentai.Tests.Integration.csproj", "OpenHentai.WebAPI.Tests/OpenHentai.WebAPI.Tests.csproj"]'
+      runs-on: macos-latest
+      dotnet-version: '7.x'
+    secrets: inherit
+      
+# deploy binaries
+
+  deploy-binaries-windows:
+    needs: test-windows
+    if: github.ref == 'refs/heads/master'
+    uses: ./.github/workflows/deploy-binaries.yml
+    with:
+      runs-on: windows-latest
+      projects: '["OpenHentai.Server/OpenHentai.Server.csproj"]'
+      publish-base: 'publish'
+      continious-tag: 'continious'
+      dotnet-version: '7.x'
+      build-props-path: 'Directory.Build.props'
+    secrets: inherit
+    
+  deploy-binaries-linux:
+    needs: test-linux
+    if: github.ref == 'refs/heads/master'
+    uses: ./.github/workflows/deploy-binaries.yml
+    with:
+      runs-on: ubuntu-latest
+      projects: '["OpenHentai.Server/OpenHentai.Server.csproj"]'
+      publish-base: 'publish'
+      continious-tag: 'continious'
+      dotnet-version: '7.x'
+      build-props-path: 'Directory.Build.props'
+    secrets: inherit
+    
+  deploy-binaries-macos:
+    needs: test-macos
+    if: github.ref == 'refs/heads/master'
+    uses: ./.github/workflows/deploy-binaries.yml
+    with:
+      runs-on: macos-latest
+      projects: '["OpenHentai.Server/OpenHentai.Server.csproj"]'
+      publish-base: 'publish'
+      continious-tag: 'continious'
+      dotnet-version: '7.x'
+      build-props-path: 'Directory.Build.props'
+    secrets: inherit
+    
+# deploy pages
+
+# TODO: pages
+
+#  deploy-pages-linux:
+#    needs: test-linux
+#    if: github.ref == 'refs/heads/master'
+#    uses: ./.github/workflows/deploy-pages.yml
+#    with:
+#      runs-on: ubuntu-latest
+#      dotnet-version: '7.x'
+#      docfx-json-path: 'docfx.json'
+#      publish-dir: 'docs'
+#    secrets: inherit
+    
+# deploy src
+
+  deploy-src-linux:
+    needs: test-linux
+    if: github.ref == 'refs/heads/master'
+    uses: ./.github/workflows/deploy-src.yml
+    with:
+      runs-on: ubuntu-latest
+      publish-base: 'publish'
+      continious-tag: 'continious'
+      build-props-path: 'Directory.Build.props'
+    secrets: inherit
+    
+# deploy peckages
+    
+  deploy-packages-nuget-linux:
+    needs: test-linux
+    if: github.ref == 'refs/heads/master'
+    uses: ./.github/workflows/deploy-packages.yml
+    with:
+      runs-on: ubuntu-latest
+      packages: '["OpenHentai/OpenHentai.csproj"]'
+      publish-base: 'publish'
+      package-feed: "https://api.nuget.org/v3/index.json"
+      dotnet-version: '7.x'
+      build-props-path: 'Directory.Build.props'
+    secrets: 
+      TOKEN: ${{secrets.NUGET_API_KEY}}
+      
+  deploy-packages-github-linux:
+    needs: test-linux
+    if: github.ref == 'refs/heads/master'
+    uses: ./.github/workflows/deploy-packages.yml
+    with:
+      runs-on: ubuntu-latest
+      packages: '["OpenHentai/OpenHentai.csproj"]'
+      publish-base: 'publish'
+      package-feed: "https://nuget.pkg.github.com/${{github.repository_owner}}/index.json"
+      dotnet-version: '7.x'
+      build-props-path: 'Directory.Build.props'
+    secrets: 
+      TOKEN: ${{secrets.GITHUB_TOKEN}}
+    
+# deploy docker
+
+# TODO: dockerfiles
+
+#  deploy-docker-docker-hub-linux:
+#    needs: test-linux
+#    if: github.ref == 'refs/heads/master'
+#    strategy:
+#      matrix:
+#        project: ["deploy.cli---Cli.Dockerfile", "deploy.benchmarks---Benchmarks.Dockerfile"]
+#    uses: ./.github/workflows/deploy-docker.yml
+#    with:
+#      runs-on: ubuntu-latest
+#      registry: 'docker.io'
+#      project: ${{matrix.project}}
+#      build-props-path: 'Directory.Build.props'
+#      continious-tag: 'latest'
+#      username: gigas002
+#    secrets:
+#      TOKEN: ${{secrets.DOCKER_HUB_TOKEN}}
+    
+#  deploy-docker-github-linux:
+#    needs: test-linux
+#    if: github.ref == 'refs/heads/master'
+#    strategy:
+#      matrix:
+#        project: ["deploy.cli---Cli.Dockerfile", "deploy.benchmarks---Benchmarks.Dockerfile"]
+#    uses: ./.github/workflows/deploy-docker.yml
+#    with:
+#      runs-on: ubuntu-latest
+#      registry: 'ghcr.io'
+#      project: ${{matrix.project}}
+#      build-props-path: 'Directory.Build.props'
+#      continious-tag: 'latest'
+#      username: ${{github.repository_owner}}
+#    secrets:
+#      TOKEN: ${{secrets.GITHUB_TOKEN}}
+    
+# snyk security report
+
+  snyk-check-code-linux:
+    uses: ./.github/workflows/snyk-check-code.yml
+    if: github.ref == 'refs/heads/master'
+    with:
+      runs-on: ubuntu-latest
+      dotnet-version: '7.x'
+    secrets: inherit
+
+# snyk docker images checks
+
+#  snyk-check-docker-docker-hub-linux:
+#    needs: deploy-docker-docker-hub-linux
+#    if: github.ref == 'refs/heads/master'
+#    strategy:
+#      matrix:
+#        project: ["deploy.cli---Cli.Dockerfile", "deploy.benchmarks---Benchmarks.Dockerfile"]
+#    uses: ./.github/workflows/snyk-check-docker.yml
+#    with:
+#      runs-on: ubuntu-latest
+#      registry: 'docker.io'
+#      project: ${{matrix.project}}
+#      username: gigas002
+#    secrets: inherit
+
+#  snyk-check-docker-github-linux:
+#    needs: deploy-docker-github-linux
+#    if: github.ref == 'refs/heads/master'
+#    strategy:
+#      matrix:
+#        project: ["deploy.cli---Cli.Dockerfile", "deploy.benchmarks---Benchmarks.Dockerfile"]
+#    uses: ./.github/workflows/snyk-check-docker.yml
+#    with:
+#      runs-on: ubuntu-latest
+#      registry: 'ghcr.io'
+#      project: ${{matrix.project}}
+#      username: gigas002
+#    secrets: inherit
+ 
