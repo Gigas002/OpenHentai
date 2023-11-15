@@ -14,7 +14,7 @@ on:
         description: 'dotnet sdk version'
         required: false
         type: string
-        default: '7.x'
+        default: '8.x'
   workflow_call:
     inputs:
       runs-on:
@@ -25,7 +25,7 @@ on:
         description: 'dotnet sdk version'
         required: false
         type: string
-        default: '7.x'
+        default: '8.x'
  
 jobs:
 

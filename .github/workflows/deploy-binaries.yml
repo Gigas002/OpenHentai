@@ -28,7 +28,7 @@ on:
         description: 'dotnet sdk version'
         required: false
         type: string
-        default: '7.x'
+        default: '8.x'
       build-props-path:
         description: 'Path to Directory.Build.props file'
         required: false
@@ -58,7 +58,7 @@ on:
         description: 'dotnet sdk version'
         required: false
         type: string
-        default: '7.x'
+        default: '8.x'
       build-props-path:
         description: 'Path to Directory.Build.props file'
         required: false
