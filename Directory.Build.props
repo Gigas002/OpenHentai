@@ -1,9 +1,8 @@
 <Project>
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-        <!-- requires net8.0 -->
-        <!-- <UseArtifactsOutput>true</UseArtifactsOutput> -->
+        <TargetFramework>net8.0</TargetFramework>
+        <UseArtifactsOutput>true</UseArtifactsOutput>
         <!-- <Platofrms>AnyCPU;x64</Platofrms> -->
         <VersionPrefix>0.1.0</VersionPrefix>
         <VersionSuffix>preview.0</VersionSuffix>
@@ -51,6 +50,8 @@
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+        <!-- TODO: for future generations -->
+        <!-- <PublishAot>true</PublishAot> -->
     </PropertyGroup>
 
     <ItemGroup>
