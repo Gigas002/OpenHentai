@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
-    <DocumentationFile>OpenHentai.WebAPI.xml</DocumentationFile>
+    <!-- <DocumentationFile>OpenHentai.WebAPI.xml</DocumentationFile> -->
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

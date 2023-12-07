@@ -1,7 +1,5 @@
-using System.Globalization;
 using OpenHentai.Circles;
 using OpenHentai.Creatures;
-using OpenHentai.Descriptors;
 
 namespace OpenHentai.Tests.JsonConverters;
 

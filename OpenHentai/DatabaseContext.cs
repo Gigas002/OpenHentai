@@ -55,7 +55,7 @@ public class DatabaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        if (modelBuilder is null) throw new ArgumentNullException(nameof(modelBuilder));
+        ArgumentNullException.ThrowIfNull(modelBuilder);
 
         #region Force strategy
 

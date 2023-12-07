@@ -83,7 +83,7 @@ public class Tag : IDatabaseEntity
     public Tag? Master { get; set; }
 
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Tag>))]
-    public HashSet<Tag> Slaves { get; init; } = new();
+    public HashSet<Tag> Slaves { get; init; } = [];
 
     /// <summary>
     /// Category of this tag
@@ -103,16 +103,16 @@ public class Tag : IDatabaseEntity
     /// e.g. This tag resides for mitsudomoe franchise
     /// </summary>
     [Column(TypeName = DataTypes.Jsonb)]
-    public HashSet<LanguageSpecificTextInfo> Description { get; init; } = new();
+    public HashSet<LanguageSpecificTextInfo> Description { get; init; } = [];
 
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Creature>))]
-    public HashSet<Creature> Creatures { get; init; } = new();
+    public HashSet<Creature> Creatures { get; init; } = [];
 
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Creation>))]
-    public HashSet<Creation> Creations { get; init; } = new();
+    public HashSet<Creation> Creations { get; init; } = [];
 
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Circle>))]
-    public HashSet<Circle> Circles { get; init; } = new();
+    public HashSet<Circle> Circles { get; init; } = [];
 
     #endregion
 

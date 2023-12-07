@@ -195,7 +195,7 @@ public class CreationsRepositoryTests : RepositoryTestsBase
 
         using IMangaRepository mr = new MangaRepository(db);
 
-        await mr.AddCirclesAsync(id, new() { id });
+        await mr.AddCirclesAsync(id, [id]);
 
         var circles = await mr.GetCirclesAsync(id);
     }
@@ -260,7 +260,7 @@ public class CreationsRepositoryTests : RepositoryTestsBase
 
         using IMangaRepository mr = new MangaRepository(db);
 
-        await mr.AddTagsAsync(id, new() { id });
+        await mr.AddTagsAsync(id, [id]);
 
         var tags = await mr.GetTagsAsync(id);
     }
@@ -281,7 +281,7 @@ public class CreationsRepositoryTests : RepositoryTestsBase
 
         using IMangaRepository mr = new MangaRepository(db);
 
-        var result = await mr.RemoveTitlesAsync(id, new() { id });
+        var result = await mr.RemoveTitlesAsync(id, [id]);
     }
 
     [Test]
@@ -302,7 +302,7 @@ public class CreationsRepositoryTests : RepositoryTestsBase
 
         using IMangaRepository mr = new MangaRepository(db);
 
-        var result = await mr.RemoveAuthorsAsync(id, new() { id });
+        var result = await mr.RemoveAuthorsAsync(id, [id]);
     }
 
     [Test]
@@ -323,7 +323,7 @@ public class CreationsRepositoryTests : RepositoryTestsBase
 
         using IMangaRepository mr = new MangaRepository(db);
 
-        var result = await mr.RemoveCirclesAsync(id, new() { id });
+        var result = await mr.RemoveCirclesAsync(id, [id]);
     }
 
     [Test]
@@ -344,7 +344,7 @@ public class CreationsRepositoryTests : RepositoryTestsBase
 
         await using IMangaRepository mr = new MangaRepository(db);
 
-        var result = await mr.RemoveRelationsAsync(id, new() { id });
+        var result = await mr.RemoveRelationsAsync(id, [id]);
     }
 
     [Test]
@@ -365,7 +365,7 @@ public class CreationsRepositoryTests : RepositoryTestsBase
 
         await using IMangaRepository mr = new MangaRepository(db);
 
-        var result = await mr.RemoveCharactersAsync(id, new() { id });
+        var result = await mr.RemoveCharactersAsync(id, [id]);
     }
 
     [Test]
@@ -386,6 +386,6 @@ public class CreationsRepositoryTests : RepositoryTestsBase
 
         await using IMangaRepository mr = new MangaRepository(db);
 
-        var result = await mr.RemoveTagsAsync(id, new() { id });
+        var result = await mr.RemoveTagsAsync(id, [id]);
     }
 }

@@ -18,7 +18,7 @@ public class Character : Creature
     /// <summary>
     /// Collection of creations, that has this character
     /// </summary>
-    public HashSet<CreationsCharacters> Creations { get; init; } = new();
+    public HashSet<CreationsCharacters> Creations { get; init; } = [];
 
     #endregion
 

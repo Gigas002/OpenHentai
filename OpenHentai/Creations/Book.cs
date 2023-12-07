@@ -35,7 +35,7 @@ public abstract class Book : Creation
     /// Information about colorization of this book
     /// </summary>
     [Column(TypeName = DataTypes.Jsonb)]
-    public HashSet<ColoredInfo> ColoredInfo { get; init; } = new();
+    public HashSet<ColoredInfo> ColoredInfo { get; init; } = [];
     
     #endregion
 

@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>Library</OutputType>
-        <DocumentationFile>OpenHentai.xml</DocumentationFile>
+        <!-- <DocumentationFile>OpenHentai.xml</DocumentationFile> -->
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)'=='Release'">

@@ -1,5 +1,4 @@
 using System.Globalization;
-using OpenHentai.Creations;
 using OpenHentai.Descriptors;
 
 namespace OpenHentai.Tests.Descriptors;

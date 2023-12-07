@@ -95,7 +95,7 @@ public class CharactersRepositoryTests : RepositoryTestsBase
 
         using var cr = new CharactersRepository(db);
 
-        await cr.RemoveCreationsAsync(id, new() { id });
+        await cr.RemoveCreationsAsync(id, [id]);
 
         var creations = await cr.GetCreationsAsync(id);
     }

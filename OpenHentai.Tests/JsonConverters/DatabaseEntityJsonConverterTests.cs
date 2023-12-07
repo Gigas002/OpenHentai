@@ -1,4 +1,3 @@
-using OpenHentai.Circles;
 using OpenHentai.Creatures;
 using OpenHentai.Relative;
 

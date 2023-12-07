@@ -158,7 +158,7 @@ public class AuthorsRepositoryTests : RepositoryTestsBase
 
         using var ar = new AuthorsRepository(db);
 
-        await ar.AddCirclesAsync(id, new() { id });
+        await ar.AddCirclesAsync(id, [id]);
 
         var circles = await ar.GetCirclesAsync(id);
     }
@@ -202,7 +202,7 @@ public class AuthorsRepositoryTests : RepositoryTestsBase
 
         using var ar = new AuthorsRepository(db);
 
-        await ar.RemoveAuthorNamesAsync(id, new() { id });
+        await ar.RemoveAuthorNamesAsync(id, [id]);
 
         var names = await ar.GetAuthorNamesAsync(id);
     }
@@ -224,7 +224,7 @@ public class AuthorsRepositoryTests : RepositoryTestsBase
 
         using var ar = new AuthorsRepository(db);
 
-        await ar.RemoveCirclesAsync(id, new() { id });
+        await ar.RemoveCirclesAsync(id, [id]);
 
         var circles = await ar.GetCirclesAsync(id);
     }
@@ -246,7 +246,7 @@ public class AuthorsRepositoryTests : RepositoryTestsBase
 
         using var ar = new AuthorsRepository(db);
 
-        await ar.RemoveCreationsAsync(id, new() { id });
+        await ar.RemoveCreationsAsync(id, [id]);
 
         var creations = await ar.GetCreationsAsync(id);
     }

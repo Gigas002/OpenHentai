@@ -118,7 +118,7 @@ public class CreationTests
 
         var authors = creation.GetAuthors();
 
-        if (authors is null || !authors.Any())
+        if (authors is null || authors.Count == 0)
             Assert.Fail();
     }
 
@@ -135,7 +135,7 @@ public class CreationTests
 
         var authors = creation.GetAuthors();
 
-        if (authors is null || !authors.Any())
+        if (authors is null || authors.Count == 0)
             Assert.Fail();
     }
 
@@ -153,7 +153,7 @@ public class CreationTests
 
         var authors = creation.GetAuthors();
 
-        if (authors is null || !authors.Any())
+        if (authors is null || authors.Count == 0)
             Assert.Fail();
     }
 
@@ -167,7 +167,7 @@ public class CreationTests
 
         var relations = creation.GetRelations();
 
-        if (relations is null || !relations.Any())
+        if (relations is null || relations.Count == 0)
             Assert.Fail();
     }
 
@@ -184,7 +184,7 @@ public class CreationTests
 
         var relations = creation.GetRelations();
 
-        if (relations is null || !relations.Any())
+        if (relations is null || relations.Count == 0)
             Assert.Fail();
     }
 
@@ -202,7 +202,7 @@ public class CreationTests
 
         var relations = creation.GetRelations();
 
-        if (relations is null || !relations.Any())
+        if (relations is null || relations.Count == 0)
             Assert.Fail();
     }
 
@@ -216,7 +216,7 @@ public class CreationTests
 
         var characters = creation.GetCharacters();
 
-        if (characters is null || !characters.Any())
+        if (characters is null || characters.Count == 0)
             Assert.Fail();
     }
 
@@ -233,7 +233,7 @@ public class CreationTests
 
         var characters = creation.GetCharacters();
 
-        if (characters is null || !characters.Any())
+        if (characters is null || characters.Count == 0)
             Assert.Fail();
     }
 
@@ -251,7 +251,7 @@ public class CreationTests
 
         var characters = creation.GetCharacters();
 
-        if (characters is null || !characters.Any())
+        if (characters is null || characters.Count == 0)
             Assert.Fail();
     }
 }

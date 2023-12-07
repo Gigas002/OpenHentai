@@ -25,13 +25,13 @@ public class Creature : IDatabaseEntity
     /// Alternative names can be any
     /// </summary>
     [JsonIgnore]
-    public HashSet<CreaturesNames> Names { get; init; } = new();
+    public HashSet<CreaturesNames> Names { get; init; } = [];
 
     /// <summary>
     /// Description, e.g. this person is a dick
     /// </summary>
     [Column(TypeName = DataTypes.Jsonb)]
-    public HashSet<LanguageSpecificTextInfo> Description { get; init; } = new();
+    public HashSet<LanguageSpecificTextInfo> Description { get; init; } = [];
 
     /// <summary>
     /// Creature's birthday, e.g. 01.01.1922
@@ -47,7 +47,7 @@ public class Creature : IDatabaseEntity
     /// Collection of related pictures
     /// </summary>
     [Column(TypeName = DataTypes.Jsonb)]
-    public HashSet<MediaInfo> Media { get; init; } = new();
+    public HashSet<MediaInfo> Media { get; init; } = [];
 
     /// <summary>
     /// Creature's gender
@@ -58,13 +58,13 @@ public class Creature : IDatabaseEntity
     /// Creature's additional details/tags
     /// </summary>
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Tag>))]
-    public HashSet<Tag> Tags { get; init; } = new();
+    public HashSet<Tag> Tags { get; init; } = [];
 
     /// <summary>
     /// Collection of related and alternative creatures,
     /// Creature-Relation pair, e.g. "Admiral, alternative"
     /// </summary>
-    public HashSet<CreaturesRelations> Relations { get; init; } = new();
+    public HashSet<CreaturesRelations> Relations { get; init; } = [];
     
     #endregion
 

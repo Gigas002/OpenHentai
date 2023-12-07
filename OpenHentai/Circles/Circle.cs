@@ -27,25 +27,25 @@ public class Circle : IDatabaseEntity
     /// e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
     /// </summary>
     [JsonIgnore]
-    public HashSet<CirclesTitles> Titles { get; init; } = new();
+    public HashSet<CirclesTitles> Titles { get; init; } = [];
 
     /// <summary>
     /// Related authors
     /// </summary>
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Author>))]
-    public HashSet<Author> Authors { get; init; } = new();
+    public HashSet<Author> Authors { get; init; } = [];
 
     /// <summary>
     /// Related creations
     /// </summary>
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Creation>))]
-    public HashSet<Creation> Creations { get; init; } = new();
+    public HashSet<Creation> Creations { get; init; } = [];
 
     /// <summary>
     /// Tags
     /// </summary>
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Tag>))]
-    public HashSet<Tag> Tags { get; init; } = new();
+    public HashSet<Tag> Tags { get; init; } = [];
 
     #endregion
 

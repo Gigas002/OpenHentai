@@ -34,7 +34,7 @@ public class ExternalLinkInfo
     /// <summary>
     /// Description, e.g. author's official free pixiv
     /// </summary>
-    public HashSet<LanguageSpecificTextInfo> Description { get; init; } = new();
+    public HashSet<LanguageSpecificTextInfo> Description { get; init; } = [];
     
     #endregion
 

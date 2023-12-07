@@ -94,7 +94,7 @@ public class AuthorTests
 
         var creations = author.GetCreations();
 
-        if (creations is null || !creations.Any())
+        if (creations is null || creations.Count == 0)
             Assert.Fail();
     }
 
@@ -111,7 +111,7 @@ public class AuthorTests
 
         var creations = author.GetCreations();
 
-        if (creations is null || !creations.Any())
+        if (creations is null || creations.Count == 0)
             Assert.Fail();
     }
 
@@ -129,7 +129,7 @@ public class AuthorTests
 
         var creations = author.GetCreations();
 
-        if (creations is null || !creations.Any())
+        if (creations is null || creations.Count == 0)
             Assert.Fail();
     }
 }

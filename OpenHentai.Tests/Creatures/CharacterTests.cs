@@ -40,7 +40,7 @@ public class CharacterTests
 
         var creations = character.GetCreations();
 
-        if (creations is null || !creations.Any())
+        if (creations is null || creations.Count == 0)
             Assert.Fail();
     }
 
@@ -57,7 +57,7 @@ public class CharacterTests
 
         var creations = character.GetCreations();
 
-        if (creations is null || !creations.Any())
+        if (creations is null || creations.Count == 0)
             Assert.Fail();
     }
 
@@ -75,7 +75,7 @@ public class CharacterTests
 
         var creations = character.GetCreations();
 
-        if (creations is null || !creations.Any())
+        if (creations is null || creations.Count == 0)
             Assert.Fail();
     }
 }

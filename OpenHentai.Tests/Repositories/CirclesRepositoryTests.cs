@@ -175,7 +175,7 @@ public class CirclesRepositoryTests : RepositoryTestsBase
 
         using var cr = new CirclesRepository(db);
 
-        await cr.AddAuthorsAsync(id, new() { id });
+        await cr.AddAuthorsAsync(id, [id]);
 
         var authors = await cr.GetAuthorsAsync(id);
     }
@@ -197,7 +197,7 @@ public class CirclesRepositoryTests : RepositoryTestsBase
 
         using var cr = new CirclesRepository(db);
 
-        await cr.AddCreationsAsync(id, new() { id });
+        await cr.AddCreationsAsync(id, [id]);
 
         var creations = await cr.GetCreationsAsync(id);
     }
@@ -219,7 +219,7 @@ public class CirclesRepositoryTests : RepositoryTestsBase
 
         using var cr = new CirclesRepository(db);
 
-        await cr.AddTagsAsync(id, new() { id });
+        await cr.AddTagsAsync(id, [id]);
 
         var tags = await cr.GetTagsAsync(id);
     }
@@ -241,7 +241,7 @@ public class CirclesRepositoryTests : RepositoryTestsBase
 
         using var cr = new CirclesRepository(db);
 
-        await cr.RemoveTitlesAsync(id, new() { id });
+        await cr.RemoveTitlesAsync(id, [id]);
 
         var names = await cr.GetTitlesAsync(id);
     }
@@ -263,7 +263,7 @@ public class CirclesRepositoryTests : RepositoryTestsBase
 
         using var cr = new CirclesRepository(db);
 
-        await cr.RemoveAuthorsAsync(id, new() { id });
+        await cr.RemoveAuthorsAsync(id, [id]);
 
         var authors = await cr.GetAuthorsAsync(id);
     }
@@ -285,7 +285,7 @@ public class CirclesRepositoryTests : RepositoryTestsBase
 
         using var cr = new CirclesRepository(db);
 
-        await cr.RemoveCreationsAsync(id, new() { id });
+        await cr.RemoveCreationsAsync(id, [id]);
 
         var creations = await cr.GetCreationsAsync(id);
     }
@@ -308,7 +308,7 @@ public class CirclesRepositoryTests : RepositoryTestsBase
 
         using var cr = new CirclesRepository(db);
 
-        await cr.RemoveTagsAsync(id, new() { id });
+        await cr.RemoveTagsAsync(id, [id]);
 
         var tags = await cr.GetTagsAsync(id);
     }

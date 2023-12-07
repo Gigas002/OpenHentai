@@ -1,4 +1,3 @@
-using OpenHentai.Creations;
 using OpenHentai.Descriptors;
 
 namespace OpenHentai.Tests.Descriptors;

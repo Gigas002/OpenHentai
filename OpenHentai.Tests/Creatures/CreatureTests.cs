@@ -101,7 +101,7 @@ public class CreatureTests
 
         var relations = creature.GetRelations();
 
-        if (relations is null || !relations.Any())
+        if (relations is null || relations.Count == 0)
             Assert.Fail();
     }
 
@@ -118,7 +118,7 @@ public class CreatureTests
 
         var relations = creature.GetRelations();
 
-        if (relations is null || !relations.Any())
+        if (relations is null || relations.Count == 0)
             Assert.Fail();
     }
 
@@ -136,7 +136,7 @@ public class CreatureTests
 
         var relations = creature.GetRelations();
 
-        if (relations is null || !relations.Any())
+        if (relations is null || relations.Count == 0)
             Assert.Fail();
     }
 }

@@ -23,24 +23,24 @@ public class Author : Creature
     /// Alternative names can be any
     /// </summary>
     [JsonIgnore]
-    public HashSet<AuthorsNames> AuthorNames { get; init; } = new();
+    public HashSet<AuthorsNames> AuthorNames { get; init; } = [];
 
     /// <summary>
     /// Author's circles
     /// </summary>
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Circle>))]
-    public HashSet<Circle> Circles { get; init; } = new();
+    public HashSet<Circle> Circles { get; init; } = [];
 
     /// <summary>
     /// Links to author's social networks, e.g. twitter, pixiv, fanbox, ci-en, etc
     /// </summary>
     [Column(TypeName = DataTypes.Jsonb)]
-    public HashSet<ExternalLinkInfo> ExternalLinks { get; init; } = new();
+    public HashSet<ExternalLinkInfo> ExternalLinks { get; init; } = [];
 
     /// <summary>
     /// Collection of author works
     /// </summary>
-    public HashSet<AuthorsCreations> Creations { get; init; } = new();
+    public HashSet<AuthorsCreations> Creations { get; init; } = [];
     
     #endregion
 

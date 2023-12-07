@@ -1,5 +1,3 @@
-using OpenHentai.Circles;
-using OpenHentai.Creatures;
 using OpenHentai.Creatures;
 using OpenHentai.Descriptors;
 using OpenHentai.Relative;
@@ -110,7 +108,7 @@ public class CreaturesRepositoryTests : RepositoryTestsBase
 
         using IAuthorsRepository ar = new AuthorsRepository(db);
 
-        await ar.AddTagsAsync(id, new() { id });
+        await ar.AddTagsAsync(id, [id]);
 
         var tags = await ar.GetTagsAsync(id);
     }
@@ -152,7 +150,7 @@ public class CreaturesRepositoryTests : RepositoryTestsBase
 
         using IAuthorsRepository ar = new AuthorsRepository(db);
 
-        var result = await ar.RemoveNamesAsync(id, new() { id });
+        var result = await ar.RemoveNamesAsync(id, [id]);
     }
 
     [Test]
@@ -173,7 +171,7 @@ public class CreaturesRepositoryTests : RepositoryTestsBase
 
         await using IAuthorsRepository ar = new AuthorsRepository(db);
 
-        var result = await ar.RemoveTagsAsync(id, new() { id });
+        var result = await ar.RemoveTagsAsync(id, [id]);
     }
 
     [Test]
@@ -194,6 +192,6 @@ public class CreaturesRepositoryTests : RepositoryTestsBase
 
         await using IAuthorsRepository ar = new AuthorsRepository(db);
 
-        var result = await ar.RemoveRelationsAsync(id, new() { id });
+        var result = await ar.RemoveRelationsAsync(id, [id]);
     }
 }

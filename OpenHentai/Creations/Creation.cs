@@ -30,18 +30,18 @@ public class Creation : IDatabaseEntity
     /// e.g. "ja-JP:ポプテピピック;en-US:Pop team epic"
     /// </summary>
     [JsonIgnore]
-    public HashSet<CreationsTitles> Titles { get; init; } = new();
+    public HashSet<CreationsTitles> Titles { get; init; } = [];
 
     /// <summary>
     /// Authors and their roles
     /// </summary>
-    public HashSet<AuthorsCreations> Authors { get; init; } = new();
+    public HashSet<AuthorsCreations> Authors { get; init; } = [];
 
     /// <summary>
     /// Circles
     /// </summary>
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Circle>))]
-    public HashSet<Circle> Circles { get; init; } = new();
+    public HashSet<Circle> Circles { get; init; } = [];
 
     /// <summary>
     /// Estimate date of first release of this creation
@@ -57,19 +57,19 @@ public class Creation : IDatabaseEntity
     /// Available to purchase/read/etc at
     /// </summary>
     [Column(TypeName = DataTypes.Jsonb)]
-    public HashSet<ExternalLinkInfo> Sources { get; init; } = new();
+    public HashSet<ExternalLinkInfo> Sources { get; init; } = [];
 
     /// <summary>
     /// Description
     /// </summary>
     [Column(TypeName = DataTypes.Jsonb)]
-    public HashSet<LanguageSpecificTextInfo> Description { get; init; } = new();
+    public HashSet<LanguageSpecificTextInfo> Description { get; init; } = [];
 
     /// <summary>
     /// Collection of related creations
     /// Creation-Relation pair
     /// </summary>
-    public HashSet<CreationsRelations> Relations { get; init; } = new();
+    public HashSet<CreationsRelations> Relations { get; init; } = [];
 
     // /// <summary>
     // /// Featured at events, e.g. C99, C100, etc
@@ -79,19 +79,19 @@ public class Creation : IDatabaseEntity
     /// <summary>
     /// Collection of characters
     /// </summary>
-    public HashSet<CreationsCharacters> Characters { get; init; } = new();
+    public HashSet<CreationsCharacters> Characters { get; init; } = [];
 
     /// <summary>
     /// Collection of related media, including preview image
     /// </summary>
     [Column(TypeName = DataTypes.Jsonb)]
-    public HashSet<MediaInfo> Media { get; init; } = new();
+    public HashSet<MediaInfo> Media { get; init; } = [];
 
     /// <summary>
     /// Available on languages
     /// </summary>
     [Column(TypeName = DataTypes.Jsonb)]
-    public HashSet<LanguageInfo> Languages { get; init; } = new();
+    public HashSet<LanguageInfo> Languages { get; init; } = [];
 
     /// <summary>
     /// Age rating
@@ -107,14 +107,14 @@ public class Creation : IDatabaseEntity
     /// Censorship type
     /// </summary>
     [Column(TypeName = DataTypes.Jsonb)]
-    public HashSet<CensorshipInfo> Censorship { get; init; } = new();
+    public HashSet<CensorshipInfo> Censorship { get; init; } = [];
 
     /// <summary>
     /// Creation's tags
     /// e.g. franchise parody, themes, etc
     /// </summary>
     [JsonConverter(typeof(DatabaseEntityCollectionJsonConverter<Tag>))]
-    public HashSet<Tag> Tags { get; init; } = new();
+    public HashSet<Tag> Tags { get; init; } = [];
 
     #endregion
 

@@ -37,9 +37,11 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
 
         <!-- Temporary disable xml-docs related warning -->
-        <NoWarn>1591</NoWarn>
+        <NoWarn>CS1591</NoWarn>
+        <NoWarn>CA2007</NoWarn>
+        
         <!-- TODO: this is ignored for unknown reasons -->
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <!-- <GenerateDocumentationFile>true</GenerateDocumentationFile> -->
 
         <IsPackable>true</IsPackable>
     </PropertyGroup>
