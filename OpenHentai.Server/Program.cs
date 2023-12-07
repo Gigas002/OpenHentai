@@ -118,6 +118,7 @@ public static class Program
         var initializer = new DatabaseInitializer(_connection);
         await initializer.InitializeTestDatabaseAsync().ConfigureAwait(false);
 
+        app.UseAntiforgery();
         await app.RunAsync().ConfigureAwait(false);
 
         await _connection.CloseAsync().ConfigureAwait(false);
