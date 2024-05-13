@@ -19,7 +19,7 @@
         <!-- temporary for easy testing -->
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.4" />
 
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
 
         <PackageReference Include="Microsoft.SourceLink.Github" Version="8.0.0">
             <PrivateAssets>all</PrivateAssets>
