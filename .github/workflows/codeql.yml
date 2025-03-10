@@ -18,6 +18,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: dotnet-setup
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.x'
+
     - name: init-codeql
       uses: github/codeql-action/init@v3
       with:
