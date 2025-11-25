@@ -2,7 +2,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Microsoft.Data.Sqlite;
 using Serilog;
 
