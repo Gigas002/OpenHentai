@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
     <!-- <DocumentationFile>OpenHentai.WebAPI.xml</DocumentationFile> -->
   </PropertyGroup>
 
