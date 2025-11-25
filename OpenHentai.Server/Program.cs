@@ -2,7 +2,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Microsoft.Data.Sqlite;
 using Serilog;
 
@@ -73,7 +73,7 @@ public static class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(options =>
         {
-            options.MapType<CultureInfo>(() => new OpenApiSchema() { Type = "string" });
+            options.MapType<CultureInfo>(() => new OpenApiSchema() { Type = JsonSchemaType.String });
             options.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "My API - V1",
