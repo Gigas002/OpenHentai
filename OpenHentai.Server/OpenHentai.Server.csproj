@@ -7,7 +7,7 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="10.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="10.1.0" />
     
     <ProjectReference Include="..\OpenHentai.WebAPI\OpenHentai.WebAPI.csproj" />
   </ItemGroup>
