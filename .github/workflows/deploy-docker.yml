@@ -65,7 +65,7 @@ jobs:
           Write-Output "image=$image" >> $env:GITHUB_ENV
 
       - name: docker-login
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{inputs.registry}}
           username: ${{inputs.username}}
@@ -73,13 +73,13 @@ jobs:
           
       - name: docker-extract-meta
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ${{env.image}}
           tags: type=raw,value=${{steps.read-version.outputs.docker-tag}}
           
       - name: docker-build-push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ${{env.dockerfile}}
