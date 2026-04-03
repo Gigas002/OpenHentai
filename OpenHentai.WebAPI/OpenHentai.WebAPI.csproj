@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SystemTextJsonPatch" Version="4.2.0" />
+    <PackageReference Include="SystemTextJsonPatch" Version="5.0.0" />
     
     <ProjectReference Include="..\OpenHentai\OpenHentai.csproj" />
   </ItemGroup>
